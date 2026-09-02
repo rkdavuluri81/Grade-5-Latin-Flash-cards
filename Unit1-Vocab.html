@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unit 1 Vocabulary | Basis Latin Grade 5</title>
+<title>Unit 1 Vocabulary | Latin Grade 5</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
@@ -126,6 +126,7 @@
     transition:transform .5s cubic-bezier(.4,.2,.2,1);
   }
   .card.flipped{ transform:rotateY(180deg); }
+  .card.no-transition{ transition:none !important; }
   .face{
     position:absolute;
     inset:0;
@@ -493,6 +494,26 @@ function renderCard(){
   cardEl.classList.remove('flipped');
 }
 
+// Moves to a new card index. If the card is currently showing its English
+// (back) face, snap it back to the front instantly first, THEN swap in the
+// new word's text -- otherwise the new word's English answer flashes into
+// view for a frame while the card is still mid-rotation.
+function goToCard(newIdx){
+  if(flipped){
+    cardEl.classList.add('no-transition');
+    cardEl.classList.remove('flipped');
+    flipped = false;
+    void cardEl.offsetWidth; // force reflow so the snap-back applies immediately
+    idx = newIdx;
+    renderCard();
+    void cardEl.offsetWidth;
+    cardEl.classList.remove('no-transition');
+  } else {
+    idx = newIdx;
+    renderCard();
+  }
+}
+
 document.getElementById('speak-btn').addEventListener('click', (e) => {
   e.stopPropagation();
   speakLatin(deck[idx].latin, e.currentTarget);
@@ -508,20 +529,17 @@ document.getElementById('flip-btn').addEventListener('click', (e) => {
   cardEl.classList.toggle('flipped', flipped);
 });
 document.getElementById('next-btn').addEventListener('click', () => {
-  idx = (idx+1) % deck.length;
-  renderCard();
+  goToCard((idx+1) % deck.length);
 });
 document.getElementById('prev-btn').addEventListener('click', () => {
-  idx = (idx-1+deck.length) % deck.length;
-  renderCard();
+  goToCard((idx-1+deck.length) % deck.length);
 });
 document.getElementById('shuffle-btn').addEventListener('click', () => {
   for(let i = deck.length-1; i>0; i--){
     const j = Math.floor(Math.random()*(i+1));
     [deck[i],deck[j]] = [deck[j],deck[i]];
   }
-  idx = 0;
-  renderCard();
+  goToCard(0);
 });
 renderCard();
 
@@ -546,9 +564,9 @@ function shuffleQuizDeck(){
 
 const quizLatinEl = document.getElementById('quiz-latin');
 const quizPronEl = document.getElementById('quiz-pron');
-document.getElementById('quiz-speak-btn').addEventListener('click', (e) => {
+document.getElementById('quiz-speak-btn').onclick = (e) => {
   speakLatin(quizDeck[quizIdx].latin, e.currentTarget);
-});
+};
 const quizInputEl = document.getElementById('quiz-input');
 const quizFeedbackEl = document.getElementById('quiz-feedback');
 const quizCountEl = document.getElementById('quiz-count');
@@ -593,23 +611,58 @@ function checkAnswer(){
   document.getElementById('quiz-check').textContent = 'Next word';
 }
 
+function getScoreMessage(percent){
+  if(percent >= 100){
+    return { title: "Perfect score!", msg: "Every single word, correct. You really know this unit cold." };
+  } else if(percent >= 90){
+    return { title: "Excellent work!", msg: "You've nearly mastered this whole list. Just a word or two to polish." };
+  } else if(percent >= 80){
+    return { title: "Great job!", msg: "Solid grasp of the vocabulary. Review the ones you missed and you'll have it locked in." };
+  } else if(percent >= 70){
+    return { title: "Good effort!", msg: "You're on the right track. A bit more practice and this will really stick." };
+  } else {
+    return { title: "Keep practicing!", msg: "This one needs a few more rounds. Go through the flashcards again, then try the quiz once more -- you'll improve fast." };
+  }
+}
+
 function advanceQuiz(){
   quizIdx++;
   document.getElementById('quiz-check').textContent = 'Check';
   if(quizIdx >= quizDeck.length){
-    quizLatinEl.textContent = 'Deck complete!';
+    const percent = Math.round((correctCount / quizDeck.length) * 100);
+    const { title, msg } = getScoreMessage(percent);
+
+    quizLatinEl.textContent = title;
     quizCountEl.textContent = quizDeck.length + ' / ' + quizDeck.length;
     quizFillEl.style.width = '100%';
     quizInputEl.style.display = 'none';
-    quizFeedbackEl.textContent = 'Great work. Restart quiz mode to try again.';
-    quizFeedbackEl.className = 'feedback correct';
+    quizPronEl.textContent = percent + '% correct \u2014 ' + msg;
+    quizFeedbackEl.textContent = '';
+    quizFeedbackEl.className = 'feedback';
     document.getElementById('quiz-check').style.display = 'none';
     document.getElementById('quiz-skip').textContent = 'Restart';
+
+    // Repurpose the speaker button: instead of pronouncing a Latin word,
+    // it now reads the score message aloud.
+    const speakBtn = document.getElementById('quiz-speak-btn');
+    speakBtn.onclick = () => {
+      if(!('speechSynthesis' in window)){
+        alert(title + ' ' + percent + '% correct. ' + msg);
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(title + '. ' + percent + ' percent correct. ' + msg);
+      utter.rate = 0.95;
+      window.speechSynthesis.speak(utter);
+    };
+
     document.getElementById('quiz-skip').onclick = () => {
       quizInputEl.style.display = '';
       document.getElementById('quiz-check').style.display = '';
       document.getElementById('quiz-skip').textContent = 'Skip \u2192';
       document.getElementById('quiz-skip').onclick = () => { advanceQuiz(); };
+      // Restore the speaker button to its normal pronounce-the-word behavior.
+      speakBtn.onclick = (e) => { speakLatin(quizDeck[quizIdx].latin, e.currentTarget); };
       shuffleQuizDeck();
     };
     return;
