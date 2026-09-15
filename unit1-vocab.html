@@ -463,9 +463,6 @@
   <!-- SCOREBOARD MODE -->
   <div id="scores-view" style="display:none;">
     <div id="scores-content"></div>
-    <div class="score-actions">
-      <button id="clear-scores-btn">Clear scoreboard (this device)</button>
-    </div>
   </div>
 
 </div>
@@ -836,12 +833,6 @@ function escapeHtml(str){
 }
 
 document.getElementById('change-name-btn').addEventListener('click', setPlayerName);
-document.getElementById('clear-scores-btn').addEventListener('click', () => {
-  if(confirm('Clear all logged scores on this device? This cannot be undone.')){
-    localStorage.removeItem(SCORE_KEY);
-    renderScoreboard();
-  }
-});
 
 /* ---------- MODE SWITCH ---------- */
 const btnFlash = document.getElementById('btn-flash');
