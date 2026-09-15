@@ -188,6 +188,16 @@
     font-weight:700;
     margin-bottom:36px;
   }
+  .clear-unit-btn{
+    background:none;
+    border:none;
+    color:var(--wine-bright);
+    font-size:13px;
+    font-family:'Source Serif 4',serif;
+    text-decoration:underline;
+    cursor:pointer;
+    padding:0;
+  }
 </style>
 </head>
 <body>
@@ -298,7 +308,8 @@ function renderAll(){
       '<div class="unit-section">' +
         '<div class="unit-heading">' +
           '<h2>Unit ' + unitNum + '</h2>' +
-          '<span>' + scores.length + ' attempt' + (scores.length===1?'':'s') + (scores.length ? ' &middot; avg ' + avg + '%' : '') + '</span>' +
+          '<span>' + scores.length + ' attempt' + (scores.length===1?'':'s') + (scores.length ? ' &middot; avg ' + avg + '%' : '') +
+          ' &middot; <button class="clear-unit-btn" data-key="' + key + '" data-unit="' + unitNum + '">clear</button></span>' +
         '</div>' +
         bodyHtml +
       '</div>';
@@ -315,6 +326,17 @@ function renderAll(){
 }
 
 renderAll();
+
+document.getElementById('units-container').addEventListener('click', (e) => {
+  if(e.target.classList.contains('clear-unit-btn')){
+    const key = e.target.getAttribute('data-key');
+    const unitNum = e.target.getAttribute('data-unit');
+    if(confirm('Clear all scores for Unit ' + unitNum + '? This cannot be undone.')){
+      localStorage.removeItem(key);
+      renderAll();
+    }
+  }
+});
 </script>
 
 </body>
