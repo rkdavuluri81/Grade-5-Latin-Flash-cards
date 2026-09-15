@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin &middot; Score Dashboard</title>
+<title>Basis Latin Grade 5 &middot; Flashcards</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
@@ -16,7 +16,6 @@
     --plaster-dim: #c9beaa;
     --wine: #7a2e2e;
     --wine-bright: #a8433f;
-    --green: #4f6b4a;
   }
   *{box-sizing:border-box;}
   body{
@@ -30,314 +29,139 @@
     display:flex;
     flex-direction:column;
     align-items:center;
-    padding:40px 20px 60px;
-  }
-  a.back{
-    align-self:flex-start;
-    margin-left:2px;
-    color:var(--gold-bright);
-    font-family:'Cinzel',serif;
-    font-size:12px;
-    letter-spacing:0.08em;
-    text-decoration:none;
-    margin-bottom:18px;
+    padding:56px 20px 60px;
   }
   header{
     text-align:center;
-    max-width:680px;
-    margin-bottom:14px;
+    max-width:640px;
+    margin-bottom:44px;
   }
   .kicker{
     font-family:'Cinzel',serif;
     font-size:13px;
-    letter-spacing:0.12em;
+    letter-spacing:0.14em;
     color:var(--gold-bright);
-    margin:0 0 6px;
+    margin:0 0 10px;
   }
   h1{
     font-family:'Cinzel',serif;
     font-weight:700;
-    font-size:clamp(24px,4vw,32px);
-    margin:0 0 8px;
+    font-size:clamp(26px,4.5vw,38px);
+    margin:0 0 10px;
+    color:var(--plaster);
   }
   .sub{
     color:var(--plaster-dim);
-    font-size:14px;
-    margin:0 0 6px;
-  }
-  .caveat{
-    max-width:640px;
-    background:rgba(184,137,43,0.1);
-    border:1px solid rgba(184,137,43,0.3);
-    border-radius:6px;
-    padding:14px 18px;
-    font-size:13px;
-    color:var(--plaster-dim);
-    margin:18px 0 34px;
+    font-size:15px;
+    margin:0;
     line-height:1.5;
   }
-  .caveat strong{ color:var(--gold-bright); }
-
-  .summary-row{
+  .lessons{
+    width:100%;
+    max-width:560px;
     display:flex;
+    flex-direction:column;
     gap:14px;
-    flex-wrap:wrap;
-    justify-content:center;
-    max-width:900px;
-    margin-bottom:40px;
-    width:100%;
   }
-  .summary-card{
-    background:var(--stone-light);
-    border:1px solid rgba(184,137,43,0.25);
-    border-radius:6px;
-    padding:18px 22px;
-    text-align:center;
-    min-width:130px;
-    flex:1;
-  }
-  .summary-num{
-    font-family:'Cinzel',serif;
-    font-size:26px;
-    font-weight:700;
-    color:var(--gold-bright);
-  }
-  .summary-label{
-    font-size:12px;
-    color:var(--plaster-dim);
-    letter-spacing:0.04em;
-    margin-top:4px;
-  }
-
-  .unit-section{
-    width:100%;
-    max-width:900px;
-    margin-bottom:44px;
-  }
-  .unit-heading{
+  a.lesson-card{
     display:flex;
-    align-items:baseline;
+    align-items:center;
     justify-content:space-between;
-    margin-bottom:14px;
-    border-bottom:1px solid rgba(184,137,43,0.25);
-    padding-bottom:10px;
-  }
-  .unit-heading h2{
-    font-family:'Cinzel',serif;
-    font-size:18px;
-    margin:0;
+    gap:16px;
+    background:var(--stone-light);
+    border:1px solid rgba(184,137,43,0.28);
+    border-radius:6px;
+    padding:22px 24px;
+    text-decoration:none;
     color:var(--plaster);
+    transition:border-color .2s, transform .15s, background .2s;
   }
-  .unit-heading span{
-    font-size:13px;
-    color:var(--plaster-dim);
+  a.lesson-card:hover{
+    border-color:var(--gold-bright);
+    background:#453c31;
+    transform:translateY(-1px);
   }
-  table.score-table{
-    width:100%;
-    border-collapse:collapse;
-    background:var(--stone-light);
-    border:1px solid rgba(184,137,43,0.25);
-    border-radius:6px;
-    overflow:hidden;
+  .lesson-left{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
   }
-  .score-table th, .score-table td{
-    padding:11px 14px;
-    text-align:left;
-    font-size:14px;
-  }
-  .score-table th{
+  .lesson-tag{
     font-family:'Cinzel',serif;
-    font-size:11px;
-    letter-spacing:0.07em;
+    font-size:12px;
+    letter-spacing:0.1em;
     color:var(--gold-bright);
-    border-bottom:1px solid rgba(184,137,43,0.25);
   }
-  .score-table tbody tr:not(:last-child) td{
-    border-bottom:1px solid rgba(236,228,211,0.08);
-  }
-  .score-percent{ font-weight:600; }
-  .pct-high{ color:#8fbf7a; }
-  .pct-mid{ color:var(--gold-bright); }
-  .pct-low{ color:#d98a8a; }
-  .empty-state{
-    text-align:center;
-    color:var(--plaster-dim);
-    font-size:14px;
-    padding:36px 20px;
-    background:var(--stone-light);
-    border:1px dashed rgba(184,137,43,0.3);
-    border-radius:6px;
-  }
-  .no-units{
-    text-align:center;
-    color:var(--plaster-dim);
-    font-size:15px;
-    max-width:500px;
-    padding:60px 20px;
-  }
-  .refresh-btn{
-    font-family:'Cinzel',serif;
-    font-size:13px;
-    letter-spacing:0.05em;
-    background:var(--gold);
-    color:var(--stone);
-    border:none;
-    padding:10px 22px;
-    border-radius:4px;
-    cursor:pointer;
-    font-weight:700;
-    margin-bottom:36px;
-  }
-  .clear-unit-btn{
-    background:none;
-    border:none;
-    color:var(--wine-bright);
-    font-size:13px;
+  .lesson-title{
     font-family:'Source Serif 4',serif;
-    text-decoration:underline;
-    cursor:pointer;
-    padding:0;
+    font-size:19px;
+    font-weight:600;
+  }
+  .lesson-meta{
+    font-size:13px;
+    color:var(--plaster-dim);
+  }
+  .arrow{
+    font-family:'Cinzel',serif;
+    font-size:20px;
+    color:var(--gold);
+    flex-shrink:0;
+    transition:transform .15s;
+  }
+  a.lesson-card:hover .arrow{
+    transform:translateX(4px);
+  }
+  .lesson-card.placeholder{
+    opacity:0.4;
+    pointer-events:none;
+    border-style:dashed;
+  }
+  footer{
+    margin-top:48px;
+    font-size:12px;
+    color:rgba(236,228,211,0.35);
+    text-align:center;
   }
 </style>
 </head>
 <body>
 
-<a class="back" href="index.html">&larr; ALL LESSONS</a>
-
 <header>
-  <p class="kicker">Admin</p>
-  <h1>Score Dashboard</h1>
-  <p class="sub">All logged quiz attempts, grouped by unit</p>
+  <p class="kicker">Basis &middot; Grade 5</p>
+  <h1>Latin Flashcards</h1>
+  <p class="sub">Interactive vocabulary practice, by unit.<br>Pick a lesson below to start studying.</p>
 </header>
 
-<div class="caveat">
-  <strong>Note:</strong> Scores are stored in each visitor's own browser (no shared server/database behind this site). This dashboard only shows quiz attempts made <strong>on this same device and browser</strong> &mdash; it won't show attempts made on a different computer or phone.
+<div class="lessons">
+  <a class="lesson-card" href="unit1-vocab.html">
+    <div class="lesson-left">
+      <span class="lesson-tag">UNIT 1</span>
+      <span class="lesson-title">Testable Vocabulary</span>
+      <span class="lesson-meta">23 words &middot; flashcards, quiz mode &amp; pronunciation</span>
+    </div>
+    <span class="arrow">&rarr;</span>
+  </a>
+
+  <a class="lesson-card" href="unit2-vocab.html">
+    <div class="lesson-left">
+      <span class="lesson-tag">UNIT 2</span>
+      <span class="lesson-title">R&#333;ma &mdash; Vocabulary &amp; Rooms in a Roman House</span>
+      <span class="lesson-meta">20 words &middot; flashcards, quiz mode &amp; pronunciation</span>
+    </div>
+    <span class="arrow">&rarr;</span>
+  </a>
+
+  <div class="lesson-card placeholder">
+    <div class="lesson-left">
+      <span class="lesson-tag">UNIT 3</span>
+      <span class="lesson-title">Coming soon</span>
+      <span class="lesson-meta">Will appear here once added</span>
+    </div>
+    <span class="arrow">&rarr;</span>
+  </div>
 </div>
 
-<button class="refresh-btn" onclick="renderAll()">Refresh</button>
-
-<div class="summary-row" id="summary-row"></div>
-
-<div id="units-container"></div>
-
-<script>
-function loadUnitScores(key){
-  try{
-    return JSON.parse(localStorage.getItem(key) || '[]');
-  } catch(e){
-    return [];
-  }
-}
-
-function findUnitKeys(){
-  const keys = [];
-  for(let i = 0; i < localStorage.length; i++){
-    const k = localStorage.key(i);
-    if(k && k.startsWith('latin-scores-unit')){
-      keys.push(k);
-    }
-  }
-  // Sort numerically by the unit number in the key (unit1, unit2, unit10, ...)
-  keys.sort((a,b) => {
-    const na = parseInt(a.replace('latin-scores-unit',''), 10) || 0;
-    const nb = parseInt(b.replace('latin-scores-unit',''), 10) || 0;
-    return na - nb;
-  });
-  return keys;
-}
-
-function pctClass(p){
-  if(p >= 90) return 'pct-high';
-  if(p >= 70) return 'pct-mid';
-  return 'pct-low';
-}
-
-function escapeHtml(str){
-  const div = document.createElement('div');
-  div.textContent = str;
-  return div.innerHTML;
-}
-
-function renderAll(){
-  const unitKeys = findUnitKeys();
-  const container = document.getElementById('units-container');
-  const summaryRow = document.getElementById('summary-row');
-
-  if(unitKeys.length === 0){
-    container.innerHTML = '<div class="no-units">No quiz attempts have been logged on this device yet for any unit.<br>Have a student complete a quiz, then refresh this page.</div>';
-    summaryRow.innerHTML = '';
-    return;
-  }
-
-  let totalAttempts = 0;
-  let totalPercentSum = 0;
-  const allPlayers = new Set();
-
-  let unitsHtml = '';
-
-  unitKeys.forEach(key => {
-    const unitNum = key.replace('latin-scores-unit', '');
-    const scores = loadUnitScores(key);
-    totalAttempts += scores.length;
-    scores.forEach(s => { totalPercentSum += s.percent; allPlayers.add(s.name); });
-
-    const sorted = [...scores].sort((a,b) => (b.ts||0) - (a.ts||0) || b.percent - a.percent);
-
-    let bodyHtml;
-    if(sorted.length === 0){
-      bodyHtml = '<div class="empty-state">No attempts logged yet for Unit ' + unitNum + '.</div>';
-    } else {
-      const rows = sorted.map(s => (
-        '<tr>' +
-          '<td>' + escapeHtml(s.name) + '</td>' +
-          '<td>' + s.correct + ' / ' + s.total + '</td>' +
-          '<td class="score-percent ' + pctClass(s.percent) + '">' + s.percent + '%</td>' +
-          '<td>' + s.date + '</td>' +
-          '<td>' + (s.time || '&mdash;') + '</td>' +
-        '</tr>'
-      )).join('');
-      bodyHtml =
-        '<table class="score-table"><thead><tr>' +
-        '<th>Name</th><th>Score</th><th>%</th><th>Date</th><th>Time</th>' +
-        '</tr></thead><tbody>' + rows + '</tbody></table>';
-    }
-
-    const avg = scores.length ? Math.round(scores.reduce((a,s) => a+s.percent, 0) / scores.length) : 0;
-
-    unitsHtml +=
-      '<div class="unit-section">' +
-        '<div class="unit-heading">' +
-          '<h2>Unit ' + unitNum + '</h2>' +
-          '<span>' + scores.length + ' attempt' + (scores.length===1?'':'s') + (scores.length ? ' &middot; avg ' + avg + '%' : '') +
-          ' &middot; <button class="clear-unit-btn" data-key="' + key + '" data-unit="' + unitNum + '">clear</button></span>' +
-        '</div>' +
-        bodyHtml +
-      '</div>';
-  });
-
-  container.innerHTML = unitsHtml;
-
-  const overallAvg = totalAttempts ? Math.round(totalPercentSum / totalAttempts) : 0;
-  summaryRow.innerHTML =
-    '<div class="summary-card"><div class="summary-num">' + unitKeys.length + '</div><div class="summary-label">UNITS TRACKED</div></div>' +
-    '<div class="summary-card"><div class="summary-num">' + totalAttempts + '</div><div class="summary-label">TOTAL ATTEMPTS</div></div>' +
-    '<div class="summary-card"><div class="summary-num">' + allPlayers.size + '</div><div class="summary-label">UNIQUE PLAYERS</div></div>' +
-    '<div class="summary-card"><div class="summary-num">' + overallAvg + '%</div><div class="summary-label">OVERALL AVG</div></div>';
-}
-
-renderAll();
-
-document.getElementById('units-container').addEventListener('click', (e) => {
-  if(e.target.classList.contains('clear-unit-btn')){
-    const key = e.target.getAttribute('data-key');
-    const unitNum = e.target.getAttribute('data-unit');
-    if(confirm('Clear all scores for Unit ' + unitNum + '? This cannot be undone.')){
-      localStorage.removeItem(key);
-      renderAll();
-    }
-  }
-});
-</script>
+<footer>More units will be added here as lessons continue.</footer>
 
 </body>
 </html>
