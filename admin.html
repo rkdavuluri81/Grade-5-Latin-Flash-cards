@@ -229,21 +229,48 @@ function loadUnitScores(key){
   }
 }
 
-function findUnitKeys(){
+// Matches any lesson's score log, whatever its naming scheme
+// (latin-scores-unit1, latin-scores-quiz5, latin-scores-<anything>).
+function findScoreKeys(){
   const keys = [];
   for(let i = 0; i < localStorage.length; i++){
     const k = localStorage.key(i);
-    if(k && k.startsWith('latin-scores-unit')){
+    if(k && k.startsWith('latin-scores-')){
       keys.push(k);
     }
   }
-  // Sort numerically by the unit number in the key (unit1, unit2, unit10, ...)
   keys.sort((a,b) => {
-    const na = parseInt(a.replace('latin-scores-unit',''), 10) || 0;
-    const nb = parseInt(b.replace('latin-scores-unit',''), 10) || 0;
-    return na - nb;
+    const ra = keyRank(a), rb = keyRank(b);
+    if(ra.group !== rb.group) return ra.group - rb.group;
+    if(ra.num !== rb.num) return ra.num - rb.num;
+    return ra.name.localeCompare(rb.name);
   });
   return keys;
+}
+
+// Ordering: numbered units first (Unit 1, Unit 2, ...), then numbered
+// practice quizzes (Quiz 5, ...), then anything else alphabetically.
+function keyRank(key){
+  const suffix = key.replace('latin-scores-', '');
+  const m = suffix.match(/^([a-z]+)(\d+)$/i);
+  if(!m) return { group: 2, name: suffix, num: 0 };
+  const name = m[1].toLowerCase();
+  const groupOrder = { unit: 0, quiz: 1 };
+  return {
+    group: Object.prototype.hasOwnProperty.call(groupOrder, name) ? groupOrder[name] : 2,
+    name,
+    num: parseInt(m[2], 10)
+  };
+}
+
+// Human-readable label for a score key, e.g. "latin-scores-unit1" -> "Unit 1",
+// "latin-scores-quiz5" -> "Quiz 5".
+function labelForKey(key){
+  const suffix = key.replace('latin-scores-', '');
+  const m = suffix.match(/^([a-z]+)(\d+)$/i);
+  if(!m) return suffix;
+  const name = m[1];
+  return name.charAt(0).toUpperCase() + name.slice(1) + ' ' + m[2];
 }
 
 function pctClass(p){
@@ -259,12 +286,12 @@ function escapeHtml(str){
 }
 
 function renderAll(){
-  const unitKeys = findUnitKeys();
+  const scoreKeys = findScoreKeys();
   const container = document.getElementById('units-container');
   const summaryRow = document.getElementById('summary-row');
 
-  if(unitKeys.length === 0){
-    container.innerHTML = '<div class="no-units">No quiz attempts have been logged on this device yet for any unit.<br>Have a student complete a quiz, then refresh this page.</div>';
+  if(scoreKeys.length === 0){
+    container.innerHTML = '<div class="no-units">No quiz attempts have been logged on this device yet for any lesson.<br>Have a student complete a quiz, then refresh this page.</div>';
     summaryRow.innerHTML = '';
     return;
   }
@@ -275,8 +302,8 @@ function renderAll(){
 
   let unitsHtml = '';
 
-  unitKeys.forEach(key => {
-    const unitNum = key.replace('latin-scores-unit', '');
+  scoreKeys.forEach(key => {
+    const label = labelForKey(key);
     const scores = loadUnitScores(key);
     totalAttempts += scores.length;
     scores.forEach(s => { totalPercentSum += s.percent; allPlayers.add(s.name); });
@@ -285,7 +312,7 @@ function renderAll(){
 
     let bodyHtml;
     if(sorted.length === 0){
-      bodyHtml = '<div class="empty-state">No attempts logged yet for Unit ' + unitNum + '.</div>';
+      bodyHtml = '<div class="empty-state">No attempts logged yet for ' + label + '.</div>';
     } else {
       const rows = sorted.map(s => (
         '<tr>' +
@@ -307,9 +334,9 @@ function renderAll(){
     unitsHtml +=
       '<div class="unit-section">' +
         '<div class="unit-heading">' +
-          '<h2>Unit ' + unitNum + '</h2>' +
+          '<h2>' + label + '</h2>' +
           '<span>' + scores.length + ' attempt' + (scores.length===1?'':'s') + (scores.length ? ' &middot; avg ' + avg + '%' : '') +
-          ' &middot; <button class="clear-unit-btn" data-key="' + key + '" data-unit="' + unitNum + '">clear</button></span>' +
+          ' &middot; <button class="clear-unit-btn" data-key="' + key + '" data-unit="' + label + '">clear</button></span>' +
         '</div>' +
         bodyHtml +
       '</div>';
@@ -319,7 +346,7 @@ function renderAll(){
 
   const overallAvg = totalAttempts ? Math.round(totalPercentSum / totalAttempts) : 0;
   summaryRow.innerHTML =
-    '<div class="summary-card"><div class="summary-num">' + unitKeys.length + '</div><div class="summary-label">UNITS TRACKED</div></div>' +
+    '<div class="summary-card"><div class="summary-num">' + scoreKeys.length + '</div><div class="summary-label">LESSONS TRACKED</div></div>' +
     '<div class="summary-card"><div class="summary-num">' + totalAttempts + '</div><div class="summary-label">TOTAL ATTEMPTS</div></div>' +
     '<div class="summary-card"><div class="summary-num">' + allPlayers.size + '</div><div class="summary-label">UNIQUE PLAYERS</div></div>' +
     '<div class="summary-card"><div class="summary-num">' + overallAvg + '%</div><div class="summary-label">OVERALL AVG</div></div>';
