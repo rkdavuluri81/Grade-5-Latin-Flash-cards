@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>North America Countries &amp; Capitals | Basis Grade 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --stone: #2b2620;
+    --stone-light: #3c352c;
+    --gold: #b8892b;
+    --gold-bright: #d9a840;
+    --plaster: #ece4d3;
+    --plaster-dim: #c9beaa;
+    --wine: #7a2e2e;
+    --wine-bright: #a8433f;
+    --green: #4f6b4a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(184,137,43,0.08), transparent 60%),
+      var(--stone);
+    color:var(--plaster);
+    font-family:'Source Serif 4', serif;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:32px 20px 60px;
+  }
+  header{
+    text-align:center;
+    max-width:640px;
+    margin-bottom:28px;
+  }
+  .kicker{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.12em;
+    color:var(--gold-bright);
+    margin:0 0 6px;
+  }
+  h1{
+    font-family:'Cinzel',serif;
+    font-weight:700;
+    font-size:clamp(24px,4vw,34px);
+    margin:0 0 8px;
+    color:var(--plaster);
+  }
+  .sub{
+    color:var(--plaster-dim);
+    font-size:15px;
+    margin:0;
+  }
+  .modebar{
+    display:flex;
+    gap:8px;
+    margin-bottom:26px;
+    background:var(--stone-light);
+    padding:5px;
+    border-radius:999px;
+    border:1px solid rgba(184,137,43,0.25);
+  }
+  .modebar button{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.03em;
+    padding:9px 20px;
+    border-radius:999px;
+    border:none;
+    background:transparent;
+    color:var(--plaster-dim);
+    cursor:pointer;
+    transition:background .2s, color .2s;
+  }
+  .modebar button.active{
+    background:var(--gold);
+    color:var(--stone);
+  }
+  .stage{
+    width:100%;
+    max-width:560px;
+  }
+  .progress{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:14px;
+    font-size:13px;
+    color:var(--plaster-dim);
+    font-family:'Cinzel',serif;
+    letter-spacing:0.05em;
+  }
+  .progress-track{
+    flex:1;
+    height:3px;
+    background:rgba(236,228,211,0.15);
+    margin:0 14px;
+    position:relative;
+    border-radius:2px;
+    overflow:hidden;
+  }
+  .progress-fill{
+    position:absolute;
+    left:0;top:0;bottom:0;
+    background:var(--gold);
+    transition:width .3s ease;
+  }
+
+  /* FLASHCARD MODE */
+  .card-wrap{
+    perspective:1400px;
+    height:280px;
+    margin-bottom:22px;
+    cursor:pointer;
+  }
+  .card{
+    position:relative;
+    width:100%;
+    height:100%;
+    transform-style:preserve-3d;
+    transition:transform .5s cubic-bezier(.4,.2,.2,1);
+  }
+  .card.flipped{ transform:rotateY(180deg); }
+  .card.no-transition{ transition:none !important; }
+  .face{
+    position:absolute;
+    inset:0;
+    backface-visibility:hidden;
+    border-radius:6px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:32px;
+    border:1px solid rgba(184,137,43,0.3);
+  }
+  .face.front{
+    background:linear-gradient(160deg, var(--stone-light), var(--stone));
+    box-shadow: inset 0 0 0 1px rgba(236,228,211,0.04), 0 10px 30px rgba(0,0,0,0.35);
+  }
+  .face.back{
+    background:linear-gradient(160deg, var(--wine-bright), var(--wine));
+    transform:rotateY(180deg);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  }
+  .card-num{
+    font-family:'Cinzel',serif;
+    font-size:12px;
+    letter-spacing:0.1em;
+    color:var(--gold-bright);
+    position:absolute;
+    top:16px;
+    left:20px;
+  }
+  .latin{
+    font-family:'Cinzel',serif;
+    font-weight:700;
+    font-size:clamp(22px,5vw,30px);
+    color:var(--plaster);
+    line-height:1.3;
+  }
+  .hint{
+    margin-top:14px;
+    font-size:12px;
+    color:var(--plaster-dim);
+    letter-spacing:0.05em;
+  }
+  .pron{
+    font-family:'Source Serif 4',serif;
+    font-style:italic;
+    font-size:14px;
+    color:var(--gold-bright);
+    margin-top:8px;
+  }
+  .speak-btn{
+    background:none;
+    border:1px solid rgba(184,137,43,0.4);
+    color:var(--gold-bright);
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:15px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    margin-top:12px;
+    transition:background .2s;
+  }
+  .speak-btn:hover{ background:rgba(184,137,43,0.15); }
+  .speak-btn:active{ transform:scale(0.94); }
+  .definition{
+    font-size:clamp(20px,4.5vw,26px);
+    color:var(--plaster);
+    font-style:italic;
+  }
+  .controls{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+  }
+  .controls button{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.05em;
+    background:var(--stone-light);
+    color:var(--plaster);
+    border:1px solid rgba(184,137,43,0.3);
+    padding:11px 20px;
+    border-radius:4px;
+    cursor:pointer;
+    transition:background .2s, border-color .2s;
+  }
+  .controls button:hover{ border-color:var(--gold-bright); }
+  .controls button.primary{
+    background:var(--gold);
+    color:var(--stone);
+    border-color:var(--gold);
+    font-weight:700;
+  }
+  .controls button:disabled{
+    opacity:0.35;
+    cursor:default;
+  }
+  .shuffle-row{
+    display:flex;
+    justify-content:center;
+    margin-top:16px;
+  }
+  .shuffle-row button{
+    background:none;
+    border:none;
+    color:var(--plaster-dim);
+    font-size:13px;
+    font-family:'Source Serif 4',serif;
+    text-decoration:underline;
+    text-decoration-color:rgba(184,137,43,0.5);
+    cursor:pointer;
+  }
+
+  /* QUIZ MODE */
+  .quiz-box{
+    background:var(--stone-light);
+    border:1px solid rgba(184,137,43,0.25);
+    border-radius:6px;
+    padding:36px 30px;
+    margin-bottom:20px;
+    min-height:280px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .quiz-prompt{
+    font-size:13px;
+    color:var(--gold-bright);
+    font-family:'Cinzel',serif;
+    letter-spacing:0.08em;
+    margin-bottom:8px;
+  }
+  .quiz-latin{
+    font-family:'Cinzel',serif;
+    font-weight:700;
+    font-size:clamp(24px,5vw,30px);
+    margin-bottom:22px;
+  }
+  .quiz-box input{
+    width:100%;
+    font-family:'Source Serif 4',serif;
+    font-size:18px;
+    padding:12px 14px;
+    border-radius:4px;
+    border:1px solid rgba(236,228,211,0.25);
+    background:rgba(0,0,0,0.2);
+    color:var(--plaster);
+    margin-bottom:14px;
+  }
+  .quiz-box input:focus{
+    outline:none;
+    border-color:var(--gold-bright);
+  }
+  .feedback{
+    font-size:15px;
+    min-height:24px;
+    margin-bottom:6px;
+  }
+  .feedback.correct{ color:#8fbf7a; }
+  .feedback.wrong{ color:#d98a8a; }
+  .quiz-score{
+    text-align:center;
+    font-family:'Cinzel',serif;
+    letter-spacing:0.05em;
+    font-size:13px;
+    color:var(--plaster-dim);
+    margin-top:8px;
+  }
+  footer{
+    margin-top:36px;
+    font-size:12px;
+    color:rgba(236,228,211,0.35);
+    text-align:center;
+  }
+  .player-badge{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    font-size:13px;
+    color:var(--plaster-dim);
+    margin-bottom:16px;
+  }
+  .player-badge button{
+    background:none;
+    border:none;
+    color:var(--gold-bright);
+    text-decoration:underline;
+    cursor:pointer;
+    font-size:13px;
+    font-family:'Source Serif 4',serif;
+    padding:0;
+  }
+  .score-table{
+    width:100%;
+    border-collapse:collapse;
+    background:var(--stone-light);
+    border:1px solid rgba(184,137,43,0.25);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .score-table th, .score-table td{
+    padding:12px 14px;
+    text-align:left;
+    font-size:14px;
+  }
+  .score-table th{
+    font-family:'Cinzel',serif;
+    font-size:11px;
+    letter-spacing:0.08em;
+    color:var(--gold-bright);
+    border-bottom:1px solid rgba(184,137,43,0.25);
+  }
+  .score-table tbody tr:not(:last-child) td{
+    border-bottom:1px solid rgba(236,228,211,0.08);
+  }
+  .score-table tbody tr.you{
+    background:rgba(184,137,43,0.12);
+  }
+  .score-percent{
+    font-weight:600;
+  }
+  .score-empty{
+    text-align:center;
+    color:var(--plaster-dim);
+    font-size:14px;
+    padding:40px 20px;
+    background:var(--stone-light);
+    border:1px dashed rgba(184,137,43,0.3);
+    border-radius:6px;
+  }
+  .score-actions{
+    display:flex;
+    justify-content:center;
+    margin-top:16px;
+  }
+  .score-actions button{
+    background:none;
+    border:none;
+    color:var(--plaster-dim);
+    font-size:13px;
+    font-family:'Source Serif 4',serif;
+    text-decoration:underline;
+    text-decoration-color:rgba(184,137,43,0.4);
+    cursor:pointer;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .card{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" style="align-self:flex-start;margin-left:2px;color:var(--gold-bright);font-family:'Cinzel',serif;font-size:12px;letter-spacing:0.08em;text-decoration:none;margin-bottom:18px;">&larr; ALL LESSONS</a>
+<header>
+  <p class="kicker">Geography &middot; North America</p>
+  <h1>Countries &amp; Capitals</h1>
+  <p class="sub">23 countries &middot; flip the cards &middot; quiz yourself both ways</p>
+</header>
+
+<div class="modebar">
+  <button id="btn-flash" class="active">Flashcards</button>
+  <button id="btn-quiz">Quiz me</button>
+  <button id="btn-scores">Scoreboard</button>
+</div>
+
+<div class="stage">
+
+  <!-- FLASHCARD MODE -->
+  <div id="flash-view">
+    <div class="progress">
+      <span id="flash-count">1 / 23</span>
+      <div class="progress-track"><div class="progress-fill" id="flash-fill"></div></div>
+      <span>&nbsp;</span>
+    </div>
+
+    <div class="card-wrap" id="card-wrap">
+      <div class="card" id="card">
+        <div class="face front">
+          <span class="card-num" id="face-num">#1</span>
+          <div class="hint" id="front-label">Country</div>
+          <div class="latin" id="front-text">Antigua and Barbuda</div>
+          <div class="hint">tap card to reveal the answer</div>
+        </div>
+        <div class="face back">
+          <span class="card-num" id="face-num-back">#1</span>
+          <div class="hint" id="back-label" style="margin:0 0 10px;color:#e8d9c0;">Capital</div>
+          <div class="definition" id="back-text">Saint John's</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="prev-btn">&larr; Prev</button>
+      <button id="flip-btn" class="primary">Flip</button>
+      <button id="next-btn">Next &rarr;</button>
+    </div>
+    <div class="shuffle-row" style="gap:22px;">
+      <button id="shuffle-btn">Shuffle deck</button>
+      <button id="dir-btn">Showing: country first (switch)</button>
+    </div>
+  </div>
+
+  <!-- QUIZ MODE -->
+  <div id="quiz-view" style="display:none;">
+    <div class="player-badge">
+      Playing as <strong id="player-name-display">Player</strong>
+      <button id="change-name-btn">change</button>
+    </div>
+
+    <div id="quiz-setup" class="quiz-box">
+      <p class="quiz-prompt">Choose a quiz</p>
+      <div class="quiz-latin" style="font-size:20px;margin-bottom:20px;">What do you want to practice?</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <button class="mode-pick primary-pick" data-mode="mixed">Mixed &mdash; both directions (46 questions)</button>
+        <button class="mode-pick" data-mode="c2cap">Country &rarr; Capital (23 questions)</button>
+        <button class="mode-pick" data-mode="cap2c">Capital &rarr; Country (23 questions)</button>
+      </div>
+    </div>
+
+    <div id="quiz-play" style="display:none;">
+      <div class="progress">
+        <span id="quiz-count">1 / 46</span>
+        <div class="progress-track"><div class="progress-fill" id="quiz-fill"></div></div>
+        <span>&nbsp;</span>
+      </div>
+      <div class="quiz-box">
+        <p class="quiz-prompt" id="quiz-prompt">What is the capital of...</p>
+        <div class="quiz-latin" id="quiz-main">Antigua and Barbuda</div>
+        <input type="text" id="quiz-input" placeholder="Type your answer..." autocomplete="off" autocapitalize="words" spellcheck="false">
+        <div class="feedback" id="quiz-feedback"></div>
+        <div class="controls">
+          <button id="quiz-check" class="primary">Check</button>
+          <button id="quiz-skip">Skip &rarr;</button>
+        </div>
+      </div>
+      <div class="quiz-score" id="quiz-score">Score: 0 correct / 0 answered</div>
+    </div>
+
+    <div id="quiz-done" class="quiz-box" style="display:none;text-align:center;">
+      <p class="quiz-prompt" id="done-percent">100% correct</p>
+      <div class="quiz-latin" id="done-title">Perfect score!</div>
+      <p id="done-msg" style="color:var(--plaster-dim);font-size:15px;line-height:1.5;margin:0 0 20px;"></p>
+      <div id="done-missed" style="text-align:left;font-size:14px;color:var(--plaster-dim);margin-bottom:20px;"></div>
+      <div class="controls">
+        <button id="done-restart" class="primary">Try again</button>
+        <button id="done-menu">Change quiz</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCOREBOARD MODE -->
+  <div id="scores-view" style="display:none;">
+    <div id="scores-content"></div>
+  </div>
+
+</div>
+
+<footer>Scoreboard is saved in this browser only.</footer>
+
+<style>
+  .mode-pick{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.04em;
+    text-align:left;
+    background:rgba(0,0,0,0.2);
+    color:var(--plaster);
+    border:1px solid rgba(184,137,43,0.3);
+    padding:14px 16px;
+    border-radius:4px;
+    cursor:pointer;
+    transition:border-color .2s, background .2s;
+  }
+  .mode-pick:hover{ border-color:var(--gold-bright); background:rgba(184,137,43,0.12); }
+  .primary-pick{ border-color:var(--gold); }
+  #dir-btn{
+    background:none;
+    border:none;
+    color:var(--plaster-dim);
+    font-size:13px;
+    font-family:'Source Serif 4',serif;
+    text-decoration:underline;
+    text-decoration-color:rgba(184,137,43,0.5);
+    cursor:pointer;
+  }
+</style>
+
+<script>
+/* ---------- DATA ---------- */
+// countryAlts = extra accepted names for the country (asked in Capital to Country);
+// capitalAlts = extra accepted names for the capital (asked in Country to Capital); matching also ignores
+// case, accents, punctuation, and "Saint" vs "St."
+const data = [
+  {country:"Antigua and Barbuda", capital:"Saint John's", countryAlts:["antigua","antigua and barbuda"], capitalAlts:[]},
+  {country:"Bahamas", capital:"Nassau", countryAlts:["the bahamas"], capitalAlts:[]},
+  {country:"Barbados", capital:"Bridgetown", countryAlts:[], capitalAlts:[]},
+  {country:"Belize", capital:"Belmopan", countryAlts:[], capitalAlts:[]},
+  {country:"Canada", capital:"Ottawa", countryAlts:[], capitalAlts:[]},
+  {country:"Costa Rica", capital:"San José", countryAlts:[], capitalAlts:[]},
+  {country:"Cuba", capital:"Havana", countryAlts:[], capitalAlts:[]},
+  {country:"Dominica", capital:"Roseau", countryAlts:[], capitalAlts:[]},
+  {country:"Dominican Republic", capital:"Santo Domingo", countryAlts:[], capitalAlts:[]},
+  {country:"El Salvador", capital:"San Salvador", countryAlts:[], capitalAlts:[]},
+  {country:"Grenada", capital:"Saint George's", countryAlts:[], capitalAlts:[]},
+  {country:"Guatemala", capital:"Guatemala City", countryAlts:[], capitalAlts:[]},
+  {country:"Haiti", capital:"Port-au-Prince", countryAlts:[], capitalAlts:[]},
+  {country:"Honduras", capital:"Tegucigalpa", countryAlts:[], capitalAlts:[]},
+  {country:"Jamaica", capital:"Kingston", countryAlts:[], capitalAlts:[]},
+  {country:"Mexico", capital:"Mexico City", countryAlts:[], capitalAlts:[]},
+  {country:"Nicaragua", capital:"Managua", countryAlts:[], capitalAlts:[]},
+  {country:"Panama", capital:"Panama City", countryAlts:[], capitalAlts:[]},
+  {country:"Saint Kitts and Nevis", capital:"Basseterre", countryAlts:["st kitts","saint kitts","st kitts nevis"], capitalAlts:[]},
+  {country:"Saint Lucia", capital:"Castries", countryAlts:[], capitalAlts:[]},
+  {country:"Saint Vincent and the Grenadines", capital:"Kingstown", countryAlts:["st vincent","saint vincent","st vincent and grenadines"], capitalAlts:[]},
+  {country:"Trinidad and Tobago", capital:"Port of Spain", countryAlts:["trinidad"], capitalAlts:[]},
+  {country:"United States", capital:"Washington D.C.", countryAlts:["usa","us","u s a","united states of america","america"], capitalAlts:["washington","washington dc"]}
+];
+
+/* ---------- HELPERS ---------- */
+function norm(s){
+  return s.toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/&/g,' and ')
+    .replace(/\bsaint\b/g,'st')
+    .replace(/[.'’]/g,'')
+    .replace(/[-,]/g,' ')
+    .replace(/\s+/g,' ')
+    .trim()
+    .replace(/^the /,'');
+}
+function lev(a,b){
+  const m=a.length,n=b.length;
+  if(Math.abs(m-n)>1) return 2;
+  const d=Array.from({length:m+1},(_,i)=>[i]);
+  for(let j=1;j<=n;j++) d[0][j]=j;
+  for(let i=1;i<=m;i++) for(let j=1;j<=n;j++){
+    d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));
+  }
+  return d[m][n];
+}
+// every real country/capital name on the list, normalized. A typed answer
+// that is itself one of these (e.g. Kingston vs Kingstown) is a different
+// place, never a spelling slip.
+const knownNames = new Set();
+data.forEach(d => { knownNames.add(norm(d.country)); knownNames.add(norm(d.capital)); });
+
+// returns 'exact', 'typo', or false
+function judge(input, answer, alts){
+  const n = norm(input);
+  if(!n) return false;
+  const targets = [answer].concat(alts||[]).map(norm);
+  if(targets.indexOf(n) !== -1) return 'exact';
+  if(knownNames.has(n)) return false;
+  for(const t of targets){
+    // one-letter slips are forgiven on longer names; "dominica" is excluded
+    // because one extra letter makes it a different country.
+    if(t.length >= 7 && t !== 'dominica' && lev(n,t) <= 1) return 'typo';
+  }
+  return false;
+}
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+/* ---------- FLASHCARDS ---------- */
+let deck = data.map((d,i)=>Object.assign({n:i+1},d));
+let idx = 0;
+let flipped = false;
+let countryFirst = true;
+
+const cardEl = document.getElementById('card');
+const frontLabel = document.getElementById('front-label');
+const frontText = document.getElementById('front-text');
+const backLabel = document.getElementById('back-label');
+const backText = document.getElementById('back-text');
+
+function renderCard(){
+  const w = deck[idx];
+  frontLabel.textContent = countryFirst ? 'Country' : 'Capital';
+  frontText.textContent = countryFirst ? w.country : w.capital;
+  backLabel.textContent = countryFirst ? 'Capital' : 'Country';
+  backText.textContent = countryFirst ? w.capital : w.country;
+  document.getElementById('face-num').textContent = '#' + w.n;
+  document.getElementById('face-num-back').textContent = '#' + w.n;
+  document.getElementById('flash-count').textContent = (idx+1) + ' / ' + deck.length;
+  document.getElementById('flash-fill').style.width = (((idx+1)/deck.length)*100) + '%';
+  flipped = false;
+  cardEl.classList.remove('flipped');
+}
+// Snap back to the front instantly before swapping text, so the next
+// card's answer never flashes mid-rotation.
+function goToCard(newIdx){
+  if(flipped){
+    cardEl.classList.add('no-transition');
+    cardEl.classList.remove('flipped');
+    flipped = false;
+    void cardEl.offsetWidth;
+    idx = newIdx;
+    renderCard();
+    void cardEl.offsetWidth;
+    cardEl.classList.remove('no-transition');
+  } else {
+    idx = newIdx;
+    renderCard();
+  }
+}
+function toggleFlip(){
+  flipped = !flipped;
+  cardEl.classList.toggle('flipped', flipped);
+}
+document.getElementById('card-wrap').addEventListener('click', toggleFlip);
+document.getElementById('flip-btn').addEventListener('click', (e)=>{ e.stopPropagation(); toggleFlip(); });
+document.getElementById('next-btn').addEventListener('click', ()=> goToCard((idx+1)%deck.length));
+document.getElementById('prev-btn').addEventListener('click', ()=> goToCard((idx-1+deck.length)%deck.length));
+document.getElementById('shuffle-btn').addEventListener('click', ()=>{
+  deck = shuffle(deck);
+  goToCard(0);
+});
+document.getElementById('dir-btn').addEventListener('click', (e)=>{
+  countryFirst = !countryFirst;
+  e.currentTarget.textContent = countryFirst ? 'Showing: country first (switch)' : 'Showing: capital first (switch)';
+  goToCard(idx);
+});
+renderCard();
+
+/* ---------- SCOREBOARD STORAGE ---------- */
+const SCORE_KEY = 'latin-scores-geo1';
+const NAME_KEY = 'latin-player-name';
+
+function getPlayerName(){
+  let name = null;
+  try{ name = localStorage.getItem(NAME_KEY); }catch(e){}
+  if(!name){
+    name = (prompt('What\'s your name? (shown on the scoreboard)') || 'Player').trim().slice(0,24) || 'Player';
+    try{ localStorage.setItem(NAME_KEY, name); }catch(e){}
+  }
+  return name;
+}
+function setPlayerName(){
+  let current = '';
+  try{ current = localStorage.getItem(NAME_KEY) || ''; }catch(e){}
+  const name = (prompt('Enter your name for the scoreboard:', current) || current || 'Player').trim().slice(0,24) || 'Player';
+  try{ localStorage.setItem(NAME_KEY, name); }catch(e){}
+  document.getElementById('player-name-display').textContent = name;
+}
+function loadScores(){
+  try{ return JSON.parse(localStorage.getItem(SCORE_KEY) || '[]'); }catch(e){ return []; }
+}
+function saveScore(name, correct, total, percent, mode){
+  const scores = loadScores();
+  const now = new Date();
+  scores.push({
+    name, correct, total, percent, mode,
+    ts: now.getTime(),
+    date: now.toLocaleDateString(),
+    time: now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
+  });
+  while(scores.length > 50) scores.shift();
+  try{ localStorage.setItem(SCORE_KEY, JSON.stringify(scores)); }catch(e){}
+}
+function escapeHtml(str){
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+const MODE_LABEL = {mixed:'Mixed', c2cap:'Country to Capital', cap2c:'Capital to Country'};
+function renderScoreboard(){
+  const content = document.getElementById('scores-content');
+  const scores = loadScores();
+  if(scores.length === 0){
+    content.innerHTML = '<div class="score-empty">No quiz attempts logged yet on this device.<br>Finish a quiz to appear here.</div>';
+    return;
+  }
+  const sorted = scores.slice().sort((a,b)=> b.percent - a.percent || (b.ts||0) - (a.ts||0));
+  let current = '';
+  try{ current = localStorage.getItem(NAME_KEY) || ''; }catch(e){}
+  const rows = sorted.slice(0,20).map(s => (
+    '<tr class="' + (s.name === current ? 'you' : '') + '">' +
+      '<td>' + escapeHtml(s.name) + '</td>' +
+      '<td>' + s.correct + ' / ' + s.total + '</td>' +
+      '<td class="score-percent">' + s.percent + '%</td>' +
+      '<td>' + escapeHtml(MODE_LABEL[s.mode] || '') + '</td>' +
+      '<td>' + s.date + '</td>' +
+      '<td>' + (s.time || '&mdash;') + '</td>' +
+    '</tr>'
+  )).join('');
+  content.innerHTML =
+    '<table class="score-table"><thead><tr>' +
+    '<th>Name</th><th>Score</th><th>%</th><th>Quiz</th><th>Date</th><th>Time</th>' +
+    '</tr></thead><tbody>' + rows + '</tbody></table>';
+}
+
+/* ---------- QUIZ ---------- */
+let qDeck = [], qIdx = 0, qCorrect = 0, qAnswered = 0, qMode = 'mixed', qChecked = false, qMissed = [];
+
+const setupEl = document.getElementById('quiz-setup');
+const playEl = document.getElementById('quiz-play');
+const doneEl = document.getElementById('quiz-done');
+const inputEl = document.getElementById('quiz-input');
+const feedbackEl = document.getElementById('quiz-feedback');
+const checkBtn = document.getElementById('quiz-check');
+
+function buildDeck(mode){
+  const toCap = data.map(d => ({kind:'c2cap', show:d.country, answer:d.capital, alts:d.capitalAlts, country:d.country, capital:d.capital}));
+  const toCountry = data.map(d => ({kind:'cap2c', show:d.capital, answer:d.country, alts:d.countryAlts, country:d.country, capital:d.capital}));
+  if(mode === 'c2cap') return shuffle(toCap);
+  if(mode === 'cap2c') return shuffle(toCountry);
+  return shuffle(toCap.concat(toCountry));
+}
+function startQuiz(mode){
+  qMode = mode;
+  qDeck = buildDeck(mode);
+  qIdx = 0; qCorrect = 0; qAnswered = 0; qMissed = [];
+  setupEl.style.display = 'none';
+  doneEl.style.display = 'none';
+  playEl.style.display = '';
+  document.getElementById('quiz-score').textContent = 'Score: 0 correct / 0 answered';
+  renderQuestion();
+}
+function renderQuestion(){
+  const q = qDeck[qIdx];
+  document.getElementById('quiz-prompt').textContent =
+    q.kind === 'c2cap' ? 'What is the capital of...' : 'Which country has this capital?';
+  document.getElementById('quiz-main').textContent = q.show;
+  inputEl.value = '';
+  inputEl.style.display = '';
+  feedbackEl.textContent = '';
+  feedbackEl.className = 'feedback';
+  checkBtn.textContent = 'Check';
+  document.getElementById('quiz-skip').style.display = '';
+  document.getElementById('quiz-count').textContent = (qIdx+1) + ' / ' + qDeck.length;
+  document.getElementById('quiz-fill').style.width = (((qIdx+1)/qDeck.length)*100) + '%';
+  qChecked = false;
+  inputEl.focus();
+}
+function checkAnswer(){
+  if(qChecked){ nextQuestion(); return; }
+  const q = qDeck[qIdx];
+  const result = judge(inputEl.value, q.answer, q.alts);
+  qAnswered++;
+  if(result){
+    qCorrect++;
+    feedbackEl.textContent = result === 'typo'
+      ? 'Correct! Check the spelling: ' + q.answer
+      : 'Correct! ' + q.answer;
+    feedbackEl.className = 'feedback correct';
+  } else {
+    qMissed.push(q);
+    feedbackEl.textContent = 'Not quite. The answer is ' + q.answer + '.';
+    feedbackEl.className = 'feedback wrong';
+  }
+  document.getElementById('quiz-score').textContent = 'Score: ' + qCorrect + ' correct / ' + qAnswered + ' answered';
+  qChecked = true;
+  checkBtn.textContent = qIdx + 1 >= qDeck.length ? 'See results' : 'Next';
+  document.getElementById('quiz-skip').style.display = 'none';
+}
+function skipQuestion(){
+  // skipping counts as a miss so the final score stays honest
+  const q = qDeck[qIdx];
+  qAnswered++;
+  qMissed.push(q);
+  document.getElementById('quiz-score').textContent = 'Score: ' + qCorrect + ' correct / ' + qAnswered + ' answered';
+  nextQuestion();
+}
+function nextQuestion(){
+  qIdx++;
+  if(qIdx >= qDeck.length){ finishQuiz(); return; }
+  renderQuestion();
+}
+function scoreMessage(p){
+  if(p >= 100) return {title:'Perfect score!', msg:'Every country and capital, correct. You really know North America.'};
+  if(p >= 90)  return {title:'Excellent work!', msg:'Nearly flawless. Just one or two to polish.'};
+  if(p >= 80)  return {title:'Great job!', msg:'Solid grasp of the map. Review the ones you missed and you will have them locked in.'};
+  if(p >= 70)  return {title:'Good effort!', msg:'You are on the right track. A bit more practice and these will stick.'};
+  return {title:'Keep practicing!', msg:'Go through the flashcards again, then try the quiz once more. You will improve fast.'};
+}
+function finishQuiz(){
+  const percent = Math.round((qCorrect / qDeck.length) * 100);
+  saveScore(getPlayerName(), qCorrect, qDeck.length, percent, qMode);
+  const m = scoreMessage(percent);
+  playEl.style.display = 'none';
+  doneEl.style.display = '';
+  document.getElementById('done-percent').textContent = percent + '% correct (' + qCorrect + ' of ' + qDeck.length + ')';
+  document.getElementById('done-title').textContent = m.title;
+  document.getElementById('done-msg').textContent = m.msg;
+  const missedEl = document.getElementById('done-missed');
+  if(qMissed.length){
+    // list each missed pair once, even if both directions were missed
+    const seen = {};
+    const lines = [];
+    qMissed.forEach(q => {
+      if(seen[q.country]) return;
+      seen[q.country] = true;
+      lines.push('<li>' + escapeHtml(q.country) + ' &mdash; ' + escapeHtml(q.capital) + '</li>');
+    });
+    missedEl.innerHTML = '<strong style="color:var(--gold-bright);">Review these:</strong><ul style="margin:8px 0 0;padding-left:20px;line-height:1.6;">' + lines.join('') + '</ul>';
+  } else {
+    missedEl.innerHTML = '';
+  }
+}
+
+document.querySelectorAll('.mode-pick').forEach(b => {
+  b.addEventListener('click', () => {
+    getPlayerName();
+    document.getElementById('player-name-display').textContent = getPlayerName();
+    startQuiz(b.getAttribute('data-mode'));
+  });
+});
+checkBtn.addEventListener('click', checkAnswer);
+document.getElementById('quiz-skip').addEventListener('click', skipQuestion);
+inputEl.addEventListener('keydown', e => { if(e.key === 'Enter') checkAnswer(); });
+document.getElementById('done-restart').addEventListener('click', () => startQuiz(qMode));
+document.getElementById('done-menu').addEventListener('click', () => {
+  doneEl.style.display = 'none';
+  playEl.style.display = 'none';
+  setupEl.style.display = '';
+});
+document.getElementById('change-name-btn').addEventListener('click', setPlayerName);
+
+/* ---------- MODE SWITCH ---------- */
+const btnFlash = document.getElementById('btn-flash');
+const btnQuiz = document.getElementById('btn-quiz');
+const btnScores = document.getElementById('btn-scores');
+const flashView = document.getElementById('flash-view');
+const quizView = document.getElementById('quiz-view');
+const scoresView = document.getElementById('scores-view');
+
+function setActiveTab(activeBtn){
+  [btnFlash, btnQuiz, btnScores].forEach(b => b.classList.remove('active'));
+  activeBtn.classList.add('active');
+  [flashView, quizView, scoresView].forEach(v => v.style.display = 'none');
+}
+btnFlash.addEventListener('click', () => { setActiveTab(btnFlash); flashView.style.display = ''; });
+btnQuiz.addEventListener('click', () => {
+  setActiveTab(btnQuiz);
+  quizView.style.display = '';
+  let n = 'Player';
+  try{ n = localStorage.getItem(NAME_KEY) || 'Player'; }catch(e){}
+  document.getElementById('player-name-display').textContent = n;
+});
+btnScores.addEventListener('click', () => { setActiveTab(btnScores); scoresView.style.display = ''; renderScoreboard(); });
+</script>
+
+</body>
+</html>
