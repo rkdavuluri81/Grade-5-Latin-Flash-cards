@@ -109,6 +109,17 @@
     margin-top:4px;
   }
 
+  .subject-group{margin-bottom:34px;}
+  .subject-title{
+    font-family:'Cinzel',serif;
+    font-weight:700;
+    font-size:22px;
+    letter-spacing:0.04em;
+    color:var(--plaster, #ece4d3);
+    margin:0 0 14px;
+    padding-bottom:8px;
+    border-bottom:1px solid rgba(184,137,43,0.35);
+  }
   .unit-section{
     width:100%;
     max-width:900px;
@@ -271,8 +282,19 @@ function labelForKey(key){
   if(!m) return suffix;
   const name = m[1];
   if(name.toLowerCase() === 'geo') return 'NA Countries and Capitals';
+  if(name.toLowerCase() === 'english') return 'Literary Devices';
   if(name.toLowerCase() === 'review') return m[2] === '1' ? 'Units 1 and 2 Review' : 'Units 3 and 4 Review';
   return name.charAt(0).toUpperCase() + name.slice(1) + ' ' + m[2];
+}
+
+// Which subject a score key belongs to.
+const SUBJECT_ORDER = ['Latin', 'English', 'Geography', 'Other'];
+function subjectForKey(key){
+  const suffix = key.replace('latin-scores-', '').toLowerCase();
+  if(/^(unit|review|quiz)\d*$/.test(suffix)) return 'Latin';
+  if(suffix.startsWith('english')) return 'English';
+  if(suffix.startsWith('geo')) return 'Geography';
+  return 'Other';
 }
 
 function pctClass(p){
@@ -302,9 +324,10 @@ function renderAll(){
   let totalPercentSum = 0;
   const allPlayers = new Set();
 
-  let unitsHtml = '';
+  const bySubject = {};
 
   scoreKeys.forEach(key => {
+    let unitsHtml = '';
     const label = labelForKey(key);
     const scores = loadUnitScores(key);
     totalAttempts += scores.length;
@@ -342,9 +365,13 @@ function renderAll(){
         '</div>' +
         bodyHtml +
       '</div>';
+    const subj = subjectForKey(key);
+    (bySubject[subj] = bySubject[subj] || []).push(unitsHtml);
   });
 
-  container.innerHTML = unitsHtml;
+  container.innerHTML = SUBJECT_ORDER.filter(s => bySubject[s]).map(s =>
+    '<div class="subject-group"><h2 class="subject-title">' + s + '</h2>' + bySubject[s].join('') + '</div>'
+  ).join('');
 
   const overallAvg = totalAttempts ? Math.round(totalPercentSum / totalAttempts) : 0;
   summaryRow.innerHTML =
@@ -360,7 +387,7 @@ document.getElementById('units-container').addEventListener('click', (e) => {
   if(e.target.classList.contains('clear-unit-btn')){
     const key = e.target.getAttribute('data-key');
     const unitNum = e.target.getAttribute('data-unit');
-    if(confirm('Clear all scores for Unit ' + unitNum + '? This cannot be undone.')){
+    if(confirm('Clear all scores for ' + unitNum + '? This cannot be undone.')){
       localStorage.removeItem(key);
       renderAll();
     }
