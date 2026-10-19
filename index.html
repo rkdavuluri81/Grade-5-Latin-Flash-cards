@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Basis Latin Grade 5 &middot; Flashcards</title>
+<title>Basis Grade 5 &middot; Study Practice</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
@@ -116,6 +116,31 @@
     pointer-events:none;
     border-style:dashed;
   }
+  .subject{
+    width:100%;
+    max-width:560px;
+    margin-bottom:44px;
+  }
+  .subject-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    font-family:'Cinzel',serif;
+    font-weight:700;
+    font-size:20px;
+    letter-spacing:0.04em;
+    color:var(--plaster);
+    margin:0 0 16px;
+    padding-bottom:10px;
+    border-bottom:1px solid rgba(184,137,43,0.3);
+  }
+  .subject-head span{
+    font-family:'Source Serif 4',serif;
+    font-weight:400;
+    font-size:13px;
+    letter-spacing:0;
+    color:var(--plaster-dim);
+  }
   footer{
     margin-top:48px;
     font-size:12px;
@@ -128,11 +153,13 @@
 
 <header>
   <p class="kicker">Basis &middot; Grade 5</p>
-  <h1>Latin Flashcards</h1>
-  <p class="sub">Interactive vocabulary practice, by unit.<br>Pick a lesson below to start studying.</p>
+  <h1>Study Practice</h1>
+  <p class="sub">Flashcards and quizzes, grouped by subject.<br>Pick a subject, then a lesson, to start studying.</p>
 </header>
 
-<div class="lessons">
+<section class="subject">
+  <h2 class="subject-head">Latin <span>7 lessons</span></h2>
+  <div class="lessons">
   <a class="lesson-card" href="unit1-vocab.html">
     <div class="lesson-left">
       <span class="lesson-tag">UNIT 1</span>
@@ -196,15 +223,6 @@
     <span class="arrow">&rarr;</span>
   </a>
 
-  <a class="lesson-card" href="na-capitals.html">
-    <div class="lesson-left">
-      <span class="lesson-tag">GEOGRAPHY</span>
-      <span class="lesson-title">North America: Countries &amp; Capitals</span>
-      <span class="lesson-meta">23 countries &middot; flashcards &amp; two-way quiz</span>
-    </div>
-    <span class="arrow">&rarr;</span>
-  </a>
-
   <div class="lesson-card placeholder">
     <div class="lesson-left">
       <span class="lesson-tag">UNIT 5</span>
@@ -213,9 +231,38 @@
     </div>
     <span class="arrow">&rarr;</span>
   </div>
-</div>
+  </div>
+</section>
 
-<footer>More units will be added here as lessons continue.</footer>
+<section class="subject">
+  <h2 class="subject-head">English <span>1 lesson</span></h2>
+  <div class="lessons">
+  <a class="lesson-card" href="english-literary-devices.html">
+    <div class="lesson-left">
+      <span class="lesson-tag">LITERARY DEVICES</span>
+      <span class="lesson-title">Characterization, Foreshadowing &amp; Ambiguity</span>
+      <span class="lesson-meta">14 study cards &middot; 25 multiple-choice questions</span>
+    </div>
+    <span class="arrow">&rarr;</span>
+  </a>
+  </div>
+</section>
+
+<section class="subject">
+  <h2 class="subject-head">Geography <span>1 lesson</span></h2>
+  <div class="lessons">
+  <a class="lesson-card" href="na-capitals.html">
+    <div class="lesson-left">
+      <span class="lesson-tag">GEOGRAPHY</span>
+      <span class="lesson-title">North America: Countries &amp; Capitals</span>
+      <span class="lesson-meta">23 countries &middot; flashcards &amp; two-way quiz</span>
+    </div>
+    <span class="arrow">&rarr;</span>
+  </a>
+  </div>
+</section>
+
+<footer>More lessons will be added here as classes continue.</footer>
 
 </body>
 </html>
