@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geography: North America Physical Geography | Basis Grade 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --stone: #2b2620;
+    --stone-light: #3c352c;
+    --gold: #b8892b;
+    --gold-bright: #d9a840;
+    --plaster: #ece4d3;
+    --plaster-dim: #c9beaa;
+    --wine: #7a2e2e;
+    --wine-bright: #a8433f;
+    --green: #4f6b4a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(184,137,43,0.08), transparent 60%),
+      var(--stone);
+    color:var(--plaster);
+    font-family:'Source Serif 4', serif;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:32px 20px 60px;
+  }
+  header{
+    text-align:center;
+    max-width:640px;
+    margin-bottom:28px;
+  }
+  .kicker{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.12em;
+    color:var(--gold-bright);
+    margin:0 0 6px;
+  }
+  h1{
+    font-family:'Cinzel',serif;
+    font-weight:700;
+    font-size:clamp(24px,4vw,34px);
+    margin:0 0 8px;
+    color:var(--plaster);
+  }
+  .sub{
+    color:var(--plaster-dim);
+    font-size:15px;
+    margin:0;
+  }
+  .modebar{
+    display:flex;
+    gap:8px;
+    margin-bottom:26px;
+    background:var(--stone-light);
+    padding:5px;
+    border-radius:999px;
+    border:1px solid rgba(184,137,43,0.25);
+  }
+  .modebar button{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.03em;
+    padding:9px 20px;
+    border-radius:999px;
+    border:none;
+    background:transparent;
+    color:var(--plaster-dim);
+    cursor:pointer;
+    transition:background .2s, color .2s;
+  }
+  .modebar button.active{
+    background:var(--gold);
+    color:var(--stone);
+  }
+  .stage{
+    width:100%;
+    max-width:560px;
+  }
+  .progress{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:14px;
+    font-size:13px;
+    color:var(--plaster-dim);
+    font-family:'Cinzel',serif;
+    letter-spacing:0.05em;
+  }
+  .progress-track{
+    flex:1;
+    height:3px;
+    background:rgba(236,228,211,0.15);
+    margin:0 14px;
+    position:relative;
+    border-radius:2px;
+    overflow:hidden;
+  }
+  .progress-fill{
+    position:absolute;
+    left:0;top:0;bottom:0;
+    background:var(--gold);
+    transition:width .3s ease;
+  }
+
+  /* FLASHCARD MODE */
+  .card-wrap{
+    perspective:1400px;
+    height:280px;
+    margin-bottom:22px;
+    cursor:pointer;
+  }
+  .card{
+    position:relative;
+    width:100%;
+    height:100%;
+    transform-style:preserve-3d;
+    transition:transform .5s cubic-bezier(.4,.2,.2,1);
+  }
+  .card.flipped{ transform:rotateY(180deg); }
+  .card.no-transition{ transition:none !important; }
+  .face{
+    position:absolute;
+    inset:0;
+    backface-visibility:hidden;
+    border-radius:6px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:32px;
+    border:1px solid rgba(184,137,43,0.3);
+  }
+  .face.front{
+    background:linear-gradient(160deg, var(--stone-light), var(--stone));
+    box-shadow: inset 0 0 0 1px rgba(236,228,211,0.04), 0 10px 30px rgba(0,0,0,0.35);
+  }
+  .face.back{
+    background:linear-gradient(160deg, var(--wine-bright), var(--wine));
+    transform:rotateY(180deg);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  }
+  .card-num{
+    font-family:'Cinzel',serif;
+    font-size:12px;
+    letter-spacing:0.1em;
+    color:var(--gold-bright);
+    position:absolute;
+    top:16px;
+    left:20px;
+  }
+  .latin{
+    font-family:'Cinzel',serif;
+    font-weight:700;
+    font-size:clamp(22px,5vw,30px);
+    color:var(--plaster);
+    line-height:1.3;
+  }
+  .hint{
+    margin-top:14px;
+    font-size:12px;
+    color:var(--plaster-dim);
+    letter-spacing:0.05em;
+  }
+  .pron{
+    font-family:'Source Serif 4',serif;
+    font-style:italic;
+    font-size:14px;
+    color:var(--gold-bright);
+    margin-top:8px;
+  }
+  .speak-btn{
+    background:none;
+    border:1px solid rgba(184,137,43,0.4);
+    color:var(--gold-bright);
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:15px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    margin-top:12px;
+    transition:background .2s;
+  }
+  .speak-btn:hover{ background:rgba(184,137,43,0.15); }
+  .speak-btn:active{ transform:scale(0.94); }
+  .definition{
+    font-size:clamp(20px,4.5vw,26px);
+    color:var(--plaster);
+    font-style:italic;
+  }
+  .controls{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+  }
+  .controls button{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.05em;
+    background:var(--stone-light);
+    color:var(--plaster);
+    border:1px solid rgba(184,137,43,0.3);
+    padding:11px 20px;
+    border-radius:4px;
+    cursor:pointer;
+    transition:background .2s, border-color .2s;
+  }
+  .controls button:hover{ border-color:var(--gold-bright); }
+  .controls button.primary{
+    background:var(--gold);
+    color:var(--stone);
+    border-color:var(--gold);
+    font-weight:700;
+  }
+  .controls button:disabled{
+    opacity:0.35;
+    cursor:default;
+  }
+  .shuffle-row{
+    display:flex;
+    justify-content:center;
+    margin-top:16px;
+  }
+  .shuffle-row button{
+    background:none;
+    border:none;
+    color:var(--plaster-dim);
+    font-size:13px;
+    font-family:'Source Serif 4',serif;
+    text-decoration:underline;
+    text-decoration-color:rgba(184,137,43,0.5);
+    cursor:pointer;
+  }
+
+  /* QUIZ MODE */
+  .quiz-box{
+    background:var(--stone-light);
+    border:1px solid rgba(184,137,43,0.25);
+    border-radius:6px;
+    padding:36px 30px;
+    margin-bottom:20px;
+    min-height:280px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .quiz-prompt{
+    font-size:13px;
+    color:var(--gold-bright);
+    font-family:'Cinzel',serif;
+    letter-spacing:0.08em;
+    margin-bottom:8px;
+  }
+  .quiz-latin{
+    font-family:'Cinzel',serif;
+    font-weight:700;
+    font-size:clamp(24px,5vw,30px);
+    margin-bottom:22px;
+  }
+  .quiz-box input{
+    width:100%;
+    font-family:'Source Serif 4',serif;
+    font-size:18px;
+    padding:12px 14px;
+    border-radius:4px;
+    border:1px solid rgba(236,228,211,0.25);
+    background:rgba(0,0,0,0.2);
+    color:var(--plaster);
+    margin-bottom:14px;
+  }
+  .quiz-box input:focus{
+    outline:none;
+    border-color:var(--gold-bright);
+  }
+  .feedback{
+    font-size:15px;
+    min-height:24px;
+    margin-bottom:6px;
+  }
+  .feedback.correct{ color:#8fbf7a; }
+  .feedback.wrong{ color:#d98a8a; }
+  .quiz-score{
+    text-align:center;
+    font-family:'Cinzel',serif;
+    letter-spacing:0.05em;
+    font-size:13px;
+    color:var(--plaster-dim);
+    margin-top:8px;
+  }
+  footer{
+    margin-top:36px;
+    font-size:12px;
+    color:rgba(236,228,211,0.35);
+    text-align:center;
+  }
+  .player-badge{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    font-size:13px;
+    color:var(--plaster-dim);
+    margin-bottom:16px;
+  }
+  .player-badge button{
+    background:none;
+    border:none;
+    color:var(--gold-bright);
+    text-decoration:underline;
+    cursor:pointer;
+    font-size:13px;
+    font-family:'Source Serif 4',serif;
+    padding:0;
+  }
+  .score-table{
+    width:100%;
+    border-collapse:collapse;
+    background:var(--stone-light);
+    border:1px solid rgba(184,137,43,0.25);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .score-table th, .score-table td{
+    padding:12px 14px;
+    text-align:left;
+    font-size:14px;
+  }
+  .score-table th{
+    font-family:'Cinzel',serif;
+    font-size:11px;
+    letter-spacing:0.08em;
+    color:var(--gold-bright);
+    border-bottom:1px solid rgba(184,137,43,0.25);
+  }
+  .score-table tbody tr:not(:last-child) td{
+    border-bottom:1px solid rgba(236,228,211,0.08);
+  }
+  .score-table tbody tr.you{
+    background:rgba(184,137,43,0.12);
+  }
+  .score-percent{
+    font-weight:600;
+  }
+  .score-empty{
+    text-align:center;
+    color:var(--plaster-dim);
+    font-size:14px;
+    padding:40px 20px;
+    background:var(--stone-light);
+    border:1px dashed rgba(184,137,43,0.3);
+    border-radius:6px;
+  }
+  .score-actions{
+    display:flex;
+    justify-content:center;
+    margin-top:16px;
+  }
+  .score-actions button{
+    background:none;
+    border:none;
+    color:var(--plaster-dim);
+    font-size:13px;
+    font-family:'Source Serif 4',serif;
+    text-decoration:underline;
+    text-decoration-color:rgba(184,137,43,0.4);
+    cursor:pointer;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .card{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" style="align-self:flex-start;margin-left:2px;color:var(--gold-bright);font-family:'Cinzel',serif;font-size:12px;letter-spacing:0.08em;text-decoration:none;margin-bottom:18px;">&larr; ALL LESSONS</a>
+<header>
+  <p class="kicker">Geography &middot; Physical Geography</p>
+  <h1>North America: Landforms &amp; Waters</h1>
+  <p class="sub" id="header-sub">Study cards and a multiple-choice quiz</p>
+</header>
+
+<div class="modebar">
+  <button id="btn-flash" class="active">Study cards</button>
+  <button id="btn-quiz">Quiz me</button>
+  <button id="btn-scores">Scoreboard</button>
+</div>
+
+<div class="stage">
+
+  <!-- STUDY CARDS -->
+  <div id="flash-view">
+    <div class="progress">
+      <span id="flash-count">1 / 14</span>
+      <div class="progress-track"><div class="progress-fill" id="flash-fill"></div></div>
+      <span>&nbsp;</span>
+    </div>
+
+    <div class="card-wrap tall" id="card-wrap">
+      <div class="card" id="card">
+        <div class="face front">
+          <span class="card-num" id="face-part">Part 1</span>
+          <div class="latin" id="front-text">Characterization</div>
+          <div class="hint">tap card to reveal the definition</div>
+        </div>
+        <div class="face back">
+          <span class="card-num" id="back-part">Part 1</span>
+          <div class="definition long" id="back-text"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="prev-btn">&larr; Prev</button>
+      <button id="flip-btn" class="primary">Flip</button>
+      <button id="next-btn">Next &rarr;</button>
+    </div>
+    <div class="shuffle-row">
+      <button id="shuffle-btn">Shuffle cards</button>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz-view" style="display:none;">
+    <div class="player-badge">
+      Playing as <strong id="player-name-display">Player</strong>
+      <button id="change-name-btn">change</button>
+    </div>
+
+    <div id="quiz-setup" class="quiz-box">
+      <p class="quiz-prompt">Choose a quiz</p>
+      <div class="quiz-latin" style="font-size:20px;margin-bottom:20px;">What do you want to practice?</div>
+      <div id="mode-list" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+
+    <div id="quiz-play" style="display:none;">
+      <div class="progress">
+        <span id="quiz-count">1 / 25</span>
+        <div class="progress-track"><div class="progress-fill" id="quiz-fill"></div></div>
+        <span>&nbsp;</span>
+      </div>
+      <div class="quiz-box">
+        <p class="quiz-prompt" id="quiz-part">Part 1 &middot; Characterization</p>
+        <div class="question-text" id="quiz-q"></div>
+        <div id="options" class="options"></div>
+        <div class="feedback" id="quiz-feedback"></div>
+        <div class="controls">
+          <button id="quiz-next" class="primary" style="display:none;">Next</button>
+        </div>
+      </div>
+      <div class="quiz-score" id="quiz-score">Score: 0 correct / 0 answered</div>
+    </div>
+
+    <div id="quiz-done" class="quiz-box" style="display:none;text-align:center;">
+      <p class="quiz-prompt" id="done-percent"></p>
+      <div class="quiz-latin" id="done-title"></div>
+      <p id="done-msg" style="color:var(--plaster-dim);font-size:15px;line-height:1.5;margin:0 0 20px;"></p>
+      <div id="done-missed" style="text-align:left;font-size:14px;color:var(--plaster-dim);margin-bottom:20px;"></div>
+      <div class="controls">
+        <button id="done-restart" class="primary">Try again</button>
+        <button id="done-menu">Change quiz</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCOREBOARD -->
+  <div id="scores-view" style="display:none;">
+    <div id="scores-content"></div>
+  </div>
+
+</div>
+
+<footer>Based on the class notes &ldquo;North America Physical Geography&rdquo;. Scoreboard is saved in this browser only.</footer>
+
+<style>
+  .card-wrap.tall{ height:340px; }
+  .definition.long{
+    font-size:clamp(15px,3.6vw,18px);
+    line-height:1.55;
+    font-style:normal;
+    white-space:pre-line;
+  }
+  .question-text{
+    font-family:'Source Serif 4',serif;
+    font-size:clamp(18px,4.2vw,21px);
+    line-height:1.45;
+    margin-bottom:20px;
+    color:var(--plaster);
+  }
+  .options{ display:flex; flex-direction:column; gap:10px; margin-bottom:14px; }
+  .opt{
+    font-family:'Source Serif 4',serif;
+    font-size:16px;
+    line-height:1.4;
+    text-align:left;
+    background:rgba(0,0,0,0.2);
+    color:var(--plaster);
+    border:1px solid rgba(184,137,43,0.3);
+    padding:12px 14px;
+    border-radius:4px;
+    cursor:pointer;
+    transition:border-color .2s, background .2s;
+  }
+  .opt:hover:not(:disabled){ border-color:var(--gold-bright); background:rgba(184,137,43,0.12); }
+  .opt:disabled{ cursor:default; }
+  .opt.right{ border-color:#8fbf7a; background:rgba(143,191,122,0.16); }
+  .opt.wrong{ border-color:#d98a8a; background:rgba(217,138,138,0.16); }
+  .opt .key{
+    display:inline-block;
+    min-width:22px;
+    font-family:'Cinzel',serif;
+    font-size:12px;
+    color:var(--gold-bright);
+  }
+  .mode-pick{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.04em;
+    text-align:left;
+    background:rgba(0,0,0,0.2);
+    color:var(--plaster);
+    border:1px solid rgba(184,137,43,0.3);
+    padding:14px 16px;
+    border-radius:4px;
+    cursor:pointer;
+    transition:border-color .2s, background .2s;
+  }
+  .mode-pick:hover{ border-color:var(--gold-bright); background:rgba(184,137,43,0.12); }
+  .mode-pick.primary-pick{ border-color:var(--gold); }
+</style>
+
+<script>
+/* ---------- CONTENT (from the handout) ---------- */
+const PART_LABEL = {"mtn": "Part 1 · Mountains", "plain": "Part 2 · Plains, Plateaus & Basins", "des": "Part 3 · Deserts", "riv": "Part 4 · Rivers & Great Lakes", "mix": "Mixed review"};
+
+const cards = [
+ {
+  "part": "mtn",
+  "term": "Rocky Mountains",
+  "def": "Longest mountain range in North America: over 3,000 miles, from British Columbia (Canada) down to New Mexico (U.S.).\nFormed 55 to 80 million years ago.\nRich in coal, copper, gold, and natural gas. Popular for skiing, hiking, and camping."
+ },
+ {
+  "part": "mtn",
+  "term": "Rain shadow effect",
+  "def": "Made by the Rockies. Moist air from the Pacific Ocean rises over the mountains and cools, dropping rain on the western side. The eastern (leeward) side stays dry."
+ },
+ {
+  "part": "mtn",
+  "term": "Appalachian Mountains",
+  "def": "From the southeastern U.S. to eastern Canada. One of the oldest ranges in the world (about 480 million years). Much lower than the Rockies. Highest peak: Mt. Mitchell, 6,684 feet."
+ },
+ {
+  "part": "mtn",
+  "term": "Appalachians: history and use",
+  "def": "A major barrier to early westward expansion. Rich in coal and forest resources. Popular hiking destination: the Appalachian Trail runs 2,200 miles through 14 states."
+ },
+ {
+  "part": "mtn",
+  "term": "Sierra Nevada",
+  "def": "Western U.S., mainly California. Known for stunning granite formations, including Yosemite National Park and Lake Tahoe. Mount Whitney, the highest peak in the contiguous U.S., is part of this range."
+ },
+ {
+  "part": "mtn",
+  "term": "Cascade Range",
+  "def": "Pacific Northwest. A volcanic mountain chain with several active volcanoes, such as Mount St. Helens and Mount Rainier. Part of the Pacific Ring of Fire, where tectonic activity causes frequent earthquakes and volcanic eruptions."
+ },
+ {
+  "part": "plain",
+  "term": "Great Plains",
+  "def": "Stretch from Canada down through the central U.S. (Kansas, Nebraska, North and South Dakota, Texas). Grasslands and a continental climate with temperature extremes and periodic droughts. Flat, open land ideal for large-scale farming and ranching."
+ },
+ {
+  "part": "plain",
+  "term": "The \"bread basket\"",
+  "def": "The nickname for the Great Plains: critical for agriculture, especially wheat, corn, and cattle ranching."
+ },
+ {
+  "part": "plain",
+  "term": "Columbia Plateau",
+  "def": "Northwestern U.S. Shaped by lava flows and rich volcanic soil. Productive farming, especially wheat, barley, and apples."
+ },
+ {
+  "part": "plain",
+  "term": "Great Basin",
+  "def": "An arid region between the Sierra Nevada and the Rocky Mountains. Desert basins, salt flats, and small mountain ranges. Famous feature: the Great Salt Lake in Utah. It is the largest desert in the U.S."
+ },
+ {
+  "part": "des",
+  "term": "Sonoran Desert",
+  "def": "Parts of Arizona, California, and northern Mexico. Home to the iconic saguaro cactus, plus the Gila monster and roadrunner. Native peoples developed irrigation to farm here; Phoenix and Tucson rely heavily on water management."
+ },
+ {
+  "part": "des",
+  "term": "Mojave Desert",
+  "def": "Southeastern California, Nevada, and parts of Arizona. Extreme temperatures, with summer highs over 120°F. Home to Death Valley, the hottest and driest location in North America. Has sand dunes and salt flats."
+ },
+ {
+  "part": "riv",
+  "term": "Mississippi River System",
+  "def": "The largest river system in North America. Major tributaries: the Missouri and Ohio rivers. Flows from northern Minnesota down to the Gulf of Mexico. Vital for transportation, trade, and agriculture. Wetlands shelter migratory birds and fish."
+ },
+ {
+  "part": "riv",
+  "term": "Colorado River",
+  "def": "Starts in the Rocky Mountains of Colorado, flows southwest through the Grand Canyon and into the Gulf of California. A crucial water source for the arid Southwest. Hoover Dam created Lake Mead, a major reservoir."
+ },
+ {
+  "part": "riv",
+  "term": "St. Lawrence River",
+  "def": "Connects the Great Lakes with the Atlantic Ocean. An important natural boundary between Canada and the U.S. A key shipping route for large cargo ships."
+ },
+ {
+  "part": "riv",
+  "term": "The Great Lakes",
+  "def": "Superior, Michigan, Huron, Erie, and Ontario. The largest group of freshwater lakes on Earth, holding about 21% of the world's fresh surface water. Formed by glacial activity in the last Ice Age. Vital for shipping and industry, fishing, recreation, and drinking water. Near Chicago, Detroit, and Toronto."
+ }
+];
+
+// a = correct answer, w = three wrong answers, why = shown after answering
+const questions = [
+ {
+  "part": "mtn",
+  "q": "Which is the longest mountain range in North America?",
+  "a": "The Rocky Mountains",
+  "w": [
+   "The Appalachian Mountains",
+   "The Sierra Nevada",
+   "The Cascade Range"
+  ],
+  "why": "The Rockies stretch over 3,000 miles."
+ },
+ {
+  "part": "mtn",
+  "q": "The Rocky Mountains stretch from ___ down to ___.",
+  "a": "British Columbia, Canada; New Mexico, U.S.",
+  "w": [
+   "Alaska, U.S.; Arizona, U.S.",
+   "Quebec, Canada; Georgia, U.S.",
+   "Washington, U.S.; Mexico City, Mexico"
+  ],
+  "why": "From British Columbia in Canada down to New Mexico in the United States."
+ },
+ {
+  "part": "mtn",
+  "q": "About how long are the Rocky Mountains?",
+  "a": "Over 3,000 miles",
+  "w": [
+   "About 300 miles",
+   "About 1,000 miles",
+   "About 12,000 miles"
+  ],
+  "why": "The Rockies stretch over 3,000 miles."
+ },
+ {
+  "part": "mtn",
+  "q": "When were the Rocky Mountains formed?",
+  "a": "55 to 80 million years ago",
+  "w": [
+   "480 million years ago",
+   "55 to 80 thousand years ago",
+   "5 to 8 million years ago"
+  ],
+  "why": "The Rockies are younger than the Appalachians: formed 55 to 80 million years ago."
+ },
+ {
+  "part": "mtn",
+  "q": "The Rockies create the \"rain shadow effect.\" Where does the moist air come from?",
+  "a": "The Pacific Ocean",
+  "w": [
+   "The Atlantic Ocean",
+   "The Gulf of Mexico",
+   "The Arctic Ocean"
+  ],
+  "why": "Moist air from the Pacific Ocean rises over the mountains and cools."
+ },
+ {
+  "part": "mtn",
+  "q": "With the rain shadow effect, which side of the Rockies gets the rain?",
+  "a": "The western side is wet and the eastern (leeward) side stays dry",
+  "w": [
+   "The eastern side is wet and the western side stays dry",
+   "Both sides get the same amount of rain",
+   "Both sides stay dry"
+  ],
+  "why": "Rain falls on the western side; the eastern (leeward) side remains dry."
+ },
+ {
+  "part": "mtn",
+  "q": "Which natural resources are found in the Rocky Mountains?",
+  "a": "Coal, copper, gold, and natural gas",
+  "w": [
+   "Diamonds, silver, rubber, and tea",
+   "Cotton, rice, and sugar",
+   "Only fish and salt"
+  ],
+  "why": "The Rockies are rich in coal, copper, gold, and natural gas."
+ },
+ {
+  "part": "mtn",
+  "q": "Which range is one of the oldest mountain ranges in the world?",
+  "a": "The Appalachian Mountains",
+  "w": [
+   "The Rocky Mountains",
+   "The Cascade Range",
+   "The Sierra Nevada"
+  ],
+  "why": "The Appalachians are one of the oldest ranges in the world."
+ },
+ {
+  "part": "mtn",
+  "q": "About how old are the Appalachian Mountains?",
+  "a": "About 480 million years",
+  "w": [
+   "About 55 million years",
+   "About 80 million years",
+   "About 5 million years"
+  ],
+  "why": "The Appalachians formed about 480 million years ago."
+ },
+ {
+  "part": "mtn",
+  "q": "Why are the Appalachians much lower than the Rockies?",
+  "a": "Because of their age",
+  "w": [
+   "Because they are younger than the Rockies",
+   "Because they are under the ocean",
+   "Because volcanoes keep building them down"
+  ],
+  "why": "Due to their age, the Appalachians are much lower in elevation than the Rockies."
+ },
+ {
+  "part": "mtn",
+  "q": "What is the highest peak in the Appalachians?",
+  "a": "Mt. Mitchell",
+  "w": [
+   "Mount Whitney",
+   "Mount Rainier",
+   "Mt. St. Helens"
+  ],
+  "why": "Mt. Mitchell stands at around 6,684 feet."
+ },
+ {
+  "part": "mtn",
+  "q": "How tall is Mt. Mitchell?",
+  "a": "Around 6,684 feet",
+  "w": [
+   "Around 14,505 feet",
+   "Around 2,200 feet",
+   "Around 20,000 feet"
+  ],
+  "why": "Mt. Mitchell stands at around 6,684 feet."
+ },
+ {
+  "part": "mtn",
+  "q": "The Appalachians were a major barrier to early…",
+  "a": "westward expansion",
+  "w": [
+   "trade with Europe",
+   "Atlantic shipping",
+   "fishing in the Great Lakes"
+  ],
+  "why": "They were a major barrier to early westward expansion in U.S. history."
+ },
+ {
+  "part": "mtn",
+  "q": "The Appalachians are rich in which resources?",
+  "a": "Coal and forest resources",
+  "w": [
+   "Salt and sand",
+   "Lava and volcanic soil",
+   "Wheat and corn"
+  ],
+  "why": "Coal and forests."
+ },
+ {
+  "part": "mtn",
+  "q": "The Appalachian Trail is how long, and through how many states?",
+  "a": "2,200 miles through 14 states",
+  "w": [
+   "3,000 miles through 14 states",
+   "2,200 miles through 4 states",
+   "480 miles through 50 states"
+  ],
+  "why": "The Appalachian Trail runs 2,200 miles through 14 states."
+ },
+ {
+  "part": "mtn",
+  "q": "In which state is the Sierra Nevada mainly located?",
+  "a": "California",
+  "w": [
+   "Colorado",
+   "Florida",
+   "Oregon"
+  ],
+  "why": "The Sierra Nevada is in the western U.S., primarily in California."
+ },
+ {
+  "part": "mtn",
+  "q": "The Sierra Nevada is known for its stunning…",
+  "a": "granite formations",
+  "w": [
+   "volcanic cones",
+   "sand dunes",
+   "salt flats"
+  ],
+  "why": "It is known for its granite formations."
+ },
+ {
+  "part": "mtn",
+  "q": "Yosemite National Park and Lake Tahoe are in which mountain range?",
+  "a": "The Sierra Nevada",
+  "w": [
+   "The Cascade Range",
+   "The Rocky Mountains",
+   "The Appalachian Mountains"
+  ],
+  "why": "Both are in the Sierra Nevada."
+ },
+ {
+  "part": "mtn",
+  "q": "Mount Whitney, the highest peak in the contiguous United States, is part of which range?",
+  "a": "The Sierra Nevada",
+  "w": [
+   "The Rocky Mountains",
+   "The Cascade Range",
+   "The Appalachian Mountains"
+  ],
+  "why": "Mount Whitney is in the Sierra Nevada."
+ },
+ {
+  "part": "mtn",
+  "q": "Where is the Cascade Range located?",
+  "a": "The Pacific Northwest",
+  "w": [
+   "The Southeast",
+   "The Great Plains",
+   "The Northeast"
+  ],
+  "why": "The Cascade Range is in the Pacific Northwest."
+ },
+ {
+  "part": "mtn",
+  "q": "The Cascade Range is what kind of mountain chain?",
+  "a": "Volcanic",
+  "w": [
+   "Granite",
+   "Coal-bearing",
+   "Salt-covered"
+  ],
+  "why": "It is a volcanic mountain chain with several active volcanoes."
+ },
+ {
+  "part": "mtn",
+  "q": "Mount St. Helens and Mount Rainier are volcanoes in which range?",
+  "a": "The Cascade Range",
+  "w": [
+   "The Sierra Nevada",
+   "The Rocky Mountains",
+   "The Appalachian Mountains"
+  ],
+  "why": "Both are in the Cascade Range."
+ },
+ {
+  "part": "mtn",
+  "q": "The Cascade Range is part of the…",
+  "a": "Pacific Ring of Fire",
+  "w": [
+   "Great Basin",
+   "Rain shadow",
+   "Atlantic Trail"
+  ],
+  "why": "It is part of the Pacific Ring of Fire."
+ },
+ {
+  "part": "mtn",
+  "q": "What does tectonic activity in the Pacific Ring of Fire cause?",
+  "a": "Frequent earthquakes and volcanic eruptions",
+  "w": [
+   "Droughts and dust storms",
+   "Floods and ice storms",
+   "Sand dunes and salt flats"
+  ],
+  "why": "Tectonic activity causes frequent earthquakes and volcanic eruptions."
+ },
+ {
+  "part": "plain",
+  "q": "The Great Plains stretch from ___ down through the central United States.",
+  "a": "Canada",
+  "w": [
+   "Mexico",
+   "Alaska",
+   "Cuba"
+  ],
+  "why": "The Great Plains stretch from Canada down through the central U.S."
+ },
+ {
+  "part": "plain",
+  "q": "Which states are part of the Great Plains?",
+  "a": "Kansas, Nebraska, the Dakotas, and Texas",
+  "w": [
+   "Maine, Vermont, and New Hampshire",
+   "Florida, Georgia, and Alabama",
+   "Oregon, Washington, and Idaho"
+  ],
+  "why": "The handout lists Kansas, Nebraska, North and South Dakota, and Texas."
+ },
+ {
+  "part": "plain",
+  "q": "What is the climate of the Great Plains?",
+  "a": "Continental, with temperature extremes and periodic droughts",
+  "w": [
+   "Tropical, with rain all year",
+   "Frozen all year long",
+   "Mild, with no change between seasons"
+  ],
+  "why": "A continental climate: extremes in temperature, plus periodic droughts."
+ },
+ {
+  "part": "plain",
+  "q": "What kind of land covers the Great Plains?",
+  "a": "Flat, open grasslands",
+  "w": [
+   "Tall snowy peaks",
+   "Sand dunes",
+   "Thick rainforest"
+  ],
+  "why": "The flat, open terrain is ideal for large-scale farming and ranching."
+ },
+ {
+  "part": "plain",
+  "q": "The Great Plains are known as the ___ of North America.",
+  "a": "\"bread basket\"",
+  "w": [
+   "\"rain shadow\"",
+   "\"ring of fire\"",
+   "\"salt shaker\""
+  ],
+  "why": "They are critical for agricultural production."
+ },
+ {
+  "part": "plain",
+  "q": "The Great Plains are especially important for…",
+  "a": "wheat, corn, and cattle ranching",
+  "w": [
+   "coal, copper, and gold",
+   "saguaro and cactus farming",
+   "shipping and cargo ports"
+  ],
+  "why": "Wheat, corn, and cattle ranching."
+ },
+ {
+  "part": "plain",
+  "q": "Which plateau in the northwestern U.S. has lava flows and rich volcanic soil?",
+  "a": "The Columbia Plateau",
+  "w": [
+   "The Great Plains",
+   "The Great Basin",
+   "The Sonoran Plateau"
+  ],
+  "why": "The Columbia Plateau is shaped by lava flows and rich volcanic soil."
+ },
+ {
+  "part": "plain",
+  "q": "The Columbia Plateau is known for farming…",
+  "a": "wheat, barley, and apples",
+  "w": [
+   "saguaro cactus",
+   "rice and sugar",
+   "coal and copper"
+  ],
+  "why": "Its volcanic soil is productive for wheat, barley, and apples."
+ },
+ {
+  "part": "plain",
+  "q": "The Great Basin lies between which two mountain ranges?",
+  "a": "The Sierra Nevada and the Rocky Mountains",
+  "w": [
+   "The Appalachians and the Cascades",
+   "The Cascades and the Appalachians",
+   "The Rockies and the Atlantic coast"
+  ],
+  "why": "The Great Basin is an arid region between the Sierra Nevada and the Rocky Mountains."
+ },
+ {
+  "part": "plain",
+  "q": "What is a famous feature of the Great Basin, found in Utah?",
+  "a": "The Great Salt Lake",
+  "w": [
+   "Lake Tahoe",
+   "Lake Mead",
+   "Death Valley"
+  ],
+  "why": "The Great Salt Lake is in Utah."
+ },
+ {
+  "part": "plain",
+  "q": "The Great Basin is marked by…",
+  "a": "desert basins, salt flats, and small mountain ranges",
+  "w": [
+   "rainforests and wide rivers",
+   "glaciers and ice sheets",
+   "active volcanoes and lava"
+  ],
+  "why": "Desert basins, salt flats, and small mountain ranges."
+ },
+ {
+  "part": "plain",
+  "q": "Which is the largest desert in the U.S.?",
+  "a": "The Great Basin",
+  "w": [
+   "The Sonoran Desert",
+   "The Mojave Desert",
+   "The Great Plains"
+  ],
+  "why": "The handout says the Great Basin is the largest desert in the U.S."
+ },
+ {
+  "part": "des",
+  "q": "The Sonoran Desert covers parts of Arizona, California, and…",
+  "a": "northern Mexico",
+  "w": [
+   "Nevada and Utah",
+   "Texas and Kansas",
+   "Canada"
+  ],
+  "why": "Arizona, California, and northern Mexico."
+ },
+ {
+  "part": "des",
+  "q": "Which famous cactus lives in the Sonoran Desert?",
+  "a": "The saguaro",
+  "w": [
+   "The prickly pear of the Arctic",
+   "The Joshua tree only",
+   "The pine cone"
+  ],
+  "why": "The iconic saguaro cactus lives in the Sonoran Desert."
+ },
+ {
+  "part": "des",
+  "q": "Which desert animals live in the Sonoran Desert?",
+  "a": "The Gila monster and roadrunner",
+  "w": [
+   "The polar bear and walrus",
+   "The bison and elk",
+   "The beaver and moose"
+  ],
+  "why": "Desert-adapted animals like the Gila monster and roadrunner."
+ },
+ {
+  "part": "des",
+  "q": "What did native populations develop to farm in the Sonoran Desert?",
+  "a": "Irrigation techniques",
+  "w": [
+   "Ice fishing",
+   "Terrace logging",
+   "Snow plowing"
+  ],
+  "why": "Irrigation techniques, and modern cities like Phoenix and Tucson still rely on water management."
+ },
+ {
+  "part": "des",
+  "q": "Which modern cities rely heavily on water management in the Sonoran Desert?",
+  "a": "Phoenix and Tucson",
+  "w": [
+   "Chicago and Detroit",
+   "Seattle and Portland",
+   "Boston and New York"
+  ],
+  "why": "Phoenix and Tucson."
+ },
+ {
+  "part": "des",
+  "q": "The Mojave Desert spans southeastern California, Nevada, and parts of…",
+  "a": "Arizona",
+  "w": [
+   "Montana",
+   "Texas",
+   "Florida"
+  ],
+  "why": "Southeastern California, Nevada, and parts of Arizona."
+ },
+ {
+  "part": "des",
+  "q": "The Mojave is known for summer highs exceeding…",
+  "a": "120°F",
+  "w": [
+   "60°F",
+   "75°F",
+   "90°F"
+  ],
+  "why": "Extreme temperatures, with summer highs exceeding 120°F."
+ },
+ {
+  "part": "des",
+  "q": "Which place in the Mojave Desert is the hottest and driest location in North America?",
+  "a": "Death Valley",
+  "w": [
+   "Salt Lake",
+   "The Grand Canyon",
+   "Lake Tahoe"
+  ],
+  "why": "Death Valley."
+ },
+ {
+  "part": "des",
+  "q": "Which formations are found in the Mojave Desert?",
+  "a": "Sand dunes and salt flats",
+  "w": [
+   "Glaciers and fjords",
+   "Active volcanoes",
+   "Coral reefs"
+  ],
+  "why": "Sand dunes and salt flats."
+ },
+ {
+  "part": "riv",
+  "q": "Which is the largest river system in North America?",
+  "a": "The Mississippi River system",
+  "w": [
+   "The Colorado River",
+   "The St. Lawrence River",
+   "The Rio Grande"
+  ],
+  "why": "The Mississippi, with its tributaries, forms the largest river system in North America."
+ },
+ {
+  "part": "riv",
+  "q": "Which two rivers are major tributaries of the Mississippi?",
+  "a": "The Missouri and Ohio rivers",
+  "w": [
+   "The Colorado and Hudson rivers",
+   "The St. Lawrence and Columbia rivers",
+   "The Yukon and Rio Grande"
+  ],
+  "why": "The Missouri and Ohio rivers."
+ },
+ {
+  "part": "riv",
+  "q": "The Mississippi River flows from northern ___ down to the Gulf of Mexico.",
+  "a": "Minnesota",
+  "w": [
+   "Maine",
+   "Montana",
+   "Michigan"
+  ],
+  "why": "From northern Minnesota to the Gulf of Mexico."
+ },
+ {
+  "part": "riv",
+  "q": "Where does the Mississippi River end?",
+  "a": "The Gulf of Mexico",
+  "w": [
+   "The Gulf of California",
+   "The Atlantic Ocean at Maine",
+   "Lake Superior"
+  ],
+  "why": "It flows down to the Gulf of Mexico."
+ },
+ {
+  "part": "riv",
+  "q": "The Mississippi has historically been vital for…",
+  "a": "transportation, trade, and agriculture",
+  "w": [
+   "skiing and snowboarding",
+   "volcano watching",
+   "desert safaris"
+  ],
+  "why": "Transportation, trade, and agriculture."
+ },
+ {
+  "part": "riv",
+  "q": "The Mississippi and its wetlands are critical habitats for…",
+  "a": "migratory birds and fish",
+  "w": [
+   "polar bears",
+   "camels",
+   "penguins"
+  ],
+  "why": "Migratory birds and fish."
+ },
+ {
+  "part": "riv",
+  "q": "Where does the Colorado River start?",
+  "a": "The Rocky Mountains of Colorado",
+  "w": [
+   "The Appalachian Mountains",
+   "The Great Lakes",
+   "The Sierra Nevada"
+  ],
+  "why": "It originates in the Rocky Mountains of Colorado."
+ },
+ {
+  "part": "riv",
+  "q": "Which famous canyon does the Colorado River flow through?",
+  "a": "The Grand Canyon",
+  "w": [
+   "Death Valley",
+   "Yosemite Valley",
+   "The Great Basin"
+  ],
+  "why": "It flows southwest through the Grand Canyon."
+ },
+ {
+  "part": "riv",
+  "q": "The Colorado River flows into the…",
+  "a": "Gulf of California",
+  "w": [
+   "Gulf of Mexico",
+   "Atlantic Ocean",
+   "Great Salt Lake"
+  ],
+  "why": "Into the Gulf of California."
+ },
+ {
+  "part": "riv",
+  "q": "Which dam on the Colorado River created Lake Mead?",
+  "a": "Hoover Dam",
+  "w": [
+   "Grand Coulee Dam",
+   "Niagara Dam",
+   "Mead Dam"
+  ],
+  "why": "Hoover Dam created Lake Mead, a major reservoir."
+ },
+ {
+  "part": "riv",
+  "q": "What is Lake Mead?",
+  "a": "A major reservoir",
+  "w": [
+   "A volcanic crater",
+   "A salt flat",
+   "A glacier"
+  ],
+  "why": "Lake Mead is a major reservoir behind Hoover Dam."
+ },
+ {
+  "part": "riv",
+  "q": "The St. Lawrence River connects the Great Lakes with the…",
+  "a": "Atlantic Ocean",
+  "w": [
+   "Pacific Ocean",
+   "Gulf of Mexico",
+   "Arctic Ocean"
+  ],
+  "why": "It connects the Great Lakes with the Atlantic Ocean."
+ },
+ {
+  "part": "riv",
+  "q": "The St. Lawrence River forms a natural boundary between…",
+  "a": "Canada and the U.S.",
+  "w": [
+   "Mexico and the U.S.",
+   "Texas and Oklahoma",
+   "Arizona and California"
+  ],
+  "why": "Between Canada and the U.S."
+ },
+ {
+  "part": "riv",
+  "q": "Why is the St. Lawrence River a key route?",
+  "a": "Large cargo ships can travel between the Great Lakes and international waters",
+  "w": [
+   "It is a hiking trail",
+   "It is dry most of the year",
+   "It carries lava"
+  ],
+  "why": "It is a key shipping route."
+ },
+ {
+  "part": "riv",
+  "q": "Which are the five Great Lakes?",
+  "a": "Superior, Michigan, Huron, Erie, and Ontario",
+  "w": [
+   "Superior, Tahoe, Mead, Erie, and Ontario",
+   "Huron, Salt, Mead, Michigan, and Erie",
+   "Ontario, Tahoe, Salt, Huron, and Mead"
+  ],
+  "why": "Superior, Michigan, Huron, Erie, and Ontario."
+ },
+ {
+  "part": "riv",
+  "q": "The Great Lakes are the largest group of what kind of lakes on Earth?",
+  "a": "Freshwater lakes",
+  "w": [
+   "Salt lakes",
+   "Volcanic lakes",
+   "Frozen lakes"
+  ],
+  "why": "The largest group of freshwater lakes on Earth."
+ },
+ {
+  "part": "riv",
+  "q": "About how much of the world's fresh surface water do the Great Lakes hold?",
+  "a": "About 21%",
+  "w": [
+   "About 2%",
+   "About 50%",
+   "About 90%"
+  ],
+  "why": "About 21% of the world's fresh surface water."
+ },
+ {
+  "part": "riv",
+  "q": "What formed the Great Lakes?",
+  "a": "Glacial activity during the last Ice Age",
+  "w": [
+   "Volcanic eruptions",
+   "Wind and sand",
+   "Human-made dams"
+  ],
+  "why": "Formed by glacial activity during the last Ice Age."
+ },
+ {
+  "part": "riv",
+  "q": "Which cities are near the Great Lakes?",
+  "a": "Chicago, Detroit, and Toronto",
+  "w": [
+   "Phoenix, Tucson, and Las Vegas",
+   "Seattle, Portland, and Denver",
+   "Miami, Atlanta, and Houston"
+  ],
+  "why": "Chicago, Detroit, and Toronto."
+ },
+ {
+  "part": "riv",
+  "q": "The Great Lakes are vital for…",
+  "a": "shipping and industry",
+  "w": [
+   "desert farming",
+   "volcano research",
+   "skiing only"
+  ],
+  "why": "Shipping and industry, with ports connecting the U.S. and Canadian economies."
+ },
+ {
+  "part": "riv",
+  "q": "The Great Lakes also provide what to millions of people?",
+  "a": "Drinking water",
+  "w": [
+   "Natural gas",
+   "Gold",
+   "Lava rock"
+  ],
+  "why": "They provide drinking water to millions."
+ },
+ {
+  "part": "mix",
+  "q": "Which landform is called the \"bread basket\" of North America?",
+  "a": "The Great Plains",
+  "w": [
+   "The Great Basin",
+   "The Columbia Plateau",
+   "The Sonoran Desert"
+  ],
+  "why": "Wheat, corn, and cattle ranching."
+ },
+ {
+  "part": "mix",
+  "q": "Which place is the hottest and driest in North America?",
+  "a": "Death Valley",
+  "w": [
+   "The Great Salt Lake",
+   "Lake Mead",
+   "Mount Whitney"
+  ],
+  "why": "Death Valley is in the Mojave Desert."
+ },
+ {
+  "part": "mix",
+  "q": "Which TWO ranges are in the western U.S. and mostly in California or the Pacific Northwest?",
+  "a": "The Sierra Nevada and the Cascade Range",
+  "w": [
+   "The Appalachians and the Rockies",
+   "The Appalachians and the Cascades",
+   "The Rockies and the Great Plains"
+  ],
+  "why": "Sierra Nevada: California. Cascade Range: Pacific Northwest."
+ },
+ {
+  "part": "mix",
+  "q": "Which is the oldest: the Rockies, the Appalachians, or the Cascades?",
+  "a": "The Appalachians",
+  "w": [
+   "The Rockies",
+   "The Cascades",
+   "They are all the same age"
+  ],
+  "why": "About 480 million years, compared with 55 to 80 million for the Rockies."
+ },
+ {
+  "part": "mix",
+  "q": "Which river flows into the Gulf of Mexico, and which into the Gulf of California?",
+  "a": "Mississippi: Gulf of Mexico. Colorado: Gulf of California.",
+  "w": [
+   "Mississippi: Gulf of California. Colorado: Gulf of Mexico.",
+   "Both flow into the Gulf of Mexico.",
+   "Both flow into the Atlantic Ocean."
+  ],
+  "why": "Mississippi to the Gulf of Mexico; Colorado to the Gulf of California."
+ },
+ {
+  "part": "mix",
+  "q": "Which pair of landforms is made by volcanoes or lava?",
+  "a": "The Cascade Range and the Columbia Plateau",
+  "w": [
+   "The Great Plains and the Great Basin",
+   "The Appalachians and the Sierra Nevada",
+   "The Mojave and the Sonoran Deserts"
+  ],
+  "why": "Cascades: active volcanoes. Columbia Plateau: lava flows and volcanic soil."
+ }
+];
+
+/* ---------- HELPERS ---------- */
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+function escapeHtml(str){
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+document.getElementById('header-sub').textContent =
+  cards.length + ' study cards · ' + questions.length + ' quiz questions';
+
+/* ---------- STUDY CARDS ---------- */
+let deck = cards.slice();
+let idx = 0, flipped = false;
+const cardEl = document.getElementById('card');
+
+function renderCard(){
+  const c = deck[idx];
+  document.getElementById('front-text').textContent = c.term;
+  document.getElementById('back-text').textContent = c.def;
+  document.getElementById('face-part').textContent = PART_LABEL[c.part];
+  document.getElementById('back-part').textContent = PART_LABEL[c.part];
+  document.getElementById('flash-count').textContent = (idx+1) + ' / ' + deck.length;
+  document.getElementById('flash-fill').style.width = (((idx+1)/deck.length)*100) + '%';
+  flipped = false;
+  cardEl.classList.remove('flipped');
+}
+// snap back to the front before swapping text so the next answer never flashes
+function goToCard(n){
+  if(flipped){
+    cardEl.classList.add('no-transition');
+    cardEl.classList.remove('flipped');
+    flipped = false;
+    void cardEl.offsetWidth;
+    idx = n; renderCard();
+    void cardEl.offsetWidth;
+    cardEl.classList.remove('no-transition');
+  } else { idx = n; renderCard(); }
+}
+function toggleFlip(){ flipped = !flipped; cardEl.classList.toggle('flipped', flipped); }
+document.getElementById('card-wrap').addEventListener('click', toggleFlip);
+document.getElementById('flip-btn').addEventListener('click', e => { e.stopPropagation(); toggleFlip(); });
+document.getElementById('next-btn').addEventListener('click', () => goToCard((idx+1)%deck.length));
+document.getElementById('prev-btn').addEventListener('click', () => goToCard((idx-1+deck.length)%deck.length));
+document.getElementById('shuffle-btn').addEventListener('click', () => { deck = shuffle(deck); goToCard(0); });
+renderCard();
+
+/* ---------- SCOREBOARD STORAGE ---------- */
+const SCORE_KEY = 'latin-scores-geo2';
+const NAME_KEY = 'latin-player-name';
+
+function getPlayerName(){
+  let name = null;
+  try{ name = localStorage.getItem(NAME_KEY); }catch(e){}
+  if(!name){
+    name = (prompt('What\'s your name? (shown on the scoreboard)') || 'Player').trim().slice(0,24) || 'Player';
+    try{ localStorage.setItem(NAME_KEY, name); }catch(e){}
+  }
+  return name;
+}
+function setPlayerName(){
+  let current = '';
+  try{ current = localStorage.getItem(NAME_KEY) || ''; }catch(e){}
+  const name = (prompt('Enter your name for the scoreboard:', current) || current || 'Player').trim().slice(0,24) || 'Player';
+  try{ localStorage.setItem(NAME_KEY, name); }catch(e){}
+  document.getElementById('player-name-display').textContent = name;
+}
+function loadScores(){
+  try{ return JSON.parse(localStorage.getItem(SCORE_KEY) || '[]'); }catch(e){ return []; }
+}
+function saveScore(name, correct, total, percent, mode){
+  const scores = loadScores();
+  const now = new Date();
+  scores.push({
+    name, correct, total, percent, mode,
+    ts: now.getTime(),
+    date: now.toLocaleDateString(),
+    time: now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
+  });
+  while(scores.length > 50) scores.shift();
+  try{ localStorage.setItem(SCORE_KEY, JSON.stringify(scores)); }catch(e){}
+}
+const MODE_LABEL = {all:'Everything', char:'Characterization', fore:'Foreshadowing', amb:'Ambiguity'};
+function renderScoreboard(){
+  const content = document.getElementById('scores-content');
+  const scores = loadScores();
+  if(scores.length === 0){
+    content.innerHTML = '<div class="score-empty">No quiz attempts logged yet on this device.<br>Finish a quiz to appear here.</div>';
+    return;
+  }
+  const sorted = scores.slice().sort((a,b) => b.percent - a.percent || (b.ts||0) - (a.ts||0));
+  let current = '';
+  try{ current = localStorage.getItem(NAME_KEY) || ''; }catch(e){}
+  const rows = sorted.slice(0,20).map(s => (
+    '<tr class="' + (s.name === current ? 'you' : '') + '">' +
+      '<td>' + escapeHtml(s.name) + '</td>' +
+      '<td>' + s.correct + ' / ' + s.total + '</td>' +
+      '<td class="score-percent">' + s.percent + '%</td>' +
+      '<td>' + escapeHtml(MODE_LABEL[s.mode] || '') + '</td>' +
+      '<td>' + s.date + '</td>' +
+      '<td>' + (s.time || '&mdash;') + '</td>' +
+    '</tr>'
+  )).join('');
+  content.innerHTML =
+    '<table class="score-table"><thead><tr>' +
+    '<th>Name</th><th>Score</th><th>%</th><th>Quiz</th><th>Date</th><th>Time</th>' +
+    '</tr></thead><tbody>' + rows + '</tbody></table>';
+}
+
+/* ---------- QUIZ ---------- */
+let qDeck = [], qIdx = 0, qCorrect = 0, qAnswered = 0, qMode = 'all', qLocked = false, qMissed = [];
+const setupEl = document.getElementById('quiz-setup');
+const playEl = document.getElementById('quiz-play');
+const doneEl = document.getElementById('quiz-done');
+const optionsEl = document.getElementById('options');
+const feedbackEl = document.getElementById('quiz-feedback');
+const nextBtn = document.getElementById('quiz-next');
+
+function questionsFor(mode){
+  return mode === 'all' ? questions.slice() : questions.filter(q => q.part === mode);
+}
+// build the quiz menu from the data so the counts are always right
+(function buildMenu(){
+  const list = document.getElementById('mode-list');
+  [['all','Everything'],['mtn','Part 1: Mountains'],['plain','Part 2: Plains, Plateaus & Basins'],['des','Part 3: Deserts'],['riv','Part 4: Rivers & Great Lakes']].forEach((m,i) => {
+    const b = document.createElement('button');
+    b.className = 'mode-pick' + (i === 0 ? ' primary-pick' : '');
+    b.textContent = m[1] + ' — ' + questionsFor(m[0]).length + ' questions';
+    b.addEventListener('click', () => { getPlayerName(); startQuiz(m[0]); });
+    list.appendChild(b);
+  });
+})();
+
+function startQuiz(mode){
+  qMode = mode;
+  qDeck = shuffle(questionsFor(mode));
+  qIdx = 0; qCorrect = 0; qAnswered = 0; qMissed = [];
+  setupEl.style.display = 'none';
+  doneEl.style.display = 'none';
+  playEl.style.display = '';
+  document.getElementById('quiz-score').textContent = 'Score: 0 correct / 0 answered';
+  document.getElementById('player-name-display').textContent = getPlayerName();
+  renderQuestion();
+}
+function renderQuestion(){
+  const q = qDeck[qIdx];
+  document.getElementById('quiz-part').textContent = PART_LABEL[q.part];
+  document.getElementById('quiz-q').textContent = q.q;
+  document.getElementById('quiz-count').textContent = (qIdx+1) + ' / ' + qDeck.length;
+  document.getElementById('quiz-fill').style.width = (((qIdx+1)/qDeck.length)*100) + '%';
+  feedbackEl.textContent = '';
+  feedbackEl.className = 'feedback';
+  nextBtn.style.display = 'none';
+  optionsEl.innerHTML = '';
+  qLocked = false;
+  shuffle([q.a].concat(q.w)).forEach((text, i) => {
+    const b = document.createElement('button');
+    b.className = 'opt';
+    b.setAttribute('data-text', text);
+    b.innerHTML = '<span class="key">' + 'ABCD'[i] + '</span> ' + escapeHtml(text);
+    b.addEventListener('click', () => choose(b));
+    optionsEl.appendChild(b);
+  });
+}
+function choose(btn){
+  if(qLocked) return;
+  qLocked = true;
+  const q = qDeck[qIdx];
+  const picked = btn.getAttribute('data-text');
+  const ok = picked === q.a;
+  qAnswered++;
+  Array.prototype.forEach.call(optionsEl.children, b => {
+    b.disabled = true;
+    if(b.getAttribute('data-text') === q.a) b.classList.add('right');
+  });
+  if(ok){
+    qCorrect++;
+    feedbackEl.textContent = 'Correct! ' + q.why;
+    feedbackEl.className = 'feedback correct';
+  } else {
+    btn.classList.add('wrong');
+    qMissed.push(q);
+    feedbackEl.textContent = 'Not quite. ' + q.why;
+    feedbackEl.className = 'feedback wrong';
+  }
+  document.getElementById('quiz-score').textContent = 'Score: ' + qCorrect + ' correct / ' + qAnswered + ' answered';
+  nextBtn.textContent = qIdx + 1 >= qDeck.length ? 'See results' : 'Next';
+  nextBtn.style.display = '';
+  nextBtn.focus();
+}
+nextBtn.addEventListener('click', () => {
+  if(!qLocked) return;          // ignore clicks before an answer is chosen
+  qLocked = false;
+  qIdx++;
+  if(qIdx >= qDeck.length){ finishQuiz(); return; }
+  renderQuestion();
+});
+// keys 1-4 or A-D pick an answer; Enter moves on
+document.addEventListener('keydown', e => {
+  if(playEl.style.display === 'none' || quizView.style.display === 'none') return;
+  if(e.key === 'Enter' && qLocked){
+    // preventDefault stops the focused Next button from also firing its own
+    // click, which would skip a question
+    e.preventDefault();
+    nextBtn.click();
+    return;
+  }
+  const k = '1234abcd'.indexOf(e.key.toLowerCase());
+  if(k !== -1 && !qLocked){
+    const b = optionsEl.children[k % 4];
+    if(b) b.click();
+  }
+});
+function scoreMessage(p){
+  if(p >= 100) return {title:'Perfect score!', msg:'Every answer correct. You really know North America&rsquo;s physical geography.'};
+  if(p >= 90)  return {title:'Excellent work!', msg:'Nearly flawless. Just a detail or two to polish.'};
+  if(p >= 80)  return {title:'Great job!', msg:'Solid understanding. Review the ones you missed and you will have them locked in.'};
+  if(p >= 70)  return {title:'Good effort!', msg:'You are on the right track. A bit more practice and these will stick.'};
+  return {title:'Keep practicing!', msg:'Go back through the study cards, then try the quiz again. You will improve fast.'};
+}
+function finishQuiz(){
+  const percent = Math.round((qCorrect / qDeck.length) * 100);
+  saveScore(getPlayerName(), qCorrect, qDeck.length, percent, qMode);
+  const m = scoreMessage(percent);
+  playEl.style.display = 'none';
+  doneEl.style.display = '';
+  document.getElementById('done-percent').textContent = percent + '% correct (' + qCorrect + ' of ' + qDeck.length + ')';
+  document.getElementById('done-title').textContent = m.title;
+  document.getElementById('done-msg').textContent = m.msg;
+  const missedEl = document.getElementById('done-missed');
+  if(qMissed.length){
+    missedEl.innerHTML = '<strong style="color:var(--gold-bright);">Review these:</strong>' +
+      '<ul style="margin:8px 0 0;padding-left:20px;line-height:1.6;">' +
+      qMissed.map(q => '<li>' + escapeHtml(q.q) + '<br><em>' + escapeHtml(q.a) + '</em></li>').join('') +
+      '</ul>';
+  } else { missedEl.innerHTML = ''; }
+}
+document.getElementById('done-restart').addEventListener('click', () => startQuiz(qMode));
+document.getElementById('done-menu').addEventListener('click', () => {
+  doneEl.style.display = 'none'; playEl.style.display = 'none'; setupEl.style.display = '';
+});
+document.getElementById('change-name-btn').addEventListener('click', setPlayerName);
+
+/* ---------- MODE SWITCH ---------- */
+const btnFlash = document.getElementById('btn-flash');
+const btnQuiz = document.getElementById('btn-quiz');
+const btnScores = document.getElementById('btn-scores');
+const flashView = document.getElementById('flash-view');
+const quizView = document.getElementById('quiz-view');
+const scoresView = document.getElementById('scores-view');
+function setActiveTab(activeBtn){
+  [btnFlash, btnQuiz, btnScores].forEach(b => b.classList.remove('active'));
+  activeBtn.classList.add('active');
+  [flashView, quizView, scoresView].forEach(v => v.style.display = 'none');
+}
+btnFlash.addEventListener('click', () => { setActiveTab(btnFlash); flashView.style.display = ''; });
+btnQuiz.addEventListener('click', () => {
+  setActiveTab(btnQuiz);
+  quizView.style.display = '';
+  let n = 'Player';
+  try{ n = localStorage.getItem(NAME_KEY) || 'Player'; }catch(e){}
+  document.getElementById('player-name-display').textContent = n;
+});
+btnScores.addEventListener('click', () => { setActiveTab(btnScores); scoresView.style.display = ''; renderScoreboard(); });
+</script>
+
+</body>
+</html>
