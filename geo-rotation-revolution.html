@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geography: Rotation, Revolution & Models | Basis Grade 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --stone: #2b2620;
+    --stone-light: #3c352c;
+    --gold: #b8892b;
+    --gold-bright: #d9a840;
+    --plaster: #ece4d3;
+    --plaster-dim: #c9beaa;
+    --wine: #7a2e2e;
+    --wine-bright: #a8433f;
+    --green: #4f6b4a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(184,137,43,0.08), transparent 60%),
+      var(--stone);
+    color:var(--plaster);
+    font-family:'Source Serif 4', serif;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:32px 20px 60px;
+  }
+  header{
+    text-align:center;
+    max-width:640px;
+    margin-bottom:28px;
+  }
+  .kicker{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.12em;
+    color:var(--gold-bright);
+    margin:0 0 6px;
+  }
+  h1{
+    font-family:'Cinzel',serif;
+    font-weight:700;
+    font-size:clamp(24px,4vw,34px);
+    margin:0 0 8px;
+    color:var(--plaster);
+  }
+  .sub{
+    color:var(--plaster-dim);
+    font-size:15px;
+    margin:0;
+  }
+  .modebar{
+    display:flex;
+    gap:8px;
+    margin-bottom:26px;
+    background:var(--stone-light);
+    padding:5px;
+    border-radius:999px;
+    border:1px solid rgba(184,137,43,0.25);
+  }
+  .modebar button{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.03em;
+    padding:9px 20px;
+    border-radius:999px;
+    border:none;
+    background:transparent;
+    color:var(--plaster-dim);
+    cursor:pointer;
+    transition:background .2s, color .2s;
+  }
+  .modebar button.active{
+    background:var(--gold);
+    color:var(--stone);
+  }
+  .stage{
+    width:100%;
+    max-width:560px;
+  }
+  .progress{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:14px;
+    font-size:13px;
+    color:var(--plaster-dim);
+    font-family:'Cinzel',serif;
+    letter-spacing:0.05em;
+  }
+  .progress-track{
+    flex:1;
+    height:3px;
+    background:rgba(236,228,211,0.15);
+    margin:0 14px;
+    position:relative;
+    border-radius:2px;
+    overflow:hidden;
+  }
+  .progress-fill{
+    position:absolute;
+    left:0;top:0;bottom:0;
+    background:var(--gold);
+    transition:width .3s ease;
+  }
+
+  /* FLASHCARD MODE */
+  .card-wrap{
+    perspective:1400px;
+    height:280px;
+    margin-bottom:22px;
+    cursor:pointer;
+  }
+  .card{
+    position:relative;
+    width:100%;
+    height:100%;
+    transform-style:preserve-3d;
+    transition:transform .5s cubic-bezier(.4,.2,.2,1);
+  }
+  .card.flipped{ transform:rotateY(180deg); }
+  .card.no-transition{ transition:none !important; }
+  .face{
+    position:absolute;
+    inset:0;
+    backface-visibility:hidden;
+    border-radius:6px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:32px;
+    border:1px solid rgba(184,137,43,0.3);
+  }
+  .face.front{
+    background:linear-gradient(160deg, var(--stone-light), var(--stone));
+    box-shadow: inset 0 0 0 1px rgba(236,228,211,0.04), 0 10px 30px rgba(0,0,0,0.35);
+  }
+  .face.back{
+    background:linear-gradient(160deg, var(--wine-bright), var(--wine));
+    transform:rotateY(180deg);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  }
+  .card-num{
+    font-family:'Cinzel',serif;
+    font-size:12px;
+    letter-spacing:0.1em;
+    color:var(--gold-bright);
+    position:absolute;
+    top:16px;
+    left:20px;
+  }
+  .latin{
+    font-family:'Cinzel',serif;
+    font-weight:700;
+    font-size:clamp(22px,5vw,30px);
+    color:var(--plaster);
+    line-height:1.3;
+  }
+  .hint{
+    margin-top:14px;
+    font-size:12px;
+    color:var(--plaster-dim);
+    letter-spacing:0.05em;
+  }
+  .pron{
+    font-family:'Source Serif 4',serif;
+    font-style:italic;
+    font-size:14px;
+    color:var(--gold-bright);
+    margin-top:8px;
+  }
+  .speak-btn{
+    background:none;
+    border:1px solid rgba(184,137,43,0.4);
+    color:var(--gold-bright);
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:15px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    margin-top:12px;
+    transition:background .2s;
+  }
+  .speak-btn:hover{ background:rgba(184,137,43,0.15); }
+  .speak-btn:active{ transform:scale(0.94); }
+  .definition{
+    font-size:clamp(20px,4.5vw,26px);
+    color:var(--plaster);
+    font-style:italic;
+  }
+  .controls{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+  }
+  .controls button{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.05em;
+    background:var(--stone-light);
+    color:var(--plaster);
+    border:1px solid rgba(184,137,43,0.3);
+    padding:11px 20px;
+    border-radius:4px;
+    cursor:pointer;
+    transition:background .2s, border-color .2s;
+  }
+  .controls button:hover{ border-color:var(--gold-bright); }
+  .controls button.primary{
+    background:var(--gold);
+    color:var(--stone);
+    border-color:var(--gold);
+    font-weight:700;
+  }
+  .controls button:disabled{
+    opacity:0.35;
+    cursor:default;
+  }
+  .shuffle-row{
+    display:flex;
+    justify-content:center;
+    margin-top:16px;
+  }
+  .shuffle-row button{
+    background:none;
+    border:none;
+    color:var(--plaster-dim);
+    font-size:13px;
+    font-family:'Source Serif 4',serif;
+    text-decoration:underline;
+    text-decoration-color:rgba(184,137,43,0.5);
+    cursor:pointer;
+  }
+
+  /* QUIZ MODE */
+  .quiz-box{
+    background:var(--stone-light);
+    border:1px solid rgba(184,137,43,0.25);
+    border-radius:6px;
+    padding:36px 30px;
+    margin-bottom:20px;
+    min-height:280px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .quiz-prompt{
+    font-size:13px;
+    color:var(--gold-bright);
+    font-family:'Cinzel',serif;
+    letter-spacing:0.08em;
+    margin-bottom:8px;
+  }
+  .quiz-latin{
+    font-family:'Cinzel',serif;
+    font-weight:700;
+    font-size:clamp(24px,5vw,30px);
+    margin-bottom:22px;
+  }
+  .quiz-box input{
+    width:100%;
+    font-family:'Source Serif 4',serif;
+    font-size:18px;
+    padding:12px 14px;
+    border-radius:4px;
+    border:1px solid rgba(236,228,211,0.25);
+    background:rgba(0,0,0,0.2);
+    color:var(--plaster);
+    margin-bottom:14px;
+  }
+  .quiz-box input:focus{
+    outline:none;
+    border-color:var(--gold-bright);
+  }
+  .feedback{
+    font-size:15px;
+    min-height:24px;
+    margin-bottom:6px;
+  }
+  .feedback.correct{ color:#8fbf7a; }
+  .feedback.wrong{ color:#d98a8a; }
+  .quiz-score{
+    text-align:center;
+    font-family:'Cinzel',serif;
+    letter-spacing:0.05em;
+    font-size:13px;
+    color:var(--plaster-dim);
+    margin-top:8px;
+  }
+  footer{
+    margin-top:36px;
+    font-size:12px;
+    color:rgba(236,228,211,0.35);
+    text-align:center;
+  }
+  .player-badge{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    font-size:13px;
+    color:var(--plaster-dim);
+    margin-bottom:16px;
+  }
+  .player-badge button{
+    background:none;
+    border:none;
+    color:var(--gold-bright);
+    text-decoration:underline;
+    cursor:pointer;
+    font-size:13px;
+    font-family:'Source Serif 4',serif;
+    padding:0;
+  }
+  .score-table{
+    width:100%;
+    border-collapse:collapse;
+    background:var(--stone-light);
+    border:1px solid rgba(184,137,43,0.25);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .score-table th, .score-table td{
+    padding:12px 14px;
+    text-align:left;
+    font-size:14px;
+  }
+  .score-table th{
+    font-family:'Cinzel',serif;
+    font-size:11px;
+    letter-spacing:0.08em;
+    color:var(--gold-bright);
+    border-bottom:1px solid rgba(184,137,43,0.25);
+  }
+  .score-table tbody tr:not(:last-child) td{
+    border-bottom:1px solid rgba(236,228,211,0.08);
+  }
+  .score-table tbody tr.you{
+    background:rgba(184,137,43,0.12);
+  }
+  .score-percent{
+    font-weight:600;
+  }
+  .score-empty{
+    text-align:center;
+    color:var(--plaster-dim);
+    font-size:14px;
+    padding:40px 20px;
+    background:var(--stone-light);
+    border:1px dashed rgba(184,137,43,0.3);
+    border-radius:6px;
+  }
+  .score-actions{
+    display:flex;
+    justify-content:center;
+    margin-top:16px;
+  }
+  .score-actions button{
+    background:none;
+    border:none;
+    color:var(--plaster-dim);
+    font-size:13px;
+    font-family:'Source Serif 4',serif;
+    text-decoration:underline;
+    text-decoration-color:rgba(184,137,43,0.4);
+    cursor:pointer;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .card{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" style="align-self:flex-start;margin-left:2px;color:var(--gold-bright);font-family:'Cinzel',serif;font-size:12px;letter-spacing:0.08em;text-decoration:none;margin-bottom:18px;">&larr; ALL LESSONS</a>
+<header>
+  <p class="kicker">Geography &middot; Earth &amp; the Solar System</p>
+  <h1>Rotation, Revolution, Geocentric &amp; Heliocentric</h1>
+  <p class="sub" id="header-sub">Study cards and a multiple-choice quiz</p>
+</header>
+
+<div class="modebar">
+  <button id="btn-flash" class="active">Study cards</button>
+  <button id="btn-quiz">Quiz me</button>
+  <button id="btn-scores">Scoreboard</button>
+</div>
+
+<div class="stage">
+
+  <!-- STUDY CARDS -->
+  <div id="flash-view">
+    <div class="progress">
+      <span id="flash-count">1 / 14</span>
+      <div class="progress-track"><div class="progress-fill" id="flash-fill"></div></div>
+      <span>&nbsp;</span>
+    </div>
+
+    <div class="card-wrap tall" id="card-wrap">
+      <div class="card" id="card">
+        <div class="face front">
+          <span class="card-num" id="face-part">Part 1</span>
+          <div class="latin" id="front-text">Characterization</div>
+          <div class="hint">tap card to reveal the definition</div>
+        </div>
+        <div class="face back">
+          <span class="card-num" id="back-part">Part 1</span>
+          <div class="definition long" id="back-text"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="prev-btn">&larr; Prev</button>
+      <button id="flip-btn" class="primary">Flip</button>
+      <button id="next-btn">Next &rarr;</button>
+    </div>
+    <div class="shuffle-row">
+      <button id="shuffle-btn">Shuffle cards</button>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz-view" style="display:none;">
+    <div class="player-badge">
+      Playing as <strong id="player-name-display">Player</strong>
+      <button id="change-name-btn">change</button>
+    </div>
+
+    <div id="quiz-setup" class="quiz-box">
+      <p class="quiz-prompt">Choose a quiz</p>
+      <div class="quiz-latin" style="font-size:20px;margin-bottom:20px;">What do you want to practice?</div>
+      <div id="mode-list" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+
+    <div id="quiz-play" style="display:none;">
+      <div class="progress">
+        <span id="quiz-count">1 / 25</span>
+        <div class="progress-track"><div class="progress-fill" id="quiz-fill"></div></div>
+        <span>&nbsp;</span>
+      </div>
+      <div class="quiz-box">
+        <p class="quiz-prompt" id="quiz-part">Part 1 &middot; Characterization</p>
+        <div class="question-text" id="quiz-q"></div>
+        <div id="options" class="options"></div>
+        <div class="feedback" id="quiz-feedback"></div>
+        <div class="controls">
+          <button id="quiz-next" class="primary" style="display:none;">Next</button>
+        </div>
+      </div>
+      <div class="quiz-score" id="quiz-score">Score: 0 correct / 0 answered</div>
+    </div>
+
+    <div id="quiz-done" class="quiz-box" style="display:none;text-align:center;">
+      <p class="quiz-prompt" id="done-percent"></p>
+      <div class="quiz-latin" id="done-title"></div>
+      <p id="done-msg" style="color:var(--plaster-dim);font-size:15px;line-height:1.5;margin:0 0 20px;"></p>
+      <div id="done-missed" style="text-align:left;font-size:14px;color:var(--plaster-dim);margin-bottom:20px;"></div>
+      <div class="controls">
+        <button id="done-restart" class="primary">Try again</button>
+        <button id="done-menu">Change quiz</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCOREBOARD -->
+  <div id="scores-view" style="display:none;">
+    <div id="scores-content"></div>
+  </div>
+
+</div>
+
+<footer>Based on the class worksheets on rotation, revolution, and the geocentric and heliocentric models. Scoreboard is saved in this browser only.</footer>
+
+<style>
+  .card-wrap.tall{ height:340px; }
+  .definition.long{
+    font-size:clamp(15px,3.6vw,18px);
+    line-height:1.55;
+    font-style:normal;
+    white-space:pre-line;
+  }
+  .question-text{
+    font-family:'Source Serif 4',serif;
+    font-size:clamp(18px,4.2vw,21px);
+    line-height:1.45;
+    margin-bottom:20px;
+    color:var(--plaster);
+  }
+  .options{ display:flex; flex-direction:column; gap:10px; margin-bottom:14px; }
+  .opt{
+    font-family:'Source Serif 4',serif;
+    font-size:16px;
+    line-height:1.4;
+    text-align:left;
+    background:rgba(0,0,0,0.2);
+    color:var(--plaster);
+    border:1px solid rgba(184,137,43,0.3);
+    padding:12px 14px;
+    border-radius:4px;
+    cursor:pointer;
+    transition:border-color .2s, background .2s;
+  }
+  .opt:hover:not(:disabled){ border-color:var(--gold-bright); background:rgba(184,137,43,0.12); }
+  .opt:disabled{ cursor:default; }
+  .opt.right{ border-color:#8fbf7a; background:rgba(143,191,122,0.16); }
+  .opt.wrong{ border-color:#d98a8a; background:rgba(217,138,138,0.16); }
+  .opt .key{
+    display:inline-block;
+    min-width:22px;
+    font-family:'Cinzel',serif;
+    font-size:12px;
+    color:var(--gold-bright);
+  }
+  .mode-pick{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.04em;
+    text-align:left;
+    background:rgba(0,0,0,0.2);
+    color:var(--plaster);
+    border:1px solid rgba(184,137,43,0.3);
+    padding:14px 16px;
+    border-radius:4px;
+    cursor:pointer;
+    transition:border-color .2s, background .2s;
+  }
+  .mode-pick:hover{ border-color:var(--gold-bright); background:rgba(184,137,43,0.12); }
+  .mode-pick.primary-pick{ border-color:var(--gold); }
+</style>
+
+<script>
+/* ---------- CONTENT (from the class notes) ---------- */
+const PART_LABEL = {"rr": "Part 1 · Rotation vs. Revolution", "geo": "Part 2 · Geocentric vs. Heliocentric", "ppl": "Part 3 · Copernicus & Ptolemy", "why": "Part 4 · Why We Don’t Feel It", "mix": "Mixed review"};
+
+const cards = [
+ {
+  "part": "rr",
+  "term": "Rotation",
+  "def": "Earth spinning on its axis.\nOne rotation takes 24 hours.\nEarth spins from west to east, at a constant speed, always in the same direction.\nRotation gives us day and night."
+ },
+ {
+  "part": "rr",
+  "term": "Revolution",
+  "def": "Earth orbiting (traveling around) the Sun.\nOne revolution takes a year.\nEarth’s orbit is an ellipse, and Earth travels counterclockwise around the Sun.\nThe seasons change as Earth orbits the Sun."
+ },
+ {
+  "part": "rr",
+  "term": "Day and night",
+  "def": "Because Earth rotates, when one side of the world is having daytime, the other side is having nighttime."
+ },
+ {
+  "part": "rr",
+  "term": "Sunrise and sunset",
+  "def": "Both come from rotation.\nSunrise: we begin to turn toward the Sun.\nSunset: we begin to turn away from the Sun.\nThe Sun appears to rise in the east and set in the west."
+ },
+ {
+  "part": "why",
+  "term": "Why we don’t feel Earth spin",
+  "def": "Earth spins smoothly and never changes pace, so we do not feel it, even though it spins at roughly 1,000 miles per hour."
+ },
+ {
+  "part": "why",
+  "term": "Why we aren’t thrown into space",
+  "def": "Gravity holds us down to Earth, so we don’t get thrown off into space even though Earth is spinning very fast."
+ },
+ {
+  "part": "geo",
+  "term": "Geocentric theory",
+  "def": "The theory that the Earth is at the center of the universe, and the Sun and the other planets revolve around the Earth.\n(geo = earth)"
+ },
+ {
+  "part": "geo",
+  "term": "Heliocentric theory",
+  "def": "The theory that the Sun is at the center of the solar system, and the Earth and the other planets revolve around the Sun.\n(helio = sun)"
+ },
+ {
+  "part": "geo",
+  "term": "Helio and geo",
+  "def": "helio means sun.\ngeo means earth."
+ },
+ {
+  "part": "geo",
+  "term": "Why people once believed in the geocentric model",
+  "def": "Long ago, people believed the Earth did not move because it did not feel like we were spinning."
+ },
+ {
+  "part": "ppl",
+  "term": "Nicolaus Copernicus",
+  "def": "An astronomer who advanced the heliocentric theory. He believed the Earth and the other planets revolve around the Sun. Copernicus died at 70 years old."
+ },
+ {
+  "part": "ppl",
+  "term": "Claudius Ptolemy",
+  "def": "An astronomer who advanced the geocentric theory. He used mathematics to improve the geocentric theory."
+ }
+];
+
+// a = correct answer, w = three wrong answers, why = shown after answering
+const questions = [
+ {
+  "part": "rr",
+  "q": "When one side of the world is having daytime, the other side is having nighttime. This is caused by…",
+  "a": "Rotation",
+  "w": [
+   "Revolution",
+   "Both rotation and revolution",
+   "Neither"
+  ],
+  "why": "Earth spins, so only one side faces the Sun at a time."
+ },
+ {
+  "part": "rr",
+  "q": "The Earth orbits around the Sun. This movement is called…",
+  "a": "Revolution",
+  "w": [
+   "Rotation",
+   "Both rotation and revolution",
+   "Neither"
+  ],
+  "why": "Revolution is Earth’s orbit around the Sun."
+ },
+ {
+  "part": "rr",
+  "q": "The seasons change as the Earth orbits around the Sun. This is caused by…",
+  "a": "Revolution",
+  "w": [
+   "Rotation",
+   "Both rotation and revolution",
+   "Neither"
+  ],
+  "why": "The seasons change as Earth travels around the Sun."
+ },
+ {
+  "part": "rr",
+  "q": "The Sun appears to rise in the east and set in the west. This is because of…",
+  "a": "Rotation",
+  "w": [
+   "Revolution",
+   "Both rotation and revolution",
+   "Neither"
+  ],
+  "why": "Earth’s spin makes the Sun appear to move across the sky."
+ },
+ {
+  "part": "rr",
+  "q": "The Earth spins on its axis. This movement is called…",
+  "a": "Rotation",
+  "w": [
+   "Revolution",
+   "Both rotation and revolution",
+   "Neither"
+  ],
+  "why": "Rotation means spinning on an axis."
+ },
+ {
+  "part": "rr",
+  "q": "The Earth spins at a constant speed, always in the same direction. This describes…",
+  "a": "Rotation",
+  "w": [
+   "Revolution",
+   "Both rotation and revolution",
+   "Neither"
+  ],
+  "why": "Rotation is smooth, steady and always in the same direction."
+ },
+ {
+  "part": "rr",
+  "q": "Which movement of Earth is completed in a year?",
+  "a": "Revolution",
+  "w": [
+   "Rotation",
+   "Both rotation and revolution",
+   "Neither"
+  ],
+  "why": "One revolution around the Sun takes a year."
+ },
+ {
+  "part": "rr",
+  "q": "Which movement of Earth is completed in 24 hours?",
+  "a": "Rotation",
+  "w": [
+   "Revolution",
+   "Both rotation and revolution",
+   "Neither"
+  ],
+  "why": "One rotation takes 24 hours (one day)."
+ },
+ {
+  "part": "rr",
+  "q": "The Earth spins from west to east. This is…",
+  "a": "Rotation",
+  "w": [
+   "Revolution",
+   "Both rotation and revolution",
+   "Neither"
+  ],
+  "why": "Rotation is west to east."
+ },
+ {
+  "part": "rr",
+  "q": "Sunset happens as we begin to turn away from the Sun. This is caused by…",
+  "a": "Rotation",
+  "w": [
+   "Revolution",
+   "Both rotation and revolution",
+   "Neither"
+  ],
+  "why": "Turning away from the Sun is rotation."
+ },
+ {
+  "part": "rr",
+  "q": "Earth’s path, or orbit, around the Sun is an ellipse. This path is part of…",
+  "a": "Revolution",
+  "w": [
+   "Rotation",
+   "Both rotation and revolution",
+   "Neither"
+  ],
+  "why": "The orbit is the path of the revolution."
+ },
+ {
+  "part": "rr",
+  "q": "We don’t feel the Earth spin because it spins smoothly, never changing pace. This describes…",
+  "a": "Rotation",
+  "w": [
+   "Revolution",
+   "Both rotation and revolution",
+   "Neither"
+  ],
+  "why": "Rotation is smooth and steady, so we don’t feel it."
+ },
+ {
+  "part": "rr",
+  "q": "Sunrise happens as we begin to turn toward the Sun. This is caused by…",
+  "a": "Rotation",
+  "w": [
+   "Revolution",
+   "Both rotation and revolution",
+   "Neither"
+  ],
+  "why": "Turning toward the Sun is rotation."
+ },
+ {
+  "part": "rr",
+  "q": "The Earth travels counterclockwise around the Sun. This describes…",
+  "a": "Revolution",
+  "w": [
+   "Rotation",
+   "Both rotation and revolution",
+   "Neither"
+  ],
+  "why": "Revolution (the orbit) is counterclockwise."
+ },
+ {
+  "part": "rr",
+  "q": "How long does one rotation of the Earth take?",
+  "a": "24 hours",
+  "w": [
+   "One year",
+   "One month",
+   "12 hours"
+  ],
+  "why": "Rotation takes 24 hours, which is one day."
+ },
+ {
+  "part": "rr",
+  "q": "How long does one revolution of the Earth around the Sun take?",
+  "a": "One year",
+  "w": [
+   "24 hours",
+   "One month",
+   "One week"
+  ],
+  "why": "Revolution takes a year."
+ },
+ {
+  "part": "rr",
+  "q": "Which movement gives us day and night?",
+  "a": "Rotation",
+  "w": [
+   "Revolution",
+   "The Sun’s orbit around Earth",
+   "Gravity"
+  ],
+  "why": "Earth’s rotation causes day and night."
+ },
+ {
+  "part": "rr",
+  "q": "What shape is Earth’s orbit around the Sun?",
+  "a": "An ellipse",
+  "w": [
+   "A square",
+   "A straight line",
+   "A triangle"
+  ],
+  "why": "Earth’s orbit is an ellipse."
+ },
+ {
+  "part": "rr",
+  "q": "In which direction does the Earth travel around the Sun?",
+  "a": "Counterclockwise",
+  "w": [
+   "Clockwise",
+   "Straight up",
+   "Back and forth"
+  ],
+  "why": "Earth orbits the Sun counterclockwise."
+ },
+ {
+  "part": "rr",
+  "q": "In which direction does the Earth spin?",
+  "a": "West to east",
+  "w": [
+   "East to west",
+   "North to south",
+   "South to north"
+  ],
+  "why": "Earth spins from west to east."
+ },
+ {
+  "part": "rr",
+  "q": "In which directions does the Sun appear to rise and set?",
+  "a": "Rises in the east and sets in the west",
+  "w": [
+   "Rises in the west and sets in the east",
+   "Rises in the north and sets in the south",
+   "Rises in the south and sets in the north"
+  ],
+  "why": "The Sun appears to rise in the east and set in the west because of Earth’s rotation."
+ },
+ {
+  "part": "rr",
+  "q": "What does the Earth spin on?",
+  "a": "Its axis",
+  "w": [
+   "Its orbit",
+   "The Sun",
+   "The Moon"
+  ],
+  "why": "Rotation is spinning on an axis."
+ },
+ {
+  "part": "rr",
+  "q": "Which word means “the Earth’s orbit around the Sun”?",
+  "a": "Revolution",
+  "w": [
+   "Rotation",
+   "Gravity",
+   "Axis"
+  ],
+  "why": "Revolution is the orbit around the Sun."
+ },
+ {
+  "part": "geo",
+  "q": "What is the geocentric theory?",
+  "a": "The Earth is at the center of the universe, and the Sun and other planets revolve around the Earth",
+  "w": [
+   "The Sun is at the center of the solar system, and the Earth revolves around it",
+   "The Moon is at the center of the universe",
+   "Nothing moves in space"
+  ],
+  "why": "Geocentric theory puts the Earth at the center."
+ },
+ {
+  "part": "geo",
+  "q": "What is the heliocentric theory?",
+  "a": "The Sun is at the center of the solar system, and the Earth and other planets revolve around the Sun",
+  "w": [
+   "The Earth is at the center of the universe and the Sun revolves around it",
+   "The Moon is at the center of the solar system",
+   "The Earth is flat and stays still"
+  ],
+  "why": "Heliocentric theory puts the Sun at the center."
+ },
+ {
+  "part": "geo",
+  "q": "In the word “geocentric,” what does “geo” mean?",
+  "a": "Earth",
+  "w": [
+   "Sun",
+   "Moon",
+   "Star"
+  ],
+  "why": "geo means earth."
+ },
+ {
+  "part": "geo",
+  "q": "In the word “heliocentric,” what does “helio” mean?",
+  "a": "Sun",
+  "w": [
+   "Earth",
+   "Moon",
+   "Planet"
+  ],
+  "why": "helio means sun."
+ },
+ {
+  "part": "geo",
+  "q": "Which model puts the Earth at the center?",
+  "a": "Geocentric",
+  "w": [
+   "Heliocentric",
+   "Both models",
+   "Neither model"
+  ],
+  "why": "Geocentric: Earth at the center."
+ },
+ {
+  "part": "geo",
+  "q": "Which model puts the Sun at the center?",
+  "a": "Heliocentric",
+  "w": [
+   "Geocentric",
+   "Both models",
+   "Neither model"
+  ],
+  "why": "Heliocentric: Sun at the center."
+ },
+ {
+  "part": "geo",
+  "q": "In the geocentric model, what revolves around the Earth?",
+  "a": "The Sun and the other planets",
+  "w": [
+   "Only the Moon",
+   "Nothing",
+   "Only stars"
+  ],
+  "why": "In the geocentric model, the Sun and other planets revolve around the Earth."
+ },
+ {
+  "part": "geo",
+  "q": "In the heliocentric model, what revolves around the Sun?",
+  "a": "The Earth and the other planets",
+  "w": [
+   "Only the Moon",
+   "Nothing",
+   "Only comets"
+  ],
+  "why": "In the heliocentric model, the Earth and other planets revolve around the Sun."
+ },
+ {
+  "part": "geo",
+  "q": "Under the geocentric model, is the Sun sitting still in the middle of space?",
+  "a": "No, the Sun revolves around the Earth",
+  "w": [
+   "Yes, the Sun sits still in the middle",
+   "Yes, and the Earth sits beside it",
+   "No, the Sun does not exist in this model"
+  ],
+  "why": "The “Sun is sitting still in the middle” idea belongs to the heliocentric model."
+ },
+ {
+  "part": "geo",
+  "q": "Why did people long ago believe the Earth did not move?",
+  "a": "It did not feel like we were spinning",
+  "w": [
+   "They had space telescopes",
+   "They could see the Earth from space",
+   "They measured Earth’s orbit"
+  ],
+  "why": "Because we don’t feel the Earth spinning, people believed it stayed still."
+ },
+ {
+  "part": "geo",
+  "q": "True or false: People long ago believed the Earth moved because it felt like we were spinning.",
+  "a": "False",
+  "w": [
+   "True",
+   "It depends on the season",
+   "Only sailors believed it"
+  ],
+  "why": "They believed the Earth did NOT move, because it did not feel like we were spinning."
+ },
+ {
+  "part": "geo",
+  "q": "True or false: The word helio means sun, and geo means earth.",
+  "a": "True",
+  "w": [
+   "False",
+   "Only helio is correct",
+   "Only geo is correct"
+  ],
+  "why": "helio = sun, geo = earth."
+ },
+ {
+  "part": "geo",
+  "q": "True or false: Under the geocentric model, the Sun is sitting still in the middle of space.",
+  "a": "False",
+  "w": [
+   "True",
+   "Only on Earth’s birthday",
+   "Only at noon"
+  ],
+  "why": "In the geocentric model the Earth is in the middle and the Sun revolves around it."
+ },
+ {
+  "part": "geo",
+  "q": "Which statement is correct?",
+  "a": "Geocentric means Earth-centered and heliocentric means Sun-centered",
+  "w": [
+   "Geocentric means Sun-centered and heliocentric means Earth-centered",
+   "Both words mean Moon-centered",
+   "Both words mean Sun-centered"
+  ],
+  "why": "geo = earth, helio = sun."
+ },
+ {
+  "part": "ppl",
+  "q": "Who was Nicolaus Copernicus?",
+  "a": "An astronomer who advanced the heliocentric theory",
+  "w": [
+   "An astronomer who advanced the geocentric theory",
+   "An explorer who sailed around the world",
+   "A king of Poland"
+  ],
+  "why": "Copernicus advanced the heliocentric theory."
+ },
+ {
+  "part": "ppl",
+  "q": "Which theory did Copernicus believe?",
+  "a": "The Earth and other planets revolve around the Sun",
+  "w": [
+   "The Sun revolves around the Earth",
+   "The Earth is flat",
+   "The Moon is the center of everything"
+  ],
+  "why": "He believed the Earth and the other planets revolve around the Sun."
+ },
+ {
+  "part": "ppl",
+  "q": "How old was Copernicus when he died?",
+  "a": "70 years old",
+  "w": [
+   "30 years old",
+   "50 years old",
+   "100 years old"
+  ],
+  "why": "Copernicus died at 70 years old."
+ },
+ {
+  "part": "ppl",
+  "q": "Who was Claudius Ptolemy?",
+  "a": "An astronomer who advanced the geocentric theory",
+  "w": [
+   "An astronomer who advanced the heliocentric theory",
+   "A Roman emperor",
+   "The first person to orbit Earth"
+  ],
+  "why": "Ptolemy advanced the geocentric theory."
+ },
+ {
+  "part": "ppl",
+  "q": "What did Claudius Ptolemy use to improve the geocentric theory?",
+  "a": "Mathematics",
+  "w": [
+   "A space telescope",
+   "A satellite",
+   "A magnifying glass"
+  ],
+  "why": "Ptolemy used mathematics to improve the geocentric theory."
+ },
+ {
+  "part": "ppl",
+  "q": "Which astronomer is linked with the heliocentric theory?",
+  "a": "Copernicus",
+  "w": [
+   "Ptolemy",
+   "Neither",
+   "Both"
+  ],
+  "why": "Copernicus: heliocentric. Ptolemy: geocentric."
+ },
+ {
+  "part": "ppl",
+  "q": "Which astronomer is linked with the geocentric theory?",
+  "a": "Ptolemy",
+  "w": [
+   "Copernicus",
+   "Neither",
+   "Both"
+  ],
+  "why": "Ptolemy: geocentric. Copernicus: heliocentric."
+ },
+ {
+  "part": "ppl",
+  "q": "Which book did Copernicus write? (the teacher asked this on the notes)",
+  "a": "On the Revolutions of the Heavenly Spheres (De revolutionibus orbium coelestium)",
+  "w": [
+   "The Almagest",
+   "The Starry Messenger",
+   "The Origin of Species"
+  ],
+  "why": "Copernicus published his heliocentric theory in “On the Revolutions of the Heavenly Spheres” (1543). The Almagest is by Ptolemy."
+ },
+ {
+  "part": "ppl",
+  "q": "Which statement about Copernicus is most accurate?",
+  "a": "He proposed a heliocentric model of the solar system",
+  "w": [
+   "He proved the geocentric model was right",
+   "He invented the telescope",
+   "He was the first to travel into space"
+  ],
+  "why": "Copernicus put forward (proposed) the heliocentric model."
+ },
+ {
+  "part": "why",
+  "q": "Why don’t we feel the Earth spinning?",
+  "a": "It spins smoothly, never changing pace",
+  "w": [
+   "It spins very slowly",
+   "It stops and starts all the time",
+   "It spins only at night"
+  ],
+  "why": "A smooth, steady spin is not felt."
+ },
+ {
+  "part": "why",
+  "q": "About how fast is the Earth spinning at the equator?",
+  "a": "Roughly 1,000 miles per hour",
+  "w": [
+   "About 10 miles per hour",
+   "About 100 miles per hour",
+   "About 100,000 miles per hour"
+  ],
+  "why": "The class notes use roughly 1,000 miles per hour."
+ },
+ {
+  "part": "why",
+  "q": "If the Earth spins at roughly 1,000 miles per hour, why aren’t we thrown off into space?",
+  "a": "Gravity holds us down",
+  "w": [
+   "The Sun pulls us back",
+   "The Moon pushes us down",
+   "The wind holds us in place"
+  ],
+  "why": "Gravity holds us to Earth."
+ },
+ {
+  "part": "why",
+  "q": "Which force keeps us on the Earth as it spins?",
+  "a": "Gravity",
+  "w": [
+   "Magnetism",
+   "Friction with the Moon",
+   "Rotation"
+  ],
+  "why": "Gravity holds us down."
+ },
+ {
+  "part": "mix",
+  "q": "Which pair is matched correctly?",
+  "a": "Rotation: 24 hours. Revolution: one year.",
+  "w": [
+   "Rotation: one year. Revolution: 24 hours.",
+   "Rotation: one month. Revolution: one week.",
+   "Rotation: one year. Revolution: one year."
+  ],
+  "why": "Rotation = day. Revolution = year."
+ },
+ {
+  "part": "mix",
+  "q": "Which pair is matched correctly?",
+  "a": "Rotation: day and night. Revolution: seasons.",
+  "w": [
+   "Rotation: seasons. Revolution: day and night.",
+   "Rotation: seasons. Revolution: seasons.",
+   "Rotation: sunrise. Revolution: sunrise."
+  ],
+  "why": "Rotation gives day and night; revolution gives the changing seasons."
+ },
+ {
+  "part": "mix",
+  "q": "Which pair is matched correctly?",
+  "a": "Heliocentric: Sun at the center. Geocentric: Earth at the center.",
+  "w": [
+   "Heliocentric: Earth at the center. Geocentric: Sun at the center.",
+   "Heliocentric: Moon at the center. Geocentric: Sun at the center.",
+   "Both: Earth at the center."
+  ],
+  "why": "helio = sun, geo = earth."
+ },
+ {
+  "part": "mix",
+  "q": "Which pair is matched correctly?",
+  "a": "Copernicus: heliocentric. Ptolemy: geocentric.",
+  "w": [
+   "Copernicus: geocentric. Ptolemy: heliocentric.",
+   "Copernicus and Ptolemy: both heliocentric.",
+   "Copernicus and Ptolemy: both geocentric."
+  ],
+  "why": "Copernicus advanced heliocentric; Ptolemy advanced geocentric."
+ },
+ {
+  "part": "mix",
+  "q": "Sunrise happens as the Earth turns toward the Sun. In the heliocentric model, what is the Sun doing?",
+  "a": "Staying at the center while the Earth spins",
+  "w": [
+   "Revolving around the Earth",
+   "Spinning around the Moon",
+   "Moving in a straight line away"
+  ],
+  "why": "In the heliocentric model, the Sun is at the center and the Earth’s spin makes it rise and set."
+ }
+];
+
+/* ---------- HELPERS ---------- */
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+function escapeHtml(str){
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+document.getElementById('header-sub').textContent =
+  cards.length + ' study cards · ' + questions.length + ' quiz questions';
+
+/* ---------- STUDY CARDS ---------- */
+let deck = cards.slice();
+let idx = 0, flipped = false;
+const cardEl = document.getElementById('card');
+
+function renderCard(){
+  const c = deck[idx];
+  document.getElementById('front-text').textContent = c.term;
+  document.getElementById('back-text').textContent = c.def;
+  document.getElementById('face-part').textContent = PART_LABEL[c.part];
+  document.getElementById('back-part').textContent = PART_LABEL[c.part];
+  document.getElementById('flash-count').textContent = (idx+1) + ' / ' + deck.length;
+  document.getElementById('flash-fill').style.width = (((idx+1)/deck.length)*100) + '%';
+  flipped = false;
+  cardEl.classList.remove('flipped');
+}
+// snap back to the front before swapping text so the next answer never flashes
+function goToCard(n){
+  if(flipped){
+    cardEl.classList.add('no-transition');
+    cardEl.classList.remove('flipped');
+    flipped = false;
+    void cardEl.offsetWidth;
+    idx = n; renderCard();
+    void cardEl.offsetWidth;
+    cardEl.classList.remove('no-transition');
+  } else { idx = n; renderCard(); }
+}
+function toggleFlip(){ flipped = !flipped; cardEl.classList.toggle('flipped', flipped); }
+document.getElementById('card-wrap').addEventListener('click', toggleFlip);
+document.getElementById('flip-btn').addEventListener('click', e => { e.stopPropagation(); toggleFlip(); });
+document.getElementById('next-btn').addEventListener('click', () => goToCard((idx+1)%deck.length));
+document.getElementById('prev-btn').addEventListener('click', () => goToCard((idx-1+deck.length)%deck.length));
+document.getElementById('shuffle-btn').addEventListener('click', () => { deck = shuffle(deck); goToCard(0); });
+renderCard();
+
+/* ---------- SCOREBOARD STORAGE ---------- */
+const SCORE_KEY = 'latin-scores-geo3';
+const NAME_KEY = 'latin-player-name';
+
+function getPlayerName(){
+  let name = null;
+  try{ name = localStorage.getItem(NAME_KEY); }catch(e){}
+  if(!name){
+    name = (prompt('What\'s your name? (shown on the scoreboard)') || 'Player').trim().slice(0,24) || 'Player';
+    try{ localStorage.setItem(NAME_KEY, name); }catch(e){}
+  }
+  return name;
+}
+function setPlayerName(){
+  let current = '';
+  try{ current = localStorage.getItem(NAME_KEY) || ''; }catch(e){}
+  const name = (prompt('Enter your name for the scoreboard:', current) || current || 'Player').trim().slice(0,24) || 'Player';
+  try{ localStorage.setItem(NAME_KEY, name); }catch(e){}
+  document.getElementById('player-name-display').textContent = name;
+}
+function loadScores(){
+  try{ return JSON.parse(localStorage.getItem(SCORE_KEY) || '[]'); }catch(e){ return []; }
+}
+function saveScore(name, correct, total, percent, mode){
+  const scores = loadScores();
+  const now = new Date();
+  scores.push({
+    name, correct, total, percent, mode,
+    ts: now.getTime(),
+    date: now.toLocaleDateString(),
+    time: now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
+  });
+  while(scores.length > 50) scores.shift();
+  try{ localStorage.setItem(SCORE_KEY, JSON.stringify(scores)); }catch(e){}
+}
+const MODE_LABEL = {all:'Everything', char:'Characterization', fore:'Foreshadowing', amb:'Ambiguity'};
+function renderScoreboard(){
+  const content = document.getElementById('scores-content');
+  const scores = loadScores();
+  if(scores.length === 0){
+    content.innerHTML = '<div class="score-empty">No quiz attempts logged yet on this device.<br>Finish a quiz to appear here.</div>';
+    return;
+  }
+  const sorted = scores.slice().sort((a,b) => b.percent - a.percent || (b.ts||0) - (a.ts||0));
+  let current = '';
+  try{ current = localStorage.getItem(NAME_KEY) || ''; }catch(e){}
+  const rows = sorted.slice(0,20).map(s => (
+    '<tr class="' + (s.name === current ? 'you' : '') + '">' +
+      '<td>' + escapeHtml(s.name) + '</td>' +
+      '<td>' + s.correct + ' / ' + s.total + '</td>' +
+      '<td class="score-percent">' + s.percent + '%</td>' +
+      '<td>' + escapeHtml(MODE_LABEL[s.mode] || '') + '</td>' +
+      '<td>' + s.date + '</td>' +
+      '<td>' + (s.time || '&mdash;') + '</td>' +
+    '</tr>'
+  )).join('');
+  content.innerHTML =
+    '<table class="score-table"><thead><tr>' +
+    '<th>Name</th><th>Score</th><th>%</th><th>Quiz</th><th>Date</th><th>Time</th>' +
+    '</tr></thead><tbody>' + rows + '</tbody></table>';
+}
+
+/* ---------- QUIZ ---------- */
+let qDeck = [], qIdx = 0, qCorrect = 0, qAnswered = 0, qMode = 'all', qLocked = false, qMissed = [];
+const setupEl = document.getElementById('quiz-setup');
+const playEl = document.getElementById('quiz-play');
+const doneEl = document.getElementById('quiz-done');
+const optionsEl = document.getElementById('options');
+const feedbackEl = document.getElementById('quiz-feedback');
+const nextBtn = document.getElementById('quiz-next');
+
+function questionsFor(mode){
+  return mode === 'all' ? questions.slice() : questions.filter(q => q.part === mode);
+}
+// build the quiz menu from the data so the counts are always right
+(function buildMenu(){
+  const list = document.getElementById('mode-list');
+  [['all','Everything'],['rr','Part 1: Rotation vs. Revolution'],['geo','Part 2: Geocentric vs. Heliocentric'],['ppl','Part 3: Copernicus & Ptolemy'],['why','Part 4: Why We Don’t Feel It']].forEach((m,i) => {
+    const b = document.createElement('button');
+    b.className = 'mode-pick' + (i === 0 ? ' primary-pick' : '');
+    b.textContent = m[1] + ' — ' + questionsFor(m[0]).length + ' questions';
+    b.addEventListener('click', () => { getPlayerName(); startQuiz(m[0]); });
+    list.appendChild(b);
+  });
+})();
+
+function startQuiz(mode){
+  qMode = mode;
+  qDeck = shuffle(questionsFor(mode));
+  qIdx = 0; qCorrect = 0; qAnswered = 0; qMissed = [];
+  setupEl.style.display = 'none';
+  doneEl.style.display = 'none';
+  playEl.style.display = '';
+  document.getElementById('quiz-score').textContent = 'Score: 0 correct / 0 answered';
+  document.getElementById('player-name-display').textContent = getPlayerName();
+  renderQuestion();
+}
+function renderQuestion(){
+  const q = qDeck[qIdx];
+  document.getElementById('quiz-part').textContent = PART_LABEL[q.part];
+  document.getElementById('quiz-q').textContent = q.q;
+  document.getElementById('quiz-count').textContent = (qIdx+1) + ' / ' + qDeck.length;
+  document.getElementById('quiz-fill').style.width = (((qIdx+1)/qDeck.length)*100) + '%';
+  feedbackEl.textContent = '';
+  feedbackEl.className = 'feedback';
+  nextBtn.style.display = 'none';
+  optionsEl.innerHTML = '';
+  qLocked = false;
+  shuffle([q.a].concat(q.w)).forEach((text, i) => {
+    const b = document.createElement('button');
+    b.className = 'opt';
+    b.setAttribute('data-text', text);
+    b.innerHTML = '<span class="key">' + 'ABCD'[i] + '</span> ' + escapeHtml(text);
+    b.addEventListener('click', () => choose(b));
+    optionsEl.appendChild(b);
+  });
+}
+function choose(btn){
+  if(qLocked) return;
+  qLocked = true;
+  const q = qDeck[qIdx];
+  const picked = btn.getAttribute('data-text');
+  const ok = picked === q.a;
+  qAnswered++;
+  Array.prototype.forEach.call(optionsEl.children, b => {
+    b.disabled = true;
+    if(b.getAttribute('data-text') === q.a) b.classList.add('right');
+  });
+  if(ok){
+    qCorrect++;
+    feedbackEl.textContent = 'Correct! ' + q.why;
+    feedbackEl.className = 'feedback correct';
+  } else {
+    btn.classList.add('wrong');
+    qMissed.push(q);
+    feedbackEl.textContent = 'Not quite. ' + q.why;
+    feedbackEl.className = 'feedback wrong';
+  }
+  document.getElementById('quiz-score').textContent = 'Score: ' + qCorrect + ' correct / ' + qAnswered + ' answered';
+  nextBtn.textContent = qIdx + 1 >= qDeck.length ? 'See results' : 'Next';
+  nextBtn.style.display = '';
+  nextBtn.focus();
+}
+nextBtn.addEventListener('click', () => {
+  if(!qLocked) return;          // ignore clicks before an answer is chosen
+  qLocked = false;
+  qIdx++;
+  if(qIdx >= qDeck.length){ finishQuiz(); return; }
+  renderQuestion();
+});
+// keys 1-4 or A-D pick an answer; Enter moves on
+document.addEventListener('keydown', e => {
+  if(playEl.style.display === 'none' || quizView.style.display === 'none') return;
+  if(e.key === 'Enter' && qLocked){
+    // preventDefault stops the focused Next button from also firing its own
+    // click, which would skip a question
+    e.preventDefault();
+    nextBtn.click();
+    return;
+  }
+  const k = '1234abcd'.indexOf(e.key.toLowerCase());
+  if(k !== -1 && !qLocked){
+    const b = optionsEl.children[k % 4];
+    if(b) b.click();
+  }
+});
+function scoreMessage(p){
+  if(p >= 100) return {title:'Perfect score!', msg:'Every answer correct. You really know Earth, the Sun, and the solar system models.'};
+  if(p >= 90)  return {title:'Excellent work!', msg:'Nearly flawless. Just a detail or two to polish.'};
+  if(p >= 80)  return {title:'Great job!', msg:'Solid understanding. Review the ones you missed and you will have them locked in.'};
+  if(p >= 70)  return {title:'Good effort!', msg:'You are on the right track. A bit more practice and these will stick.'};
+  return {title:'Keep practicing!', msg:'Go back through the study cards, then try the quiz again. You will improve fast.'};
+}
+function finishQuiz(){
+  const percent = Math.round((qCorrect / qDeck.length) * 100);
+  saveScore(getPlayerName(), qCorrect, qDeck.length, percent, qMode);
+  const m = scoreMessage(percent);
+  playEl.style.display = 'none';
+  doneEl.style.display = '';
+  document.getElementById('done-percent').textContent = percent + '% correct (' + qCorrect + ' of ' + qDeck.length + ')';
+  document.getElementById('done-title').textContent = m.title;
+  document.getElementById('done-msg').textContent = m.msg;
+  const missedEl = document.getElementById('done-missed');
+  if(qMissed.length){
+    missedEl.innerHTML = '<strong style="color:var(--gold-bright);">Review these:</strong>' +
+      '<ul style="margin:8px 0 0;padding-left:20px;line-height:1.6;">' +
+      qMissed.map(q => '<li>' + escapeHtml(q.q) + '<br><em>' + escapeHtml(q.a) + '</em></li>').join('') +
+      '</ul>';
+  } else { missedEl.innerHTML = ''; }
+}
+document.getElementById('done-restart').addEventListener('click', () => startQuiz(qMode));
+document.getElementById('done-menu').addEventListener('click', () => {
+  doneEl.style.display = 'none'; playEl.style.display = 'none'; setupEl.style.display = '';
+});
+document.getElementById('change-name-btn').addEventListener('click', setPlayerName);
+
+/* ---------- MODE SWITCH ---------- */
+const btnFlash = document.getElementById('btn-flash');
+const btnQuiz = document.getElementById('btn-quiz');
+const btnScores = document.getElementById('btn-scores');
+const flashView = document.getElementById('flash-view');
+const quizView = document.getElementById('quiz-view');
+const scoresView = document.getElementById('scores-view');
+function setActiveTab(activeBtn){
+  [btnFlash, btnQuiz, btnScores].forEach(b => b.classList.remove('active'));
+  activeBtn.classList.add('active');
+  [flashView, quizView, scoresView].forEach(v => v.style.display = 'none');
+}
+btnFlash.addEventListener('click', () => { setActiveTab(btnFlash); flashView.style.display = ''; });
+btnQuiz.addEventListener('click', () => {
+  setActiveTab(btnQuiz);
+  quizView.style.display = '';
+  let n = 'Player';
+  try{ n = localStorage.getItem(NAME_KEY) || 'Player'; }catch(e){}
+  document.getElementById('player-name-display').textContent = n;
+});
+btnScores.addEventListener('click', () => { setActiveTab(btnScores); scoresView.style.display = ''; renderScoreboard(); });
+</script>
+
+</body>
+</html>
