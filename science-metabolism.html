@@ -1,0 +1,5623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Science: Metabolism | Basis Grade 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --stone: #2b2620;
+    --stone-light: #3c352c;
+    --gold: #b8892b;
+    --gold-bright: #d9a840;
+    --plaster: #ece4d3;
+    --plaster-dim: #c9beaa;
+    --wine: #7a2e2e;
+    --wine-bright: #a8433f;
+    --green: #4f6b4a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(184,137,43,0.08), transparent 60%),
+      var(--stone);
+    color:var(--plaster);
+    font-family:'Source Serif 4', serif;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:32px 20px 60px;
+  }
+  header{
+    text-align:center;
+    max-width:640px;
+    margin-bottom:28px;
+  }
+  .kicker{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.12em;
+    color:var(--gold-bright);
+    margin:0 0 6px;
+  }
+  h1{
+    font-family:'Cinzel',serif;
+    font-weight:700;
+    font-size:clamp(24px,4vw,34px);
+    margin:0 0 8px;
+    color:var(--plaster);
+  }
+  .sub{
+    color:var(--plaster-dim);
+    font-size:15px;
+    margin:0;
+  }
+  .modebar{
+    display:flex;
+    gap:8px;
+    margin-bottom:26px;
+    background:var(--stone-light);
+    padding:5px;
+    border-radius:999px;
+    border:1px solid rgba(184,137,43,0.25);
+  }
+  .modebar button{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.03em;
+    padding:9px 20px;
+    border-radius:999px;
+    border:none;
+    background:transparent;
+    color:var(--plaster-dim);
+    cursor:pointer;
+    transition:background .2s, color .2s;
+  }
+  .modebar button.active{
+    background:var(--gold);
+    color:var(--stone);
+  }
+  .stage{
+    width:100%;
+    max-width:560px;
+  }
+  .progress{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:14px;
+    font-size:13px;
+    color:var(--plaster-dim);
+    font-family:'Cinzel',serif;
+    letter-spacing:0.05em;
+  }
+  .progress-track{
+    flex:1;
+    height:3px;
+    background:rgba(236,228,211,0.15);
+    margin:0 14px;
+    position:relative;
+    border-radius:2px;
+    overflow:hidden;
+  }
+  .progress-fill{
+    position:absolute;
+    left:0;top:0;bottom:0;
+    background:var(--gold);
+    transition:width .3s ease;
+  }
+
+  /* FLASHCARD MODE */
+  .card-wrap{
+    perspective:1400px;
+    height:280px;
+    margin-bottom:22px;
+    cursor:pointer;
+  }
+  .card{
+    position:relative;
+    width:100%;
+    height:100%;
+    transform-style:preserve-3d;
+    transition:transform .5s cubic-bezier(.4,.2,.2,1);
+  }
+  .card.flipped{ transform:rotateY(180deg); }
+  .card.no-transition{ transition:none !important; }
+  .face{
+    position:absolute;
+    inset:0;
+    backface-visibility:hidden;
+    border-radius:6px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:32px;
+    border:1px solid rgba(184,137,43,0.3);
+  }
+  .face.front{
+    background:linear-gradient(160deg, var(--stone-light), var(--stone));
+    box-shadow: inset 0 0 0 1px rgba(236,228,211,0.04), 0 10px 30px rgba(0,0,0,0.35);
+  }
+  .face.back{
+    background:linear-gradient(160deg, var(--wine-bright), var(--wine));
+    transform:rotateY(180deg);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  }
+  .card-num{
+    font-family:'Cinzel',serif;
+    font-size:12px;
+    letter-spacing:0.1em;
+    color:var(--gold-bright);
+    position:absolute;
+    top:16px;
+    left:20px;
+  }
+  .latin{
+    font-family:'Cinzel',serif;
+    font-weight:700;
+    font-size:clamp(22px,5vw,30px);
+    color:var(--plaster);
+    line-height:1.3;
+  }
+  .hint{
+    margin-top:14px;
+    font-size:12px;
+    color:var(--plaster-dim);
+    letter-spacing:0.05em;
+  }
+  .pron{
+    font-family:'Source Serif 4',serif;
+    font-style:italic;
+    font-size:14px;
+    color:var(--gold-bright);
+    margin-top:8px;
+  }
+  .speak-btn{
+    background:none;
+    border:1px solid rgba(184,137,43,0.4);
+    color:var(--gold-bright);
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:15px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    margin-top:12px;
+    transition:background .2s;
+  }
+  .speak-btn:hover{ background:rgba(184,137,43,0.15); }
+  .speak-btn:active{ transform:scale(0.94); }
+  .definition{
+    font-size:clamp(20px,4.5vw,26px);
+    color:var(--plaster);
+    font-style:italic;
+  }
+  .controls{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+  }
+  .controls button{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.05em;
+    background:var(--stone-light);
+    color:var(--plaster);
+    border:1px solid rgba(184,137,43,0.3);
+    padding:11px 20px;
+    border-radius:4px;
+    cursor:pointer;
+    transition:background .2s, border-color .2s;
+  }
+  .controls button:hover{ border-color:var(--gold-bright); }
+  .controls button.primary{
+    background:var(--gold);
+    color:var(--stone);
+    border-color:var(--gold);
+    font-weight:700;
+  }
+  .controls button:disabled{
+    opacity:0.35;
+    cursor:default;
+  }
+  .shuffle-row{
+    display:flex;
+    justify-content:center;
+    margin-top:16px;
+  }
+  .shuffle-row button{
+    background:none;
+    border:none;
+    color:var(--plaster-dim);
+    font-size:13px;
+    font-family:'Source Serif 4',serif;
+    text-decoration:underline;
+    text-decoration-color:rgba(184,137,43,0.5);
+    cursor:pointer;
+  }
+
+  /* QUIZ MODE */
+  .quiz-box{
+    background:var(--stone-light);
+    border:1px solid rgba(184,137,43,0.25);
+    border-radius:6px;
+    padding:36px 30px;
+    margin-bottom:20px;
+    min-height:280px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .quiz-prompt{
+    font-size:13px;
+    color:var(--gold-bright);
+    font-family:'Cinzel',serif;
+    letter-spacing:0.08em;
+    margin-bottom:8px;
+  }
+  .quiz-latin{
+    font-family:'Cinzel',serif;
+    font-weight:700;
+    font-size:clamp(24px,5vw,30px);
+    margin-bottom:22px;
+  }
+  .quiz-box input{
+    width:100%;
+    font-family:'Source Serif 4',serif;
+    font-size:18px;
+    padding:12px 14px;
+    border-radius:4px;
+    border:1px solid rgba(236,228,211,0.25);
+    background:rgba(0,0,0,0.2);
+    color:var(--plaster);
+    margin-bottom:14px;
+  }
+  .quiz-box input:focus{
+    outline:none;
+    border-color:var(--gold-bright);
+  }
+  .feedback{
+    font-size:15px;
+    min-height:24px;
+    margin-bottom:6px;
+  }
+  .feedback.correct{ color:#8fbf7a; }
+  .feedback.wrong{ color:#d98a8a; }
+  .quiz-score{
+    text-align:center;
+    font-family:'Cinzel',serif;
+    letter-spacing:0.05em;
+    font-size:13px;
+    color:var(--plaster-dim);
+    margin-top:8px;
+  }
+  footer{
+    margin-top:36px;
+    font-size:12px;
+    color:rgba(236,228,211,0.35);
+    text-align:center;
+  }
+  .player-badge{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    font-size:13px;
+    color:var(--plaster-dim);
+    margin-bottom:16px;
+  }
+  .player-badge button{
+    background:none;
+    border:none;
+    color:var(--gold-bright);
+    text-decoration:underline;
+    cursor:pointer;
+    font-size:13px;
+    font-family:'Source Serif 4',serif;
+    padding:0;
+  }
+  .score-table{
+    width:100%;
+    border-collapse:collapse;
+    background:var(--stone-light);
+    border:1px solid rgba(184,137,43,0.25);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .score-table th, .score-table td{
+    padding:12px 14px;
+    text-align:left;
+    font-size:14px;
+  }
+  .score-table th{
+    font-family:'Cinzel',serif;
+    font-size:11px;
+    letter-spacing:0.08em;
+    color:var(--gold-bright);
+    border-bottom:1px solid rgba(184,137,43,0.25);
+  }
+  .score-table tbody tr:not(:last-child) td{
+    border-bottom:1px solid rgba(236,228,211,0.08);
+  }
+  .score-table tbody tr.you{
+    background:rgba(184,137,43,0.12);
+  }
+  .score-percent{
+    font-weight:600;
+  }
+  .score-empty{
+    text-align:center;
+    color:var(--plaster-dim);
+    font-size:14px;
+    padding:40px 20px;
+    background:var(--stone-light);
+    border:1px dashed rgba(184,137,43,0.3);
+    border-radius:6px;
+  }
+  .score-actions{
+    display:flex;
+    justify-content:center;
+    margin-top:16px;
+  }
+  .score-actions button{
+    background:none;
+    border:none;
+    color:var(--plaster-dim);
+    font-size:13px;
+    font-family:'Source Serif 4',serif;
+    text-decoration:underline;
+    text-decoration-color:rgba(184,137,43,0.4);
+    cursor:pointer;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .card{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" style="align-self:flex-start;margin-left:2px;color:var(--gold-bright);font-family:'Cinzel',serif;font-size:12px;letter-spacing:0.08em;text-decoration:none;margin-bottom:18px;">&larr; ALL LESSONS</a>
+<header>
+  <p class="kicker">Science &middot; Unit Test Review</p>
+  <h1>Metabolism</h1>
+  <p class="sub" id="header-sub">Study cards and a multiple-choice quiz</p>
+</header>
+
+<div class="modebar">
+  <button id="btn-flash" class="active">Study cards</button>
+  <button id="btn-quiz">Quiz me</button>
+  <button id="btn-scores">Scoreboard</button>
+</div>
+
+<div class="stage">
+
+  <!-- STUDY CARDS -->
+  <div id="flash-view">
+    <div class="progress">
+      <span id="flash-count">1 / 14</span>
+      <div class="progress-track"><div class="progress-fill" id="flash-fill"></div></div>
+      <span>&nbsp;</span>
+    </div>
+
+    <div class="card-wrap tall" id="card-wrap">
+      <div class="card" id="card">
+        <div class="face front">
+          <span class="card-num" id="face-part">Part 1</span>
+          <div class="latin" id="front-text">Characterization</div>
+          <div class="hint">tap card to reveal the definition</div>
+        </div>
+        <div class="face back">
+          <span class="card-num" id="back-part">Part 1</span>
+          <div class="definition long" id="back-text"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="prev-btn">&larr; Prev</button>
+      <button id="flip-btn" class="primary">Flip</button>
+      <button id="next-btn">Next &rarr;</button>
+    </div>
+    <div class="shuffle-row">
+      <button id="shuffle-btn">Shuffle cards</button>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz-view" style="display:none;">
+    <div class="player-badge">
+      Playing as <strong id="player-name-display">Player</strong>
+      <button id="change-name-btn">change</button>
+    </div>
+
+    <div id="quiz-setup" class="quiz-box">
+      <p class="quiz-prompt">Choose a quiz</p>
+      <div class="quiz-latin" style="font-size:20px;margin-bottom:20px;">What do you want to practice?</div>
+      <div id="mode-list" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+
+    <div id="quiz-play" style="display:none;">
+      <div class="progress">
+        <span id="quiz-count">1 / 25</span>
+        <div class="progress-track"><div class="progress-fill" id="quiz-fill"></div></div>
+        <span>&nbsp;</span>
+      </div>
+      <div class="quiz-box">
+        <p class="quiz-prompt" id="quiz-part">Part 1 &middot; Characterization</p>
+        <div class="question-text" id="quiz-q"></div>
+        <div id="options" class="options"></div>
+        <div class="feedback" id="quiz-feedback"></div>
+        <div class="controls">
+          <button id="quiz-next" class="primary" style="display:none;">Next</button>
+        </div>
+      </div>
+      <div class="quiz-score" id="quiz-score">Score: 0 correct / 0 answered</div>
+    </div>
+
+    <div id="quiz-done" class="quiz-box" style="display:none;text-align:center;">
+      <p class="quiz-prompt" id="done-percent"></p>
+      <div class="quiz-latin" id="done-title"></div>
+      <p id="done-msg" style="color:var(--plaster-dim);font-size:15px;line-height:1.5;margin:0 0 20px;"></p>
+      <div id="done-missed" style="text-align:left;font-size:14px;color:var(--plaster-dim);margin-bottom:20px;"></div>
+      <div class="controls">
+        <button id="done-restart" class="primary">Try again</button>
+        <button id="done-menu">Change quiz</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCOREBOARD -->
+  <div id="scores-view" style="display:none;">
+    <div id="scores-content"></div>
+  </div>
+
+</div>
+
+<footer>Based on the class notes, worksheets, articles and glossary from the Metabolism unit. Scoreboard is saved in this browser only.</footer>
+
+<style>
+  .card-wrap.tall{ height:340px; }
+  .definition.long{
+    font-size:clamp(15px,3.6vw,18px);
+    line-height:1.55;
+    font-style:normal;
+    white-space:pre-line;
+  }
+  .question-text{
+    font-family:'Source Serif 4',serif;
+    font-size:clamp(18px,4.2vw,21px);
+    line-height:1.45;
+    margin-bottom:20px;
+    color:var(--plaster);
+  }
+  .options{ display:flex; flex-direction:column; gap:10px; margin-bottom:14px; }
+  .opt{
+    font-family:'Source Serif 4',serif;
+    font-size:16px;
+    line-height:1.4;
+    text-align:left;
+    background:rgba(0,0,0,0.2);
+    color:var(--plaster);
+    border:1px solid rgba(184,137,43,0.3);
+    padding:12px 14px;
+    border-radius:4px;
+    cursor:pointer;
+    transition:border-color .2s, background .2s;
+  }
+  .opt:hover:not(:disabled){ border-color:var(--gold-bright); background:rgba(184,137,43,0.12); }
+  .opt:disabled{ cursor:default; }
+  .opt.right{ border-color:#8fbf7a; background:rgba(143,191,122,0.16); }
+  .opt.wrong{ border-color:#d98a8a; background:rgba(217,138,138,0.16); }
+  .opt .key{
+    display:inline-block;
+    min-width:22px;
+    font-family:'Cinzel',serif;
+    font-size:12px;
+    color:var(--gold-bright);
+  }
+  .mode-pick{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.04em;
+    text-align:left;
+    background:rgba(0,0,0,0.2);
+    color:var(--plaster);
+    border:1px solid rgba(184,137,43,0.3);
+    padding:14px 16px;
+    border-radius:4px;
+    cursor:pointer;
+    transition:border-color .2s, background .2s;
+  }
+  .mode-pick:hover{ border-color:var(--gold-bright); background:rgba(184,137,43,0.12); }
+  .mode-pick.primary-pick{ border-color:var(--gold); }
+</style>
+
+<script>
+/* ---------- CONTENT (from the Metabolism unit) ---------- */
+const PART_LABEL = {"mol": "Part 1 · Molecules Cells Need", "sys": "Part 2 · Body Systems Working Together", "cond": "Part 3 · Medical Conditions & Elisa’s Diagnosis", "cr": "Part 4 · Cellular Respiration, Growth & Repair", "dop": "Part 5 · Blood Doping, Athletes & Arguments", "circ": "Part 6 · Circulatory System", "resp": "Part 7 · Respiratory System", "dig": "Part 8 · Digestive System", "nerv": "Part 9 · Nervous System", "exc": "Part 10 · Excretory System", "msk": "Part 11 · Musculoskeletal System", "rep": "Part 12 · Reproductive System", "org": "Part 13 · Odd Organisms", "sci": "Part 14 · Scientist Who Grows New Cells"};
+
+const cards = [
+ {
+  "part": "mol",
+  "term": "Metabolism",
+  "def": "The body’s use of molecules for energy and growth.\nCells need oxygen, glucose and amino acids."
+ },
+ {
+  "part": "mol",
+  "term": "Molecule",
+  "def": "A group of atoms joined together in a particular way."
+ },
+ {
+  "part": "mol",
+  "term": "Glucose",
+  "def": "A molecule that organisms can use to release energy.\nMade of carbon, hydrogen and oxygen atoms.\nMainly comes from breaking down starch."
+ },
+ {
+  "part": "mol",
+  "term": "Starch",
+  "def": "A type of energy storage molecule made of many glucose molecules connected together.\nFound in bread, fruits, vegetables and grains.\nToo big for cells; digestion breaks it into glucose."
+ },
+ {
+  "part": "mol",
+  "term": "Amino acids",
+  "def": "Molecules that are the building blocks of proteins.\nWe get them from protein-rich foods like beans, meat, eggs and fish."
+ },
+ {
+  "part": "mol",
+  "term": "Protein",
+  "def": "A category of large molecules that perform important functions inside living things.\nToo big for cells; digestion breaks it into amino acids."
+ },
+ {
+  "part": "mol",
+  "term": "Oxygen",
+  "def": "A molecule that organisms get from the air or water around them and use to release energy.\nAlready small enough to fit into cells."
+ },
+ {
+  "part": "mol",
+  "term": "Carbon dioxide",
+  "def": "A molecule made of carbon and oxygen atoms.\nAn output of cellular respiration; we breathe it out."
+ },
+ {
+  "part": "mol",
+  "term": "Energy",
+  "def": "The ability to make things move or change."
+ },
+ {
+  "part": "mol",
+  "term": "Key idea: size matters",
+  "def": "Cells can only use molecules that are small enough to enter a cell."
+ },
+ {
+  "part": "sys",
+  "term": "System",
+  "def": "A set of interacting parts forming a complex whole.\nSystems can work together to form a larger, more complex system."
+ },
+ {
+  "part": "sys",
+  "term": "Digestive system",
+  "def": "The body system that takes in food and breaks it down into smaller molecules (like glucose and amino acids) that fit into cells."
+ },
+ {
+  "part": "sys",
+  "term": "Respiratory system",
+  "def": "The body system that takes in oxygen and releases carbon dioxide.\nOxygen is already small enough to fit into cells."
+ },
+ {
+  "part": "sys",
+  "term": "Circulatory system",
+  "def": "The body system that transports molecules to and from all cells of the body.\nIncludes the heart, blood vessels and blood."
+ },
+ {
+  "part": "sys",
+  "term": "How systems work together",
+  "def": "The respiratory system brings in oxygen.\nThe digestive system brings in food and breaks it down.\nThe circulatory system transports glucose, oxygen and amino acids to every cell."
+ },
+ {
+  "part": "sys",
+  "term": "Alveoli",
+  "def": "Tiny air sacs in the lungs where oxygen passes into the blood."
+ },
+ {
+  "part": "cond",
+  "term": "Anemia",
+  "def": "A red blood cell shortage: fewer red blood cells than a healthy person.\nThe lungs take in plenty of oxygen, but too few red blood cells carry it.\nMost common cause: not enough iron. Fix: iron-rich foods (beans, meat, spinach) or iron pills."
+ },
+ {
+  "part": "cond",
+  "term": "Asthma",
+  "def": "A condition that makes it difficult to breathe.\nTubes in the lungs swell and narrow (from exercise or dust), so less oxygen gets in.\nAn inhaler keeps the tubes open."
+ },
+ {
+  "part": "cond",
+  "term": "Diabetes",
+  "def": "Cells can’t get enough glucose because there is not enough insulin.\nInsulin is like a key that unlocks the cell membrane so glucose can go in.\nGlucose gets stuck in the blood, so blood glucose gets too high."
+ },
+ {
+  "part": "cond",
+  "term": "Pancreas injury",
+  "def": "The pancreas makes too few digestive enzymes.\nStarch and protein don’t break down into glucose and amino acids, so cells get less glucose.\nTreatment: medicines with enzymes."
+ },
+ {
+  "part": "cond",
+  "term": "Insulin",
+  "def": "A protein molecule made in special cells and carried in the blood.\nUnlocks cell membranes so glucose can move into cells."
+ },
+ {
+  "part": "cond",
+  "term": "Pancreas",
+  "def": "A small but important organ of the digestive system.\nLocated underneath the liver and near the stomach.\nMakes lots of digestive enzymes."
+ },
+ {
+  "part": "cond",
+  "term": "Elisa’s diagnosis",
+  "def": "Elisa was tired because she has DIABETES.\nSupported: diabetes.\nNot supported: anemia, asthma, pancreas injury."
+ },
+ {
+  "part": "cond",
+  "term": "Medical condition",
+  "def": "What we say a person has when their cells aren’t getting the molecules they need."
+ },
+ {
+  "part": "cr",
+  "term": "Cellular respiration",
+  "def": "The chemical reaction between oxygen and glucose that releases energy into cells.\nHappens in the mitochondria.\nGlucose + oxygen → carbon dioxide + water + energy."
+ },
+ {
+  "part": "cr",
+  "term": "Chemical reaction",
+  "def": "A process in which atoms rearrange to form new substances."
+ },
+ {
+  "part": "cr",
+  "term": "Mitochondria",
+  "def": "Tiny cell parts where cellular respiration happens."
+ },
+ {
+  "part": "cr",
+  "term": "Inputs and outputs",
+  "def": "Inputs: oxygen and glucose.\nOutputs: carbon dioxide, water and energy."
+ },
+ {
+  "part": "cr",
+  "term": "Growth and repair",
+  "def": "Cells combine amino acid molecules to form larger protein molecules.\nNew proteins build new cells and cell parts.\nGrowth and repair also need energy from cellular respiration."
+ },
+ {
+  "part": "cr",
+  "term": "Key concepts (Chapter 3)",
+  "def": "1. To release energy, cells need both glucose and oxygen.\n2. Inside the cell, the atoms of glucose and oxygen are rearranged into different molecules: this is cellular respiration and it releases energy.\n3. Cells grow and repair by combining amino acids into proteins, which needs energy from cellular respiration."
+ },
+ {
+  "part": "dop",
+  "term": "Blood doping",
+  "def": "An illegal procedure some athletes use to increase their cellular respiration.\nBlood is removed and stored, the body makes new red blood cells, and the stored blood is injected back before the race."
+ },
+ {
+  "part": "dop",
+  "term": "Why blood doping works",
+  "def": "More red blood cells carry more oxygen, so cellular respiration is faster and athletes can perform longer without getting tired.\nRisk: thicker blood makes the heart work harder."
+ },
+ {
+  "part": "dop",
+  "term": "Hemoglobin",
+  "def": "A protein in red blood cells that carries oxygen.\nIt is reddish, which makes blood look red.\nHigher hemoglobin on race day can be evidence of doping."
+ },
+ {
+  "part": "dop",
+  "term": "High-altitude training",
+  "def": "A legal way to get more red blood cells.\nAir has less oxygen at altitude, so the body makes more red blood cells (takes several weeks)."
+ },
+ {
+  "part": "dop",
+  "term": "Claim",
+  "def": "A proposed answer to a question about the natural world."
+ },
+ {
+  "part": "dop",
+  "term": "Evidence",
+  "def": "Information about the natural world that is used to support or go against (refute) a claim."
+ },
+ {
+  "part": "dop",
+  "term": "Reasoning",
+  "def": "The process of making clear how your evidence supports your claim."
+ },
+ {
+  "part": "dop",
+  "term": "Scientific argument",
+  "def": "A claim supported by evidence."
+ },
+ {
+  "part": "dop",
+  "term": "Jordan Jones",
+  "def": "A cyclist who went from 35th place to 1st in one year.\nPossible explanations: blood doping, high-altitude training, or the pre-race meal."
+ },
+ {
+  "part": "circ",
+  "term": "Circulatory system parts",
+  "def": "Heart, blood vessels and blood.\nBlood circulates (flows around and around) to and from every cell."
+ },
+ {
+  "part": "circ",
+  "term": "Heart",
+  "def": "Made of muscle tissue; the hardest-working muscle.\nBeats about 100,000 times a day; average 60–100 beats per minute at rest.\nExercising heart rate may be about twice the resting rate."
+ },
+ {
+  "part": "circ",
+  "term": "Red blood cells",
+  "def": "Carry oxygen throughout the body.\nTheir hemoglobin picks up oxygen.\nMade in red bone marrow."
+ },
+ {
+  "part": "circ",
+  "term": "Capillaries",
+  "def": "Tiny blood vessels with very thin walls.\nRed blood cells pass through in single file.\nFound around the alveoli and inside the villi."
+ },
+ {
+  "part": "circ",
+  "term": "Villi",
+  "def": "Tiny finger-like parts lining the small intestine.\nGlucose and amino acids pass through them into capillaries."
+ },
+ {
+  "part": "resp",
+  "term": "Respiratory system parts",
+  "def": "Lungs, trachea (windpipe), nose and mouth.\nBrings oxygen in and moves carbon dioxide out."
+ },
+ {
+  "part": "resp",
+  "term": "Breathing rate",
+  "def": "At rest: about 12–20 breaths per minute.\nIf CO₂ gets too high or oxygen too low, nerve cells signal the brain to breathe faster."
+ },
+ {
+  "part": "resp",
+  "term": "Cilia",
+  "def": "Tiny hair-like structures lining the respiratory system.\nSway back and forth to trap harmful particles and push them up to the nose."
+ },
+ {
+  "part": "resp",
+  "term": "Epiglottis",
+  "def": "A small flap of tissue that closes over the trachea when you swallow, keeping food out of the respiratory system.\nIf food gets in: choking."
+ },
+ {
+  "part": "dig",
+  "term": "Digestive enzymes",
+  "def": "Help chemical reactions happen faster.\nStomach enzymes break protein into amino acids.\nEnzymes in the mouth and small intestine break starch into glucose."
+ },
+ {
+  "part": "dig",
+  "term": "Path of food",
+  "def": "Mouth (saliva starts breaking starch) → esophagus → stomach (acid and enzymes break protein) → small intestine (all starch → glucose; absorption through villi) → large intestine (water, vitamins, minerals absorbed; waste leaves)."
+ },
+ {
+  "part": "dig",
+  "term": "Small intestine",
+  "def": "About 20 feet long in an average adult.\nLined with villi that absorb glucose and amino acids into the blood."
+ },
+ {
+  "part": "dig",
+  "term": "Large intestine and bacteria",
+  "def": "Absorbs water, vitamins and minerals; the rest leaves as waste (like fiber).\nHome to bacteria that make vitamins and break down food."
+ },
+ {
+  "part": "nerv",
+  "term": "Nervous system",
+  "def": "Carries information as electrical impulses between the body and brain.\nCentral (CNS): brain + spinal cord.\nPeripheral (PNS): nerves branching from the spinal cord to the whole body."
+ },
+ {
+  "part": "nerv",
+  "term": "Neuron parts",
+  "def": "Dendrites: short “arms” bringing impulses in.\nAxon: long “tail” passing impulses away.\nNeurons also have a nucleus, membrane and use glucose and oxygen."
+ },
+ {
+  "part": "nerv",
+  "term": "Synapse",
+  "def": "The tiny gap between the axon of one neuron and the dendrite of the next.\nNeurotransmitters carry the impulse across.\nImpulses can travel as fast as 250 mph."
+ },
+ {
+  "part": "nerv",
+  "term": "Sensory and motor neurons",
+  "def": "Sensory neurons carry information from sense organs toward the CNS.\nMotor neurons carry information from the CNS to muscles and organs."
+ },
+ {
+  "part": "exc",
+  "term": "Excretory system",
+  "def": "Breaks down waste and moves it out of the body.\nMain organs: kidneys, bladder, skin."
+ },
+ {
+  "part": "exc",
+  "term": "Kidneys",
+  "def": "Bean-shaped pair under the rib cage; clean the blood using filters called nephrons.\nFilter about 150 liters of blood a day; waste + water = urine."
+ },
+ {
+  "part": "exc",
+  "term": "Bladder and ureter",
+  "def": "The ureter carries urine from the kidney to the bladder.\nThe bladder is elastic and stores urine."
+ },
+ {
+  "part": "exc",
+  "term": "Skin",
+  "def": "The largest organ.\nGlands mix waste and extra salts with water to make sweat, which leaves through pores."
+ },
+ {
+  "part": "msk",
+  "term": "Musculoskeletal system",
+  "def": "Bones, muscles, cartilage and connective tissues.\nSupports and moves the body. Adults have 206 bones."
+ },
+ {
+  "part": "msk",
+  "term": "Bone marrow",
+  "def": "Red marrow makes red blood cells.\nYellow marrow stores fat for energy.\nBones also store calcium and other minerals."
+ },
+ {
+  "part": "msk",
+  "term": "Cartilage",
+  "def": "Flexible, slippery material in the nose tip, ears, ribs and joints."
+ },
+ {
+  "part": "msk",
+  "term": "Muscles",
+  "def": "Skeletal muscles contract (shorter) and relax (longer), working in pairs.\nBone moves toward the contracting muscle.\nBicep contracts → arm bends."
+ },
+ {
+  "part": "msk",
+  "term": "Connective tissue",
+  "def": "Tendons: muscle to bone.\nLigaments: bone to bone.\nFascia: muscle to muscle."
+ },
+ {
+  "part": "rep",
+  "term": "Gametes and fertilization",
+  "def": "Gametes: eggs (female) and sperm (male), each with half the DNA.\nFertilization: egg and sperm combine to form a full set of DNA."
+ },
+ {
+  "part": "rep",
+  "term": "Female reproductive system",
+  "def": "Ovaries store eggs (one released per month).\nFallopian tubes connect ovaries to the uterus.\nUterus supports a fetus for about nine months; cervix → vagina → vulva form the birth canal."
+ },
+ {
+  "part": "rep",
+  "term": "Male reproductive system",
+  "def": "Testicles make sperm and are held in the scrotum.\nProstate gland makes seminal fluid; sperm + seminal fluid = semen."
+ },
+ {
+  "part": "org",
+  "term": "Blue whale",
+  "def": "Largest animal; lungs ~5,000× larger than a human’s.\nBreathes air; eats krill filtered by baleen.\nDiving: heart rate slows and blood is shifted away from less important organs."
+ },
+ {
+  "part": "org",
+  "term": "Grasshopper",
+  "def": "No lungs: oxygen enters through spiracles and air sacs deliver it to cells.\nHemolymph carries glucose, not oxygen.\nEats grass (cellulose)."
+ },
+ {
+  "part": "org",
+  "term": "Sea sponge",
+  "def": "No respiratory, digestive or circulatory system.\nWater flows in through pores; flagella move it; food is filtered from water."
+ },
+ {
+  "part": "org",
+  "term": "Trout",
+  "def": "Gills take oxygen from water into the blood.\nStomach enzymes and acid, then intestine absorbs glucose.\nHeart pumps blood through vessels and capillaries."
+ },
+ {
+  "part": "org",
+  "term": "Water bear",
+  "def": "Tiny, ~40,000 cells; no lungs, teeth or circulatory system.\nAbsorbs oxygen from water.\nTun stage: like hibernation; cellular respiration almost stops."
+ },
+ {
+  "part": "org",
+  "term": "What all organisms share",
+  "def": "All need oxygen and glucose for cellular respiration to release energy."
+ },
+ {
+  "part": "sci",
+  "term": "Dr. Grace O’Connell",
+  "def": "UC Berkeley researcher studying intervertebral discs.\nGoals: study healthy discs and grow new disc tissue that behaves like healthy discs.\nStudied aeronautical engineering."
+ },
+ {
+  "part": "sci",
+  "term": "Intervertebral discs",
+  "def": "Squishy discs between the vertebrae that cushion the spine and let it bend.\nWhen worn out they can cause back pain."
+ }
+];
+
+// a = correct answer, w = three wrong answers, why = shown after answering
+const questions = [
+ {
+  "part": "mol",
+  "q": "Which three molecules do your cells need from food and air?",
+  "a": "Oxygen, glucose and amino acids",
+  "w": [
+   "Oxygen, starch and protein",
+   "Carbon dioxide, glucose and fiber",
+   "Water, starch and amino acids"
+  ],
+  "why": "Cells need oxygen (from air) plus glucose and amino acids (from food)."
+ },
+ {
+  "part": "mol",
+  "q": "Metabolism is…",
+  "a": "the body’s use of molecules for energy and growth",
+  "w": [
+   "the body system that takes in food and breaks it down",
+   "a molecule that organisms use to release energy",
+   "a process in which atoms rearrange to form new substances"
+  ],
+  "why": "Glossary: metabolism is the body’s use of molecules for energy and growth."
+ },
+ {
+  "part": "mol",
+  "q": "Amino acids are the building blocks of…",
+  "a": "proteins",
+  "w": [
+   "starch",
+   "glucose",
+   "fiber"
+  ],
+  "why": "Amino acid molecules are the building blocks of proteins."
+ },
+ {
+  "part": "mol",
+  "q": "We get glucose molecules mainly by breaking down foods that contain…",
+  "a": "starch",
+  "w": [
+   "protein",
+   "oxygen",
+   "carbon dioxide"
+  ],
+  "why": "Starch (in fruits, vegetables, grains, bread) is broken down into glucose."
+ },
+ {
+  "part": "mol",
+  "q": "Which large molecule is made of many glucose molecules connected together?",
+  "a": "Starch",
+  "w": [
+   "Protein",
+   "Amino acid",
+   "Oxygen"
+  ],
+  "why": "Glossary: starch is an energy storage molecule made of many glucose molecules connected together."
+ },
+ {
+  "part": "mol",
+  "q": "Which foods are protein-rich and give us amino acids?",
+  "a": "Beans, meat and eggs",
+  "w": [
+   "Fruits, vegetables and grains",
+   "Bread, rice and pasta",
+   "Air, water and salt"
+  ],
+  "why": "Amino acids come from protein-rich foods like beans, meat and eggs."
+ },
+ {
+  "part": "mol",
+  "q": "Which foods contain starch, which gives us glucose?",
+  "a": "Fruits, vegetables and grains",
+  "w": [
+   "Beans, meat and eggs",
+   "Only meat and fish",
+   "Only air and water"
+  ],
+  "why": "We get glucose mainly by breaking down starchy foods such as fruits, vegetables and grains."
+ },
+ {
+  "part": "mol",
+  "q": "Cells can only use molecules that are…",
+  "a": "small enough to enter a cell",
+  "w": [
+   "larger than the cell",
+   "shaped like proteins",
+   "made only of starch"
+  ],
+  "why": "Key concept: cells can only use molecules that are small enough to enter a cell."
+ },
+ {
+  "part": "mol",
+  "q": "Which molecule comes from the air and is already small enough to fit into cells?",
+  "a": "Oxygen",
+  "w": [
+   "Starch",
+   "Protein",
+   "Fiber"
+  ],
+  "why": "The respiratory system brings in oxygen molecules, which are already small enough to fit into cells."
+ },
+ {
+  "part": "mol",
+  "q": "Why can’t a large starch molecule go straight into a cell?",
+  "a": "It is too big and must first be broken down into glucose",
+  "w": [
+   "It is too small to be seen",
+   "It is made of oxygen",
+   "It is already glucose"
+  ],
+  "why": "Starch is too large, so the digestive system breaks it down into small glucose molecules."
+ },
+ {
+  "part": "mol",
+  "q": "Why can’t a large protein molecule go straight into a cell?",
+  "a": "It is too big and must be broken down into amino acids",
+  "w": [
+   "It is made only of glucose",
+   "It is a gas",
+   "It is too small to stay inside"
+  ],
+  "why": "Protein is too large; digestion breaks it into small amino acid molecules."
+ },
+ {
+  "part": "mol",
+  "q": "A large protein molecule (like in an egg) is broken down into small…",
+  "a": "amino acid molecules",
+  "w": [
+   "glucose molecules",
+   "oxygen molecules",
+   "starch molecules"
+  ],
+  "why": "Protein breaks down into amino acids."
+ },
+ {
+  "part": "mol",
+  "q": "A large starch molecule (like in bread) is broken down into small…",
+  "a": "glucose molecules",
+  "w": [
+   "amino acid molecules",
+   "oxygen molecules",
+   "protein molecules"
+  ],
+  "why": "Starch breaks down into glucose."
+ },
+ {
+  "part": "mol",
+  "q": "What do cells use glucose for?",
+  "a": "To release energy",
+  "w": [
+   "To make oxygen",
+   "To make starch for the air",
+   "To breathe in air"
+  ],
+  "why": "Glucose is a molecule organisms can use to release energy."
+ },
+ {
+  "part": "mol",
+  "q": "Which molecule would be a mistake to show INSIDE a cell in a model of a healthy body?",
+  "a": "Starch",
+  "w": [
+   "Glucose",
+   "Oxygen",
+   "Amino acid"
+  ],
+  "why": "Starch and protein are too large; they must be broken down first."
+ },
+ {
+  "part": "mol",
+  "q": "Which molecule would be a mistake to show in the lungs in a model of a healthy body?",
+  "a": "Glucose",
+  "w": [
+   "Oxygen",
+   "Carbon dioxide",
+   "Air"
+  ],
+  "why": "Glucose comes from food and is part of digestion, not the lungs."
+ },
+ {
+  "part": "mol",
+  "q": "Which list shows only molecules that end up in the cells of a healthy body?",
+  "a": "Glucose, amino acids, oxygen",
+  "w": [
+   "Starch, protein, fiber",
+   "Starch, glucose, fiber",
+   "Protein, oxygen, fiber"
+  ],
+  "why": "Large molecules like starch, protein and fiber do not enter cells."
+ },
+ {
+  "part": "mol",
+  "q": "Glucose is a molecule made of which atoms?",
+  "a": "Carbon, hydrogen and oxygen",
+  "w": [
+   "Carbon and oxygen only",
+   "Hydrogen only",
+   "Carbon and nitrogen"
+  ],
+  "why": "Glossary: glucose is made of carbon, hydrogen and oxygen atoms."
+ },
+ {
+  "part": "mol",
+  "q": "Carbon dioxide is a molecule made of…",
+  "a": "carbon and oxygen atoms",
+  "w": [
+   "carbon and hydrogen atoms",
+   "hydrogen and oxygen atoms",
+   "glucose and oxygen"
+  ],
+  "why": "Glossary: carbon dioxide is made of carbon and oxygen atoms."
+ },
+ {
+  "part": "mol",
+  "q": "A molecule is…",
+  "a": "a group of atoms joined together in a particular way",
+  "w": [
+   "a type of cell",
+   "a body system",
+   "a kind of energy"
+  ],
+  "why": "Glossary definition of molecule."
+ },
+ {
+  "part": "mol",
+  "q": "Proteins are…",
+  "a": "a category of large molecules that perform important functions inside living things",
+  "w": [
+   "tiny molecules that fit into any cell",
+   "molecules made only of carbon dioxide",
+   "the same thing as glucose"
+  ],
+  "why": "Glossary: proteins are large molecules with important jobs in living things."
+ },
+ {
+  "part": "mol",
+  "q": "Oxygen is a molecule that organisms get from…",
+  "a": "the air or water around them",
+  "w": [
+   "only the food they eat",
+   "only their own cells",
+   "only protein"
+  ],
+  "why": "Glossary: oxygen comes from the air or water around organisms and is used to release energy."
+ },
+ {
+  "part": "mol",
+  "q": "Energy is…",
+  "a": "the ability to make things move or change",
+  "w": [
+   "a kind of food",
+   "a type of cell",
+   "a body system"
+  ],
+  "why": "Glossary definition of energy."
+ },
+ {
+  "part": "mol",
+  "q": "Molecules are so small that…",
+  "a": "they cannot be seen under a common microscope",
+  "w": [
+   "they can be seen with the eye",
+   "they are bigger than cells",
+   "they cannot enter the body"
+  ],
+  "why": "Patient Stories: these molecules are too small to be seen under a common microscope."
+ },
+ {
+  "part": "mol",
+  "q": "A person has a medical condition when…",
+  "a": "their cells aren’t getting the molecules they need",
+  "w": [
+   "they have a cold caused by a virus",
+   "they eat too much starch",
+   "they breathe too slowly on purpose"
+  ],
+  "why": "When cells don’t get the molecules they need, the person has a medical condition."
+ },
+ {
+  "part": "mol",
+  "q": "According to the notes, a person might feel tired if they don’t have enough…",
+  "a": "starch and glucose",
+  "w": [
+   "carbon dioxide",
+   "fiber",
+   "water vapor"
+  ],
+  "why": "Without enough glucose, cells can’t release enough energy, so the person feels tired."
+ },
+ {
+  "part": "mol",
+  "q": "Which pair of “large → small” is matched correctly?",
+  "a": "Starch → glucose",
+  "w": [
+   "Starch → amino acid",
+   "Protein → glucose",
+   "Protein → oxygen"
+  ],
+  "why": "Starch breaks into glucose; protein breaks into amino acids."
+ },
+ {
+  "part": "mol",
+  "q": "Where do we get amino acids and glucose?",
+  "a": "From the food we eat",
+  "w": [
+   "Only from the air we breathe",
+   "Only from the water we drink",
+   "They are made by the lungs"
+  ],
+  "why": "Our bodies get amino acids and glucose from food; oxygen comes from air."
+ },
+ {
+  "part": "mol",
+  "q": "Without oxygen, glucose and amino acids, your cells…",
+  "a": "can’t do what they need to keep your body healthy",
+  "w": [
+   "work faster",
+   "make more starch",
+   "turn into red blood cells"
+  ],
+  "why": "These molecules are the fuel your body needs to function every day."
+ },
+ {
+  "part": "mol",
+  "q": "The oxygen, glucose and amino acid molecules from air and food are like…",
+  "a": "the fuel your body needs to function every day",
+  "w": [
+   "waste your body gets rid of",
+   "a filter for dust",
+   "a flap that blocks food"
+  ],
+  "why": "The article calls them the fuel your body needs each day."
+ },
+ {
+  "part": "mol",
+  "q": "Which statement is TRUE?",
+  "a": "Many medical conditions keep these molecules from reaching cells consistently",
+  "w": [
+   "All conditions are caused by a virus",
+   "Cells never need glucose",
+   "Molecules can be seen with a common microscope"
+  ],
+  "why": "Many conditions cause problems because they keep molecules from reaching the cells."
+ },
+ {
+  "part": "sys",
+  "q": "The circulatory system is…",
+  "a": "the body system that transports molecules to and from all cells of the body",
+  "w": [
+   "the body system that takes in food and breaks it down",
+   "the body system that takes in oxygen and releases carbon dioxide",
+   "the body system that makes sweat"
+  ],
+  "why": "Glossary definition of circulatory system."
+ },
+ {
+  "part": "sys",
+  "q": "The digestive system is…",
+  "a": "the body system that takes in food and breaks it down",
+  "w": [
+   "the body system that transports molecules to all cells",
+   "the body system that takes in oxygen",
+   "the body system that cleans the blood only"
+  ],
+  "why": "Glossary definition of digestive system."
+ },
+ {
+  "part": "sys",
+  "q": "The respiratory system is…",
+  "a": "the body system that takes in oxygen and releases carbon dioxide",
+  "w": [
+   "the body system that takes in food",
+   "the body system that pumps blood",
+   "the body system that makes insulin"
+  ],
+  "why": "Glossary definition of respiratory system."
+ },
+ {
+  "part": "sys",
+  "q": "A system is…",
+  "a": "a set of interacting parts forming a complex whole",
+  "w": [
+   "a single cell",
+   "a kind of molecule",
+   "a type of energy"
+  ],
+  "why": "Glossary definition of system."
+ },
+ {
+  "part": "sys",
+  "q": "Which body system brings in oxygen molecules from the air?",
+  "a": "Respiratory system",
+  "w": [
+   "Digestive system",
+   "Circulatory system",
+   "Excretory system"
+  ],
+  "why": "The respiratory system brings in oxygen."
+ },
+ {
+  "part": "sys",
+  "q": "Which body system brings in food and breaks it into smaller molecules like glucose and amino acids?",
+  "a": "Digestive system",
+  "w": [
+   "Respiratory system",
+   "Circulatory system",
+   "Nervous system"
+  ],
+  "why": "The digestive system breaks food into molecules that fit into cells."
+ },
+ {
+  "part": "sys",
+  "q": "Which body system transports glucose, oxygen and amino acids to every cell?",
+  "a": "Circulatory system",
+  "w": [
+   "Digestive system",
+   "Respiratory system",
+   "Reproductive system"
+  ],
+  "why": "The circulatory system delivers molecules to every cell in the body."
+ },
+ {
+  "part": "sys",
+  "q": "In a functioning human body, body systems…",
+  "a": "work together to deliver glucose, oxygen and amino acids to cells",
+  "w": [
+   "work alone and never connect",
+   "only work when you exercise",
+   "only work while you sleep"
+  ],
+  "why": "Key concept: systems work together to deliver the molecules cells need."
+ },
+ {
+  "part": "sys",
+  "q": "Systems can work together to form…",
+  "a": "a larger, more complex system",
+  "w": [
+   "a single molecule",
+   "a new cell",
+   "a protein"
+  ],
+  "why": "Key concept: systems can work together to form a larger, more complex system."
+ },
+ {
+  "part": "sys",
+  "q": "In the Metabolism Sim, you feed the healthy body sandwiches. After digestion, what happens to the starch?",
+  "a": "It is broken down into glucose",
+  "w": [
+   "It becomes oxygen",
+   "It stays starch and enters cells",
+   "It turns into carbon dioxide"
+  ],
+  "why": "The digestive system breaks starch down into glucose."
+ },
+ {
+  "part": "sys",
+  "q": "In the Sim, protein from food is broken down into…",
+  "a": "amino acids",
+  "w": [
+   "glucose",
+   "starch",
+   "oxygen"
+  ],
+  "why": "Protein is broken into amino acids."
+ },
+ {
+  "part": "sys",
+  "q": "In the Sim, if the body takes in oxygen only, the oxygen goes from the lungs to…",
+  "a": "the circulatory system and then to the cells",
+  "w": [
+   "the stomach",
+   "the small intestine to be digested",
+   "the kidneys"
+  ],
+  "why": "Oxygen moves from the respiratory system into the circulatory system, which delivers it to cells."
+ },
+ {
+  "part": "sys",
+  "q": "Match the system to its job: “delivers molecules to cells.”",
+  "a": "Circulatory system",
+  "w": [
+   "Digestive system",
+   "Respiratory system",
+   "Excretory system"
+  ],
+  "why": "The circulatory system delivers molecules to cells."
+ },
+ {
+  "part": "sys",
+  "q": "Match the system to its job: “breaks down large molecules into smaller ones.”",
+  "a": "Digestive system",
+  "w": [
+   "Circulatory system",
+   "Respiratory system",
+   "Nervous system"
+  ],
+  "why": "The digestive system breaks down large molecules."
+ },
+ {
+  "part": "sys",
+  "q": "Match the system to its job: “takes in oxygen from the environment.”",
+  "a": "Respiratory system",
+  "w": [
+   "Digestive system",
+   "Circulatory system",
+   "Musculoskeletal system"
+  ],
+  "why": "The respiratory system takes in oxygen."
+ },
+ {
+  "part": "sys",
+  "q": "The lungs contain tiny structures called…",
+  "a": "alveoli",
+  "w": [
+   "villi",
+   "nephrons",
+   "neurons"
+  ],
+  "why": "Alveoli are the tiny air sacs in the lungs where oxygen enters the blood."
+ },
+ {
+  "part": "sys",
+  "q": "Without the circulatory system, cells could not…",
+  "a": "get what they need from the respiratory or digestive systems",
+  "w": [
+   "get any sunlight",
+   "make carbon dioxide",
+   "grow bones"
+  ],
+  "why": "The circulatory system connects cells to the other body systems."
+ },
+ {
+  "part": "sys",
+  "q": "The circulatory system picks up oxygen from the respiratory system at the…",
+  "a": "alveoli in the lungs",
+  "w": [
+   "villi in the stomach",
+   "nephrons in the kidneys",
+   "neurons in the brain"
+  ],
+  "why": "Oxygen passes through alveoli walls into capillaries."
+ },
+ {
+  "part": "sys",
+  "q": "The circulatory system picks up glucose and amino acids from the digestive system at the…",
+  "a": "villi of the small intestine",
+  "w": [
+   "alveoli of the lungs",
+   "bladder",
+   "skull"
+  ],
+  "why": "The villi of the small intestine have capillaries that absorb glucose and amino acids."
+ },
+ {
+  "part": "sys",
+  "q": "Which system is NOT directly needed to deliver oxygen, glucose and amino acids to cells?",
+  "a": "Reproductive system",
+  "w": [
+   "Respiratory system",
+   "Digestive system",
+   "Circulatory system"
+  ],
+  "why": "The respiratory, digestive and circulatory systems work together to deliver molecules; the reproductive system has a different job."
+ },
+ {
+  "part": "sys",
+  "q": "The Unit Question asks…",
+  "a": "How do the trillions of cells in the human body get what they need to function, and what do the cells do with the things they absorb?",
+  "w": [
+   "Why is the sky blue?",
+   "How do plants make their own food?",
+   "How do muscles contract?"
+  ],
+  "why": "This was the Unit Question printed on each lesson."
+ },
+ {
+  "part": "sys",
+  "q": "The Chapter 2 Question is…",
+  "a": "What is happening in Elisa’s body that could be preventing molecules from getting to her cells?",
+  "w": [
+   "How do molecules in the cells release energy?",
+   "How did the athlete increase his cellular respiration?",
+   "What is a system?"
+  ],
+  "why": "Chapter 2 focused on diagnosing what was keeping molecules from Elisa’s cells."
+ },
+ {
+  "part": "sys",
+  "q": "The Chapter 3 Question is…",
+  "a": "How do molecules in the cells of the body release energy?",
+  "w": [
+   "What is happening in Elisa’s body?",
+   "How did the athlete improve his performance?",
+   "What is a claim?"
+  ],
+  "why": "Chapter 3 is about cellular respiration and energy release."
+ },
+ {
+  "part": "sys",
+  "q": "The Chapter 4 Question is…",
+  "a": "How did the athlete increase his cellular respiration and improve his performance?",
+  "w": [
+   "How do molecules in cells release energy?",
+   "What is happening in Elisa’s body?",
+   "Why do we breathe?"
+  ],
+  "why": "Chapter 4 is about the cyclist Jordan Jones."
+ },
+ {
+  "part": "sys",
+  "q": "A problem with a body system can result in…",
+  "a": "fewer oxygen, glucose and/or amino acid molecules getting to the body’s cells",
+  "w": [
+   "more cells in the body",
+   "faster metabolism always",
+   "no change at all"
+  ],
+  "why": "Key concept: a problem with a system can mean fewer molecules reach cells."
+ },
+ {
+  "part": "sys",
+  "q": "Which tool did the class use to test healthy bodies and bodies with conditions?",
+  "a": "The Metabolism Simulation (Sim)",
+  "w": [
+   "A telescope",
+   "A weather map",
+   "A periodic table"
+  ],
+  "why": "The Metabolism Simulation modeled a healthy body, anemia, asthma, diabetes and pancreas injury."
+ },
+ {
+  "part": "sys",
+  "q": "The Sim lets you observe a healthy body and which conditions?",
+  "a": "Anemia, asthma, diabetes and pancreas injury",
+  "w": [
+   "Broken bone and sunburn",
+   "Cold and flu",
+   "Kidney stones only"
+  ],
+  "why": "The Sim covers anemia, asthma, diabetes and pancreas injury."
+ },
+ {
+  "part": "sys",
+  "q": "Why do the digestive and respiratory systems both depend on the circulatory system?",
+  "a": "Only the circulatory system carries their molecules to every cell",
+  "w": [
+   "The circulatory system makes oxygen",
+   "The circulatory system breaks down food",
+   "The circulatory system makes carbon dioxide"
+  ],
+  "why": "Digestive and respiratory systems bring molecules in, but circulation delivers them."
+ },
+ {
+  "part": "sys",
+  "q": "Which is the correct path of oxygen in a healthy body?",
+  "a": "Lungs → blood (circulatory system) → cells",
+  "w": [
+   "Stomach → small intestine → cells",
+   "Mouth → esophagus → stomach",
+   "Cells → lungs only"
+  ],
+  "why": "Oxygen travels from the lungs into the blood and then to cells."
+ },
+ {
+  "part": "sys",
+  "q": "Which is the correct path of glucose in a healthy body?",
+  "a": "Digestive system → circulatory system → cells",
+  "w": [
+   "Lungs → cells",
+   "Respiratory system → stomach",
+   "Cells → digestive system"
+  ],
+  "why": "Glucose is made during digestion, enters the blood and goes to cells."
+ },
+ {
+  "part": "cond",
+  "q": "Anemia means having…",
+  "a": "fewer red blood cells than a healthy person",
+  "w": [
+   "too much glucose in the blood",
+   "tubes in the lungs that swell",
+   "an injured pancreas"
+  ],
+  "why": "Anemia is a red blood cell shortage."
+ },
+ {
+  "part": "cond",
+  "q": "In anemia, which part of oxygen delivery is the problem?",
+  "a": "There are too few red blood cells to carry oxygen",
+  "w": [
+   "The lungs cannot take in air at all",
+   "The stomach cannot digest starch",
+   "The cells cannot make insulin"
+  ],
+  "why": "The respiratory system takes in plenty of oxygen, but there aren’t enough red blood cells to carry it."
+ },
+ {
+  "part": "cond",
+  "q": "Which body system takes in plenty of oxygen in a person with anemia?",
+  "a": "Respiratory system",
+  "w": [
+   "Excretory system",
+   "Reproductive system",
+   "Nervous system"
+  ],
+  "why": "In anemia the respiratory system works fine; the circulatory system lacks red blood cells."
+ },
+ {
+  "part": "cond",
+  "q": "What is the most common cause of anemia?",
+  "a": "Not getting enough iron in the food you eat",
+  "w": [
+   "Eating too much starch",
+   "Breathing too fast",
+   "Having an injured pancreas"
+  ],
+  "why": "Your body needs iron to make red blood cells."
+ },
+ {
+  "part": "cond",
+  "q": "Your body needs iron to make…",
+  "a": "red blood cells",
+  "w": [
+   "insulin",
+   "digestive enzymes",
+   "alveoli"
+  ],
+  "why": "If the body doesn’t have enough iron, it won’t have enough red blood cells."
+ },
+ {
+  "part": "cond",
+  "q": "Which foods are iron-rich and can help prevent anemia?",
+  "a": "Beans, meat and spinach (greens)",
+  "w": [
+   "Candy and soda",
+   "Only starch like bread",
+   "Only water"
+  ],
+  "why": "The patient stays healthy by eating beans, meat and greens like spinach."
+ },
+ {
+  "part": "cond",
+  "q": "A patient with anemia felt tired and sometimes faint. The blood test showed…",
+  "a": "a lower red blood cell count and less oxygen in the blood",
+  "w": [
+   "too much glucose in the blood",
+   "swollen lung tubes",
+   "no insulin"
+  ],
+  "why": "The doctor found lower-than-normal red blood cells and oxygen in the blood."
+ },
+ {
+  "part": "cond",
+  "q": "Anemia keeps which molecule from reaching the cells in enough amounts?",
+  "a": "Oxygen",
+  "w": [
+   "Starch",
+   "Insulin",
+   "Fiber"
+  ],
+  "why": "Fewer red blood cells means less oxygen is delivered to cells."
+ },
+ {
+  "part": "cond",
+  "q": "Asthma is a condition that makes it difficult to…",
+  "a": "breathe",
+  "w": [
+   "digest food",
+   "make insulin",
+   "grow new bones"
+  ],
+  "why": "Asthma affects the tubes in the lungs."
+ },
+ {
+  "part": "cond",
+  "q": "In asthma, what happens to the tubes inside the lungs?",
+  "a": "They swell and narrow so less air gets through",
+  "w": [
+   "They fill with glucose",
+   "They stop making red blood cells",
+   "They turn into villi"
+  ],
+  "why": "Irritation (like exercise or dust) makes the tubes swell and narrow."
+ },
+ {
+  "part": "cond",
+  "q": "What are some things that can irritate the lungs of a person with asthma?",
+  "a": "Exercise or dust",
+  "w": [
+   "Eating beans",
+   "Drinking water",
+   "Taking iron pills"
+  ],
+  "why": "The article names exercise and dust as triggers."
+ },
+ {
+  "part": "cond",
+  "q": "The noise a person with asthma makes while trying to breathe is called…",
+  "a": "wheezing",
+  "w": [
+   "choking",
+   "sweating",
+   "circulating"
+  ],
+  "why": "Wheezing is the noise made when breathing is hard."
+ },
+ {
+  "part": "cond",
+  "q": "What does an inhaler do for a person with asthma?",
+  "a": "Stops the tubes from swelling and keeps them wide open",
+  "w": [
+   "Makes more red blood cells",
+   "Breaks down starch",
+   "Unlocks cell membranes for glucose"
+  ],
+  "why": "The inhaler keeps the tubes in the lungs open so more oxygen gets in."
+ },
+ {
+  "part": "cond",
+  "q": "Because of asthma, why might cells not get enough oxygen?",
+  "a": "Fewer oxygen molecules get into the respiratory system and blood",
+  "w": [
+   "The pancreas makes too few enzymes",
+   "There is too little insulin",
+   "The red blood cells are too old"
+  ],
+  "why": "Narrow tubes let in less oxygen, so less enters the blood."
+ },
+ {
+  "part": "cond",
+  "q": "In the Sim, a body with asthma shows that oxygen…",
+  "a": "has trouble getting in, so fewer oxygen molecules reach the cells",
+  "w": [
+   "is fine but glucose is stuck in the blood",
+   "is fine but starch is not broken down",
+   "is blocked by too few red blood cells"
+  ],
+  "why": "Asthma mostly limits how much oxygen gets into the lungs."
+ },
+ {
+  "part": "cond",
+  "q": "Asthma is mainly a problem of which body system?",
+  "a": "Respiratory system",
+  "w": [
+   "Digestive system",
+   "Excretory system",
+   "Reproductive system"
+  ],
+  "why": "The lungs and airway tubes belong to the respiratory system."
+ },
+ {
+  "part": "cond",
+  "q": "In diabetes, the level of which molecule in the blood can get too high?",
+  "a": "Glucose",
+  "w": [
+   "Oxygen",
+   "Amino acids",
+   "Carbon dioxide"
+  ],
+  "why": "Blood “sugar” means blood glucose; in diabetes it can get too high."
+ },
+ {
+  "part": "cond",
+  "q": "“Blood sugar” really means…",
+  "a": "blood glucose",
+  "w": [
+   "blood oxygen",
+   "blood starch",
+   "blood iron"
+  ],
+  "why": "When people say blood sugar they really mean blood glucose."
+ },
+ {
+  "part": "cond",
+  "q": "Insulin acts like a ___ for the cell membrane.",
+  "a": "key that unlocks it",
+  "w": [
+   "wall that blocks it",
+   "filter that cleans it",
+   "pump that moves it"
+  ],
+  "why": "Insulin acts like a key to unlock the cell membrane and let glucose in."
+ },
+ {
+  "part": "cond",
+  "q": "Insulin is a…",
+  "a": "protein molecule made in special cells and released into the blood",
+  "w": [
+   "kind of starch",
+   "type of red blood cell",
+   "gas in the air"
+  ],
+  "why": "Insulin is a protein molecule carried by the circulatory system."
+ },
+ {
+  "part": "cond",
+  "q": "People with diabetes have trouble making…",
+  "a": "insulin",
+  "w": [
+   "red blood cells",
+   "oxygen",
+   "digestive enzymes only"
+  ],
+  "why": "In type 1 diabetes, the body is not making enough insulin."
+ },
+ {
+  "part": "cond",
+  "q": "Without enough insulin, glucose…",
+  "a": "gets stuck in the circulatory system and can’t enter cells",
+  "w": [
+   "floods into cells too fast",
+   "turns into oxygen",
+   "is broken down into amino acids"
+  ],
+  "why": "Glucose is locked out of cells, so blood glucose rises while cells lack glucose."
+ },
+ {
+  "part": "cond",
+  "q": "In diabetes, why do cells not get enough glucose?",
+  "a": "The cell membranes are not “unlocked” because there is no insulin",
+  "w": [
+   "There are too few red blood cells",
+   "The lungs are swollen",
+   "The stomach has too much acid"
+  ],
+  "why": "Without insulin, glucose can’t cross the cell membrane."
+ },
+ {
+  "part": "cond",
+  "q": "In diabetes, which molecules can still get into cells just fine?",
+  "a": "Other molecules (but not glucose)",
+  "w": [
+   "Only glucose",
+   "Nothing can get in",
+   "Only starch"
+  ],
+  "why": "The patient explains that other molecules enter cells fine, but not glucose."
+ },
+ {
+  "part": "cond",
+  "q": "How does a person with diabetes stay healthy?",
+  "a": "Measures blood glucose several times a day and takes insulin",
+  "w": [
+   "Takes iron pills",
+   "Uses an inhaler",
+   "Takes medicine with enzymes"
+  ],
+  "why": "The patient tests blood glucose, adjusts eating, and takes lab-made insulin."
+ },
+ {
+  "part": "cond",
+  "q": "When a person with diabetes takes insulin, what does it do?",
+  "a": "Unlocks cell membranes so glucose can move from the blood into cells",
+  "w": [
+   "Makes more red blood cells",
+   "Opens the lung tubes",
+   "Breaks down starch"
+  ],
+  "why": "Insulin lets glucose move into cells so blood glucose doesn’t get too high."
+ },
+ {
+  "part": "cond",
+  "q": "Where does glucose in the blood come from?",
+  "a": "The digestive system breaking down starch and other carbohydrates",
+  "w": [
+   "The lungs",
+   "The kidneys",
+   "The skin"
+  ],
+  "why": "Digestion breaks starch into glucose, which then moves into the blood."
+ },
+ {
+  "part": "cond",
+  "q": "The pancreas is part of the…",
+  "a": "digestive system",
+  "w": [
+   "respiratory system",
+   "nervous system",
+   "excretory system"
+  ],
+  "why": "The pancreas is an organ of the digestive system."
+ },
+ {
+  "part": "cond",
+  "q": "The pancreas is located…",
+  "a": "underneath the liver and near the stomach",
+  "w": [
+   "inside the lungs",
+   "in the brain",
+   "behind the knee"
+  ],
+  "why": "The diagram shows the pancreas underneath the liver and near the stomach."
+ },
+ {
+  "part": "cond",
+  "q": "The pancreas makes lots of…",
+  "a": "digestive enzymes",
+  "w": [
+   "red blood cells",
+   "oxygen",
+   "bones"
+  ],
+  "why": "The pancreas makes enzymes that help break down food."
+ },
+ {
+  "part": "cond",
+  "q": "What do digestive enzymes do?",
+  "a": "Help break down food into smaller molecules like glucose and amino acids",
+  "w": [
+   "Carry oxygen in the blood",
+   "Filter the blood",
+   "Make the heart beat"
+  ],
+  "why": "Enzymes help break down food into molecules tiny enough to pass into the circulatory system."
+ },
+ {
+  "part": "cond",
+  "q": "With an injured pancreas, why do starch and protein not break down well?",
+  "a": "There are fewer digestive enzymes",
+  "w": [
+   "There is too much oxygen",
+   "The lungs are too narrow",
+   "There are too few red blood cells"
+  ],
+  "why": "A damaged pancreas makes fewer digestive enzymes."
+ },
+ {
+  "part": "cond",
+  "q": "In a pancreas injury, undigested starch and protein…",
+  "a": "move through the digestive system and leave the body as waste",
+  "w": [
+   "enter cells to make energy",
+   "turn into oxygen",
+   "are stored as red blood cells"
+  ],
+  "why": "The undigested starches and proteins just move right through and leave as waste."
+ },
+ {
+  "part": "cond",
+  "q": "Why does a person with a pancreas injury feel tired?",
+  "a": "Their cells don’t get as much glucose",
+  "w": [
+   "Their cells get too much oxygen",
+   "They have too many red blood cells",
+   "Their lungs are swollen"
+  ],
+  "why": "Less starch is broken into glucose, so cells get less glucose for energy."
+ },
+ {
+  "part": "cond",
+  "q": "What helps a person with a pancreas injury stay healthy?",
+  "a": "Medicines with enzymes in them",
+  "w": [
+   "Iron pills",
+   "An inhaler",
+   "Insulin shots"
+  ],
+  "why": "Enzyme medicines help the body digest food."
+ },
+ {
+  "part": "cond",
+  "q": "Chronic pancreatitis means…",
+  "a": "the injured pancreas isn’t working as well as it should",
+  "w": [
+   "the lungs are swollen",
+   "the blood has too few red blood cells",
+   "the cells can’t use oxygen"
+  ],
+  "why": "The patient’s pancreas was injured in a bike accident."
+ },
+ {
+  "part": "cond",
+  "q": "Symptoms of pancreas injury in the patient story included…",
+  "a": "stomach pain after eating, diarrhea and tiredness",
+  "w": [
+   "wheezing and chest tightness",
+   "fainting from low iron",
+   "needing to test blood glucose daily"
+  ],
+  "why": "These are the digestion-related symptoms the patient described."
+ },
+ {
+  "part": "cond",
+  "q": "Elisa came to the clinic feeling…",
+  "a": "tired",
+  "w": [
+   "cold",
+   "sleepy only at night",
+   "thirsty only"
+  ],
+  "why": "Elisa is the patient who felt very tired."
+ },
+ {
+  "part": "cond",
+  "q": "What is the correct diagnosis for Elisa in the unit?",
+  "a": "Diabetes",
+  "w": [
+   "Anemia",
+   "Asthma",
+   "Pancreas injury"
+  ],
+  "why": "The evidence supported diabetes and did not support the other conditions."
+ },
+ {
+  "part": "cond",
+  "q": "Which claim about Elisa is NOT supported by the evidence?",
+  "a": "Elisa is tired because she has anemia",
+  "w": [
+   "Elisa is tired because she has diabetes",
+   "Elisa’s cells aren’t getting enough glucose",
+   "Glucose is stuck in her circulatory system"
+  ],
+  "why": "The evidence supports diabetes; anemia, asthma and pancreas injury were not supported."
+ },
+ {
+  "part": "cond",
+  "q": "In the Sim, Elisa’s oxygen was…",
+  "a": "entering her body and reaching her cells",
+  "w": [
+   "not entering her body",
+   "stuck in her lungs",
+   "blocked by too few red blood cells"
+  ],
+  "why": "Since oxygen reached her cells, asthma and anemia were ruled out."
+ },
+ {
+  "part": "cond",
+  "q": "Why was asthma NOT the explanation for Elisa’s tiredness?",
+  "a": "Her oxygen entered her body and reached her cells normally",
+  "w": [
+   "Her glucose was reaching her cells",
+   "Her red blood cells were too few",
+   "Her pancreas made too few enzymes"
+  ],
+  "why": "Her oxygen levels were normal, which is not what happens in asthma."
+ },
+ {
+  "part": "cond",
+  "q": "Why was a pancreas injury NOT supported for Elisa?",
+  "a": "Her food was being broken down normally",
+  "w": [
+   "Her oxygen was stuck in her lungs",
+   "She had too few red blood cells",
+   "She had no insulin"
+  ],
+  "why": "In the Sim her food was broken down, so enzymes were working."
+ },
+ {
+  "part": "cond",
+  "q": "In Elisa’s Sim test, what was happening to the glucose?",
+  "a": "It was in her blood but not entering her cells",
+  "w": [
+   "It was never made from food",
+   "It was trapped in her lungs",
+   "It was too small to enter the blood"
+  ],
+  "why": "Glucose stuck in the circulatory system matches diabetes."
+ },
+ {
+  "part": "cond",
+  "q": "In a scientific argument, the claim in Elisa’s case is…",
+  "a": "Elisa is feeling tired because she has diabetes",
+  "w": [
+   "The Sim has a problem",
+   "Elisa needs more iron",
+   "Insulin is a molecule"
+  ],
+  "why": "The claim is the proposed answer: Elisa has diabetes."
+ },
+ {
+  "part": "cr",
+  "q": "Cellular respiration is…",
+  "a": "the chemical reaction between oxygen and glucose that releases energy into cells",
+  "w": [
+   "the same thing as breathing in air",
+   "the body system that takes in food",
+   "a protein made in the pancreas"
+  ],
+  "why": "Glossary definition of cellular respiration."
+ },
+ {
+  "part": "cr",
+  "q": "Which two molecules do cells need to release energy?",
+  "a": "Glucose and oxygen",
+  "w": [
+   "Starch and protein",
+   "Amino acids and water",
+   "Fiber and carbon dioxide"
+  ],
+  "why": "Key concept: cells need BOTH glucose and oxygen to release energy."
+ },
+ {
+  "part": "cr",
+  "q": "What are the INPUTS of cellular respiration?",
+  "a": "Oxygen and glucose",
+  "w": [
+   "Carbon dioxide and water",
+   "Energy and water",
+   "Starch and protein"
+  ],
+  "why": "Cells take in oxygen and glucose, the inputs for cellular respiration."
+ },
+ {
+  "part": "cr",
+  "q": "What are the OUTPUTS of cellular respiration?",
+  "a": "Carbon dioxide, water and energy",
+  "w": [
+   "Oxygen, glucose and energy",
+   "Starch, protein and water",
+   "Insulin and oxygen"
+  ],
+  "why": "The outputs are carbon dioxide, water molecules and energy."
+ },
+ {
+  "part": "cr",
+  "q": "Which equation summarizes cellular respiration?",
+  "a": "Glucose + oxygen → carbon dioxide + water + energy",
+  "w": [
+   "Carbon dioxide + water → glucose + oxygen",
+   "Starch + protein → energy",
+   "Oxygen → glucose"
+  ],
+  "why": "Glucose and oxygen combine and are rearranged into carbon dioxide and water, releasing energy."
+ },
+ {
+  "part": "cr",
+  "q": "Where in the cell does cellular respiration happen?",
+  "a": "Mitochondria",
+  "w": [
+   "Cell membrane only",
+   "Alveoli",
+   "Villi"
+  ],
+  "why": "Cellular respiration takes place in the cell parts called mitochondria."
+ },
+ {
+  "part": "cr",
+  "q": "Inside a cell, the atoms that make up glucose and oxygen can be…",
+  "a": "rearranged to make different molecules",
+  "w": [
+   "destroyed completely",
+   "turned into starch",
+   "left unchanged"
+  ],
+  "why": "Atoms are rearranged in a chemical reaction; this is cellular respiration."
+ },
+ {
+  "part": "cr",
+  "q": "A chemical reaction is…",
+  "a": "a process in which atoms rearrange to form new substances",
+  "w": [
+   "a group of atoms joined in a particular way",
+   "the body’s use of molecules",
+   "the ability to move things"
+  ],
+  "why": "Glossary definition of chemical reaction."
+ },
+ {
+  "part": "cr",
+  "q": "What does cellular respiration release?",
+  "a": "Energy",
+  "w": [
+   "Insulin",
+   "Red blood cells",
+   "Starch"
+  ],
+  "why": "The reaction releases energy to power the cell and the body."
+ },
+ {
+  "part": "cr",
+  "q": "Cellular respiration is happening…",
+  "a": "all the time: exercising, sitting still or sleeping",
+  "w": [
+   "only when you exercise",
+   "only when you eat",
+   "only when you sleep"
+  ],
+  "why": "Cellular respiration is always happening in your body."
+ },
+ {
+  "part": "cr",
+  "q": "When you breathe out, you release the carbon dioxide produced by…",
+  "a": "cellular respiration in your cells",
+  "w": [
+   "digestion in the stomach",
+   "the pancreas",
+   "red blood cells"
+  ],
+  "why": "Every time you breathe out you release CO₂ made by cellular respiration."
+ },
+ {
+  "part": "cr",
+  "q": "“Cellular” means…",
+  "a": "having to do with cells",
+  "w": [
+   "having to do with breathing",
+   "having to do with food",
+   "having to do with bones"
+  ],
+  "why": "The word “cellular” means having to do with cells."
+ },
+ {
+  "part": "cr",
+  "q": "How is cellular respiration different from breathing?",
+  "a": "It is a chemical reaction in cells that releases energy; breathing is taking in air",
+  "w": [
+   "They are exactly the same",
+   "Cellular respiration happens in the lungs",
+   "Breathing happens in mitochondria"
+  ],
+  "why": "Breathing moves air in and out; cellular respiration releases energy inside cells."
+ },
+ {
+  "part": "cr",
+  "q": "What does the cell do with the energy released by cellular respiration?",
+  "a": "Uses it, or stores or sends it elsewhere in the body",
+  "w": [
+   "Throws it away as starch",
+   "Turns it into oxygen",
+   "Nothing"
+  ],
+  "why": "The cell uses the energy, stores the water or sends it out to be used elsewhere."
+ },
+ {
+  "part": "cr",
+  "q": "What does a cell do with the carbon dioxide made in cellular respiration?",
+  "a": "Gets rid of it",
+  "w": [
+   "Uses it to make glucose",
+   "Stores it as protein",
+   "Turns it into starch"
+  ],
+  "why": "The cell gets rid of carbon dioxide, which leaves the body when you breathe out."
+ },
+ {
+  "part": "cr",
+  "q": "In the chemical reaction activity, you mixed phenol red with calcium chloride and baking soda in a bag. What did you notice when you touched the bag?",
+  "a": "It felt warm",
+  "w": [
+   "It turned into a solid block of ice",
+   "Nothing changed",
+   "It exploded"
+  ],
+  "why": "The reaction released energy (heat), like cellular respiration releases energy."
+ },
+ {
+  "part": "cr",
+  "q": "Which chemicals were used in the chemical reaction activity?",
+  "a": "Phenol red, calcium chloride and baking soda",
+  "w": [
+   "Salt, sugar and iron",
+   "Insulin, glucose and oxygen",
+   "Starch, protein and water"
+  ],
+  "why": "The kit used phenol red, calcium chloride and baking soda."
+ },
+ {
+  "part": "cr",
+  "q": "What safety step is correct when doing the chemical reaction activity?",
+  "a": "Do not taste or touch the substances unless told; use goggles",
+  "w": [
+   "Taste the powders to check them",
+   "Mix everything at once without gloves",
+   "Rinse eyes for 1 minute only"
+  ],
+  "why": "Do not taste or touch substances; rinse eyes for 15 minutes if needed."
+ },
+ {
+  "part": "cr",
+  "q": "If a chemical gets in your eyes, how long should you rinse with water?",
+  "a": "15 minutes",
+  "w": [
+   "1 minute",
+   "30 seconds",
+   "5 seconds"
+  ],
+  "why": "The safety note says to rinse the affected eye(s) with water for 15 minutes."
+ },
+ {
+  "part": "cr",
+  "q": "Why is the bag activity a good model of cellular respiration?",
+  "a": "Both are chemical reactions that release energy",
+  "w": [
+   "Both make oxygen from glucose",
+   "Both happen in mitochondria",
+   "Both only happen in the lungs"
+  ],
+  "why": "Both show substances rearranging in a chemical reaction while releasing energy."
+ },
+ {
+  "part": "cr",
+  "q": "In the Sim warm-up, amino acid molecules inside a healthy cell…",
+  "a": "join together to form protein molecules",
+  "w": [
+   "break into starch",
+   "turn into fiber",
+   "become water"
+  ],
+  "why": "Amino acids join to form proteins inside cells."
+ },
+ {
+  "part": "cr",
+  "q": "To grow and repair themselves, cells combine…",
+  "a": "amino acid molecules to form larger protein molecules",
+  "w": [
+   "glucose molecules to form oxygen",
+   "oxygen molecules to form starch",
+   "protein molecules to form amino acids"
+  ],
+  "why": "Cells combine amino acids to build larger proteins."
+ },
+ {
+  "part": "cr",
+  "q": "What do the new proteins that cells build do?",
+  "a": "Build new cells and cell parts",
+  "w": [
+   "Make carbon dioxide",
+   "Carry oxygen only",
+   "Filter the blood"
+  ],
+  "why": "New proteins build new cells and cell parts for growth and repair."
+ },
+ {
+  "part": "cr",
+  "q": "Growth and repair also require…",
+  "a": "energy released by cellular respiration",
+  "w": [
+   "less oxygen",
+   "no glucose",
+   "only amino acids"
+  ],
+  "why": "Growth and repair require energy, so cells also need glucose and oxygen."
+ },
+ {
+  "part": "cr",
+  "q": "Cellular growth means…",
+  "a": "cells make new proteins, grow and divide to make more cells",
+  "w": [
+   "cells get smaller over time",
+   "bones fuse together",
+   "red blood cells turn into nerve cells"
+  ],
+  "why": "Cells are always making new proteins, growing and dividing into more cells."
+ },
+ {
+  "part": "cr",
+  "q": "When millions of healthy cells grow and divide…",
+  "a": "the whole body grows",
+  "w": [
+   "the body shrinks",
+   "the lungs stop working",
+   "the blood stops moving"
+  ],
+  "why": "When millions of cells divide to make millions more, the whole body grows."
+ },
+ {
+  "part": "cr",
+  "q": "When you heal from a cut, you are actually…",
+  "a": "growing new cells (at the cellular level)",
+  "w": [
+   "losing cells permanently",
+   "making cells stop",
+   "breathing less"
+  ],
+  "why": "Repair is really growth: new cells replace damaged ones."
+ },
+ {
+  "part": "cr",
+  "q": "Why does the body keep making new cells even in adults who have stopped growing taller?",
+  "a": "To replace old cells that die and repair damaged ones",
+  "w": [
+   "To make them taller",
+   "To use up glucose",
+   "Because cells never die"
+  ],
+  "why": "Individual cells get old and die, so new cells replace them."
+ },
+ {
+  "part": "cr",
+  "q": "Cells divide into more cells when…",
+  "a": "the body grows or repairs itself",
+  "w": [
+   "the body sleeps only",
+   "the body is hungry",
+   "the lungs inhale"
+  ],
+  "why": "The photo caption: when the body grows or repairs itself, cells divide into more cells."
+ },
+ {
+  "part": "cr",
+  "q": "Which two things do cells need for growth and repair?",
+  "a": "Amino acids (to build proteins) and energy from glucose and oxygen",
+  "w": [
+   "Starch only",
+   "Carbon dioxide only",
+   "Fiber and water"
+  ],
+  "why": "Growth uses amino acids for proteins and energy from cellular respiration."
+ },
+ {
+  "part": "cr",
+  "q": "In the Big Climb story, why did Diego and Gabe’s muscle cells need so much glucose and oxygen?",
+  "a": "Their muscle cells release energy by cellular respiration while climbing",
+  "w": [
+   "They were making insulin",
+   "They were digesting fiber",
+   "They were growing new bones"
+  ],
+  "why": "Muscle cells release energy in mitochondria through cellular respiration."
+ },
+ {
+  "part": "cr",
+  "q": "In the Big Climb story, what do cells that need more energy do to the climbers’ behavior?",
+  "a": "They send signals to the brain: breathe faster and feel hungry",
+  "w": [
+   "They make the climbers sleep",
+   "They stop the heart",
+   "They stop breathing"
+  ],
+  "why": "Cells send signals to the brain that they need more, so climbers breathe faster and feel hungry."
+ },
+ {
+  "part": "cr",
+  "q": "Brain cells release and use about how much energy compared with other cells?",
+  "a": "Twice as much",
+  "w": [
+   "Half as much",
+   "The same amount",
+   "No energy at all"
+  ],
+  "why": "The brain’s cells use about twice as much energy as any other kind of cell."
+ },
+ {
+  "part": "cr",
+  "q": "When the climbers shivered at night, what were their muscle cells doing?",
+  "a": "Moving to release energy to keep warm",
+  "w": [
+   "Resting completely",
+   "Making insulin",
+   "Making red blood cells"
+  ],
+  "why": "Shivering is muscle cells moving to release energy and keep the body warm."
+ },
+ {
+  "part": "cr",
+  "q": "Does metabolism stop while you sleep?",
+  "a": "No, it continues (pumping blood, digesting, keeping warm, repairing, even dreaming)",
+  "w": [
+   "Yes, it stops completely",
+   "Only the lungs keep working",
+   "Only the digestive system works"
+  ],
+  "why": "Metabolism continues all night."
+ },
+ {
+  "part": "cr",
+  "q": "In the Big Climb, breakfast of oatmeal and nuts gave the climbers mostly which molecules?",
+  "a": "Starch (for glucose) and some protein (for amino acids)",
+  "w": [
+   "Only oxygen",
+   "Only carbon dioxide",
+   "Only fiber"
+  ],
+  "why": "Oatmeal is starchy and nuts contain protein."
+ },
+ {
+  "part": "cr",
+  "q": "Muscle cells are organized as…",
+  "a": "muscle cells → muscle tissue → muscle",
+  "w": [
+   "muscle → muscle tissue → muscle cells",
+   "muscle tissue → muscle cells → muscle",
+   "muscle cells → bone → muscle"
+  ],
+  "why": "Cells make up tissue, which makes up a muscle."
+ },
+ {
+  "part": "dop",
+  "q": "Blood doping is…",
+  "a": "an illegal procedure some athletes use to increase their cellular respiration and performance",
+  "w": [
+   "a legal diet for athletes",
+   "a type of high-altitude training",
+   "a medicine for asthma"
+  ],
+  "why": "Blood doping is a controversial, illegal procedure used to boost cellular respiration."
+ },
+ {
+  "part": "dop",
+  "q": "In blood doping, an athlete first…",
+  "a": "drains some of their own blood and stores it for weeks or months",
+  "w": [
+   "takes iron pills only",
+   "breathes mountain air only",
+   "eats more starch only"
+  ],
+  "why": "The athlete’s own blood is removed, chilled and stored."
+ },
+ {
+  "part": "dop",
+  "q": "After the blood is removed, the athlete’s body…",
+  "a": "replaces the lost red blood cells",
+  "w": [
+   "stops making blood",
+   "makes only white blood cells",
+   "makes extra insulin"
+  ],
+  "why": "The body makes new red blood cells to replace the ones taken out."
+ },
+ {
+  "part": "dop",
+  "q": "The stored blood is injected back…",
+  "a": "just before a competition",
+  "w": [
+   "right after the competition",
+   "a year before the competition",
+   "never"
+  ],
+  "why": "The stored blood is put back just before the race, giving the athlete extra red blood cells."
+ },
+ {
+  "part": "dop",
+  "q": "Why does blood doping help an athlete?",
+  "a": "More red blood cells carry more oxygen, so cellular respiration is faster",
+  "w": [
+   "It makes the heart smaller",
+   "It removes glucose from the blood",
+   "It makes the lungs larger"
+  ],
+  "why": "More red blood cells = more oxygen delivered to cells = more energy released."
+ },
+ {
+  "part": "dop",
+  "q": "What do red blood cells carry?",
+  "a": "Oxygen",
+  "w": [
+   "Glucose only",
+   "Insulin",
+   "Starch"
+  ],
+  "why": "Red blood cells carry oxygen from the lungs to every cell."
+ },
+ {
+  "part": "dop",
+  "q": "More oxygen delivered to cells lets athletes…",
+  "a": "perform better for longer without getting tired",
+  "w": [
+   "get tired faster",
+   "stop breathing",
+   "grow taller immediately"
+  ],
+  "why": "Faster cellular respiration releases energy, so athletes can perform longer."
+ },
+ {
+  "part": "dop",
+  "q": "Which famous cyclist admitted to blood doping in 2013?",
+  "a": "Lance Armstrong",
+  "w": [
+   "Jordan Jones",
+   "Diego",
+   "Gabe"
+  ],
+  "why": "Lance Armstrong, once the best cyclist in the world, admitted to it."
+ },
+ {
+  "part": "dop",
+  "q": "Is blood doping allowed in competition?",
+  "a": "No, it is banned and athletes can be disqualified",
+  "w": [
+   "Yes, it is legal",
+   "Only in the Olympics",
+   "Only for beginners"
+  ],
+  "why": "Blood doping is illegal; athletes who do it can be disqualified."
+ },
+ {
+  "part": "dop",
+  "q": "One way officials detect blood doping is by testing the…",
+  "a": "age of the red blood cells",
+  "w": [
+   "color of the athlete’s shoes",
+   "number of breaths per day",
+   "size of the lungs"
+  ],
+  "why": "Stored red blood cells are older than newly produced cells."
+ },
+ {
+  "part": "dop",
+  "q": "Stored blood cells are different from newly produced ones because they are…",
+  "a": "older",
+  "w": [
+   "younger",
+   "larger lungs",
+   "made of starch"
+  ],
+  "why": "Older red blood cells in the athlete’s blood are evidence of re-injected stored blood."
+ },
+ {
+  "part": "dop",
+  "q": "Hemoglobin is…",
+  "a": "a protein that carries oxygen in red blood cells",
+  "w": [
+   "a molecule used to make insulin",
+   "a type of starch",
+   "a tiny air sac in the lungs"
+  ],
+  "why": "Hemoglobin gives red blood cells their ability to pick up oxygen."
+ },
+ {
+  "part": "dop",
+  "q": "Why is blood red?",
+  "a": "Hemoglobin is reddish in color",
+  "w": [
+   "Glucose is red",
+   "Oxygen is red",
+   "Starch is red"
+  ],
+  "why": "Red blood cells contain lots of hemoglobin, which is reddish."
+ },
+ {
+  "part": "dop",
+  "q": "Officials test hemoglobin because more red blood cells means…",
+  "a": "more hemoglobin",
+  "w": [
+   "less hemoglobin",
+   "less oxygen",
+   "more insulin"
+  ],
+  "why": "More red blood cells means more hemoglobin; higher levels on race day can be evidence of doping."
+ },
+ {
+  "part": "dop",
+  "q": "What evidence might suggest blood doping?",
+  "a": "Higher hemoglobin on race day than a week before",
+  "w": [
+   "A normal hemoglobin level every week",
+   "Fewer red blood cells on race day",
+   "Lower oxygen on race day"
+  ],
+  "why": "A sudden jump in hemoglobin before the race is evidence."
+ },
+ {
+  "part": "dop",
+  "q": "A serious side effect of blood doping is that…",
+  "a": "the blood gets thicker, making the heart work harder (risk of heart failure)",
+  "w": [
+   "the blood becomes thinner",
+   "the lungs fill with glucose",
+   "the pancreas stops working"
+  ],
+  "why": "Thicker blood forces the heart to work harder and can lead to heart failure."
+ },
+ {
+  "part": "dop",
+  "q": "What is a LEGAL way to get more red blood cells?",
+  "a": "High-altitude training",
+  "w": [
+   "Blood doping",
+   "Skipping meals",
+   "Holding breath for long periods"
+  ],
+  "why": "Training at altitude makes the body produce more red blood cells."
+ },
+ {
+  "part": "dop",
+  "q": "Why does high-altitude training increase red blood cells?",
+  "a": "There is less oxygen in the air, so the body makes more red blood cells",
+  "w": [
+   "There is more oxygen in the air",
+   "It removes blood from the body",
+   "It increases insulin"
+  ],
+  "why": "At altitude, the body adjusts to less oxygen by making more red blood cells."
+ },
+ {
+  "part": "dop",
+  "q": "How long does it take for high-altitude training to increase red blood cells?",
+  "a": "Several weeks",
+  "w": [
+   "A few minutes",
+   "One breath",
+   "A single day exactly"
+  ],
+  "why": "The body needs several weeks to make more red blood cells at altitude."
+ },
+ {
+  "part": "dop",
+  "q": "How do blood doping and altitude training compare?",
+  "a": "Both increase red blood cells; altitude training is legal and blood doping is not",
+  "w": [
+   "They are exactly the same and both illegal",
+   "Blood doping lowers red blood cells",
+   "Altitude training is illegal"
+  ],
+  "why": "Both raise red blood cells, but only altitude training is allowed."
+ },
+ {
+  "part": "dop",
+  "q": "The cyclist in the story, Jordan Jones, improved from 35th place to…",
+  "a": "1st place in one year",
+  "w": [
+   "10th place",
+   "last place",
+   "2nd place"
+  ],
+  "why": "He went from 35th to winning the following year."
+ },
+ {
+  "part": "dop",
+  "q": "What were possible explanations for Jordan Jones’s improvement?",
+  "a": "Blood doping, high-altitude training or a pre-race meal",
+  "w": [
+   "Only a new bike",
+   "Only luck",
+   "Only sleeping more"
+  ],
+  "why": "Evidence cards covered blood doping, high-altitude training and pre-race meal."
+ },
+ {
+  "part": "dop",
+  "q": "In the Science Seminar, you discussed evidence to…",
+  "a": "arrive at the best explanation and write a convincing scientific argument",
+  "w": [
+   "vote for the fastest cyclist",
+   "invent new molecules",
+   "measure the lungs"
+  ],
+  "why": "The seminar helped students decide what Jordan did and write a scientific argument."
+ },
+ {
+  "part": "dop",
+  "q": "A claim is…",
+  "a": "a proposed answer to a question about the natural world",
+  "w": [
+   "a piece of information that supports an answer",
+   "the process of explaining how evidence supports a claim",
+   "a type of molecule"
+  ],
+  "why": "Glossary definition of claim."
+ },
+ {
+  "part": "dop",
+  "q": "Evidence is…",
+  "a": "information about the natural world used to support or refute a claim",
+  "w": [
+   "a proposed answer",
+   "the explanation of how evidence supports a claim",
+   "a chemical reaction"
+  ],
+  "why": "Glossary definition of evidence."
+ },
+ {
+  "part": "dop",
+  "q": "Reasoning is…",
+  "a": "the process of making clear how your evidence supports your claim",
+  "w": [
+   "a type of evidence",
+   "a body system",
+   "the proposed answer to a question"
+  ],
+  "why": "Glossary definition of reasoning."
+ },
+ {
+  "part": "dop",
+  "q": "A scientific argument is…",
+  "a": "a claim supported by evidence",
+  "w": [
+   "a fight between scientists",
+   "a guess without evidence",
+   "a body system"
+  ],
+  "why": "Glossary definition of scientific argument."
+ },
+ {
+  "part": "dop",
+  "q": "Which is the best order of parts in a scientific argument?",
+  "a": "Claim, evidence, reasoning",
+  "w": [
+   "Reasoning, claim, evidence",
+   "Evidence, evidence, evidence",
+   "Guess, claim, opinion"
+  ],
+  "why": "A good argument states a claim, gives evidence, and uses reasoning to link them."
+ },
+ {
+  "part": "dop",
+  "q": "In the Revising Your Argument homework, the three things you rated were…",
+  "a": "stating your claim clearly, including evidence, and making reasoning clear",
+  "w": [
+   "spelling, handwriting and drawing",
+   "speed, neatness and length",
+   "claim, molecule and system"
+  ],
+  "why": "You rated how well you stated a claim, included evidence, and explained reasoning."
+ },
+ {
+  "part": "dop",
+  "q": "In Lesson 3.5, which three groups of people did you compare?",
+  "a": "Normal healthy people, athletes, and athletes who are blood doping",
+  "w": [
+   "Children, teachers and parents",
+   "Cyclists, runners and swimmers",
+   "Asthma, anemia and diabetes patients"
+  ],
+  "why": "You compared cellular respiration rates and oxygen levels in these three groups."
+ },
+ {
+  "part": "dop",
+  "q": "Athletes’ muscle cells (e.g., top cyclists) have unusually high numbers of…",
+  "a": "mitochondria",
+  "w": [
+   "alveoli",
+   "villi",
+   "nephrons"
+  ],
+  "why": "More mitochondria means more places for cellular respiration."
+ },
+ {
+  "part": "dop",
+  "q": "Top cyclists may breathe up to about how many breaths per minute?",
+  "a": "75",
+  "w": [
+   "12",
+   "20",
+   "5"
+  ],
+  "why": "Top cyclists can breathe up to about 75 breaths per minute while riding hard."
+ },
+ {
+  "part": "dop",
+  "q": "A cyclist’s heart rate can get up to about…",
+  "a": "200 beats per minute",
+  "w": [
+   "60 beats per minute",
+   "20 beats per minute",
+   "1,000 beats per minute"
+  ],
+  "why": "Cyclists’ heart rates may reach 200 bpm during a race."
+ },
+ {
+  "part": "dop",
+  "q": "During races, cyclists eat carbohydrates (starch) and glucose gels to…",
+  "a": "supply glucose for cellular respiration",
+  "w": [
+   "get oxygen",
+   "make red blood cells",
+   "get iron"
+  ],
+  "why": "Starch/gels provide glucose that cells use to release energy."
+ },
+ {
+  "part": "dop",
+  "q": "Which body system carries red blood cells around the body?",
+  "a": "Circulatory system",
+  "w": [
+   "Digestive system",
+   "Excretory system",
+   "Nervous system"
+  ],
+  "why": "Red blood cells travel in the blood of the circulatory system."
+ },
+ {
+  "part": "circ",
+  "q": "The circulatory system is made up of…",
+  "a": "blood vessels, blood and the heart",
+  "w": [
+   "lungs, trachea and nose",
+   "mouth, stomach and intestines",
+   "kidneys, bladder and skin"
+  ],
+  "why": "The circulatory system includes the heart, blood vessels and blood."
+ },
+ {
+  "part": "circ",
+  "q": "Why is it called the circulatory system?",
+  "a": "Blood circulates—flows around and around",
+  "w": [
+   "It circles the stomach",
+   "It makes circles in the lungs",
+   "It was named after a circle"
+  ],
+  "why": "Blood circulates through vessels to and from the heart and every cell."
+ },
+ {
+  "part": "circ",
+  "q": "The heart’s job is to…",
+  "a": "pump blood through blood vessels all around the body",
+  "w": [
+   "filter the blood",
+   "absorb glucose",
+   "take in oxygen from air"
+  ],
+  "why": "The heart pumps blood so it can reach every cell."
+ },
+ {
+  "part": "circ",
+  "q": "The heart is made of…",
+  "a": "muscle tissue",
+  "w": [
+   "bone",
+   "nerve tissue only",
+   "cartilage"
+  ],
+  "why": "The heart is made of muscle tissue, similar to arm and leg muscles."
+ },
+ {
+  "part": "circ",
+  "q": "Of all the muscles in your body, which does the most physical work?",
+  "a": "The heart",
+  "w": [
+   "The bicep",
+   "The tongue",
+   "The stomach"
+  ],
+  "why": "The heart beats all the time and is the hardest-working muscle."
+ },
+ {
+  "part": "circ",
+  "q": "About how many times does the heart beat each day?",
+  "a": "About 100,000 times",
+  "w": [
+   "About 100 times",
+   "About 1,000 times",
+   "About 1 million times"
+  ],
+  "why": "The heart beats about 100,000 times each day."
+ },
+ {
+  "part": "circ",
+  "q": "On average, the human heart beats about how many times per minute (resting)?",
+  "a": "60 to 100",
+  "w": [
+   "12 to 20",
+   "200 to 300",
+   "5 to 10"
+  ],
+  "why": "Average heart rate is about 60–100 beats per minute."
+ },
+ {
+  "part": "circ",
+  "q": "When you exercise, your heart rate might be about…",
+  "a": "twice as fast as your resting heart rate",
+  "w": [
+   "half as fast as resting",
+   "the same as resting",
+   "zero"
+  ],
+  "why": "Exercising heart rate can be twice the resting rate to deliver molecules faster."
+ },
+ {
+  "part": "circ",
+  "q": "Why does the heart beat faster during exercise?",
+  "a": "To deliver molecules to cells faster",
+  "w": [
+   "To slow down cellular respiration",
+   "To rest the muscles",
+   "To stop the lungs"
+  ],
+  "why": "Cells need more oxygen and glucose during exercise."
+ },
+ {
+  "part": "circ",
+  "q": "Blood is liquid, but it is partly made up of cells—mostly…",
+  "a": "red blood cells",
+  "w": [
+   "nerve cells",
+   "bone cells",
+   "skin cells"
+  ],
+  "why": "Red blood cells are the main cells in blood."
+ },
+ {
+  "part": "circ",
+  "q": "Red blood cells pick up oxygen thanks to a special protein called…",
+  "a": "hemoglobin",
+  "w": [
+   "insulin",
+   "amylase",
+   "keratin"
+  ],
+  "why": "Hemoglobin gives red blood cells their ability to pick up oxygen."
+ },
+ {
+  "part": "circ",
+  "q": "The tiny air sacs where oxygen enters the blood are called…",
+  "a": "alveoli",
+  "w": [
+   "villi",
+   "nephrons",
+   "neurons"
+  ],
+  "why": "Alveoli connect the respiratory and circulatory systems."
+ },
+ {
+  "part": "circ",
+  "q": "Alveoli are surrounded by tiny blood vessels called…",
+  "a": "capillaries",
+  "w": [
+   "tendons",
+   "ligaments",
+   "ureters"
+  ],
+  "why": "Capillaries have very thin walls and surround the alveoli."
+ },
+ {
+  "part": "circ",
+  "q": "Red blood cells move through capillaries…",
+  "a": "in a single-file line",
+  "w": [
+   "all at once in a clump",
+   "only backward",
+   "only upward"
+  ],
+  "why": "Capillaries are so narrow that red blood cells must pass single file."
+ },
+ {
+  "part": "circ",
+  "q": "At the alveoli, which molecule leaves the blood and goes into the lungs?",
+  "a": "Carbon dioxide",
+  "w": [
+   "Oxygen",
+   "Glucose",
+   "Insulin"
+  ],
+  "why": "CO₂ goes from blood into the alveoli and is breathed out."
+ },
+ {
+  "part": "circ",
+  "q": "The digestive and circulatory systems meet at the walls of the…",
+  "a": "small intestine",
+  "w": [
+   "stomach",
+   "large intestine",
+   "esophagus"
+  ],
+  "why": "Capillaries inside the villi of the small intestine pick up glucose and amino acids."
+ },
+ {
+  "part": "circ",
+  "q": "Villi are…",
+  "a": "tiny finger-like parts lining the small intestine",
+  "w": [
+   "tiny air sacs in the lungs",
+   "tiny filters in the kidneys",
+   "arms of nerve cells"
+  ],
+  "why": "Villi absorb glucose and amino acids into capillaries."
+ },
+ {
+  "part": "circ",
+  "q": "Inside the villi there are…",
+  "a": "capillaries",
+  "w": [
+   "alveoli",
+   "vertebrae",
+   "ovaries"
+  ],
+  "why": "Capillaries in the villi take glucose and amino acids into the blood."
+ },
+ {
+  "part": "circ",
+  "q": "Besides delivering oxygen, glucose and amino acids, blood also carries away…",
+  "a": "molecules cells don’t need, like carbon dioxide",
+  "w": [
+   "new bones",
+   "protein only",
+   "insulin only"
+  ],
+  "why": "Blood removes waste molecules such as CO₂."
+ },
+ {
+  "part": "circ",
+  "q": "As the heart pumps, blood vessels become…",
+  "a": "narrower and narrower and branch out in all directions",
+  "w": [
+   "wider and wider",
+   "thicker and thicker",
+   "shorter and shorter"
+  ],
+  "why": "Vessels branch to reach every tiny cell."
+ },
+ {
+  "part": "circ",
+  "q": "Which statement about the circulatory system is TRUE?",
+  "a": "It connects cells to the other body systems",
+  "w": [
+   "It makes oxygen",
+   "It digests food",
+   "It filters air"
+  ],
+  "why": "It transports molecules between other systems and the cells."
+ },
+ {
+  "part": "circ",
+  "q": "Which molecules does the circulatory system carry to cells?",
+  "a": "Oxygen, glucose and amino acids",
+  "w": [
+   "Starch, protein and fiber",
+   "Carbon dioxide only",
+   "Water and salt only"
+  ],
+  "why": "Blood delivers oxygen, glucose and amino acids."
+ },
+ {
+  "part": "circ",
+  "q": "Bone marrow produces…",
+  "a": "red blood cells",
+  "w": [
+   "insulin",
+   "digestive enzymes",
+   "oxygen"
+  ],
+  "why": "Red marrow in bones makes red blood cells."
+ },
+ {
+  "part": "circ",
+  "q": "In the Sim and the articles, where do red blood cells deliver oxygen?",
+  "a": "To body cells where it is used to release energy",
+  "w": [
+   "To the stomach",
+   "To the kidneys only",
+   "To the skin only"
+  ],
+  "why": "Red blood cells carry oxygen to the rest of the body’s cells."
+ },
+ {
+  "part": "circ",
+  "q": "A microscope photo of tiny blood vessels branching in all directions shows that…",
+  "a": "blood vessels reach every body cell",
+  "w": [
+   "blood vessels only reach the heart",
+   "blood vessels stop at bones",
+   "the heart makes cells"
+  ],
+  "why": "Tiny vessels branch out to reach every cell."
+ },
+ {
+  "part": "resp",
+  "q": "To respire means to…",
+  "a": "breathe",
+  "w": [
+   "digest",
+   "excrete",
+   "circulate"
+  ],
+  "why": "The respiratory system is the body system involved in breathing."
+ },
+ {
+  "part": "resp",
+  "q": "The respiratory system includes the…",
+  "a": "lungs, trachea, nose and mouth",
+  "w": [
+   "heart and blood vessels",
+   "kidneys and bladder",
+   "brain and spinal cord"
+  ],
+  "why": "The respiratory system is made of the lungs, trachea (windpipe), nose and mouth."
+ },
+ {
+  "part": "resp",
+  "q": "Another name for the trachea is the…",
+  "a": "windpipe",
+  "w": [
+   "esophagus",
+   "ureter",
+   "spinal cord"
+  ],
+  "why": "The trachea is also called the windpipe."
+ },
+ {
+  "part": "resp",
+  "q": "When you breathe in, air travels through the…",
+  "a": "trachea, then narrower tubes, then alveoli",
+  "w": [
+   "esophagus, then stomach",
+   "ureter, then bladder",
+   "spinal cord"
+  ],
+  "why": "Air moves down the trachea, branching into narrower tubes that end at alveoli."
+ },
+ {
+  "part": "resp",
+  "q": "The millions of tiny air sacs at the end of lung tubes are called…",
+  "a": "alveoli",
+  "w": [
+   "villi",
+   "capillaries",
+   "nephrons"
+  ],
+  "why": "Alveoli are tiny air sacs where oxygen enters the blood."
+ },
+ {
+  "part": "resp",
+  "q": "Oxygen moves from the alveoli into…",
+  "a": "tiny blood vessels that surround them",
+  "w": [
+   "the stomach",
+   "the bladder",
+   "the brain directly"
+  ],
+  "why": "Oxygen is small enough to pass through the alveoli walls into capillaries."
+ },
+ {
+  "part": "resp",
+  "q": "At the same time oxygen goes into the blood, carbon dioxide…",
+  "a": "moves from the blood into the alveoli",
+  "w": [
+   "moves from the alveoli into the stomach",
+   "moves into the bones",
+   "stays in the blood forever"
+  ],
+  "why": "CO₂ moves in the opposite direction and is breathed out."
+ },
+ {
+  "part": "resp",
+  "q": "How many full breaths do you take per minute when resting?",
+  "a": "About 12 to 20",
+  "w": [
+   "About 60 to 100",
+   "About 200",
+   "About 1 to 2"
+  ],
+  "why": "You take one full breath in and out about 12–20 times per minute."
+ },
+ {
+  "part": "resp",
+  "q": "What do nerve cells in blood vessels of the neck and chest keep track of?",
+  "a": "The levels of carbon dioxide and oxygen in the blood",
+  "w": [
+   "The temperature of the air",
+   "The amount of glucose in the stomach",
+   "The number of bones"
+  ],
+  "why": "They detect CO₂ and O₂ levels and signal the brain."
+ },
+ {
+  "part": "resp",
+  "q": "If carbon dioxide gets too high or oxygen too low, the brain makes you…",
+  "a": "breathe faster",
+  "w": [
+   "breathe slower",
+   "stop breathing",
+   "sneeze only"
+  ],
+  "why": "The brain gets signals to breathe faster to remove CO₂ and bring in oxygen."
+ },
+ {
+  "part": "resp",
+  "q": "Why do you breathe faster when you exercise?",
+  "a": "Your cells need more oxygen and produce more carbon dioxide",
+  "w": [
+   "Your cells need less oxygen",
+   "Your lungs shrink",
+   "You stop making carbon dioxide"
+  ],
+  "why": "Exercise increases both demand for oxygen and production of CO₂."
+ },
+ {
+  "part": "resp",
+  "q": "Which structures in the nose trap large particles?",
+  "a": "Nose hairs and mucus",
+  "w": [
+   "Cilia only",
+   "Alveoli",
+   "Villi"
+  ],
+  "why": "Nose hairs and mucus work together to trap large particles."
+ },
+ {
+  "part": "resp",
+  "q": "Cilia are…",
+  "a": "tiny hair-like structures that line the respiratory system and trap harmful particles",
+  "w": [
+   "tiny air sacs",
+   "finger-like parts of the intestine",
+   "tubes in the kidneys"
+  ],
+  "why": "Cilia sway back and forth to push particles toward the nose."
+ },
+ {
+  "part": "resp",
+  "q": "What do cilia do with harmful particles?",
+  "a": "Push them up to the nose where they can be blown out",
+  "w": [
+   "Send them to the stomach",
+   "Turn them into oxygen",
+   "Send them to the heart"
+  ],
+  "why": "The cilia sway and push particles up toward the nose."
+ },
+ {
+  "part": "resp",
+  "q": "Why can oxygen pass through the respiratory system’s filters while dust cannot?",
+  "a": "Oxygen molecules are so small they fit through spaces larger particles can’t",
+  "w": [
+   "Oxygen is bigger than dust",
+   "Dust is a gas",
+   "Filters only exist in the stomach"
+  ],
+  "why": "Filtering works because oxygen molecules are very small."
+ },
+ {
+  "part": "resp",
+  "q": "The epiglottis is…",
+  "a": "a small flap of tissue that covers the trachea when you swallow",
+  "w": [
+   "a tiny air sac",
+   "a tube from kidney to bladder",
+   "a type of bone"
+  ],
+  "why": "The epiglottis keeps food out of the trachea."
+ },
+ {
+  "part": "resp",
+  "q": "When you swallow, the epiglottis…",
+  "a": "closes to cover the trachea",
+  "w": [
+   "opens wide",
+   "falls off",
+   "becomes the esophagus"
+  ],
+  "why": "It closes when you swallow and stays open while you breathe."
+ },
+ {
+  "part": "resp",
+  "q": "What is choking?",
+  "a": "Food accidentally entering the trachea and blocking airflow",
+  "w": [
+   "Swallowing too much water",
+   "Breathing too fast",
+   "Coughing out dust"
+  ],
+  "why": "If food enters the trachea it can stop air from flowing."
+ },
+ {
+  "part": "resp",
+  "q": "A person who is choking can’t breathe because…",
+  "a": "the trachea is blocked",
+  "w": [
+   "the stomach is full",
+   "the heart stopped",
+   "the esophagus is open"
+  ],
+  "why": "Whatever is blocking the trachea has to be removed."
+ },
+ {
+  "part": "resp",
+  "q": "What things in air can be harmful if they enter the respiratory system?",
+  "a": "Dust, pollen, pollution and bacteria",
+  "w": [
+   "Only oxygen",
+   "Only carbon dioxide",
+   "Only glucose"
+  ],
+  "why": "Dust, pollen, pollution, bacteria and other small particles float in air."
+ },
+ {
+  "part": "resp",
+  "q": "Through which structure do you take in both food and air?",
+  "a": "The mouth",
+  "w": [
+   "The ureter",
+   "The spinal cord",
+   "The heart"
+  ],
+  "why": "You take in food and air through your mouth; the epiglottis sorts them."
+ },
+ {
+  "part": "resp",
+  "q": "Oxygen molecules entering the alveoli…",
+  "a": "don’t stay there long; they pass into the blood",
+  "w": [
+   "stay in the lungs for days",
+   "are stored as glucose",
+   "turn into starch"
+  ],
+  "why": "Oxygen passes through alveoli walls into tiny blood vessels."
+ },
+ {
+  "part": "resp",
+  "q": "Which statement about breathing and cells is TRUE?",
+  "a": "The respiratory system brings in oxygen but needs the circulatory system to deliver it",
+  "w": [
+   "Lungs deliver oxygen straight to each cell",
+   "Oxygen is made in the lungs",
+   "The circulatory system makes oxygen"
+  ],
+  "why": "Without circulation, oxygen couldn’t get to cells."
+ },
+ {
+  "part": "resp",
+  "q": "What does the respiratory system move OUT of the body?",
+  "a": "Carbon dioxide",
+  "w": [
+   "Oxygen",
+   "Glucose",
+   "Insulin"
+  ],
+  "why": "The respiratory system brings oxygen in and moves carbon dioxide out."
+ },
+ {
+  "part": "dig",
+  "q": "The digestive system includes the…",
+  "a": "mouth, stomach, intestines and other digestive organs",
+  "w": [
+   "lungs and trachea",
+   "heart and blood vessels",
+   "brain and spinal cord"
+  ],
+  "why": "The digestive system includes the mouth, esophagus, stomach, small and large intestines."
+ },
+ {
+  "part": "dig",
+  "q": "The main function of the digestive system is to…",
+  "a": "digest, or break down, food into molecules cells can use",
+  "w": [
+   "pump blood",
+   "take in oxygen",
+   "filter blood"
+  ],
+  "why": "It breaks food down through chemical reactions."
+ },
+ {
+  "part": "dig",
+  "q": "Chewing alone is NOT enough to digest food because…",
+  "a": "digestion needs chemical reactions that break large molecules into smaller ones",
+  "w": [
+   "chewing makes food bigger",
+   "the stomach has no acid",
+   "food is already molecules"
+  ],
+  "why": "Digestion changes food by chemical reactions, not just grinding."
+ },
+ {
+  "part": "dig",
+  "q": "Digestive enzymes help chemical reactions…",
+  "a": "happen faster",
+  "w": [
+   "stop",
+   "reverse",
+   "turn into oxygen"
+  ],
+  "why": "The body makes digestive enzymes to speed up the chemical reactions that break down food."
+ },
+ {
+  "part": "dig",
+  "q": "In the stomach, digestive enzymes break down…",
+  "a": "protein molecules into amino acids",
+  "w": [
+   "starch into protein",
+   "oxygen into glucose",
+   "fiber into glucose"
+  ],
+  "why": "Stomach enzymes break proteins into amino acids."
+ },
+ {
+  "part": "dig",
+  "q": "Where does digestion of starch begin?",
+  "a": "In the mouth, with saliva",
+  "w": [
+   "In the stomach",
+   "In the large intestine",
+   "In the lungs"
+  ],
+  "why": "Saliva contains enzymes that start breaking starch down as you chew."
+ },
+ {
+  "part": "dig",
+  "q": "Saliva is produced by…",
+  "a": "salivary glands",
+  "w": [
+   "the pancreas",
+   "the kidneys",
+   "the villi"
+  ],
+  "why": "Salivary glands are hidden inside the head and produce saliva."
+ },
+ {
+  "part": "dig",
+  "q": "After you swallow, food travels down a tube called the…",
+  "a": "esophagus",
+  "w": [
+   "trachea",
+   "ureter",
+   "spinal cord"
+  ],
+  "why": "The esophagus carries food to the stomach."
+ },
+ {
+  "part": "dig",
+  "q": "The stomach also contains…",
+  "a": "acid, which helps the digestive enzymes work",
+  "w": [
+   "red blood cells",
+   "alveoli",
+   "neurons"
+  ],
+  "why": "Stomach acid helps the enzymes break down food."
+ },
+ {
+  "part": "dig",
+  "q": "Where are ALL the starch molecules finally broken down into glucose?",
+  "a": "Small intestine",
+  "w": [
+   "Esophagus",
+   "Large intestine",
+   "Bladder"
+  ],
+  "why": "In the small intestine, enzymes break down all the starch into glucose."
+ },
+ {
+  "part": "dig",
+  "q": "How long is the small intestine in the average adult?",
+  "a": "About 20 feet",
+  "w": [
+   "About 2 feet",
+   "About 200 feet",
+   "About 20 inches"
+  ],
+  "why": "The small intestine is a very long, winding tube, about 20 feet long."
+ },
+ {
+  "part": "dig",
+  "q": "The small intestine is lined with tiny finger-like parts called…",
+  "a": "villi",
+  "w": [
+   "alveoli",
+   "cilia",
+   "nephrons"
+  ],
+  "why": "Villi help the body absorb glucose and amino acids."
+ },
+ {
+  "part": "dig",
+  "q": "What do the villi do?",
+  "a": "Help absorb molecules like glucose and amino acids into the blood",
+  "w": [
+   "Make acid",
+   "Filter dust",
+   "Make urine"
+  ],
+  "why": "Glucose and amino acids pass through the villi into capillaries."
+ },
+ {
+  "part": "dig",
+  "q": "Glucose and amino acids pass from the digestive system into the blood through the walls of the…",
+  "a": "small intestine",
+  "w": [
+   "esophagus",
+   "stomach only",
+   "bladder"
+  ],
+  "why": "They pass through the small intestine walls and are absorbed into blood."
+ },
+ {
+  "part": "dig",
+  "q": "What happens to fiber and other parts of food the body can’t break down?",
+  "a": "They move on to the large intestine and leave as waste",
+  "w": [
+   "They enter the cells",
+   "They become glucose",
+   "They go to the lungs"
+  ],
+  "why": "Undigested parts go to the large intestine."
+ },
+ {
+  "part": "dig",
+  "q": "What is absorbed in the large intestine?",
+  "a": "Water, vitamins and minerals",
+  "w": [
+   "Glucose only",
+   "Amino acids only",
+   "Oxygen"
+  ],
+  "why": "Water is absorbed along with vitamins and minerals."
+ },
+ {
+  "part": "dig",
+  "q": "The intestines are home to thousands of kinds of…",
+  "a": "bacteria that mostly help the body",
+  "w": [
+   "viruses that cause illness",
+   "red blood cells",
+   "alveoli"
+  ],
+  "why": "Most intestinal bacteria help make vitamins and break down food."
+ },
+ {
+  "part": "dig",
+  "q": "Bacteria in the digestive system help by…",
+  "a": "making vitamins and breaking down food the body couldn’t digest on its own",
+  "w": [
+   "making you sick",
+   "making insulin",
+   "filtering blood"
+  ],
+  "why": "They make vitamins and break down hard-to-digest food."
+ },
+ {
+  "part": "dig",
+  "q": "The walls of the stomach are covered with tiny holes that release…",
+  "a": "enzymes and acid",
+  "w": [
+   "insulin",
+   "oxygen",
+   "blood"
+  ],
+  "why": "The holes release enzymes and acid that break down foods."
+ },
+ {
+  "part": "dig",
+  "q": "Which is the correct path of food through the digestive system?",
+  "a": "Mouth → esophagus → stomach → small intestine → large intestine",
+  "w": [
+   "Mouth → trachea → lungs → stomach",
+   "Stomach → mouth → esophagus",
+   "Small intestine → mouth → stomach"
+  ],
+  "why": "Food travels in this order, with absorption in the small intestine."
+ },
+ {
+  "part": "dig",
+  "q": "Which organ is part of the digestive system and makes digestive enzymes?",
+  "a": "Pancreas",
+  "w": [
+   "Kidney",
+   "Heart",
+   "Bladder"
+  ],
+  "why": "The pancreas makes lots of digestive enzymes."
+ },
+ {
+  "part": "dig",
+  "q": "Foods are made of large molecules such as…",
+  "a": "proteins and starch",
+  "w": [
+   "oxygen and glucose",
+   "insulin and iron",
+   "amino acids and glucose"
+  ],
+  "why": "Food contains large molecules like proteins and starch."
+ },
+ {
+  "part": "dig",
+  "q": "A large protein molecule in an egg is broken down by the digestive system into…",
+  "a": "small amino acids that cells can use",
+  "w": [
+   "small glucose molecules",
+   "oxygen",
+   "starch"
+  ],
+  "why": "Proteins are broken down into amino acids."
+ },
+ {
+  "part": "dig",
+  "q": "Which part of the digestive system is a pouch with acid?",
+  "a": "Stomach",
+  "w": [
+   "Esophagus",
+   "Small intestine",
+   "Large intestine"
+  ],
+  "why": "The stomach contains acid and enzymes."
+ },
+ {
+  "part": "dig",
+  "q": "Glucose and amino acids can’t get from the digestive system to cells without the help of the…",
+  "a": "circulatory system",
+  "w": [
+   "nervous system",
+   "excretory system",
+   "reproductive system"
+  ],
+  "why": "The circulatory system picks them up in the villi."
+ },
+ {
+  "part": "dig",
+  "q": "Why must food be broken into smaller molecules?",
+  "a": "Cells can only use molecules small enough to enter them",
+  "w": [
+   "Cells can’t use glucose",
+   "Starch is too small",
+   "Oxygen is too large"
+  ],
+  "why": "Only small molecules fit through cell membranes."
+ },
+ {
+  "part": "nerv",
+  "q": "The nervous system carries…",
+  "a": "information from your body to your brain and from your brain to the rest of your body",
+  "w": [
+   "oxygen to cells",
+   "food to the stomach",
+   "waste to the bladder"
+  ],
+  "why": "The nervous system carries information both ways."
+ },
+ {
+  "part": "nerv",
+  "q": "Information travels through the body as…",
+  "a": "electrical impulses",
+  "w": [
+   "chemical gas",
+   "light waves",
+   "bubbles"
+  ],
+  "why": "Information moves as electrical impulses, tiny bursts of electricity."
+ },
+ {
+  "part": "nerv",
+  "q": "Nerve cells are also called…",
+  "a": "neurons",
+  "w": [
+   "villi",
+   "alveoli",
+   "nephrons"
+  ],
+  "why": "Nerve cells, or neurons, carry electrical impulses."
+ },
+ {
+  "part": "nerv",
+  "q": "The nervous system has two sections:",
+  "a": "central and peripheral",
+  "w": [
+   "left and right",
+   "upper and lower",
+   "sensory and digestive"
+  ],
+  "why": "The central nervous system and the peripheral nervous system."
+ },
+ {
+  "part": "nerv",
+  "q": "The central nervous system (CNS) is formed by the…",
+  "a": "brain and spinal cord",
+  "w": [
+   "heart and lungs",
+   "kidneys and bladder",
+   "stomach and intestines"
+  ],
+  "why": "The CNS is the command center: brain and spinal cord."
+ },
+ {
+  "part": "nerv",
+  "q": "The peripheral nervous system (PNS) is made of…",
+  "a": "nerves that branch out from the spinal cord to every part of the body",
+  "w": [
+   "only the brain",
+   "only the heart",
+   "only the skull"
+  ],
+  "why": "The PNS is all the nerves except those in the spinal cord."
+ },
+ {
+  "part": "nerv",
+  "q": "About how many neurons does the brain contain?",
+  "a": "About 86 billion",
+  "w": [
+   "About 86 thousand",
+   "About 10,000",
+   "About 1 million"
+  ],
+  "why": "The brain contains about 86 billion neurons."
+ },
+ {
+  "part": "nerv",
+  "q": "Each neuron in the brain can make connections with as many as…",
+  "a": "10,000 other neurons",
+  "w": [
+   "10 other neurons",
+   "100 other neurons",
+   "2 other neurons"
+  ],
+  "why": "Each neuron can connect with as many as 10,000 others."
+ },
+ {
+  "part": "nerv",
+  "q": "The brain is made of a kind of tissue called…",
+  "a": "gray matter",
+  "w": [
+   "cartilage",
+   "bone marrow",
+   "muscle"
+  ],
+  "why": "The brain is made of gray matter."
+ },
+ {
+  "part": "nerv",
+  "q": "The spinal cord is protected by…",
+  "a": "the bones of the spine (vertebrae)",
+  "w": [
+   "the skull",
+   "the ribs only",
+   "cartilage in the nose"
+  ],
+  "why": "The vertebrae surround and protect the spinal cord."
+ },
+ {
+  "part": "nerv",
+  "q": "The brain is protected by the…",
+  "a": "skull",
+  "w": [
+   "ribs",
+   "spine",
+   "pelvis"
+  ],
+  "why": "The skull protects the brain."
+ },
+ {
+  "part": "nerv",
+  "q": "“Vertebrae” is the plural of…",
+  "a": "vertebra",
+  "w": [
+   "spine",
+   "skull",
+   "vertebrum"
+  ],
+  "why": "Vertebra is singular, vertebrae is plural."
+ },
+ {
+  "part": "nerv",
+  "q": "Neurons have in common with other body cells…",
+  "a": "a nucleus, a cell membrane and the same organelles",
+  "w": [
+   "axons and dendrites",
+   "a synapse",
+   "neurotransmitters"
+  ],
+  "why": "They also use glucose and oxygen to get energy."
+ },
+ {
+  "part": "nerv",
+  "q": "Neurons use ___ to get energy.",
+  "a": "glucose and oxygen",
+  "w": [
+   "only sunlight",
+   "only protein",
+   "only fiber"
+  ],
+  "why": "Like other cells, neurons use glucose and oxygen."
+ },
+ {
+  "part": "nerv",
+  "q": "Dendrites are…",
+  "a": "short branched “arms” that bring impulses into the neuron’s body",
+  "w": [
+   "long tails that pass impulses away",
+   "gaps between neurons",
+   "chemicals that cross the gap"
+  ],
+  "why": "Dendrites receive impulses."
+ },
+ {
+  "part": "nerv",
+  "q": "An axon is…",
+  "a": "a long “tail” that passes impulses away from the neuron’s body",
+  "w": [
+   "a short arm that receives impulses",
+   "the gap between two neurons",
+   "a type of bone"
+  ],
+  "why": "The axon carries impulses away from the body of the neuron."
+ },
+ {
+  "part": "nerv",
+  "q": "The longest axon in the body reaches from the spinal cord to…",
+  "a": "the big toe",
+  "w": [
+   "the nose",
+   "the heart",
+   "the ear"
+  ],
+  "why": "The longest axon goes all the way to the big toe."
+ },
+ {
+  "part": "nerv",
+  "q": "The tiny gap between two neurons is called a…",
+  "a": "synapse",
+  "w": [
+   "vertebra",
+   "villus",
+   "capillary"
+  ],
+  "why": "Neurons are not connected; there is a gap called a synapse."
+ },
+ {
+  "part": "nerv",
+  "q": "What chemicals carry the electrical impulse across the synapse?",
+  "a": "Neurotransmitters",
+  "w": [
+   "Enzymes",
+   "Insulin",
+   "Hemoglobin"
+  ],
+  "why": "Neurotransmitters sail across the synapse and the impulse hitches a ride."
+ },
+ {
+  "part": "nerv",
+  "q": "Neurotransmitters are released by the end of the…",
+  "a": "axon",
+  "w": [
+   "dendrite",
+   "spinal cord",
+   "skull"
+  ],
+  "why": "They are released at the axon end and cross to the next dendrite."
+ },
+ {
+  "part": "nerv",
+  "q": "How fast can electrical impulses in the body travel?",
+  "a": "As fast as 250 miles per hour",
+  "w": [
+   "About 2 miles per hour",
+   "About 10 miles per hour",
+   "About 1 mile per hour"
+  ],
+  "why": "Impulses can travel as fast as 250 mph."
+ },
+ {
+  "part": "nerv",
+  "q": "Sensory neurons take information from…",
+  "a": "sense organs like the skin, tongue, nose and ears toward the CNS",
+  "w": [
+   "the CNS to muscles",
+   "muscles to bones",
+   "the heart to lungs"
+  ],
+  "why": "Sensory neurons carry information to the CNS."
+ },
+ {
+  "part": "nerv",
+  "q": "Motor neurons take information from…",
+  "a": "the CNS to muscles and organs",
+  "w": [
+   "the skin to the CNS",
+   "the ears to the nose",
+   "the stomach to the lungs"
+  ],
+  "why": "Motor neurons carry orders from the CNS to the body."
+ },
+ {
+  "part": "nerv",
+  "q": "Why do you feel a paper cut?",
+  "a": "The nervous system carries the information to your brain",
+  "w": [
+   "The heart pumps pain",
+   "The lungs sense it",
+   "The kidneys send it"
+  ],
+  "why": "Sensory neurons send signals to your brain."
+ },
+ {
+  "part": "nerv",
+  "q": "The spinal cord is also in charge of…",
+  "a": "a few basic tasks on its own, mostly small movements you don’t think about",
+  "w": [
+   "all thinking and memory",
+   "digesting food",
+   "making blood"
+  ],
+  "why": "The spinal cord handles some basic automatic movements."
+ },
+ {
+  "part": "nerv",
+  "q": "The brain is in charge of…",
+  "a": "moving, breathing, forming and storing memories, thinking and feeling",
+  "w": [
+   "digesting food only",
+   "pumping blood only",
+   "filtering blood only"
+  ],
+  "why": "The brain controls everything you do."
+ },
+ {
+  "part": "exc",
+  "q": "The excretory system…",
+  "a": "breaks down waste and moves it out of the body",
+  "w": [
+   "takes in food",
+   "pumps blood",
+   "carries impulses"
+  ],
+  "why": "The excretory system removes waste."
+ },
+ {
+  "part": "exc",
+  "q": "The three main organs of the excretory system are…",
+  "a": "kidneys, bladder and skin",
+  "w": [
+   "heart, lungs and liver",
+   "brain, spine and nerves",
+   "stomach, intestines and mouth"
+  ],
+  "why": "These are the main excretory organs."
+ },
+ {
+  "part": "exc",
+  "q": "Which organs also help move waste out but are part of other systems?",
+  "a": "Liver, large intestine and lungs",
+  "w": [
+   "Kidneys and bladder",
+   "Skin and bladder",
+   "Brain and heart"
+  ],
+  "why": "The liver, large intestine and lungs help remove waste."
+ },
+ {
+  "part": "exc",
+  "q": "Kidneys are…",
+  "a": "a pair of bean-shaped organs underneath the rib cage",
+  "w": [
+   "air sacs in the lungs",
+   "tubes in the brain",
+   "finger-like parts in the intestine"
+  ],
+  "why": "Kidneys are bean-shaped, one on each side of the spine."
+ },
+ {
+  "part": "exc",
+  "q": "The kidneys’ job is to…",
+  "a": "clean the blood and prepare waste substances to leave the body",
+  "w": [
+   "pump blood",
+   "digest food",
+   "take in oxygen"
+  ],
+  "why": "Kidneys filter the blood."
+ },
+ {
+  "part": "exc",
+  "q": "The tiny filters in the kidneys are called…",
+  "a": "nephrons",
+  "w": [
+   "alveoli",
+   "villi",
+   "neurons"
+  ],
+  "why": "Nephrons strain substances out of the blood."
+ },
+ {
+  "part": "exc",
+  "q": "Waste substances from the blood are mixed with water to make…",
+  "a": "urine",
+  "w": [
+   "sweat",
+   "saliva",
+   "bile"
+  ],
+  "why": "Waste and water make urine."
+ },
+ {
+  "part": "exc",
+  "q": "What fraction of the blood in the body passes through the kidneys at any time?",
+  "a": "About one quarter",
+  "w": [
+   "About one half",
+   "About one tenth",
+   "All of it at once"
+  ],
+  "why": "As much as one quarter of the blood is in the kidneys."
+ },
+ {
+  "part": "exc",
+  "q": "The average human has about how much blood?",
+  "a": "About 5 liters",
+  "w": [
+   "About 50 liters",
+   "About 1 liter",
+   "About 150 liters"
+  ],
+  "why": "The average person has about 5 liters of blood."
+ },
+ {
+  "part": "exc",
+  "q": "The kidneys can filter about how much blood per day?",
+  "a": "About 150 liters",
+  "w": [
+   "About 5 liters",
+   "About 15 liters",
+   "About 1,500 liters"
+  ],
+  "why": "Kidneys can filter about 150 liters per day."
+ },
+ {
+  "part": "exc",
+  "q": "Every drop of blood passes through the kidneys as many as how many times a day?",
+  "a": "About 30 times",
+  "w": [
+   "About 3 times",
+   "About 300 times",
+   "Once"
+  ],
+  "why": "It’s up to about 30 times per day."
+ },
+ {
+  "part": "exc",
+  "q": "Urine travels from the kidney to the bladder through a tube called the…",
+  "a": "ureter",
+  "w": [
+   "esophagus",
+   "trachea",
+   "spinal cord"
+  ],
+  "why": "The ureter carries urine to the bladder."
+ },
+ {
+  "part": "exc",
+  "q": "The bladder’s only job is to…",
+  "a": "collect urine and keep it from building up",
+  "w": [
+   "filter the blood",
+   "digest food",
+   "make hormones"
+  ],
+  "why": "The bladder stores urine until it leaves the body."
+ },
+ {
+  "part": "exc",
+  "q": "The bladder is elastic, which means it…",
+  "a": "stretches as it fills",
+  "w": [
+   "never changes size",
+   "always stays empty",
+   "is made of bone"
+  ],
+  "why": "The bladder stretches as it begins to get full."
+ },
+ {
+  "part": "exc",
+  "q": "How does your brain know the bladder needs to be emptied?",
+  "a": "Nerves in the bladder wall send a signal",
+  "w": [
+   "The heart tells it",
+   "The lungs warn it",
+   "The skin tells it"
+  ],
+  "why": "Nerves in the wall of the bladder signal the brain."
+ },
+ {
+  "part": "exc",
+  "q": "The average human produces how much urine every day?",
+  "a": "One to two liters",
+  "w": [
+   "Ten liters",
+   "One drop",
+   "Fifty liters"
+  ],
+  "why": "About 1–2 liters of urine per day."
+ },
+ {
+  "part": "exc",
+  "q": "Which is the largest organ in the human body, and part of the excretory system?",
+  "a": "Skin",
+  "w": [
+   "Liver",
+   "Heart",
+   "Brain"
+  ],
+  "why": "The skin is the largest organ."
+ },
+ {
+  "part": "exc",
+  "q": "How does the skin help remove waste?",
+  "a": "Glands mix waste substances and extra salts with water to make sweat",
+  "w": [
+   "It makes urine",
+   "It filters blood with nephrons",
+   "It breaks down food"
+  ],
+  "why": "Sweat leaves through pores."
+ },
+ {
+  "part": "exc",
+  "q": "Sweat comes out through…",
+  "a": "pores, tiny holes in the skin",
+  "w": [
+   "alveoli",
+   "villi",
+   "capillaries only"
+  ],
+  "why": "Sweat is pushed out of pores."
+ },
+ {
+  "part": "exc",
+  "q": "Why does sweaty skin taste salty?",
+  "a": "The body is getting rid of extra salts",
+  "w": [
+   "The skin makes sugar",
+   "The skin makes acid",
+   "The skin has glucose"
+  ],
+  "why": "Sweat contains the salts your body removes."
+ },
+ {
+  "part": "exc",
+  "q": "Kidney stones are…",
+  "a": "hard chunks of minerals that can develop in the kidneys",
+  "w": [
+   "bean-shaped organs",
+   "tubes to the bladder",
+   "types of blood cells"
+  ],
+  "why": "Passing them can be painful but isn’t usually dangerous."
+ },
+ {
+  "part": "exc",
+  "q": "Why do we need an excretory system?",
+  "a": "Some substances we take in are harmful or not usable and can make us sick if they build up",
+  "w": [
+   "To make oxygen",
+   "To make glucose",
+   "To pump blood"
+  ],
+  "why": "If waste builds up, you can get sick."
+ },
+ {
+  "part": "exc",
+  "q": "Which organ makes sweat to help remove waste?",
+  "a": "Skin",
+  "w": [
+   "Kidney",
+   "Bladder",
+   "Heart"
+  ],
+  "why": "Skin has glands that make sweat."
+ },
+ {
+  "part": "msk",
+  "q": "The musculoskeletal system is made of…",
+  "a": "bones, muscles, cartilage and connective tissues",
+  "w": [
+   "lungs, trachea and nose",
+   "heart and blood",
+   "neurons and synapses"
+  ],
+  "why": "These parts support the body and let it move."
+ },
+ {
+  "part": "msk",
+  "q": "How many bones do most adults have?",
+  "a": "206",
+  "w": [
+   "300",
+   "100",
+   "412"
+  ],
+  "why": "The adult skeleton usually has 206 bones."
+ },
+ {
+  "part": "msk",
+  "q": "About how many bones are humans born with?",
+  "a": "About 300",
+  "w": [
+   "About 206",
+   "About 100",
+   "About 500"
+  ],
+  "why": "Humans are born with about 300 bones; some fuse during childhood."
+ },
+ {
+  "part": "msk",
+  "q": "Why do adults have fewer bones than babies?",
+  "a": "Some bones fuse during childhood",
+  "w": [
+   "Bones dissolve",
+   "Bones turn into muscle",
+   "Bones are removed"
+  ],
+  "why": "About 300 bones become 206 as some fuse."
+ },
+ {
+  "part": "msk",
+  "q": "The skeleton protects organs like…",
+  "a": "the heart, lungs and brain",
+  "w": [
+   "the kidneys only",
+   "the stomach only",
+   "the bladder only"
+  ],
+  "why": "The skeleton protects some of the most important organs."
+ },
+ {
+  "part": "msk",
+  "q": "Besides support, bones also…",
+  "a": "store minerals and fats and produce red blood cells",
+  "w": [
+   "make insulin",
+   "make saliva",
+   "filter blood"
+  ],
+  "why": "Bones store minerals and produce red blood cells."
+ },
+ {
+  "part": "msk",
+  "q": "Red bone marrow…",
+  "a": "makes red blood cells",
+  "w": [
+   "stores fat",
+   "makes insulin",
+   "makes stomach acid"
+  ],
+  "why": "Red marrow makes red blood cells."
+ },
+ {
+  "part": "msk",
+  "q": "Yellow bone marrow…",
+  "a": "stores fat that the body can use for energy",
+  "w": [
+   "makes red blood cells",
+   "makes sweat",
+   "carries oxygen"
+  ],
+  "why": "Yellow marrow stores fat."
+ },
+ {
+  "part": "msk",
+  "q": "The hard outer layer of bones also stores…",
+  "a": "calcium and other minerals",
+  "w": [
+   "insulin",
+   "oxygen",
+   "glucose gels"
+  ],
+  "why": "Bones store calcium that the body can use if food lacks minerals."
+ },
+ {
+  "part": "msk",
+  "q": "The inside of a bone is either…",
+  "a": "spongy bone tissue or hollow and filled with bone marrow",
+  "w": [
+   "solid metal",
+   "filled with air only",
+   "made of cartilage only"
+  ],
+  "why": "Bones are hard outside and spongy or hollow inside."
+ },
+ {
+  "part": "msk",
+  "q": "Cartilage is…",
+  "a": "a flexible, slippery material that gives the skeleton some flexibility",
+  "w": [
+   "a hard bone",
+   "a muscle",
+   "a type of blood cell"
+  ],
+  "why": "Cartilage is tough but flexible."
+ },
+ {
+  "part": "msk",
+  "q": "Which body parts are made of cartilage?",
+  "a": "Tip of the nose and most of the ears",
+  "w": [
+   "Skull",
+   "Thigh bone",
+   "Teeth"
+  ],
+  "why": "The nose tip and most of the ear are cartilage."
+ },
+ {
+  "part": "msk",
+  "q": "Why do some ribs have cartilage?",
+  "a": "So the rib cage can move, expand and contract as you breathe",
+  "w": [
+   "To make them harder",
+   "To make blood",
+   "To digest food"
+  ],
+  "why": "Cartilage lets the rib cage move."
+ },
+ {
+  "part": "msk",
+  "q": "Why is cartilage found in joints?",
+  "a": "It is slippery, helping bones move past each other smoothly",
+  "w": [
+   "It is hard",
+   "It makes red blood cells",
+   "It carries oxygen"
+  ],
+  "why": "Joint pain can happen when cartilage wears down."
+ },
+ {
+  "part": "msk",
+  "q": "Joint pain is often caused when…",
+  "a": "cartilage in a joint wears down over time",
+  "w": [
+   "red blood cells increase",
+   "muscles never move",
+   "bones fuse"
+  ],
+  "why": "Without cartilage, the joint can’t move smoothly."
+ },
+ {
+  "part": "msk",
+  "q": "Skeletal muscle…",
+  "a": "covers the skeleton and makes movement possible",
+  "w": [
+   "is only in the heart",
+   "makes insulin",
+   "filters blood"
+  ],
+  "why": "Skeletal muscles move the bones."
+ },
+ {
+  "part": "msk",
+  "q": "Muscles can only move in two ways:",
+  "a": "contract (get shorter) and relax (get longer)",
+  "w": [
+   "push and pull",
+   "spin and twist",
+   "stretch and freeze"
+  ],
+  "why": "Muscles contract and relax."
+ },
+ {
+  "part": "msk",
+  "q": "When a muscle contracts, it gets…",
+  "a": "shorter",
+  "w": [
+   "longer",
+   "thicker only",
+   "colder"
+  ],
+  "why": "Contracting means getting shorter."
+ },
+ {
+  "part": "msk",
+  "q": "To make bones move, skeletal muscles work…",
+  "a": "in pairs",
+  "w": [
+   "alone",
+   "only at night",
+   "only in the heart"
+  ],
+  "why": "When one contracts, its partner relaxes."
+ },
+ {
+  "part": "msk",
+  "q": "When the bicep muscle contracts, the arm…",
+  "a": "bends",
+  "w": [
+   "straightens",
+   "spins",
+   "disappears"
+  ],
+  "why": "When the bicep contracts, the arm bends."
+ },
+ {
+  "part": "msk",
+  "q": "When the bicep muscle relaxes, the arm…",
+  "a": "straightens",
+  "w": [
+   "bends",
+   "stops growing",
+   "falls off"
+  ],
+  "why": "Relaxed bicep → straight arm."
+ },
+ {
+  "part": "msk",
+  "q": "The bone always moves toward the muscle that is…",
+  "a": "contracting",
+  "w": [
+   "relaxing",
+   "sleeping",
+   "cold"
+  ],
+  "why": "The bone moves toward the contracting muscle."
+ },
+ {
+  "part": "msk",
+  "q": "Connective tissue…",
+  "a": "ties bones and muscles together",
+  "w": [
+   "makes red blood cells",
+   "carries oxygen",
+   "filters blood"
+  ],
+  "why": "Connective tissues tie bones and muscles together."
+ },
+ {
+  "part": "msk",
+  "q": "The three types of connective tissue are…",
+  "a": "tendons, ligaments and fascia",
+  "w": [
+   "tendons, nerves and villi",
+   "ligaments, alveoli and fascia",
+   "fascia, nephrons and tendons"
+  ],
+  "why": "Tendons, ligaments and fascia."
+ },
+ {
+  "part": "msk",
+  "q": "Tendons connect…",
+  "a": "muscles to bones",
+  "w": [
+   "bones to other bones",
+   "muscles to other muscles",
+   "nerves to bones"
+  ],
+  "why": "Tendons connect muscle to bone."
+ },
+ {
+  "part": "msk",
+  "q": "Ligaments connect…",
+  "a": "bones to other bones",
+  "w": [
+   "muscles to bones",
+   "muscles to muscles",
+   "bone marrow to blood"
+  ],
+  "why": "Ligaments connect bone to bone."
+ },
+ {
+  "part": "msk",
+  "q": "Fascia connect…",
+  "a": "muscles to other muscles",
+  "w": [
+   "bones to bones",
+   "muscles to bones",
+   "blood to cells"
+  ],
+  "why": "Fascia connect muscle to muscle."
+ },
+ {
+  "part": "msk",
+  "q": "Connective tissue is strong and stretchy because it contains…",
+  "a": "elastic fibers and collagen fibers",
+  "w": [
+   "only bone",
+   "only blood",
+   "only fat"
+  ],
+  "why": "Elastic fibers stretch and collagen fibers give strength."
+ },
+ {
+  "part": "msk",
+  "q": "The skeleton can’t move on its own, so bones need…",
+  "a": "muscles to move",
+  "w": [
+   "cartilage to move",
+   "more bones",
+   "more blood"
+  ],
+  "why": "Muscles help bones get from place to place."
+ },
+ {
+  "part": "rep",
+  "q": "In humans, sexual reproduction happens when…",
+  "a": "an egg cell from a female and a sperm cell from a male combine",
+  "w": [
+   "two eggs combine",
+   "a cell splits in two only",
+   "two sperm combine"
+  ],
+  "why": "Sexual reproduction combines gametes from each parent."
+ },
+ {
+  "part": "rep",
+  "q": "The cells involved in sexual reproduction are called…",
+  "a": "gametes",
+  "w": [
+   "neurons",
+   "nephrons",
+   "alveoli"
+  ],
+  "why": "Gametes carry DNA."
+ },
+ {
+  "part": "rep",
+  "q": "Gametes carry…",
+  "a": "DNA",
+  "w": [
+   "insulin",
+   "oxygen",
+   "glucose"
+  ],
+  "why": "Each gamete has half the DNA needed for a new organism."
+ },
+ {
+  "part": "rep",
+  "q": "Female gametes are called…",
+  "a": "eggs",
+  "w": [
+   "sperm",
+   "neurons",
+   "villi"
+  ],
+  "why": "Female gametes are eggs."
+ },
+ {
+  "part": "rep",
+  "q": "Male gametes are called…",
+  "a": "sperm",
+  "w": [
+   "eggs",
+   "ovaries",
+   "nephrons"
+  ],
+  "why": "Male gametes are sperm."
+ },
+ {
+  "part": "rep",
+  "q": "Each gamete has what amount of the DNA needed for a new organism?",
+  "a": "Half",
+  "w": [
+   "All",
+   "One tenth",
+   "None"
+  ],
+  "why": "Gametes combine to form a full set of DNA."
+ },
+ {
+  "part": "rep",
+  "q": "The process of an egg and sperm combining is called…",
+  "a": "fertilization",
+  "w": [
+   "digestion",
+   "excretion",
+   "circulation"
+  ],
+  "why": "Fertilization forms a full set of DNA."
+ },
+ {
+  "part": "rep",
+  "q": "In females, eggs are stored in a pair of organs called…",
+  "a": "ovaries",
+  "w": [
+   "testicles",
+   "kidneys",
+   "villi"
+  ],
+  "why": "Ovaries store eggs."
+ },
+ {
+  "part": "rep",
+  "q": "Ovaries release about how many eggs per month?",
+  "a": "One",
+  "w": [
+   "Ten",
+   "One hundred",
+   "Zero"
+  ],
+  "why": "About one egg per month."
+ },
+ {
+  "part": "rep",
+  "q": "Females are born…",
+  "a": "with all the eggs they’ll ever have",
+  "w": [
+   "with no eggs",
+   "making new eggs every day",
+   "with half their eggs"
+  ],
+  "why": "They can’t make more eggs."
+ },
+ {
+  "part": "rep",
+  "q": "Sperm are formed in a pair of organs called…",
+  "a": "testicles",
+  "w": [
+   "ovaries",
+   "kidneys",
+   "lungs"
+  ],
+  "why": "Testicles make sperm."
+ },
+ {
+  "part": "rep",
+  "q": "Males after puberty usually have…",
+  "a": "an endless supply of gametes (sperm)",
+  "w": [
+   "a limited number of eggs",
+   "no gametes",
+   "one gamete per month"
+  ],
+  "why": "Their bodies can always make more sperm."
+ },
+ {
+  "part": "rep",
+  "q": "The pouch that holds the testicles is called the…",
+  "a": "scrotum",
+  "w": [
+   "uterus",
+   "ovary",
+   "cervix"
+  ],
+  "why": "The scrotum holds the testicles."
+ },
+ {
+  "part": "rep",
+  "q": "Why is the scrotum located outside the body?",
+  "a": "To keep the testicles at the best temperature for making sperm",
+  "w": [
+   "To protect them with bone",
+   "To make blood",
+   "To digest food"
+  ],
+  "why": "It draws closer or moves away to adjust temperature."
+ },
+ {
+  "part": "rep",
+  "q": "Which gland makes seminal fluid?",
+  "a": "Prostate gland",
+  "w": [
+   "Salivary gland",
+   "Pancreas",
+   "Ovary"
+  ],
+  "why": "The prostate makes seminal fluid."
+ },
+ {
+  "part": "rep",
+  "q": "Sperm mixed with seminal fluid make…",
+  "a": "semen",
+  "w": [
+   "saliva",
+   "urine",
+   "insulin"
+  ],
+  "why": "Semen carries sperm out of the male body."
+ },
+ {
+  "part": "rep",
+  "q": "The organ that supports the growth of a fetus until it is ready to be born is the…",
+  "a": "uterus",
+  "w": [
+   "ovary",
+   "bladder",
+   "kidney"
+  ],
+  "why": "The uterus supports the growth of a fetus."
+ },
+ {
+  "part": "rep",
+  "q": "A fetus develops in the uterus for about…",
+  "a": "nine months",
+  "w": [
+   "nine days",
+   "nine weeks only",
+   "three years"
+  ],
+  "why": "Pregnancy lasts about nine months."
+ },
+ {
+  "part": "rep",
+  "q": "After a sperm fertilizes an egg, the egg…",
+  "a": "attaches to the wall of the uterus and begins to divide",
+  "w": [
+   "leaves the body",
+   "turns into a sperm",
+   "becomes a bone"
+  ],
+  "why": "The egg divides: two cells, then four, then eight…"
+ },
+ {
+  "part": "rep",
+  "q": "The tubes connecting the uterus to the ovaries are called…",
+  "a": "fallopian tubes",
+  "w": [
+   "ureters",
+   "tracheae",
+   "nephrons"
+  ],
+  "why": "Fallopian tubes connect the ovaries to the uterus."
+ },
+ {
+  "part": "rep",
+  "q": "The cervix is…",
+  "a": "a two-centimeter tube connecting the uterus to the vagina",
+  "w": [
+   "an egg",
+   "a type of gamete",
+   "a part of the brain"
+  ],
+  "why": "The cervix connects to the vagina."
+ },
+ {
+  "part": "rep",
+  "q": "The vagina leads out of the body through the…",
+  "a": "vulva",
+  "w": [
+   "trachea",
+   "scrotum",
+   "spine"
+  ],
+  "why": "The vulva is the external female sex organ."
+ },
+ {
+  "part": "rep",
+  "q": "Why are the cervix, vagina and vulva sometimes called the birth canal?",
+  "a": "They can stretch to allow a baby to pass during childbirth",
+  "w": [
+   "They make eggs",
+   "They filter blood",
+   "They make sperm"
+  ],
+  "why": "They are small but stretch."
+ },
+ {
+  "part": "rep",
+  "q": "During pregnancy, the uterus grows new…",
+  "a": "blood vessels to support the fetus",
+  "w": [
+   "bones",
+   "gametes",
+   "neurons"
+  ],
+  "why": "The uterus grows blood vessels and all it needs to support the fetus."
+ },
+ {
+  "part": "rep",
+  "q": "The term “intersex” describes…",
+  "a": "the range of variations in people born with in-between reproductive characteristics",
+  "w": [
+   "a type of cell",
+   "a body system",
+   "a part of the brain"
+  ],
+  "why": "The article notes not every body fits neatly into typical categories."
+ },
+ {
+  "part": "org",
+  "q": "The blue whale is…",
+  "a": "the largest animal",
+  "w": [
+   "the smallest animal",
+   "a type of insect",
+   "a type of plant"
+  ],
+  "why": "The blue whale is the largest animal."
+ },
+ {
+  "part": "org",
+  "q": "A blue whale’s lungs are almost how many times larger than a human’s?",
+  "a": "5,000 times",
+  "w": [
+   "5 times",
+   "50 times",
+   "50,000 times"
+  ],
+  "why": "Blue whale lungs are almost 5,000 times larger."
+ },
+ {
+  "part": "org",
+  "q": "How does a blue whale get oxygen?",
+  "a": "By breathing air into its lungs",
+  "w": [
+   "By absorbing it from water through gills",
+   "Through holes in its sides",
+   "Through its skin only"
+  ],
+  "why": "A blue whale can’t get oxygen from water; it breathes air."
+ },
+ {
+  "part": "org",
+  "q": "What does a blue whale eat?",
+  "a": "Krill",
+  "w": [
+   "Grass",
+   "Algae only",
+   "Bugs and worms"
+  ],
+  "why": "Whales eat thousands of pounds of krill every day."
+ },
+ {
+  "part": "org",
+  "q": "Krill are…",
+  "a": "tiny shrimp-like animals high in fat and protein",
+  "w": [
+   "a type of algae",
+   "small fish",
+   "a type of moss"
+  ],
+  "why": "Krill are tiny and nutritious."
+ },
+ {
+  "part": "org",
+  "q": "A blue whale has no teeth. Instead, it filters food using…",
+  "a": "baleen",
+  "w": [
+   "cilia",
+   "villi",
+   "spiracles"
+  ],
+  "why": "Baleen acts as a filter."
+ },
+ {
+  "part": "org",
+  "q": "When a blue whale dives for about 20 minutes, its heart rate…",
+  "a": "slows down to use less oxygen",
+  "w": [
+   "speeds up",
+   "stops",
+   "stays the same"
+  ],
+  "why": "A slower heart rate saves oxygen."
+ },
+ {
+  "part": "org",
+  "q": "During a dive, a blue whale decreases blood flow to…",
+  "a": "less important organs, like the digestive tract and muscles of tail fins",
+  "w": [
+   "the brain",
+   "the heart",
+   "the lungs"
+  ],
+  "why": "The brain always gets blood."
+ },
+ {
+  "part": "org",
+  "q": "A grasshopper does NOT have…",
+  "a": "lungs",
+  "w": [
+   "a heart",
+   "legs",
+   "muscles"
+  ],
+  "why": "Grasshoppers don’t have lungs."
+ },
+ {
+  "part": "org",
+  "q": "A grasshopper takes in oxygen through…",
+  "a": "tiny holes (spiracles) on the sides of the abdomen",
+  "w": [
+   "gills",
+   "a mouth",
+   "its legs"
+  ],
+  "why": "Air goes through spiracles into tubes that carry it to cells."
+ },
+ {
+  "part": "org",
+  "q": "In a grasshopper, oxygen goes directly to cells through…",
+  "a": "air sacs and tubes",
+  "w": [
+   "blood",
+   "hemolymph",
+   "capillaries"
+  ],
+  "why": "There is no oxygen in a grasshopper’s fluid; tubes deliver air."
+ },
+ {
+  "part": "org",
+  "q": "A grasshopper’s fluid, instead of blood, is called…",
+  "a": "hemolymph",
+  "w": [
+   "plasma",
+   "saliva",
+   "mucus"
+  ],
+  "why": "Hemolymph carries glucose and nutrients but not oxygen."
+ },
+ {
+  "part": "org",
+  "q": "Grasshoppers eat grass, which contains…",
+  "a": "cellulose (called fiber by humans)",
+  "w": [
+   "only starch",
+   "only protein",
+   "only glucose"
+  ],
+  "why": "Humans can’t digest cellulose; grasshoppers have enzymes to break it down."
+ },
+ {
+  "part": "org",
+  "q": "What does a grasshopper’s hemolymph carry?",
+  "a": "Glucose and nutrients, but not oxygen",
+  "w": [
+   "Oxygen and red blood cells",
+   "Only oxygen",
+   "Only carbon dioxide"
+  ],
+  "why": "Oxygen travels through the tube network instead."
+ },
+ {
+  "part": "org",
+  "q": "A sea sponge has…",
+  "a": "no respiratory, digestive or circulatory system",
+  "w": [
+   "a heart and lungs",
+   "gills",
+   "a brain"
+  ],
+  "why": "A sponge has none of these systems."
+ },
+ {
+  "part": "org",
+  "q": "Water enters a sea sponge through…",
+  "a": "pores",
+  "w": [
+   "a mouth",
+   "gills",
+   "a trachea"
+  ],
+  "why": "Water flows in through pores and out the top."
+ },
+ {
+  "part": "org",
+  "q": "What helps spread water inside a sponge?",
+  "a": "Flagella (whip-like parts)",
+  "w": [
+   "Cilia in a trachea",
+   "Spiracles",
+   "Villi"
+  ],
+  "why": "Flagella move the water around."
+ },
+ {
+  "part": "org",
+  "q": "A sea sponge takes oxygen from…",
+  "a": "oxygen dissolved in the water",
+  "w": [
+   "the air",
+   "its blood",
+   "its stomach"
+  ],
+  "why": "It takes in oxygen dissolved in water."
+ },
+ {
+  "part": "org",
+  "q": "In a sea sponge, cells deep inside get glucose from…",
+  "a": "special cells",
+  "w": [
+   "a heart",
+   "blood",
+   "the stomach"
+  ],
+  "why": "Special cells pass glucose to deeper cells."
+ },
+ {
+  "part": "org",
+  "q": "A trout has ___ instead of lungs.",
+  "a": "gills",
+  "w": [
+   "spiracles",
+   "pores",
+   "flagella"
+  ],
+  "why": "Trout use gills."
+ },
+ {
+  "part": "org",
+  "q": "In a trout, oxygen enters the blood through…",
+  "a": "gills",
+  "w": [
+   "spiracles",
+   "the skin only",
+   "the mouth only"
+  ],
+  "why": "Water passes over the gills where oxygen enters the blood."
+ },
+ {
+  "part": "org",
+  "q": "A trout’s circulatory system is similar to humans’ because it has…",
+  "a": "a heart pumping blood through vessels and capillaries",
+  "w": [
+   "spiracles",
+   "flagella",
+   "pores"
+  ],
+  "why": "Trout hearts pump blood through vessels."
+ },
+ {
+  "part": "org",
+  "q": "A trout’s glucose passes into the circulatory system through…",
+  "a": "the intestine walls",
+  "w": [
+   "the gills",
+   "the skin",
+   "the heart"
+  ],
+  "why": "Glucose passes through intestine walls into the blood."
+ },
+ {
+  "part": "org",
+  "q": "A water bear (tardigrade) is…",
+  "a": "a tiny animal with no lungs or teeth",
+  "w": [
+   "a large bear",
+   "a fish",
+   "a kind of whale"
+  ],
+  "why": "Water bears are tiny."
+ },
+ {
+  "part": "org",
+  "q": "A water bear eats…",
+  "a": "algae, bacteria and moss",
+  "w": [
+   "krill",
+   "grass only",
+   "large fish"
+  ],
+  "why": "Water bears eat these tiny organisms."
+ },
+ {
+  "part": "org",
+  "q": "The “tun” stage of a water bear is like…",
+  "a": "hibernation, when cellular respiration almost stops",
+  "w": [
+   "a feeding frenzy",
+   "running a race",
+   "building new cells"
+  ],
+  "why": "In the tun stage, cellular respiration nearly stops."
+ },
+ {
+  "part": "org",
+  "q": "A water bear absorbs oxygen…",
+  "a": "directly from water",
+  "w": [
+   "through lungs",
+   "with gills",
+   "through spiracles"
+  ],
+  "why": "It absorbs oxygen directly from water."
+ },
+ {
+  "part": "org",
+  "q": "A water bear has about how many cells?",
+  "a": "About 40,000",
+  "w": [
+   "About 10 trillion",
+   "About 100",
+   "About 1 million"
+  ],
+  "why": "Humans have about 10 trillion."
+ },
+ {
+  "part": "org",
+  "q": "A water bear has no…",
+  "a": "circulatory system",
+  "w": [
+   "cells",
+   "mouth",
+   "muscles"
+  ],
+  "why": "It has an open area where body fluids move."
+ },
+ {
+  "part": "org",
+  "q": "What do all of these organisms have in common?",
+  "a": "They need oxygen and glucose for cellular respiration to release energy",
+  "w": [
+   "They all have lungs",
+   "They all have a heart",
+   "They all eat krill"
+  ],
+  "why": "All organisms need these molecules."
+ },
+ {
+  "part": "org",
+  "q": "Which organism has gills and eats bugs, worms, plants and other fish?",
+  "a": "Trout",
+  "w": [
+   "Grasshopper",
+   "Blue whale",
+   "Sea sponge"
+  ],
+  "why": "Trout have gills and a varied diet."
+ },
+ {
+  "part": "org",
+  "q": "Which organism has spiracles?",
+  "a": "Grasshopper",
+  "w": [
+   "Blue whale",
+   "Trout",
+   "Water bear"
+  ],
+  "why": "Grasshoppers breathe through spiracles."
+ },
+ {
+  "part": "sci",
+  "q": "Dr. Grace O’Connell is a researcher at…",
+  "a": "University of California, Berkeley",
+  "w": [
+   "Harvard University",
+   "Oxford University",
+   "Stanford University"
+  ],
+  "why": "She studies spinal disc tissue at UC Berkeley."
+ },
+ {
+  "part": "sci",
+  "q": "What does Dr. O’Connell study?",
+  "a": "Spinal discs (intervertebral discs)",
+  "w": [
+   "Heart muscle",
+   "Lungs",
+   "Blood cells"
+  ],
+  "why": "Her lab studies discs between spine bones."
+ },
+ {
+  "part": "sci",
+  "q": "Intervertebral discs are…",
+  "a": "squishy discs of tissue between the vertebrae",
+  "w": [
+   "bones in the spine",
+   "tubes in the lungs",
+   "nerve cells"
+  ],
+  "why": "They cushion the spine."
+ },
+ {
+  "part": "sci",
+  "q": "What do intervertebral discs do?",
+  "a": "Act as cushions that allow the spine to bend and keep vertebrae from touching",
+  "w": [
+   "Make red blood cells",
+   "Carry oxygen",
+   "Digest food"
+  ],
+  "why": "The discs are cushions between vertebrae."
+ },
+ {
+  "part": "sci",
+  "q": "What happens when discs wear out?",
+  "a": "Vertebrae can rub or discs can put pressure on nerves, causing back pain",
+  "w": [
+   "The heart stops",
+   "The lungs fill with air",
+   "The blood thickens"
+  ],
+  "why": "Worn discs cause pain."
+ },
+ {
+  "part": "sci",
+  "q": "What do doctors usually do when a disc wears out?",
+  "a": "Remove it and glue the vertebrae together",
+  "w": [
+   "Replace it with a new disc",
+   "Leave it alone",
+   "Replace the spine"
+  ],
+  "why": "Gluing makes one bone but less flexibility."
+ },
+ {
+  "part": "sci",
+  "q": "What does Dr. O’Connell hope to do instead?",
+  "a": "Grow new disc tissue to replace old or injured discs",
+  "w": [
+   "Remove the spine",
+   "Glue more vertebrae",
+   "Use only plastic"
+  ],
+  "why": "Her goal is new, healthy disc tissue."
+ },
+ {
+  "part": "sci",
+  "q": "What are the two main goals of her lab?",
+  "a": "Study healthy discs and grow new disc tissue that behaves like healthy discs",
+  "w": [
+   "Build airplanes and grow plants",
+   "Study lungs and kidneys",
+   "Make medicines and vitamins"
+  ],
+  "why": "Study healthy discs; grow new tissue."
+ },
+ {
+  "part": "sci",
+  "q": "Because tissues are made of cells, Dr. O’Connell works with…",
+  "a": "cells",
+  "w": [
+   "bones only",
+   "airplanes",
+   "plants"
+  ],
+  "why": "She encourages cells to reproduce and form new tissue."
+ },
+ {
+  "part": "sci",
+  "q": "Where do some of the cells she studies come from?",
+  "a": "Patient donations and even a butcher",
+  "w": [
+   "Only plants",
+   "Only fish",
+   "Only from her own body"
+  ],
+  "why": "Oxtails from the butcher provide fresh living cells."
+ },
+ {
+  "part": "sci",
+  "q": "As a child, what did Dr. O’Connell want to do?",
+  "a": "Fly and design airplanes",
+  "w": [
+   "Be a doctor",
+   "Be a teacher",
+   "Study marine animals"
+  ],
+  "why": "She even took flying lessons in high school."
+ },
+ {
+  "part": "sci",
+  "q": "What did she study in college?",
+  "a": "Aeronautical engineering",
+  "w": [
+   "Cooking",
+   "History",
+   "Law"
+  ],
+  "why": "She studied aeronautical engineering, then applied it to the body."
+ },
+ {
+  "part": "sci",
+  "q": "What does she say is one of the biggest challenges of this research?",
+  "a": "Cells don’t always do what you want them to",
+  "w": [
+   "Finding enough money",
+   "Finding airplanes",
+   "Learning to read"
+  ],
+  "why": "Cells don’t always cooperate, but that leads to new questions."
+ }
+];
+
+/* ---------- HELPERS ---------- */
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+function escapeHtml(str){
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+document.getElementById('header-sub').textContent =
+  cards.length + ' study cards · ' + questions.length + ' quiz questions';
+
+/* ---------- STUDY CARDS ---------- */
+let deck = cards.slice();
+let idx = 0, flipped = false;
+const cardEl = document.getElementById('card');
+
+function renderCard(){
+  const c = deck[idx];
+  document.getElementById('front-text').textContent = c.term;
+  document.getElementById('back-text').textContent = c.def;
+  document.getElementById('face-part').textContent = PART_LABEL[c.part];
+  document.getElementById('back-part').textContent = PART_LABEL[c.part];
+  document.getElementById('flash-count').textContent = (idx+1) + ' / ' + deck.length;
+  document.getElementById('flash-fill').style.width = (((idx+1)/deck.length)*100) + '%';
+  flipped = false;
+  cardEl.classList.remove('flipped');
+}
+// snap back to the front before swapping text so the next answer never flashes
+function goToCard(n){
+  if(flipped){
+    cardEl.classList.add('no-transition');
+    cardEl.classList.remove('flipped');
+    flipped = false;
+    void cardEl.offsetWidth;
+    idx = n; renderCard();
+    void cardEl.offsetWidth;
+    cardEl.classList.remove('no-transition');
+  } else { idx = n; renderCard(); }
+}
+function toggleFlip(){ flipped = !flipped; cardEl.classList.toggle('flipped', flipped); }
+document.getElementById('card-wrap').addEventListener('click', toggleFlip);
+document.getElementById('flip-btn').addEventListener('click', e => { e.stopPropagation(); toggleFlip(); });
+document.getElementById('next-btn').addEventListener('click', () => goToCard((idx+1)%deck.length));
+document.getElementById('prev-btn').addEventListener('click', () => goToCard((idx-1+deck.length)%deck.length));
+document.getElementById('shuffle-btn').addEventListener('click', () => { deck = shuffle(deck); goToCard(0); });
+renderCard();
+
+/* ---------- SCOREBOARD STORAGE ---------- */
+const SCORE_KEY = 'latin-scores-science1';
+const NAME_KEY = 'latin-player-name';
+
+function getPlayerName(){
+  let name = null;
+  try{ name = localStorage.getItem(NAME_KEY); }catch(e){}
+  if(!name){
+    name = (prompt('What\'s your name? (shown on the scoreboard)') || 'Player').trim().slice(0,24) || 'Player';
+    try{ localStorage.setItem(NAME_KEY, name); }catch(e){}
+  }
+  return name;
+}
+function setPlayerName(){
+  let current = '';
+  try{ current = localStorage.getItem(NAME_KEY) || ''; }catch(e){}
+  const name = (prompt('Enter your name for the scoreboard:', current) || current || 'Player').trim().slice(0,24) || 'Player';
+  try{ localStorage.setItem(NAME_KEY, name); }catch(e){}
+  document.getElementById('player-name-display').textContent = name;
+}
+function loadScores(){
+  try{ return JSON.parse(localStorage.getItem(SCORE_KEY) || '[]'); }catch(e){ return []; }
+}
+function saveScore(name, correct, total, percent, mode){
+  const scores = loadScores();
+  const now = new Date();
+  scores.push({
+    name, correct, total, percent, mode,
+    ts: now.getTime(),
+    date: now.toLocaleDateString(),
+    time: now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
+  });
+  while(scores.length > 50) scores.shift();
+  try{ localStorage.setItem(SCORE_KEY, JSON.stringify(scores)); }catch(e){}
+}
+const MODE_LABEL = Object.assign({master:'Master Quiz', quick:'Quick Mix', all:'Everything'}, Object.fromEntries(Object.keys(PART_LABEL).map(k => [k, PART_LABEL[k].replace(' · ', ': ')])));
+function renderScoreboard(){
+  const content = document.getElementById('scores-content');
+  const scores = loadScores();
+  if(scores.length === 0){
+    content.innerHTML = '<div class="score-empty">No quiz attempts logged yet on this device.<br>Finish a quiz to appear here.</div>';
+    return;
+  }
+  const sorted = scores.slice().sort((a,b) => b.percent - a.percent || (b.ts||0) - (a.ts||0));
+  let current = '';
+  try{ current = localStorage.getItem(NAME_KEY) || ''; }catch(e){}
+  const rows = sorted.slice(0,20).map(s => (
+    '<tr class="' + (s.name === current ? 'you' : '') + '">' +
+      '<td>' + escapeHtml(s.name) + '</td>' +
+      '<td>' + s.correct + ' / ' + s.total + '</td>' +
+      '<td class="score-percent">' + s.percent + '%</td>' +
+      '<td>' + escapeHtml(MODE_LABEL[s.mode] || '') + '</td>' +
+      '<td>' + s.date + '</td>' +
+      '<td>' + (s.time || '&mdash;') + '</td>' +
+    '</tr>'
+  )).join('');
+  content.innerHTML =
+    '<table class="score-table"><thead><tr>' +
+    '<th>Name</th><th>Score</th><th>%</th><th>Quiz</th><th>Date</th><th>Time</th>' +
+    '</tr></thead><tbody>' + rows + '</tbody></table>';
+}
+
+/* ---------- QUIZ ---------- */
+let qDeck = [], qIdx = 0, qCorrect = 0, qAnswered = 0, qMode = 'all', qLocked = false, qMissed = [];
+const setupEl = document.getElementById('quiz-setup');
+const playEl = document.getElementById('quiz-play');
+const doneEl = document.getElementById('quiz-done');
+const optionsEl = document.getElementById('options');
+const feedbackEl = document.getElementById('quiz-feedback');
+const nextBtn = document.getElementById('quiz-next');
+
+const MASTER_SIZE = 50, QUICK_SIZE = 20;
+function questionsFor(mode){
+  if(mode === 'all') return questions.slice();
+  if(mode === 'master') return shuffle(questions.slice()).slice(0, MASTER_SIZE);
+  if(mode === 'quick') return shuffle(questions.slice()).slice(0, QUICK_SIZE);
+  return questions.filter(q => q.part === mode);
+}
+// build the quiz menu from the data so the counts are always right
+(function buildMenu(){
+  const list = document.getElementById('mode-list');
+  [["master", "Master Quiz (random mix)"], ["quick", "Quick Mix (20 random)"], ["all", "Everything"], ["mol", "Part 1: Molecules Cells Need"], ["sys", "Part 2: Body Systems Working Together"], ["cond", "Part 3: Medical Conditions & Elisa’s Diagnosis"], ["cr", "Part 4: Cellular Respiration, Growth & Repair"], ["dop", "Part 5: Blood Doping, Athletes & Arguments"], ["circ", "Part 6: Circulatory System"], ["resp", "Part 7: Respiratory System"], ["dig", "Part 8: Digestive System"], ["nerv", "Part 9: Nervous System"], ["exc", "Part 10: Excretory System"], ["msk", "Part 11: Musculoskeletal System"], ["rep", "Part 12: Reproductive System"], ["org", "Part 13: Odd Organisms"], ["sci", "Part 14: Scientist Who Grows New Cells"]].forEach((m,i) => {
+    const b = document.createElement('button');
+    b.className = 'mode-pick' + (i === 0 ? ' primary-pick' : '');
+    b.textContent = m[1] + ' — ' + (m[0]==='master' ? MASTER_SIZE : m[0]==='quick' ? QUICK_SIZE : questionsFor(m[0]).length) + ' questions';
+    b.addEventListener('click', () => { getPlayerName(); startQuiz(m[0]); });
+    list.appendChild(b);
+  });
+})();
+
+function startQuiz(mode){
+  qMode = mode;
+  qDeck = shuffle(questionsFor(mode));
+  qIdx = 0; qCorrect = 0; qAnswered = 0; qMissed = [];
+  setupEl.style.display = 'none';
+  doneEl.style.display = 'none';
+  playEl.style.display = '';
+  document.getElementById('quiz-score').textContent = 'Score: 0 correct / 0 answered';
+  document.getElementById('player-name-display').textContent = getPlayerName();
+  renderQuestion();
+}
+function renderQuestion(){
+  const q = qDeck[qIdx];
+  document.getElementById('quiz-part').textContent = PART_LABEL[q.part];
+  document.getElementById('quiz-q').textContent = q.q;
+  document.getElementById('quiz-count').textContent = (qIdx+1) + ' / ' + qDeck.length;
+  document.getElementById('quiz-fill').style.width = (((qIdx+1)/qDeck.length)*100) + '%';
+  feedbackEl.textContent = '';
+  feedbackEl.className = 'feedback';
+  nextBtn.style.display = 'none';
+  optionsEl.innerHTML = '';
+  qLocked = false;
+  shuffle([q.a].concat(q.w)).forEach((text, i) => {
+    const b = document.createElement('button');
+    b.className = 'opt';
+    b.setAttribute('data-text', text);
+    b.innerHTML = '<span class="key">' + 'ABCD'[i] + '</span> ' + escapeHtml(text);
+    b.addEventListener('click', () => choose(b));
+    optionsEl.appendChild(b);
+  });
+}
+function choose(btn){
+  if(qLocked) return;
+  qLocked = true;
+  const q = qDeck[qIdx];
+  const picked = btn.getAttribute('data-text');
+  const ok = picked === q.a;
+  qAnswered++;
+  Array.prototype.forEach.call(optionsEl.children, b => {
+    b.disabled = true;
+    if(b.getAttribute('data-text') === q.a) b.classList.add('right');
+  });
+  if(ok){
+    qCorrect++;
+    feedbackEl.textContent = 'Correct! ' + q.why;
+    feedbackEl.className = 'feedback correct';
+  } else {
+    btn.classList.add('wrong');
+    qMissed.push(q);
+    feedbackEl.textContent = 'Not quite. ' + q.why;
+    feedbackEl.className = 'feedback wrong';
+  }
+  document.getElementById('quiz-score').textContent = 'Score: ' + qCorrect + ' correct / ' + qAnswered + ' answered';
+  nextBtn.textContent = qIdx + 1 >= qDeck.length ? 'See results' : 'Next';
+  nextBtn.style.display = '';
+  nextBtn.focus();
+}
+nextBtn.addEventListener('click', () => {
+  if(!qLocked) return;          // ignore clicks before an answer is chosen
+  qLocked = false;
+  qIdx++;
+  if(qIdx >= qDeck.length){ finishQuiz(); return; }
+  renderQuestion();
+});
+// keys 1-4 or A-D pick an answer; Enter moves on
+document.addEventListener('keydown', e => {
+  if(playEl.style.display === 'none' || quizView.style.display === 'none') return;
+  if(e.key === 'Enter' && qLocked){
+    // preventDefault stops the focused Next button from also firing its own
+    // click, which would skip a question
+    e.preventDefault();
+    nextBtn.click();
+    return;
+  }
+  const k = '1234abcd'.indexOf(e.key.toLowerCase());
+  if(k !== -1 && !qLocked){
+    const b = optionsEl.children[k % 4];
+    if(b) b.click();
+  }
+});
+function scoreMessage(p){
+  if(p >= 100) return {title:'Perfect score!', msg:'Every answer correct. You really know Metabolism.'};
+  if(p >= 90)  return {title:'Excellent work!', msg:'Nearly flawless. Just a detail or two to polish.'};
+  if(p >= 80)  return {title:'Great job!', msg:'Solid understanding. Review the ones you missed and you will have them locked in.'};
+  if(p >= 70)  return {title:'Good effort!', msg:'You are on the right track. A bit more practice and these will stick.'};
+  return {title:'Keep practicing!', msg:'Go back through the study cards, then try the quiz again. You will improve fast.'};
+}
+function finishQuiz(){
+  const percent = Math.round((qCorrect / qDeck.length) * 100);
+  saveScore(getPlayerName(), qCorrect, qDeck.length, percent, qMode);
+  const m = scoreMessage(percent);
+  playEl.style.display = 'none';
+  doneEl.style.display = '';
+  document.getElementById('done-percent').textContent = percent + '% correct (' + qCorrect + ' of ' + qDeck.length + ')';
+  document.getElementById('done-title').textContent = m.title;
+  document.getElementById('done-msg').textContent = m.msg;
+  const missedEl = document.getElementById('done-missed');
+  if(qMissed.length){
+    missedEl.innerHTML = '<strong style="color:var(--gold-bright);">Review these:</strong>' +
+      '<ul style="margin:8px 0 0;padding-left:20px;line-height:1.6;">' +
+      qMissed.map(q => '<li>' + escapeHtml(q.q) + '<br><em>' + escapeHtml(q.a) + '</em></li>').join('') +
+      '</ul>';
+  } else { missedEl.innerHTML = ''; }
+}
+document.getElementById('done-restart').addEventListener('click', () => startQuiz(qMode));
+document.getElementById('done-menu').addEventListener('click', () => {
+  doneEl.style.display = 'none'; playEl.style.display = 'none'; setupEl.style.display = '';
+});
+document.getElementById('change-name-btn').addEventListener('click', setPlayerName);
+
+/* ---------- MODE SWITCH ---------- */
+const btnFlash = document.getElementById('btn-flash');
+const btnQuiz = document.getElementById('btn-quiz');
+const btnScores = document.getElementById('btn-scores');
+const flashView = document.getElementById('flash-view');
+const quizView = document.getElementById('quiz-view');
+const scoresView = document.getElementById('scores-view');
+function setActiveTab(activeBtn){
+  [btnFlash, btnQuiz, btnScores].forEach(b => b.classList.remove('active'));
+  activeBtn.classList.add('active');
+  [flashView, quizView, scoresView].forEach(v => v.style.display = 'none');
+}
+btnFlash.addEventListener('click', () => { setActiveTab(btnFlash); flashView.style.display = ''; });
+btnQuiz.addEventListener('click', () => {
+  setActiveTab(btnQuiz);
+  quizView.style.display = '';
+  let n = 'Player';
+  try{ n = localStorage.getItem(NAME_KEY) || 'Player'; }catch(e){}
+  document.getElementById('player-name-display').textContent = n;
+});
+btnScores.addEventListener('click', () => { setActiveTab(btnScores); scoresView.style.display = ''; renderScoreboard(); });
+</script>
+
+</body>
+</html>
