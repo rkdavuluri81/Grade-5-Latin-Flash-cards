@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Basis Grade 5 &middot; Study Practice</title>
+<title>Admin &middot; Score Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
@@ -16,6 +16,7 @@
     --plaster-dim: #c9beaa;
     --wine: #7a2e2e;
     --wine-bright: #a8433f;
+    --green: #4f6b4a;
   }
   *{box-sizing:border-box;}
   body{
@@ -29,279 +30,373 @@
     display:flex;
     flex-direction:column;
     align-items:center;
-    padding:56px 20px 60px;
+    padding:40px 20px 60px;
+  }
+  a.back{
+    align-self:flex-start;
+    margin-left:2px;
+    color:var(--gold-bright);
+    font-family:'Cinzel',serif;
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-decoration:none;
+    margin-bottom:18px;
   }
   header{
     text-align:center;
-    max-width:640px;
-    margin-bottom:44px;
+    max-width:680px;
+    margin-bottom:14px;
   }
   .kicker{
     font-family:'Cinzel',serif;
     font-size:13px;
-    letter-spacing:0.14em;
+    letter-spacing:0.12em;
     color:var(--gold-bright);
-    margin:0 0 10px;
+    margin:0 0 6px;
   }
   h1{
     font-family:'Cinzel',serif;
     font-weight:700;
-    font-size:clamp(26px,4.5vw,38px);
-    margin:0 0 10px;
-    color:var(--plaster);
+    font-size:clamp(24px,4vw,32px);
+    margin:0 0 8px;
   }
   .sub{
     color:var(--plaster-dim);
-    font-size:15px;
-    margin:0;
-    line-height:1.5;
+    font-size:14px;
+    margin:0 0 6px;
   }
-  .lessons{
-    width:100%;
-    max-width:560px;
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-  }
-  a.lesson-card{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:16px;
-    background:var(--stone-light);
-    border:1px solid rgba(184,137,43,0.28);
+  .caveat{
+    max-width:640px;
+    background:rgba(184,137,43,0.1);
+    border:1px solid rgba(184,137,43,0.3);
     border-radius:6px;
-    padding:22px 24px;
-    text-decoration:none;
-    color:var(--plaster);
-    transition:border-color .2s, transform .15s, background .2s;
-  }
-  a.lesson-card:hover{
-    border-color:var(--gold-bright);
-    background:#453c31;
-    transform:translateY(-1px);
-  }
-  .lesson-left{
-    display:flex;
-    flex-direction:column;
-    gap:4px;
-  }
-  .lesson-tag{
-    font-family:'Cinzel',serif;
-    font-size:12px;
-    letter-spacing:0.1em;
-    color:var(--gold-bright);
-  }
-  .lesson-title{
-    font-family:'Source Serif 4',serif;
-    font-size:19px;
-    font-weight:600;
-  }
-  .lesson-meta{
+    padding:14px 18px;
     font-size:13px;
     color:var(--plaster-dim);
+    margin:18px 0 34px;
+    line-height:1.5;
   }
-  .arrow{
-    font-family:'Cinzel',serif;
-    font-size:20px;
-    color:var(--gold);
-    flex-shrink:0;
-    transition:transform .15s;
-  }
-  a.lesson-card:hover .arrow{
-    transform:translateX(4px);
-  }
-  .lesson-card.placeholder{
-    opacity:0.4;
-    pointer-events:none;
-    border-style:dashed;
-  }
-  .subject{
+  .caveat strong{ color:var(--gold-bright); }
+
+  .summary-row{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    justify-content:center;
+    max-width:900px;
+    margin-bottom:40px;
     width:100%;
-    max-width:560px;
+  }
+  .summary-card{
+    background:var(--stone-light);
+    border:1px solid rgba(184,137,43,0.25);
+    border-radius:6px;
+    padding:18px 22px;
+    text-align:center;
+    min-width:130px;
+    flex:1;
+  }
+  .summary-num{
+    font-family:'Cinzel',serif;
+    font-size:26px;
+    font-weight:700;
+    color:var(--gold-bright);
+  }
+  .summary-label{
+    font-size:12px;
+    color:var(--plaster-dim);
+    letter-spacing:0.04em;
+    margin-top:4px;
+  }
+
+  .subject-group{margin-bottom:34px;}
+  .subject-title{
+    font-family:'Cinzel',serif;
+    font-weight:700;
+    font-size:22px;
+    letter-spacing:0.04em;
+    color:var(--plaster, #ece4d3);
+    margin:0 0 14px;
+    padding-bottom:8px;
+    border-bottom:1px solid rgba(184,137,43,0.35);
+  }
+  .unit-section{
+    width:100%;
+    max-width:900px;
     margin-bottom:44px;
   }
-  .subject-head{
+  .unit-heading{
     display:flex;
     align-items:baseline;
     justify-content:space-between;
-    font-family:'Cinzel',serif;
-    font-weight:700;
-    font-size:20px;
-    letter-spacing:0.04em;
-    color:var(--plaster);
-    margin:0 0 16px;
+    margin-bottom:14px;
+    border-bottom:1px solid rgba(184,137,43,0.25);
     padding-bottom:10px;
-    border-bottom:1px solid rgba(184,137,43,0.3);
   }
-  .subject-head span{
-    font-family:'Source Serif 4',serif;
-    font-weight:400;
+  .unit-heading h2{
+    font-family:'Cinzel',serif;
+    font-size:18px;
+    margin:0;
+    color:var(--plaster);
+  }
+  .unit-heading span{
     font-size:13px;
-    letter-spacing:0;
     color:var(--plaster-dim);
   }
-  footer{
-    margin-top:48px;
-    font-size:12px;
-    color:rgba(236,228,211,0.35);
+  table.score-table{
+    width:100%;
+    border-collapse:collapse;
+    background:var(--stone-light);
+    border:1px solid rgba(184,137,43,0.25);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .score-table th, .score-table td{
+    padding:11px 14px;
+    text-align:left;
+    font-size:14px;
+  }
+  .score-table th{
+    font-family:'Cinzel',serif;
+    font-size:11px;
+    letter-spacing:0.07em;
+    color:var(--gold-bright);
+    border-bottom:1px solid rgba(184,137,43,0.25);
+  }
+  .score-table tbody tr:not(:last-child) td{
+    border-bottom:1px solid rgba(236,228,211,0.08);
+  }
+  .score-percent{ font-weight:600; }
+  .pct-high{ color:#8fbf7a; }
+  .pct-mid{ color:var(--gold-bright); }
+  .pct-low{ color:#d98a8a; }
+  .empty-state{
     text-align:center;
+    color:var(--plaster-dim);
+    font-size:14px;
+    padding:36px 20px;
+    background:var(--stone-light);
+    border:1px dashed rgba(184,137,43,0.3);
+    border-radius:6px;
+  }
+  .no-units{
+    text-align:center;
+    color:var(--plaster-dim);
+    font-size:15px;
+    max-width:500px;
+    padding:60px 20px;
+  }
+  .refresh-btn{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.05em;
+    background:var(--gold);
+    color:var(--stone);
+    border:none;
+    padding:10px 22px;
+    border-radius:4px;
+    cursor:pointer;
+    font-weight:700;
+    margin-bottom:36px;
+  }
+  .clear-unit-btn{
+    background:none;
+    border:none;
+    color:var(--wine-bright);
+    font-size:13px;
+    font-family:'Source Serif 4',serif;
+    text-decoration:underline;
+    cursor:pointer;
+    padding:0;
   }
 </style>
 </head>
 <body>
 
+<a class="back" href="index.html">&larr; ALL LESSONS</a>
+
 <header>
-  <p class="kicker">Basis &middot; Grade 5</p>
-  <h1>Study Practice</h1>
-  <p class="sub">Flashcards and quizzes, grouped by subject.<br>Pick a subject, then a lesson, to start studying.</p>
+  <p class="kicker">Admin</p>
+  <h1>Score Dashboard</h1>
+  <p class="sub">All logged quiz attempts, grouped by unit</p>
 </header>
 
-<section class="subject">
-  <h2 class="subject-head">Latin <span>8 lessons</span></h2>
-  <div class="lessons">
-  <a class="lesson-card" href="unit1-vocab.html">
-    <div class="lesson-left">
-      <span class="lesson-tag">UNIT 1</span>
-      <span class="lesson-title">Testable Vocabulary</span>
-      <span class="lesson-meta">23 words &middot; flashcards, quiz mode &amp; pronunciation</span>
-    </div>
-    <span class="arrow">&rarr;</span>
-  </a>
+<div class="caveat">
+  <strong>Note:</strong> Scores are stored in each visitor's own browser (no shared server/database behind this site). This dashboard only shows quiz attempts made <strong>on this same device and browser</strong> &mdash; it won't show attempts made on a different computer or phone.
+</div>
 
-  <a class="lesson-card" href="unit2-vocab.html">
-    <div class="lesson-left">
-      <span class="lesson-tag">UNIT 2</span>
-      <span class="lesson-title">R&#333;ma &mdash; Vocabulary</span>
-      <span class="lesson-meta">20 words &middot; flashcards, quiz mode &amp; pronunciation</span>
-    </div>
-    <span class="arrow">&rarr;</span>
-  </a>
+<button class="refresh-btn" onclick="renderAll()">Refresh</button>
 
-  <a class="lesson-card" href="unit-3-vocabulary.html">
-    <div class="lesson-left">
-      <span class="lesson-tag">UNIT 3</span>
-      <span class="lesson-title">Testable Vocabulary</span>
-      <span class="lesson-meta">23 words &middot; flashcards, quiz mode &amp; pronunciation</span>
-    </div>
-    <span class="arrow">&rarr;</span>
-  </a>
+<div class="summary-row" id="summary-row"></div>
 
-  <a class="lesson-card" href="unit-4-vocabulary.html">
-    <div class="lesson-left">
-      <span class="lesson-tag">UNIT 4</span>
-      <span class="lesson-title">R&#333;ma &mdash; Vocabulary</span>
-      <span class="lesson-meta">20 words &middot; flashcards, quiz mode &amp; pronunciation</span>
-    </div>
-    <span class="arrow">&rarr;</span>
-  </a>
+<div id="units-container"></div>
 
-  <a class="lesson-card" href="unit-3-testable-vocabulary-24-words.html">
-    <div class="lesson-left">
-      <span class="lesson-tag">UNIT 3 &middot; NEW SHEET</span>
-      <span class="lesson-title">Testable Vocabulary</span>
-      <span class="lesson-meta">24 words &middot; flashcards, quiz mode &amp; pronunciation</span>
-    </div>
-    <span class="arrow">&rarr;</span>
-  </a>
+<script>
+function loadUnitScores(key){
+  try{
+    return JSON.parse(localStorage.getItem(key) || '[]');
+  } catch(e){
+    return [];
+  }
+}
 
-  <a class="lesson-card" href="review-units-1-2.html">
-    <div class="lesson-left">
-      <span class="lesson-tag">UNITS 1 &amp; 2 &middot; REVIEW</span>
-      <span class="lesson-title">All Vocabulary Quiz</span>
-      <span class="lesson-meta">43 words &middot; flashcards, quiz mode &amp; pronunciation</span>
-    </div>
-    <span class="arrow">&rarr;</span>
-  </a>
+// Matches any lesson's score log, whatever its naming scheme
+// (latin-scores-unit1, latin-scores-quiz5, latin-scores-<anything>).
+function findScoreKeys(){
+  const keys = [];
+  for(let i = 0; i < localStorage.length; i++){
+    const k = localStorage.key(i);
+    if(k && k.startsWith('latin-scores-')){
+      keys.push(k);
+    }
+  }
+  keys.sort((a,b) => {
+    const ra = keyRank(a), rb = keyRank(b);
+    if(ra.group !== rb.group) return ra.group - rb.group;
+    if(ra.num !== rb.num) return ra.num - rb.num;
+    return ra.name.localeCompare(rb.name);
+  });
+  return keys;
+}
 
-  <a class="lesson-card" href="units-3-and-4-review-43-words.html">
-    <div class="lesson-left">
-      <span class="lesson-tag">UNITS 3 &amp; 4 &middot; REVIEW</span>
-      <span class="lesson-title">All Vocabulary Quiz</span>
-      <span class="lesson-meta">43 words &middot; flashcards, quiz mode &amp; pronunciation</span>
-    </div>
-    <span class="arrow">&rarr;</span>
-  </a>
+// Ordering: numbered units first (Unit 1, Unit 2, ...), then numbered
+// practice quizzes (Quiz 5, ...), then anything else alphabetically.
+function keyRank(key){
+  const suffix = key.replace('latin-scores-', '');
+  const m = suffix.match(/^([a-z]+)(\d+)$/i);
+  if(!m) return { group: 2, name: suffix, num: 0 };
+  const name = m[1].toLowerCase();
+  const groupOrder = { unit: 0, quiz: 1 };
+  return {
+    group: Object.prototype.hasOwnProperty.call(groupOrder, name) ? groupOrder[name] : 2,
+    name,
+    num: parseInt(m[2], 10)
+  };
+}
 
-  <a class="lesson-card" href="quiz-5-practice-15-words.html">
-    <div class="lesson-left">
-      <span class="lesson-tag">QUIZ 5 &middot; PRACTICE</span>
-      <span class="lesson-title">Review Quiz</span>
-      <span class="lesson-meta">15 words &middot; flashcards, quiz mode &amp; pronunciation</span>
-    </div>
-    <span class="arrow">&rarr;</span>
-  </a>
+// Human-readable label for a score key, e.g. "latin-scores-unit1" -> "Unit 1",
+// "latin-scores-quiz5" -> "Quiz 5".
+function labelForKey(key){
+  const suffix = key.replace('latin-scores-', '');
+  if(suffix === 'unit3b') return 'Unit 3 (24-word sheet)';
+  const m = suffix.match(/^([a-z]+)(\d+)$/i);
+  if(!m) return suffix;
+  const name = m[1];
+  if(name.toLowerCase() === 'geo') return ({'1':'NA Countries and Capitals','2':'NA Physical Geography','3':'Rotation, Revolution & Models'})[m[2]] || ('Geography ' + m[2]);
+  if(name.toLowerCase() === 'english') return 'Literary Devices';
+  if(name.toLowerCase() === 'science') return 'Metabolism';
+  if(name.toLowerCase() === 'review') return m[2] === '1' ? 'Units 1 and 2 Review' : 'Units 3 and 4 Review';
+  return name.charAt(0).toUpperCase() + name.slice(1) + ' ' + m[2];
+}
 
-  <div class="lesson-card placeholder">
-    <div class="lesson-left">
-      <span class="lesson-tag">UNIT 5</span>
-      <span class="lesson-title">Coming soon</span>
-      <span class="lesson-meta">Will appear here once added</span>
-    </div>
-    <span class="arrow">&rarr;</span>
-  </div>
-  </div>
-</section>
+// Which subject a score key belongs to.
+const SUBJECT_ORDER = ['Latin', 'English', 'Geography', 'Science', 'Other'];
+function subjectForKey(key){
+  const suffix = key.replace('latin-scores-', '').toLowerCase();
+  if(/^(unit|review|quiz)\d*b?$/.test(suffix)) return 'Latin';
+  if(suffix.startsWith('english')) return 'English';
+  if(suffix.startsWith('geo')) return 'Geography';
+  if(suffix.startsWith('science')) return 'Science';
+  return 'Other';
+}
 
-<section class="subject">
-  <h2 class="subject-head">English <span>1 lesson</span></h2>
-  <div class="lessons">
-  <a class="lesson-card" href="english-literary-devices.html">
-    <div class="lesson-left">
-      <span class="lesson-tag">LITERARY DEVICES</span>
-      <span class="lesson-title">Characterization, Foreshadowing &amp; Ambiguity</span>
-      <span class="lesson-meta">14 study cards &middot; 25 multiple-choice questions</span>
-    </div>
-    <span class="arrow">&rarr;</span>
-  </a>
-  </div>
-</section>
+function pctClass(p){
+  if(p >= 90) return 'pct-high';
+  if(p >= 70) return 'pct-mid';
+  return 'pct-low';
+}
 
-<section class="subject">
-  <h2 class="subject-head">Geography <span>3 lessons</span></h2>
-  <div class="lessons">
-  <a class="lesson-card" href="na-capitals.html">
-    <div class="lesson-left">
-      <span class="lesson-tag">GEOGRAPHY</span>
-      <span class="lesson-title">North America: Countries &amp; Capitals</span>
-      <span class="lesson-meta">23 countries &middot; flashcards &amp; two-way quiz</span>
-    </div>
-    <span class="arrow">&rarr;</span>
-  </a>
-  <a class="lesson-card" href="na-physical-geography.html">
-    <div class="lesson-left">
-      <span class="lesson-tag">PHYSICAL GEOGRAPHY</span>
-      <span class="lesson-title">North America: Landforms &amp; Waters</span>
-      <span class="lesson-meta">16 study cards &middot; 72 multiple-choice questions</span>
-    </div>
-    <span class="arrow">&rarr;</span>
-  </a>
-  <a class="lesson-card" href="geo-rotation-revolution.html">
-    <div class="lesson-left">
-      <span class="lesson-tag">EARTH &amp; THE SOLAR SYSTEM</span>
-      <span class="lesson-title">Rotation, Revolution, Geocentric &amp; Heliocentric</span>
-      <span class="lesson-meta">12 study cards &middot; 55 multiple-choice questions</span>
-    </div>
-    <span class="arrow">&rarr;</span>
-  </a>
-  </div>
-</section>
+function escapeHtml(str){
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
 
-<section class="subject">
-  <h2 class="subject-head">Science <span>1 lesson</span></h2>
-  <div class="lessons">
-  <a class="lesson-card" href="science-metabolism.html">
-    <div class="lesson-left">
-      <span class="lesson-tag">SCIENCE &middot; TRIMESTER TEST</span>
-      <span class="lesson-title">Metabolism</span>
-      <span class="lesson-meta">76 study cards &middot; 401 multiple-choice questions &middot; 14 sub-topics &middot; Master Quiz</span>
-    </div>
-    <span class="arrow">&rarr;</span>
-  </a>
-  </div>
-</section>
+function renderAll(){
+  const scoreKeys = findScoreKeys();
+  const container = document.getElementById('units-container');
+  const summaryRow = document.getElementById('summary-row');
 
-<footer>More lessons will be added here as classes continue.</footer>
+  if(scoreKeys.length === 0){
+    container.innerHTML = '<div class="no-units">No quiz attempts have been logged on this device yet for any lesson.<br>Have a student complete a quiz, then refresh this page.</div>';
+    summaryRow.innerHTML = '';
+    return;
+  }
+
+  let totalAttempts = 0;
+  let totalPercentSum = 0;
+  const allPlayers = new Set();
+
+  const bySubject = {};
+
+  scoreKeys.forEach(key => {
+    let unitsHtml = '';
+    const label = labelForKey(key);
+    const scores = loadUnitScores(key);
+    totalAttempts += scores.length;
+    scores.forEach(s => { totalPercentSum += s.percent; allPlayers.add(s.name); });
+
+    const sorted = [...scores].sort((a,b) => (b.ts||0) - (a.ts||0) || b.percent - a.percent);
+
+    let bodyHtml;
+    if(sorted.length === 0){
+      bodyHtml = '<div class="empty-state">No attempts logged yet for ' + label + '.</div>';
+    } else {
+      const rows = sorted.map(s => (
+        '<tr>' +
+          '<td>' + escapeHtml(s.name) + '</td>' +
+          '<td>' + s.correct + ' / ' + s.total + '</td>' +
+          '<td class="score-percent ' + pctClass(s.percent) + '">' + s.percent + '%</td>' +
+          '<td>' + s.date + '</td>' +
+          '<td>' + (s.time || '&mdash;') + '</td>' +
+        '</tr>'
+      )).join('');
+      bodyHtml =
+        '<table class="score-table"><thead><tr>' +
+        '<th>Name</th><th>Score</th><th>%</th><th>Date</th><th>Time</th>' +
+        '</tr></thead><tbody>' + rows + '</tbody></table>';
+    }
+
+    const avg = scores.length ? Math.round(scores.reduce((a,s) => a+s.percent, 0) / scores.length) : 0;
+
+    unitsHtml +=
+      '<div class="unit-section">' +
+        '<div class="unit-heading">' +
+          '<h2>' + label + '</h2>' +
+          '<span>' + scores.length + ' attempt' + (scores.length===1?'':'s') + (scores.length ? ' &middot; avg ' + avg + '%' : '') +
+          ' &middot; <button class="clear-unit-btn" data-key="' + key + '" data-unit="' + label + '">clear</button></span>' +
+        '</div>' +
+        bodyHtml +
+      '</div>';
+    const subj = subjectForKey(key);
+    (bySubject[subj] = bySubject[subj] || []).push(unitsHtml);
+  });
+
+  container.innerHTML = SUBJECT_ORDER.filter(s => bySubject[s]).map(s =>
+    '<div class="subject-group"><h2 class="subject-title">' + s + '</h2>' + bySubject[s].join('') + '</div>'
+  ).join('');
+
+  const overallAvg = totalAttempts ? Math.round(totalPercentSum / totalAttempts) : 0;
+  summaryRow.innerHTML =
+    '<div class="summary-card"><div class="summary-num">' + scoreKeys.length + '</div><div class="summary-label">LESSONS TRACKED</div></div>' +
+    '<div class="summary-card"><div class="summary-num">' + totalAttempts + '</div><div class="summary-label">TOTAL ATTEMPTS</div></div>' +
+    '<div class="summary-card"><div class="summary-num">' + allPlayers.size + '</div><div class="summary-label">UNIQUE PLAYERS</div></div>' +
+    '<div class="summary-card"><div class="summary-num">' + overallAvg + '%</div><div class="summary-label">OVERALL AVG</div></div>';
+}
+
+renderAll();
+
+document.getElementById('units-container').addEventListener('click', (e) => {
+  if(e.target.classList.contains('clear-unit-btn')){
+    const key = e.target.getAttribute('data-key');
+    const unitNum = e.target.getAttribute('data-unit');
+    if(confirm('Clear all scores for ' + unitNum + '? This cannot be undone.')){
+      localStorage.removeItem(key);
+      renderAll();
+    }
+  }
+});
+</script>
 
 </body>
 </html>
