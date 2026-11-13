@@ -1,0 +1,5603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geography: Earth & the Universe | Basis Grade 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --stone: #2b2620;
+    --stone-light: #3c352c;
+    --gold: #b8892b;
+    --gold-bright: #d9a840;
+    --plaster: #ece4d3;
+    --plaster-dim: #c9beaa;
+    --wine: #7a2e2e;
+    --wine-bright: #a8433f;
+    --green: #4f6b4a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(184,137,43,0.08), transparent 60%),
+      var(--stone);
+    color:var(--plaster);
+    font-family:'Source Serif 4', serif;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:32px 20px 60px;
+  }
+  header{
+    text-align:center;
+    max-width:640px;
+    margin-bottom:28px;
+  }
+  .kicker{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.12em;
+    color:var(--gold-bright);
+    margin:0 0 6px;
+  }
+  h1{
+    font-family:'Cinzel',serif;
+    font-weight:700;
+    font-size:clamp(24px,4vw,34px);
+    margin:0 0 8px;
+    color:var(--plaster);
+  }
+  .sub{
+    color:var(--plaster-dim);
+    font-size:15px;
+    margin:0;
+  }
+  .modebar{
+    display:flex;
+    gap:8px;
+    margin-bottom:26px;
+    background:var(--stone-light);
+    padding:5px;
+    border-radius:999px;
+    border:1px solid rgba(184,137,43,0.25);
+  }
+  .modebar button{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.03em;
+    padding:9px 20px;
+    border-radius:999px;
+    border:none;
+    background:transparent;
+    color:var(--plaster-dim);
+    cursor:pointer;
+    transition:background .2s, color .2s;
+  }
+  .modebar button.active{
+    background:var(--gold);
+    color:var(--stone);
+  }
+  .stage{
+    width:100%;
+    max-width:560px;
+  }
+  .progress{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:14px;
+    font-size:13px;
+    color:var(--plaster-dim);
+    font-family:'Cinzel',serif;
+    letter-spacing:0.05em;
+  }
+  .progress-track{
+    flex:1;
+    height:3px;
+    background:rgba(236,228,211,0.15);
+    margin:0 14px;
+    position:relative;
+    border-radius:2px;
+    overflow:hidden;
+  }
+  .progress-fill{
+    position:absolute;
+    left:0;top:0;bottom:0;
+    background:var(--gold);
+    transition:width .3s ease;
+  }
+
+  /* FLASHCARD MODE */
+  .card-wrap{
+    perspective:1400px;
+    height:280px;
+    margin-bottom:22px;
+    cursor:pointer;
+  }
+  .card{
+    position:relative;
+    width:100%;
+    height:100%;
+    transform-style:preserve-3d;
+    transition:transform .5s cubic-bezier(.4,.2,.2,1);
+  }
+  .card.flipped{ transform:rotateY(180deg); }
+  .card.no-transition{ transition:none !important; }
+  .face{
+    position:absolute;
+    inset:0;
+    backface-visibility:hidden;
+    border-radius:6px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:32px;
+    border:1px solid rgba(184,137,43,0.3);
+  }
+  .face.front{
+    background:linear-gradient(160deg, var(--stone-light), var(--stone));
+    box-shadow: inset 0 0 0 1px rgba(236,228,211,0.04), 0 10px 30px rgba(0,0,0,0.35);
+  }
+  .face.back{
+    background:linear-gradient(160deg, var(--wine-bright), var(--wine));
+    transform:rotateY(180deg);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  }
+  .card-num{
+    font-family:'Cinzel',serif;
+    font-size:12px;
+    letter-spacing:0.1em;
+    color:var(--gold-bright);
+    position:absolute;
+    top:16px;
+    left:20px;
+  }
+  .latin{
+    font-family:'Cinzel',serif;
+    font-weight:700;
+    font-size:clamp(22px,5vw,30px);
+    color:var(--plaster);
+    line-height:1.3;
+  }
+  .hint{
+    margin-top:14px;
+    font-size:12px;
+    color:var(--plaster-dim);
+    letter-spacing:0.05em;
+  }
+  .pron{
+    font-family:'Source Serif 4',serif;
+    font-style:italic;
+    font-size:14px;
+    color:var(--gold-bright);
+    margin-top:8px;
+  }
+  .speak-btn{
+    background:none;
+    border:1px solid rgba(184,137,43,0.4);
+    color:var(--gold-bright);
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:15px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    margin-top:12px;
+    transition:background .2s;
+  }
+  .speak-btn:hover{ background:rgba(184,137,43,0.15); }
+  .speak-btn:active{ transform:scale(0.94); }
+  .definition{
+    font-size:clamp(20px,4.5vw,26px);
+    color:var(--plaster);
+    font-style:italic;
+  }
+  .controls{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+  }
+  .controls button{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.05em;
+    background:var(--stone-light);
+    color:var(--plaster);
+    border:1px solid rgba(184,137,43,0.3);
+    padding:11px 20px;
+    border-radius:4px;
+    cursor:pointer;
+    transition:background .2s, border-color .2s;
+  }
+  .controls button:hover{ border-color:var(--gold-bright); }
+  .controls button.primary{
+    background:var(--gold);
+    color:var(--stone);
+    border-color:var(--gold);
+    font-weight:700;
+  }
+  .controls button:disabled{
+    opacity:0.35;
+    cursor:default;
+  }
+  .shuffle-row{
+    display:flex;
+    justify-content:center;
+    margin-top:16px;
+  }
+  .shuffle-row button{
+    background:none;
+    border:none;
+    color:var(--plaster-dim);
+    font-size:13px;
+    font-family:'Source Serif 4',serif;
+    text-decoration:underline;
+    text-decoration-color:rgba(184,137,43,0.5);
+    cursor:pointer;
+  }
+
+  /* QUIZ MODE */
+  .quiz-box{
+    background:var(--stone-light);
+    border:1px solid rgba(184,137,43,0.25);
+    border-radius:6px;
+    padding:36px 30px;
+    margin-bottom:20px;
+    min-height:280px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .quiz-prompt{
+    font-size:13px;
+    color:var(--gold-bright);
+    font-family:'Cinzel',serif;
+    letter-spacing:0.08em;
+    margin-bottom:8px;
+  }
+  .quiz-latin{
+    font-family:'Cinzel',serif;
+    font-weight:700;
+    font-size:clamp(24px,5vw,30px);
+    margin-bottom:22px;
+  }
+  .quiz-box input{
+    width:100%;
+    font-family:'Source Serif 4',serif;
+    font-size:18px;
+    padding:12px 14px;
+    border-radius:4px;
+    border:1px solid rgba(236,228,211,0.25);
+    background:rgba(0,0,0,0.2);
+    color:var(--plaster);
+    margin-bottom:14px;
+  }
+  .quiz-box input:focus{
+    outline:none;
+    border-color:var(--gold-bright);
+  }
+  .feedback{
+    font-size:15px;
+    min-height:24px;
+    margin-bottom:6px;
+  }
+  .feedback.correct{ color:#8fbf7a; }
+  .feedback.wrong{ color:#d98a8a; }
+  .quiz-score{
+    text-align:center;
+    font-family:'Cinzel',serif;
+    letter-spacing:0.05em;
+    font-size:13px;
+    color:var(--plaster-dim);
+    margin-top:8px;
+  }
+  footer{
+    margin-top:36px;
+    font-size:12px;
+    color:rgba(236,228,211,0.35);
+    text-align:center;
+  }
+  .player-badge{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    font-size:13px;
+    color:var(--plaster-dim);
+    margin-bottom:16px;
+  }
+  .player-badge button{
+    background:none;
+    border:none;
+    color:var(--gold-bright);
+    text-decoration:underline;
+    cursor:pointer;
+    font-size:13px;
+    font-family:'Source Serif 4',serif;
+    padding:0;
+  }
+  .score-table{
+    width:100%;
+    border-collapse:collapse;
+    background:var(--stone-light);
+    border:1px solid rgba(184,137,43,0.25);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .score-table th, .score-table td{
+    padding:12px 14px;
+    text-align:left;
+    font-size:14px;
+  }
+  .score-table th{
+    font-family:'Cinzel',serif;
+    font-size:11px;
+    letter-spacing:0.08em;
+    color:var(--gold-bright);
+    border-bottom:1px solid rgba(184,137,43,0.25);
+  }
+  .score-table tbody tr:not(:last-child) td{
+    border-bottom:1px solid rgba(236,228,211,0.08);
+  }
+  .score-table tbody tr.you{
+    background:rgba(184,137,43,0.12);
+  }
+  .score-percent{
+    font-weight:600;
+  }
+  .score-empty{
+    text-align:center;
+    color:var(--plaster-dim);
+    font-size:14px;
+    padding:40px 20px;
+    background:var(--stone-light);
+    border:1px dashed rgba(184,137,43,0.3);
+    border-radius:6px;
+  }
+  .score-actions{
+    display:flex;
+    justify-content:center;
+    margin-top:16px;
+  }
+  .score-actions button{
+    background:none;
+    border:none;
+    color:var(--plaster-dim);
+    font-size:13px;
+    font-family:'Source Serif 4',serif;
+    text-decoration:underline;
+    text-decoration-color:rgba(184,137,43,0.4);
+    cursor:pointer;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .card{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" style="align-self:flex-start;margin-left:2px;color:var(--gold-bright);font-family:'Cinzel',serif;font-size:12px;letter-spacing:0.08em;text-decoration:none;margin-bottom:18px;">&larr; ALL LESSONS</a>
+<header>
+  <p class="kicker">Geography &middot; Earth &amp; the Universe</p>
+  <h1>Earth &amp; the Universe</h1>
+  <p class="sub" id="header-sub">Study cards and a multiple-choice quiz</p>
+</header>
+
+<div class="modebar">
+  <button id="btn-flash" class="active">Study cards</button>
+  <button id="btn-quiz">Quiz me</button>
+  <button id="btn-scores">Scoreboard</button>
+</div>
+
+<div class="stage">
+
+  <!-- STUDY CARDS -->
+  <div id="flash-view">
+    <div class="progress">
+      <span id="flash-count">1 / 14</span>
+      <div class="progress-track"><div class="progress-fill" id="flash-fill"></div></div>
+      <span>&nbsp;</span>
+    </div>
+
+    <div class="card-wrap tall" id="card-wrap">
+      <div class="card" id="card">
+        <div class="face front">
+          <span class="card-num" id="face-part">Part 1</span>
+          <div class="latin" id="front-text">Characterization</div>
+          <div class="hint">tap card to reveal the definition</div>
+        </div>
+        <div class="face back">
+          <span class="card-num" id="back-part">Part 1</span>
+          <div class="definition long" id="back-text"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="prev-btn">&larr; Prev</button>
+      <button id="flip-btn" class="primary">Flip</button>
+      <button id="next-btn">Next &rarr;</button>
+    </div>
+    <div class="shuffle-row">
+      <button id="shuffle-btn">Shuffle cards</button>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz-view" style="display:none;">
+    <div class="player-badge">
+      Playing as <strong id="player-name-display">Player</strong>
+      <button id="change-name-btn">change</button>
+    </div>
+
+    <div id="quiz-setup" class="quiz-box">
+      <p class="quiz-prompt">Choose a quiz</p>
+      <div class="quiz-latin" style="font-size:20px;margin-bottom:20px;">What do you want to practice?</div>
+      <div id="mode-list" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+
+    <div id="quiz-play" style="display:none;">
+      <div class="progress">
+        <span id="quiz-count">1 / 25</span>
+        <div class="progress-track"><div class="progress-fill" id="quiz-fill"></div></div>
+        <span>&nbsp;</span>
+      </div>
+      <div class="quiz-box">
+        <p class="quiz-prompt" id="quiz-part">Part 1 &middot; Characterization</p>
+        <div class="question-text" id="quiz-q"></div>
+        <div id="options" class="options"></div>
+        <div class="feedback" id="quiz-feedback"></div>
+        <div class="controls">
+          <button id="quiz-next" class="primary" style="display:none;">Next</button>
+        </div>
+      </div>
+      <div class="quiz-score" id="quiz-score">Score: 0 correct / 0 answered</div>
+    </div>
+
+    <div id="quiz-done" class="quiz-box" style="display:none;text-align:center;">
+      <p class="quiz-prompt" id="done-percent"></p>
+      <div class="quiz-latin" id="done-title"></div>
+      <p id="done-msg" style="color:var(--plaster-dim);font-size:15px;line-height:1.5;margin:0 0 20px;"></p>
+      <div id="done-missed" style="text-align:left;font-size:14px;color:var(--plaster-dim);margin-bottom:20px;"></div>
+      <div class="controls">
+        <button id="done-restart" class="primary">Try again</button>
+        <button id="done-menu">Change quiz</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCOREBOARD -->
+  <div id="scores-view" style="display:none;">
+    <div id="scores-content"></div>
+  </div>
+
+</div>
+
+<footer>Based on the class notes and handouts: solstices and equinoxes, seasons, the Sun, all eight planets, small bodies, and the Big Bang. Scoreboard is saved in this browser only.</footer>
+
+<style>
+  .card-wrap.tall{ height:340px; }
+  .definition.long{
+    font-size:clamp(15px,3.6vw,18px);
+    line-height:1.55;
+    font-style:normal;
+    white-space:pre-line;
+  }
+  .question-text{
+    font-family:'Source Serif 4',serif;
+    font-size:clamp(18px,4.2vw,21px);
+    line-height:1.45;
+    margin-bottom:20px;
+    color:var(--plaster);
+  }
+  .options{ display:flex; flex-direction:column; gap:10px; margin-bottom:14px; }
+  .opt{
+    font-family:'Source Serif 4',serif;
+    font-size:16px;
+    line-height:1.4;
+    text-align:left;
+    background:rgba(0,0,0,0.2);
+    color:var(--plaster);
+    border:1px solid rgba(184,137,43,0.3);
+    padding:12px 14px;
+    border-radius:4px;
+    cursor:pointer;
+    transition:border-color .2s, background .2s;
+  }
+  .opt:hover:not(:disabled){ border-color:var(--gold-bright); background:rgba(184,137,43,0.12); }
+  .opt:disabled{ cursor:default; }
+  .opt.right{ border-color:#8fbf7a; background:rgba(143,191,122,0.16); }
+  .opt.wrong{ border-color:#d98a8a; background:rgba(217,138,138,0.16); }
+  .opt .key{
+    display:inline-block;
+    min-width:22px;
+    font-family:'Cinzel',serif;
+    font-size:12px;
+    color:var(--gold-bright);
+  }
+  .mode-pick{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.04em;
+    text-align:left;
+    background:rgba(0,0,0,0.2);
+    color:var(--plaster);
+    border:1px solid rgba(184,137,43,0.3);
+    padding:14px 16px;
+    border-radius:4px;
+    cursor:pointer;
+    transition:border-color .2s, background .2s;
+  }
+  .mode-pick:hover{ border-color:var(--gold-bright); background:rgba(184,137,43,0.12); }
+  .mode-pick.primary-pick{ border-color:var(--gold); }
+</style>
+
+<script>
+/* ---------- CONTENT (from the Earth & the Universe notes) ---------- */
+const PART_LABEL = {"sol": "Part 1 · Solstices & Equinoxes", "seas": "Part 2 · Seasons, Tilt & the Sun’s Path", "ss": "Part 3 · The Solar System", "belts": "Part 4 · Inner & Outer Planets, Small Bodies", "sun": "Part 5 · The Sun", "merc": "Part 6 · Mercury", "ven": "Part 7 · Venus", "earth": "Part 8 · Earth", "mars": "Part 9 · Mars", "jup": "Part 10 · Jupiter", "sat": "Part 11 · Saturn", "ura": "Part 12 · Uranus", "nep": "Part 13 · Neptune", "cmp": "Part 14 · Compare the Planets", "bang": "Part 15 · The Big Bang & Birth of the Solar System"};
+
+const cards = [
+ {
+  "part": "sol",
+  "term": "Solstice",
+  "def": "The day the Sun is at its highest or lowest in the sky.\nLongest day (summer) or shortest day (winter)."
+ },
+ {
+  "part": "sol",
+  "term": "Summer solstice",
+  "def": "June 21. Starts summer. Longest day of the year.\nMost direct rays on the Tropic of Cancer. Highest sun height."
+ },
+ {
+  "part": "sol",
+  "term": "Winter solstice",
+  "def": "December 21. Starts winter. Shortest day of the year.\nMost direct rays on the Tropic of Capricorn. Lowest sun height."
+ },
+ {
+  "part": "sol",
+  "term": "Equinox",
+  "def": "Equal day and nights. Middle sun height.\nMost direct rays on the Equator.\nStarts Fall (Sept 21/22) and Spring (March 21/22)."
+ },
+ {
+  "part": "seas",
+  "term": "Cause of seasons",
+  "def": "Earth’s tilt (23.5°)."
+ },
+ {
+  "part": "seas",
+  "term": "Direct sunlight",
+  "def": "Concentrated energy. Hemisphere tilted TOWARD the Sun. Summer."
+ },
+ {
+  "part": "seas",
+  "term": "Indirect sunlight",
+  "def": "Spread-out energy. Hemisphere tilted AWAY from the Sun. Winter."
+ },
+ {
+  "part": "seas",
+  "term": "Orbit diagram A–D",
+  "def": "A = June, summer solstice, tilted toward Sun.\nB = September, fall equinox.\nC = December, winter solstice, tilted away.\nD = March, spring equinox."
+ },
+ {
+  "part": "seas",
+  "term": "Sun’s path in the sky",
+  "def": "Path A (highest) = Summer: longer day, rises earlier, sets later.\nPath B = Fall/Spring: equal day and night, direct rays on Equator.\nPath C (lowest) = Winter: shorter day, rises later, sets earlier."
+ },
+ {
+  "part": "seas",
+  "term": "Solar energy and life",
+  "def": "Drives weather, ocean currents, winds and the water cycle.\nPowers photosynthesis = foundation of all food chains."
+ },
+ {
+  "part": "ss",
+  "term": "Solar System",
+  "def": "Family of celestial bodies held by the Sun’s gravity: star, 8 planets, moons, asteroids, comets."
+ },
+ {
+  "part": "ss",
+  "term": "Inner (terrestrial) planets",
+  "def": "Mercury, Venus, Earth, Mars: small, rocky, metallic, short orbits."
+ },
+ {
+  "part": "ss",
+  "term": "Outer planets",
+  "def": "Jupiter, Saturn, Uranus, Neptune: huge, mostly gas and ice, many moons and rings."
+ },
+ {
+  "part": "ss",
+  "term": "Dwarf planets",
+  "def": "Like Pluto: orbit the Sun but have not cleared their neighborhood of debris."
+ },
+ {
+  "part": "ss",
+  "term": "Moons (satellites)",
+  "def": "Natural objects that orbit planets."
+ },
+ {
+  "part": "ss",
+  "term": "Asteroids & comets",
+  "def": "Asteroids: rocky, mostly in the Asteroid Belt (between Mars and Jupiter).\nComets: icy, in the outer Kuiper Belt."
+ },
+ {
+  "part": "ss",
+  "term": "Order of planets",
+  "def": "1 Mercury, 2 Venus, 3 Earth, 4 Mars, 5 Jupiter, 6 Saturn…"
+ },
+ {
+  "part": "sun",
+  "term": "The Sun",
+  "def": "A hot glowing ball of gas; closest star; yellow dwarf; 99.86% of the Solar System’s mass."
+ },
+ {
+  "part": "sun",
+  "term": "Sun facts",
+  "def": "93 million miles away. Core 27 million °F. Surface ~10,000 °F.\n~100x wider than Earth; 1.3 million times the volume.\nMostly hydrogen and helium. Age ~4.5 billion years."
+ },
+ {
+  "part": "sun",
+  "term": "Sun’s life cycle",
+  "def": "Birth → yellow dwarf (now) → red giant (~5 bn yrs) → planetary nebula → white dwarf (Earth-size, 20,000x heavier)."
+ },
+ {
+  "part": "sun",
+  "term": "Light travel",
+  "def": "Sun to Earth: about 8 minutes 20 seconds. Light is the fastest thing in the universe."
+ },
+ {
+  "part": "sun",
+  "term": "Aurora",
+  "def": "Streams of light when the Sun’s particles hit gases at the edge of the atmosphere."
+ },
+ {
+  "part": "sun",
+  "term": "Proxima Centauri",
+  "def": "Closest star neighbor, about 4 light-years away.\nLight-year: how far light travels in a year."
+ },
+ {
+  "part": "sun",
+  "term": "Parker Solar Probe",
+  "def": "Flies inside the Sun’s atmosphere (the corona)."
+ },
+ {
+  "part": "sun",
+  "term": "Solar cycle",
+  "def": "Ups and downs of solar flares and sunspots over 11 years."
+ },
+ {
+  "part": "sun",
+  "term": "Safety",
+  "def": "Never look at the Sun without special protective eyewear."
+ },
+ {
+  "part": "merc",
+  "term": "Mercury",
+  "def": "Smallest planet. Closest to the Sun. No moons. Terrestrial. Thin exosphere."
+ },
+ {
+  "part": "merc",
+  "term": "Mercury temperatures",
+  "def": "Day: 800 °F (430 °C). Night: -300 °F (-180 °C). Not the hottest (Venus is)."
+ },
+ {
+  "part": "merc",
+  "term": "Time on Mercury",
+  "def": "Day = 59 Earth days. Year = 88 Earth days (birthday every ~3 months).\nOne sunrise every 176 Earth days."
+ },
+ {
+  "part": "merc",
+  "term": "Mercury missions",
+  "def": "Mariner 10 (1974) and MESSENGER (first to orbit)."
+ },
+ {
+  "part": "merc",
+  "term": "Mercury surface",
+  "def": "Gray, heavily cratered like Earth’s Moon. Water-ice at poles.\nNeighbor: Venus."
+ },
+ {
+  "part": "ven",
+  "term": "Venus",
+  "def": "Hottest planet (~900 °F / 482 °C). Thick CO₂ atmosphere traps heat. Clouds of sulfuric acid."
+ },
+ {
+  "part": "ven",
+  "term": "Venus facts",
+  "def": "2nd from the Sun (~67 million miles). Diameter ~7,500 miles. Earth’s “sister planet”. No moons."
+ },
+ {
+  "part": "ven",
+  "term": "Time on Venus",
+  "def": "Day = 243 Earth days. Year = 225 Earth days. Day longer than year.\nSun rises every 117 Earth days."
+ },
+ {
+  "part": "ven",
+  "term": "Retrograde rotation",
+  "def": "Spins backwards (clockwise). Sun rises in the west, sets in the east."
+ },
+ {
+  "part": "ven",
+  "term": "Venus missions",
+  "def": "Mariner 2, 5, 10; Pioneer Venus 1 and 2; Magellan (radar)."
+ },
+ {
+  "part": "ven",
+  "term": "Venus in the sky",
+  "def": "Brightest natural object in the night sky after the Moon: “Morning/Evening Star”.\nSurface pressure 90x Earth’s."
+ },
+ {
+  "part": "earth",
+  "term": "Earth",
+  "def": "Terrestrial, ocean planet (70% water). Atmosphere mostly nitrogen + oxygen. Only known planet with life."
+ },
+ {
+  "part": "earth",
+  "term": "Time on Earth",
+  "def": "Day a little under 24 hours. Year 365.25 days → leap day every 4 years."
+ },
+ {
+  "part": "earth",
+  "term": "Earth neighbors",
+  "def": "3rd from the Sun. One Moon. Neighbors: Venus and Mars."
+ },
+ {
+  "part": "earth",
+  "term": "Meteoroid vs meteorite",
+  "def": "Meteoroids break up in the atmosphere; those reaching the ground are meteorites."
+ },
+ {
+  "part": "mars",
+  "term": "Mars",
+  "def": "Cold desert world, avg -85 °F. Red from rusty iron. Half Earth’s size. Thin atmosphere (CO₂, nitrogen, argon)."
+ },
+ {
+  "part": "mars",
+  "term": "Time on Mars",
+  "def": "Day 24.6 hours. Year 687 Earth days."
+ },
+ {
+  "part": "mars",
+  "term": "Mars neighbors",
+  "def": "4th from the Sun. Two moons: Phobos and Deimos. Neighbors: Earth and Jupiter."
+ },
+ {
+  "part": "mars",
+  "term": "Ingenuity",
+  "def": "Mars Helicopter: first powered controlled flight on another world; rode on Perseverance; 72 flights; ended early 2024."
+ },
+ {
+  "part": "mars",
+  "term": "Mars exploration",
+  "def": "InSight, MAVEN, Mars Reconnaissance Orbiter. Only planet with rovers.\nSurface not active; volcanoes dead."
+ },
+ {
+  "part": "jup",
+  "term": "Jupiter",
+  "def": "Biggest planet. Gas giant (hydrogen, helium). No solid surface. More than twice as massive as all other planets combined."
+ },
+ {
+  "part": "jup",
+  "term": "Great Red Spot",
+  "def": "Giant storm bigger than Earth, raging 300+ years."
+ },
+ {
+  "part": "jup",
+  "term": "Time on Jupiter",
+  "def": "Day 10 hours. Year 11.8 Earth years. 95 moons. 5th planet; neighbors Mars and Saturn."
+ },
+ {
+  "part": "jup",
+  "term": "Jupiter missions",
+  "def": "Pioneer 10 & 11, Voyager 1 & 2, Cassini, New Horizons, Juno. Auroras hundreds of times more energetic than Earth’s."
+ },
+ {
+  "part": "sat",
+  "term": "Saturn",
+  "def": "Gas giant with most beautiful rings: seven main rings of ice and rock chunks."
+ },
+ {
+  "part": "sat",
+  "term": "Time on Saturn",
+  "def": "Day 10.7 hours. Year 29 Earth years. 274 moons (March 2025). 6th planet; neighbors Jupiter and Uranus."
+ },
+ {
+  "part": "sat",
+  "term": "Saturn history",
+  "def": "Galileo (1600s) thought it was three planets or a planet with handles.\nFour spacecraft: Pioneer 11, Cassini, Voyager 1 and 2."
+ },
+ {
+  "part": "cmp",
+  "term": "Planet superlatives",
+  "def": "Smallest/closest: Mercury. Hottest: Venus. Biggest: Jupiter. Farthest: Neptune. On its side: Uranus. Most beautiful rings: Saturn. Red Planet: Mars. Life: Earth."
+ },
+ {
+  "part": "cmp",
+  "term": "Moons count",
+  "def": "Mercury 0, Venus 0, Earth 1, Mars 2, Jupiter 95, Saturn 274, Uranus 28, Neptune 16."
+ },
+ {
+  "part": "cmp",
+  "term": "Day and year lengths",
+  "def": "Mercury 59d/88d; Venus 243d/225d; Earth 24h/365.25d; Mars 24.6h/687d; Jupiter 10h/11.8y; Saturn 10.7h/29y; Uranus 17h/84y; Neptune 16h/165y."
+ },
+ {
+  "part": "ura",
+  "term": "Uranus",
+  "def": "Ice giant, blue from methane. Spins on its side and backwards. 13 rings. Day 17 h 14 min. Year 84 Earth years."
+ },
+ {
+  "part": "ura",
+  "term": "Uranus facts",
+  "def": "7th planet; neighbors Saturn and Neptune. 28 moons. Discovered 1781 by William Herschel. Only Voyager 2 visited."
+ },
+ {
+  "part": "nep",
+  "term": "Neptune",
+  "def": "Ice giant; dark, cold, very windy; deep blue (methane). Farthest planet (8th), 30+ times farther from Sun than Earth."
+ },
+ {
+  "part": "nep",
+  "term": "Neptune facts",
+  "def": "Six rings. Day 16 hours. Year 165 Earth years. 16 moons. Neighbor: Uranus.\nDiscovered 1846 (Le Verrier, Adams, Galle). Only Voyager 2 visited (1989)."
+ },
+ {
+  "part": "belts",
+  "term": "Inner vs outer planets",
+  "def": "Inner = terrestrial: small, rocky, metals + silicate, few/no moons, no rings, warmer.\nOuter = gas/Jovian giants: large, hydrogen + helium, many moons + rings, colder.\nSeparated by the Asteroid Belt."
+ },
+ {
+  "part": "belts",
+  "term": "Small bodies",
+  "def": "Dwarf planets: Pluto, Ceres, Eris.\nAsteroids: rocky, Asteroid Belt. Comets: icy, gas + dust tail.\nMeteoroids: small rocky/metallic fragments."
+ },
+ {
+  "part": "belts",
+  "term": "Kuiper Belt & Oort Cloud",
+  "def": "Kuiper Belt: icy objects beyond Neptune.\nOort Cloud: theoretical outermost region of icy debris."
+ },
+ {
+  "part": "belts",
+  "term": "Planet snapshots",
+  "def": "Mercury: closest, smallest. Venus: greenhouse, hottest. Earth: life. Mars: Red Planet, largest volcano and canyon. Jupiter: Great Red Spot, magnetic field. Saturn: ice-and-rock rings, 2nd largest. Uranus: on its side. Neptune: farthest."
+ },
+ {
+  "part": "bang",
+  "term": "Big Bang theory",
+  "def": "Astronomers’ explanation of how the universe began: a single hot, dense point that expanded and is still stretching. ~13.8 billion years ago; time and space created."
+ },
+ {
+  "part": "bang",
+  "term": "Lemaître & Hubble",
+  "def": "Lemaître (1927): universe began as a single point. Hubble: galaxies moving away; farthest move fastest; light is red shifted. Universe still expanding."
+ },
+ {
+  "part": "bang",
+  "term": "Inflation",
+  "def": "Fraction of a second (10⁻³⁵–10⁻⁶ s): universe expanded exponentially. One combined force; gravity separated first."
+ },
+ {
+  "part": "bang",
+  "term": "First nuclei & nucleosynthesis",
+  "def": "First minutes: quarks, photons, neutrinos → protons and neutrons → hydrogen nuclei, deuterons, helium nuclei. Hydrogen + helium abundance = evidence."
+ },
+ {
+  "part": "bang",
+  "term": "First atoms & CMBR",
+  "def": "~380,000 years: cool enough for atoms. Photons of light released = Cosmic Microwave Background Radiation (more evidence)."
+ },
+ {
+  "part": "bang",
+  "term": "Re-Ionisation",
+  "def": "Gravity pulled hydrogen into first stars. Fusion made carbon, oxygen, silicon, iron. Supernovae made heavier elements and seeded new stars and planets."
+ },
+ {
+  "part": "bang",
+  "term": "Birth of the Solar System",
+  "def": "~9 billion years after the Big Bang; ~4.6 billion years old. Solar nebula (gas + dust) collapsed, spun faster, flattened into a disk; Sun formed from most of the matter."
+ },
+ {
+  "part": "bang",
+  "term": "Life on Earth begins",
+  "def": "3.8 billion years ago: carbon-based molecules (water + energy). Stromatolites and cyanobacteria lived without oxygen; cyanobacteria were first photosynthesisers and released oxygen. Stromatolite fossils in Western Australia."
+ }
+];
+
+// a = correct answer, w = three wrong answers, why = shown after answering
+const questions = [
+ {
+  "part": "sol",
+  "q": "What is a solstice?",
+  "a": "A day when the Sun reaches its highest or lowest point in the sky, giving the longest or shortest day",
+  "w": [
+   "A day with exactly equal day and night",
+   "The day Earth is closest to the Sun",
+   "A season that lasts three months"
+  ],
+  "why": "Solstices mark the longest day (summer) and shortest day (winter) of the year."
+ },
+ {
+  "part": "sol",
+  "q": "On which date is the summer solstice (Northern Hemisphere)?",
+  "a": "June 21",
+  "w": [
+   "December 21",
+   "March 21/22",
+   "September 21/22"
+  ],
+  "why": "The summer solstice starts summer on June 21."
+ },
+ {
+  "part": "sol",
+  "q": "On which date is the winter solstice (Northern Hemisphere)?",
+  "a": "December 21",
+  "w": [
+   "June 21",
+   "March 21/22",
+   "September 21/22"
+  ],
+  "why": "The winter solstice starts winter on December 21."
+ },
+ {
+  "part": "sol",
+  "q": "Which date is the spring equinox?",
+  "a": "March 21/22",
+  "w": [
+   "September 21/22",
+   "June 21",
+   "December 21"
+  ],
+  "why": "March 21/22 starts spring."
+ },
+ {
+  "part": "sol",
+  "q": "Which date is the fall equinox?",
+  "a": "September 21/22",
+  "w": [
+   "March 21/22",
+   "June 21",
+   "December 21"
+  ],
+  "why": "September 21/22 starts fall."
+ },
+ {
+  "part": "sol",
+  "q": "The summer solstice is the…",
+  "a": "longest day of the year",
+  "w": [
+   "shortest day of the year",
+   "day with equal day and night",
+   "day with the lowest sun height"
+  ],
+  "why": "June 21 has the most daylight."
+ },
+ {
+  "part": "sol",
+  "q": "The winter solstice is the…",
+  "a": "shortest day of the year",
+  "w": [
+   "longest day of the year",
+   "day with equal day and night",
+   "day with the highest sun height"
+  ],
+  "why": "December 21 has the least daylight."
+ },
+ {
+  "part": "sol",
+  "q": "On an equinox, the length of day and night is…",
+  "a": "equal",
+  "w": [
+   "longest",
+   "shortest",
+   "twice as long as night"
+  ],
+  "why": "Equinox means equal day and night."
+ },
+ {
+  "part": "sol",
+  "q": "Where do the Sun’s most direct rays strike on the summer solstice?",
+  "a": "Tropic of Cancer",
+  "w": [
+   "Tropic of Capricorn",
+   "Equator",
+   "North Pole"
+  ],
+  "why": "June 21: most direct rays on the Tropic of Cancer."
+ },
+ {
+  "part": "sol",
+  "q": "Where do the Sun’s most direct rays strike on the winter solstice?",
+  "a": "Tropic of Capricorn",
+  "w": [
+   "Tropic of Cancer",
+   "Equator",
+   "South Pole"
+  ],
+  "why": "December 21: most direct rays on the Tropic of Capricorn."
+ },
+ {
+  "part": "sol",
+  "q": "Where do the Sun’s most direct rays strike on an equinox?",
+  "a": "Equator",
+  "w": [
+   "Tropic of Cancer",
+   "Tropic of Capricorn",
+   "North Pole"
+  ],
+  "why": "At the equinoxes the direct rays are on the Equator."
+ },
+ {
+  "part": "sol",
+  "q": "What is the Sun’s height in the sky on the summer solstice?",
+  "a": "Highest sun height",
+  "w": [
+   "Middle sun height",
+   "Lowest sun height",
+   "The Sun does not rise"
+  ],
+  "why": "Summer solstice = highest sun height."
+ },
+ {
+  "part": "sol",
+  "q": "What is the Sun’s height in the sky on the winter solstice?",
+  "a": "Lowest sun height",
+  "w": [
+   "Middle sun height",
+   "Highest sun height",
+   "The Sun does not rise"
+  ],
+  "why": "Winter solstice = lowest sun height."
+ },
+ {
+  "part": "sol",
+  "q": "What is the Sun’s height in the sky on an equinox?",
+  "a": "Middle sun height",
+  "w": [
+   "Highest sun height",
+   "Lowest sun height",
+   "Straight overhead everywhere"
+  ],
+  "why": "Equinox = middle sun height."
+ },
+ {
+  "part": "sol",
+  "q": "Which season starts on the summer solstice?",
+  "a": "Summer",
+  "w": [
+   "Spring",
+   "Fall",
+   "Winter"
+  ],
+  "why": "Summer solstice begins summer."
+ },
+ {
+  "part": "sol",
+  "q": "Which season starts on the winter solstice?",
+  "a": "Winter",
+  "w": [
+   "Fall",
+   "Spring",
+   "Summer"
+  ],
+  "why": "Winter solstice begins winter."
+ },
+ {
+  "part": "sol",
+  "q": "Which two seasons start at an equinox?",
+  "a": "Fall and Spring",
+  "w": [
+   "Summer and Winter",
+   "Summer and Fall",
+   "Winter and Spring"
+  ],
+  "why": "Sept equinox starts fall; March equinox starts spring."
+ },
+ {
+  "part": "sol",
+  "q": "Which of these is NOT a solstice or equinox date?",
+  "a": "April 21",
+  "w": [
+   "June 21",
+   "December 21",
+   "September 21/22"
+  ],
+  "why": "The four dates are Mar 21/22, Jun 21, Sep 21/22 and Dec 21."
+ },
+ {
+  "part": "sol",
+  "q": "Which line of latitude is the Sun directly over on June 21?",
+  "a": "Tropic of Cancer",
+  "w": [
+   "Equator",
+   "Tropic of Capricorn",
+   "Prime Meridian"
+  ],
+  "why": "The Tropic of Cancer is in the Northern Hemisphere."
+ },
+ {
+  "part": "sol",
+  "q": "Match: the “most direct rays on the Tropic of Capricorn” happens on…",
+  "a": "December 21",
+  "w": [
+   "June 21",
+   "March 21/22",
+   "September 21/22"
+  ],
+  "why": "Southern Hemisphere summer begins then."
+ },
+ {
+  "part": "sol",
+  "q": "Which day has equal day and nights AND starts spring?",
+  "a": "March 21/22",
+  "w": [
+   "June 21",
+   "September 21/22",
+   "December 21"
+  ],
+  "why": "Spring equinox."
+ },
+ {
+  "part": "sol",
+  "q": "Which day has equal day and nights AND starts fall?",
+  "a": "September 21/22",
+  "w": [
+   "March 21/22",
+   "June 21",
+   "December 21"
+  ],
+  "why": "Fall equinox."
+ },
+ {
+  "part": "sol",
+  "q": "Which day is the longest day of the year in the Northern Hemisphere?",
+  "a": "June 21",
+  "w": [
+   "December 21",
+   "March 21",
+   "September 21"
+  ],
+  "why": "Summer solstice."
+ },
+ {
+  "part": "sol",
+  "q": "How many solstices and equinoxes happen each year in total?",
+  "a": "Four (2 solstices, 2 equinoxes)",
+  "w": [
+   "Two",
+   "Three",
+   "Six"
+  ],
+  "why": "Two solstices plus two equinoxes."
+ },
+ {
+  "part": "seas",
+  "q": "What causes the seasons?",
+  "a": "Earth’s tilt",
+  "w": [
+   "Earth’s distance from the Sun",
+   "The Moon’s pull",
+   "Clouds blocking the Sun"
+  ],
+  "why": "Seasons happen because of Earth’s tilt."
+ },
+ {
+  "part": "seas",
+  "q": "When a hemisphere tilts TOWARD the Sun it receives…",
+  "a": "direct sunlight",
+  "w": [
+   "indirect sunlight",
+   "no sunlight",
+   "moonlight"
+  ],
+  "why": "Toward the Sun = direct, concentrated sunlight = summer."
+ },
+ {
+  "part": "seas",
+  "q": "When a hemisphere tilts AWAY from the Sun it receives…",
+  "a": "indirect sunlight",
+  "w": [
+   "direct sunlight",
+   "more heat",
+   "no day at all"
+  ],
+  "why": "Away = indirect, spread-out energy = winter."
+ },
+ {
+  "part": "seas",
+  "q": "Direct sunlight is…",
+  "a": "concentrated energy",
+  "w": [
+   "spread-out energy",
+   "weak and cold",
+   "light from the Moon"
+  ],
+  "why": "Direct sunlight leads to summer."
+ },
+ {
+  "part": "seas",
+  "q": "Indirect sunlight is…",
+  "a": "spread-out energy",
+  "w": [
+   "concentrated energy",
+   "stronger than direct",
+   "the same as a solstice"
+  ],
+  "why": "Indirect sunlight leads to winter."
+ },
+ {
+  "part": "seas",
+  "q": "Direct sunlight leads to which season?",
+  "a": "Summer",
+  "w": [
+   "Winter",
+   "Fall only",
+   "Spring only"
+  ],
+  "why": "Concentrated energy = summer."
+ },
+ {
+  "part": "seas",
+  "q": "Indirect sunlight leads to which season?",
+  "a": "Winter",
+  "w": [
+   "Summer",
+   "Spring",
+   "Every season"
+  ],
+  "why": "Spread-out energy = winter."
+ },
+ {
+  "part": "seas",
+  "q": "In the orbit diagram, Position A (June) shows Earth…",
+  "a": "tilted toward the Sun (summer solstice)",
+  "w": [
+   "tilted away from the Sun (winter solstice)",
+   "tilted neither way (fall equinox)",
+   "tilted neither way (spring equinox)"
+  ],
+  "why": "A = June, summer solstice, tilted toward the Sun."
+ },
+ {
+  "part": "seas",
+  "q": "In the orbit diagram, Position B (September) is…",
+  "a": "the fall equinox, tilted neither toward nor away",
+  "w": [
+   "the summer solstice",
+   "the winter solstice",
+   "the spring equinox"
+  ],
+  "why": "B = September, fall equinox."
+ },
+ {
+  "part": "seas",
+  "q": "In the orbit diagram, Position C (December) is…",
+  "a": "the winter solstice, tilted away from the Sun",
+  "w": [
+   "the summer solstice, tilted toward the Sun",
+   "the spring equinox",
+   "the fall equinox"
+  ],
+  "why": "C = December, winter solstice."
+ },
+ {
+  "part": "seas",
+  "q": "In the orbit diagram, Position D (March) is…",
+  "a": "the spring equinox, tilted neither way",
+  "w": [
+   "the winter solstice",
+   "the summer solstice",
+   "the fall equinox"
+  ],
+  "why": "D = March, spring equinox."
+ },
+ {
+  "part": "seas",
+  "q": "Sun’s path in the sky: the HIGHEST path (Path A) shows which season?",
+  "a": "Summer",
+  "w": [
+   "Fall",
+   "Winter",
+   "Spring"
+  ],
+  "why": "Highest path = summer."
+ },
+ {
+  "part": "seas",
+  "q": "Sun’s path in the sky: the LOWEST path (Path C) shows which season?",
+  "a": "Winter",
+  "w": [
+   "Summer",
+   "Fall",
+   "Spring"
+  ],
+  "why": "Lowest path = winter."
+ },
+ {
+  "part": "seas",
+  "q": "Sun’s path in the sky: the MIDDLE path (Path B) shows which seasons?",
+  "a": "Fall and Spring",
+  "w": [
+   "Summer and Winter",
+   "Summer only",
+   "Winter only"
+  ],
+  "why": "Middle path = fall and spring."
+ },
+ {
+  "part": "seas",
+  "q": "In summer the length of day is…",
+  "a": "longer",
+  "w": [
+   "shorter",
+   "equal to night",
+   "zero"
+  ],
+  "why": "Summer has longer days."
+ },
+ {
+  "part": "seas",
+  "q": "In winter the length of day is…",
+  "a": "shorter",
+  "w": [
+   "longer",
+   "equal to night",
+   "the same as summer"
+  ],
+  "why": "Winter has shorter days."
+ },
+ {
+  "part": "seas",
+  "q": "In summer the Sun rises…",
+  "a": "earlier and sets later",
+  "w": [
+   "later and sets earlier",
+   "at the same time all year",
+   "only at night"
+  ],
+  "why": "Longer summer days: earlier sunrise, later sunset."
+ },
+ {
+  "part": "seas",
+  "q": "In winter the Sun rises…",
+  "a": "later and sets earlier",
+  "w": [
+   "earlier and sets later",
+   "at noon",
+   "never"
+  ],
+  "why": "Shorter winter days: later sunrise, earlier sunset."
+ },
+ {
+  "part": "seas",
+  "q": "In fall and spring, day and night are…",
+  "a": "equal",
+  "w": [
+   "longer day",
+   "longer night",
+   "different every hour"
+  ],
+  "why": "Equinox seasons have equal day and night."
+ },
+ {
+  "part": "seas",
+  "q": "Summer in the Northern Hemisphere happens when the Northern Hemisphere is tilted…",
+  "a": "toward the Sun",
+  "w": [
+   "away from the Sun",
+   "neither way, always",
+   "backward"
+  ],
+  "why": "Tilt toward the Sun brings summer."
+ },
+ {
+  "part": "seas",
+  "q": "What does solar radiation drive on Earth?",
+  "a": "Weather, ocean currents, wind patterns and the water cycle",
+  "w": [
+   "Only the tides",
+   "Earthquakes",
+   "Volcanoes"
+  ],
+  "why": "Solar energy drives weather, ocean currents, winds and the water cycle."
+ },
+ {
+  "part": "seas",
+  "q": "What does the Sun’s energy power, forming the foundation of all food chains?",
+  "a": "Photosynthesis",
+  "w": [
+   "Erosion",
+   "Gravity",
+   "Volcanoes"
+  ],
+  "why": "Photosynthesis uses sunlight and starts food chains."
+ },
+ {
+  "part": "seas",
+  "q": "Earth’s axis is tilted at about…",
+  "a": "23.5 degrees",
+  "w": [
+   "90 degrees",
+   "0 degrees",
+   "45 degrees"
+  ],
+  "why": "Earth’s tilt is 23.5°."
+ },
+ {
+  "part": "seas",
+  "q": "Does Earth’s distance from the Sun cause the seasons?",
+  "a": "No, the tilt does",
+  "w": [
+   "Yes, always",
+   "Only in winter",
+   "Only in summer"
+  ],
+  "why": "Tilt, not distance, causes the seasons."
+ },
+ {
+  "part": "ss",
+  "q": "What is the Solar System?",
+  "a": "A family of celestial bodies bound together by the Sun’s gravity",
+  "w": [
+   "A group of stars in a galaxy",
+   "Earth and its Moon",
+   "Only the eight planets"
+  ],
+  "why": "Sun, planets, moons, asteroids and comets held by the Sun’s gravity."
+ },
+ {
+  "part": "ss",
+  "q": "How many planets are in our Solar System?",
+  "a": "Eight",
+  "w": [
+   "Nine",
+   "Seven",
+   "Ten"
+  ],
+  "why": "There are eight planets."
+ },
+ {
+  "part": "ss",
+  "q": "What is at the center of the Solar System?",
+  "a": "The Sun",
+  "w": [
+   "Earth",
+   "Jupiter",
+   "The Moon"
+  ],
+  "why": "The Sun is the central star."
+ },
+ {
+  "part": "ss",
+  "q": "What holds everything in the Solar System in orbit?",
+  "a": "The Sun’s gravity",
+  "w": [
+   "Earth’s gravity",
+   "Wind",
+   "Magnetism from Jupiter"
+  ],
+  "why": "The Sun’s massive gravity."
+ },
+ {
+  "part": "ss",
+  "q": "What are the four inner (terrestrial) planets?",
+  "a": "Mercury, Venus, Earth, Mars",
+  "w": [
+   "Jupiter, Saturn, Uranus, Neptune",
+   "Mercury, Earth, Jupiter, Saturn",
+   "Venus, Mars, Saturn, Neptune"
+  ],
+  "why": "Inner planets are small and rocky."
+ },
+ {
+  "part": "ss",
+  "q": "What are the four outer planets (gas/ice giants)?",
+  "a": "Jupiter, Saturn, Uranus, Neptune",
+  "w": [
+   "Mercury, Venus, Earth, Mars",
+   "Mars, Jupiter, Saturn, Pluto",
+   "Earth, Jupiter, Uranus, Neptune"
+  ],
+  "why": "Outer planets are huge, mostly gas and ice."
+ },
+ {
+  "part": "ss",
+  "q": "Terrestrial planets are…",
+  "a": "small, rocky and metallic with short orbits",
+  "w": [
+   "huge balls of gas and ice",
+   "made of fire",
+   "star-like"
+  ],
+  "why": "Terrestrial = Earth-like rocky planets."
+ },
+ {
+  "part": "ss",
+  "q": "Outer planets have many…",
+  "a": "moons and ring systems",
+  "w": [
+   "craters only",
+   "volcanoes only",
+   "seasons like Earth"
+  ],
+  "why": "Outer planets have many moons and rings."
+ },
+ {
+  "part": "ss",
+  "q": "What is a dwarf planet?",
+  "a": "An object like Pluto that orbits the Sun but has not cleared its neighborhood of debris",
+  "w": [
+   "A very small star",
+   "A moon of Jupiter",
+   "A comet"
+  ],
+  "why": "Pluto is an example."
+ },
+ {
+  "part": "ss",
+  "q": "Which is an example of a dwarf planet?",
+  "a": "Pluto",
+  "w": [
+   "Mars",
+   "Saturn",
+   "Venus"
+  ],
+  "why": "Pluto is a dwarf planet."
+ },
+ {
+  "part": "ss",
+  "q": "Moons (satellites) are…",
+  "a": "natural objects that orbit planets",
+  "w": [
+   "objects that orbit the Sun only",
+   "stars",
+   "comets"
+  ],
+  "why": "Moons orbit planets."
+ },
+ {
+  "part": "ss",
+  "q": "Where is the Asteroid Belt?",
+  "a": "Between Mars and Jupiter",
+  "w": [
+   "Between Earth and Mars",
+   "Beyond Neptune",
+   "Between Venus and Earth"
+  ],
+  "why": "It lies between Mars and Jupiter."
+ },
+ {
+  "part": "ss",
+  "q": "Where is the Kuiper Belt?",
+  "a": "In the outer Solar System",
+  "w": [
+   "Between Mars and Jupiter",
+   "Between Mercury and Venus",
+   "Around Earth"
+  ],
+  "why": "Icy bodies are in the outer Kuiper Belt."
+ },
+ {
+  "part": "ss",
+  "q": "Asteroids are mostly…",
+  "a": "rocky fragments",
+  "w": [
+   "icy bodies",
+   "tiny stars",
+   "gas clouds"
+  ],
+  "why": "Asteroids are rocky; comets are icy."
+ },
+ {
+  "part": "ss",
+  "q": "Comets are mostly…",
+  "a": "icy bodies",
+  "w": [
+   "rocky fragments only",
+   "gas giants",
+   "moons"
+  ],
+  "why": "Comets are icy."
+ },
+ {
+  "part": "ss",
+  "q": "Which planet is closest to the Sun?",
+  "a": "Mercury",
+  "w": [
+   "Venus",
+   "Earth",
+   "Mars"
+  ],
+  "why": "Mercury is closest."
+ },
+ {
+  "part": "ss",
+  "q": "Put the first four planets in order from the Sun.",
+  "a": "Mercury, Venus, Earth, Mars",
+  "w": [
+   "Venus, Mercury, Earth, Mars",
+   "Mercury, Earth, Venus, Mars",
+   "Mars, Earth, Venus, Mercury"
+  ],
+  "why": "M-V-E-M."
+ },
+ {
+  "part": "ss",
+  "q": "Put the planets in order from the Sun (inner to Saturn).",
+  "a": "Mercury, Venus, Earth, Mars, Jupiter, Saturn",
+  "w": [
+   "Mercury, Venus, Mars, Earth, Jupiter, Saturn",
+   "Venus, Mercury, Earth, Mars, Saturn, Jupiter",
+   "Mercury, Earth, Venus, Mars, Jupiter, Saturn"
+  ],
+  "why": "Order: 1 Mercury, 2 Venus, 3 Earth, 4 Mars, 5 Jupiter, 6 Saturn."
+ },
+ {
+  "part": "ss",
+  "q": "Which planet is the third from the Sun?",
+  "a": "Earth",
+  "w": [
+   "Venus",
+   "Mars",
+   "Mercury"
+  ],
+  "why": "Earth is third."
+ },
+ {
+  "part": "ss",
+  "q": "Which planet is the fifth from the Sun?",
+  "a": "Jupiter",
+  "w": [
+   "Mars",
+   "Saturn",
+   "Earth"
+  ],
+  "why": "Jupiter is fifth."
+ },
+ {
+  "part": "ss",
+  "q": "Which planet is the sixth from the Sun?",
+  "a": "Saturn",
+  "w": [
+   "Jupiter",
+   "Uranus",
+   "Mars"
+  ],
+  "why": "Saturn is sixth."
+ },
+ {
+  "part": "ss",
+  "q": "The Solar System is named after…",
+  "a": "the Sun (Latin “sol”)",
+  "w": [
+   "Earth",
+   "Jupiter",
+   "the Moon"
+  ],
+  "why": "Sol is the Latin word for Sun."
+ },
+ {
+  "part": "ss",
+  "q": "Which group does Earth belong to?",
+  "a": "Inner (terrestrial) planets",
+  "w": [
+   "Gas giants",
+   "Dwarf planets",
+   "Moons"
+  ],
+  "why": "Earth is a terrestrial planet."
+ },
+ {
+  "part": "ss",
+  "q": "Which is a gas giant?",
+  "a": "Jupiter",
+  "w": [
+   "Mars",
+   "Venus",
+   "Mercury"
+  ],
+  "why": "Jupiter and Saturn are gas giants."
+ },
+ {
+  "part": "sun",
+  "q": "What is a star?",
+  "a": "A hot glowing ball of gas",
+  "w": [
+   "A big rock",
+   "A planet with rings",
+   "A moon"
+  ],
+  "why": "Stars are hot glowing balls of gas."
+ },
+ {
+  "part": "sun",
+  "q": "What is the closest star to Earth?",
+  "a": "The Sun",
+  "w": [
+   "Proxima Centauri",
+   "Sirius",
+   "Polaris"
+  ],
+  "why": "The Sun is the closest star."
+ },
+ {
+  "part": "sun",
+  "q": "About how far is the Sun from Earth?",
+  "a": "93 million miles",
+  "w": [
+   "93 thousand miles",
+   "9.3 million miles",
+   "930 million miles"
+  ],
+  "why": "About 93 million miles (150 million km)."
+ },
+ {
+  "part": "sun",
+  "q": "The Sun is how many times farther from Earth than the Moon?",
+  "a": "About 400 times",
+  "w": [
+   "About 4 times",
+   "About 40 times",
+   "About 4,000 times"
+  ],
+  "why": "About 400 times farther."
+ },
+ {
+  "part": "sun",
+  "q": "About how hot is the Sun’s core?",
+  "a": "27 million degrees F",
+  "w": [
+   "27,000 degrees F",
+   "2,700 degrees F",
+   "270 million degrees F"
+  ],
+  "why": "The core is hottest: 27 million °F (about 15 million °C)."
+ },
+ {
+  "part": "sun",
+  "q": "Which part of the Sun is the hottest?",
+  "a": "The core",
+  "w": [
+   "The surface",
+   "The corona edge only",
+   "They are all equal"
+  ],
+  "why": "The core is hottest."
+ },
+ {
+  "part": "sun",
+  "q": "The Sun’s surface temperature is about…",
+  "a": "10,000 degrees F",
+  "w": [
+   "27 million degrees F",
+   "100 degrees F",
+   "1 million degrees F"
+  ],
+  "why": "Surface ~10,000°F."
+ },
+ {
+  "part": "sun",
+  "q": "The Sun is about how many times wider than Earth?",
+  "a": "100 times",
+  "w": [
+   "10 times",
+   "1,000 times",
+   "2 times"
+  ],
+  "why": "About 100 times wider."
+ },
+ {
+  "part": "sun",
+  "q": "How does the Sun compare to other stars?",
+  "a": "It is an average-sized star",
+  "w": [
+   "It is the biggest star",
+   "It is the smallest star",
+   "It is a planet"
+  ],
+  "why": "Some stars are 100x bigger, others 10x smaller."
+ },
+ {
+  "part": "sun",
+  "q": "The Sun is about how old?",
+  "a": "4.5 billion years",
+  "w": [
+   "4.5 million years",
+   "45 billion years",
+   "450 years"
+  ],
+  "why": "About 4.5–4.6 billion years old."
+ },
+ {
+  "part": "sun",
+  "q": "What type of star is the Sun?",
+  "a": "Yellow dwarf",
+  "w": [
+   "Red giant",
+   "White dwarf",
+   "Blue giant"
+  ],
+  "why": "Yellow dwarf is its current stage."
+ },
+ {
+  "part": "sun",
+  "q": "What will the Sun become in about 5 billion years?",
+  "a": "A red giant",
+  "w": [
+   "A black hole",
+   "A planet",
+   "A comet"
+  ],
+  "why": "Big, cool red giant."
+ },
+ {
+  "part": "sun",
+  "q": "What is a red giant?",
+  "a": "A big cool star",
+  "w": [
+   "A small hot star",
+   "A planet",
+   "A comet"
+  ],
+  "why": "Red giant = big cool star."
+ },
+ {
+  "part": "sun",
+  "q": "After red giant, the Sun becomes a…",
+  "a": "white dwarf",
+  "w": [
+   "blue star",
+   "neutron star",
+   "nova planet"
+  ],
+  "why": "A small white dwarf."
+ },
+ {
+  "part": "sun",
+  "q": "A white dwarf is about the size of…",
+  "a": "Earth",
+  "w": [
+   "Jupiter",
+   "the Sun",
+   "the Moon"
+  ],
+  "why": "It shrinks to about Earth’s size."
+ },
+ {
+  "part": "sun",
+  "q": "A white dwarf weighs about how many times more than Earth?",
+  "a": "20,000 times",
+  "w": [
+   "200 times",
+   "2 times",
+   "20 times"
+  ],
+  "why": "About 20,000 times more."
+ },
+ {
+  "part": "sun",
+  "q": "Put the Sun’s life cycle in order.",
+  "a": "Birth, yellow dwarf, red giant, planetary nebula, white dwarf",
+  "w": [
+   "Birth, white dwarf, red giant, yellow dwarf",
+   "Red giant, birth, white dwarf, nebula",
+   "Yellow dwarf, birth, nebula, red giant"
+  ],
+  "why": "From the life-cycle diagram."
+ },
+ {
+  "part": "sun",
+  "q": "Which stage of its life is the Sun in now?",
+  "a": "Middle of its life (yellow dwarf)",
+  "w": [
+   "Birth",
+   "Red giant",
+   "White dwarf"
+  ],
+  "why": "Now = about 4.5–5 billion years."
+ },
+ {
+  "part": "sun",
+  "q": "Why can’t we live without the Sun? (pick the best)",
+  "a": "Its gravity, heat and light make Earth’s life possible",
+  "w": [
+   "It makes the Moon",
+   "It creates tides only",
+   "It makes earthquakes"
+  ],
+  "why": "Gravity holds the system, heat warms Earth, light feeds plants."
+ },
+ {
+  "part": "sun",
+  "q": "The Sun’s light lets plants make…",
+  "a": "food",
+  "w": [
+   "rocks",
+   "oceans",
+   "craters"
+  ],
+  "why": "Light helps plants, animals and food."
+ },
+ {
+  "part": "sun",
+  "q": "What shields Earth from the Sun’s particles?",
+  "a": "Earth’s magnetic field and atmosphere",
+  "w": [
+   "The Moon",
+   "Clouds only",
+   "The ocean"
+  ],
+  "why": "Magnetic field + atmosphere."
+ },
+ {
+  "part": "sun",
+  "q": "What are auroras?",
+  "a": "Streams of light made when the Sun’s particles hit gases at the edge of the atmosphere",
+  "w": [
+   "Rainbows",
+   "Lightning",
+   "Clouds"
+  ],
+  "why": "Particle stream + atmosphere gases = auroras."
+ },
+ {
+  "part": "sun",
+  "q": "Which star is closest to our Sun (after the Sun itself)?",
+  "a": "Proxima Centauri",
+  "w": [
+   "Polaris",
+   "Betelgeuse",
+   "Sirius B"
+  ],
+  "why": "Proxima Centauri."
+ },
+ {
+  "part": "sun",
+  "q": "About how far away is Proxima Centauri?",
+  "a": "4 light-years",
+  "w": [
+   "4 miles",
+   "4 million light-years",
+   "40 days"
+  ],
+  "why": "About 4 light-years."
+ },
+ {
+  "part": "sun",
+  "q": "A light-year is…",
+  "a": "how far light can travel in a year",
+  "w": [
+   "a year on the Sun",
+   "how long light takes to reach Earth",
+   "the speed of sound"
+  ],
+  "why": "Distance, not time."
+ },
+ {
+  "part": "sun",
+  "q": "What should you NEVER do with the Sun?",
+  "a": "Look directly at it without protective eyewear",
+  "w": [
+   "Study it",
+   "Photograph it with NASA tools",
+   "Feel its heat"
+  ],
+  "why": "Never look directly without special protective eyewear."
+ },
+ {
+  "part": "sun",
+  "q": "What is the Parker Solar Probe?",
+  "a": "A spacecraft flying through the Sun’s atmosphere",
+  "w": [
+   "A planet",
+   "A telescope on Earth",
+   "A star"
+  ],
+  "why": "Flies closer to the Sun than any other."
+ },
+ {
+  "part": "sun",
+  "q": "What is the Sun’s atmosphere called that the Parker probe flies through?",
+  "a": "Corona",
+  "w": [
+   "Core",
+   "Crust",
+   "Aurora"
+  ],
+  "why": "The corona."
+ },
+ {
+  "part": "sun",
+  "q": "What is the solar cycle?",
+  "a": "Ups and downs of solar activity over about 11 years",
+  "w": [
+   "The Sun’s yearly path",
+   "A 24-hour spin",
+   "A month-long phase"
+  ],
+  "why": "Solar flares and sunspots rise and fall about every 11 years."
+ },
+ {
+  "part": "sun",
+  "q": "Solar flares and sunspots are examples of…",
+  "a": "solar activity",
+  "w": [
+   "planets",
+   "moons",
+   "comets"
+  ],
+  "why": "They are solar activity."
+ },
+ {
+  "part": "sun",
+  "q": "How long does light take to travel from the Sun to Earth?",
+  "a": "About 8 minutes 20 seconds",
+  "w": [
+   "About 8 hours",
+   "About 8 days",
+   "1 second"
+  ],
+  "why": "About 8 min 20 sec."
+ },
+ {
+  "part": "sun",
+  "q": "What is the fastest thing in the universe?",
+  "a": "Light",
+  "w": [
+   "Sound",
+   "Rockets",
+   "Comets"
+  ],
+  "why": "Light."
+ },
+ {
+  "part": "sun",
+  "q": "What percent of the Solar System’s mass is in the Sun?",
+  "a": "About 99%",
+  "w": [
+   "About 50%",
+   "About 10%",
+   "About 75%"
+  ],
+  "why": "The Sun holds 99.86% of the mass."
+ },
+ {
+  "part": "sun",
+  "q": "The Sun is made mostly of…",
+  "a": "hydrogen and helium",
+  "w": [
+   "rock and iron",
+   "water and ice",
+   "oxygen and nitrogen"
+  ],
+  "why": "Mostly hydrogen and helium."
+ },
+ {
+  "part": "sun",
+  "q": "About how many times bigger (volume) is the Sun than Earth?",
+  "a": "1.3 million times",
+  "w": [
+   "13 times",
+   "1,300 times",
+   "130 times"
+  ],
+  "why": "About 1.3 million times."
+ },
+ {
+  "part": "sun",
+  "q": "Earth takes how long to orbit the Sun?",
+  "a": "365 1/4 days",
+  "w": [
+   "24 hours",
+   "30 days",
+   "687 days"
+  ],
+  "why": "One year."
+ },
+ {
+  "part": "sun",
+  "q": "Earth’s orbit around the Sun is shaped like…",
+  "a": "an ellipse (elongated circle)",
+  "w": [
+   "a perfect square",
+   "a straight line",
+   "a triangle"
+  ],
+  "why": "Elliptical path."
+ },
+ {
+  "part": "sun",
+  "q": "Earth rotates once about every…",
+  "a": "24 hours",
+  "w": [
+   "365 days",
+   "30 days",
+   "12 hours"
+  ],
+  "why": "Rotation makes day and night."
+ },
+ {
+  "part": "sun",
+  "q": "What does Earth’s rotation cause?",
+  "a": "Day and night",
+  "w": [
+   "Seasons",
+   "Leap years",
+   "Tides only"
+  ],
+  "why": "Rotation = day and night."
+ },
+ {
+  "part": "sun",
+  "q": "Which NASA craft photographed the June 20, 2013 solar flare?",
+  "a": "Solar Dynamics Observatory",
+  "w": [
+   "Voyager",
+   "Cassini",
+   "Ingenuity"
+  ],
+  "why": "Solar Dynamics Observatory."
+ },
+ {
+  "part": "sun",
+  "q": "The Sun has been slowly getting…",
+  "a": "brighter",
+  "w": [
+   "dimmer",
+   "smaller",
+   "colder"
+  ],
+  "why": "The Sun brightens slowly over time."
+ },
+ {
+  "part": "merc",
+  "q": "Mercury’s position in the Solar System:",
+  "a": "Closest planet to the Sun",
+  "w": [
+   "Second from the Sun",
+   "Third from the Sun",
+   "Farthest planet"
+  ],
+  "why": "Mercury is first."
+ },
+ {
+  "part": "merc",
+  "q": "The smallest planet is…",
+  "a": "Mercury",
+  "w": [
+   "Mars",
+   "Venus",
+   "Earth"
+  ],
+  "why": "Mercury is the smallest planet."
+ },
+ {
+  "part": "merc",
+  "q": "Mercury is slightly bigger than…",
+  "a": "Earth’s Moon",
+  "w": [
+   "Mars",
+   "Earth",
+   "Venus"
+  ],
+  "why": "Just a little bigger than our Moon."
+ },
+ {
+  "part": "merc",
+  "q": "How many moons does Mercury have?",
+  "a": "Zero",
+  "w": [
+   "One",
+   "Two",
+   "Four"
+  ],
+  "why": "Mercury has no moons."
+ },
+ {
+  "part": "merc",
+  "q": "Is Mercury the hottest planet?",
+  "a": "No, Venus is hotter",
+  "w": [
+   "Yes",
+   "Only at night",
+   "Only in winter"
+  ],
+  "why": "Closest does not mean hottest; Venus is."
+ },
+ {
+  "part": "merc",
+  "q": "Mercury’s daytime temperature can reach…",
+  "a": "800 degrees F",
+  "w": [
+   "80 degrees F",
+   "8,000 degrees F",
+   "200 degrees F"
+  ],
+  "why": "Up to 800°F (430°C)."
+ },
+ {
+  "part": "merc",
+  "q": "Mercury’s nighttime temperature can drop to…",
+  "a": "-300 degrees F",
+  "w": [
+   "0 degrees F",
+   "-30 degrees F",
+   "-3,000 degrees F"
+  ],
+  "why": "As low as -300°F (-180°C)."
+ },
+ {
+  "part": "merc",
+  "q": "Why does Mercury swing from hot to cold?",
+  "a": "It has almost no atmosphere to trap heat",
+  "w": [
+   "It has thick clouds",
+   "It has oceans",
+   "It spins very fast"
+  ],
+  "why": "Thin exosphere cannot hold heat."
+ },
+ {
+  "part": "merc",
+  "q": "Instead of an atmosphere Mercury has a thin…",
+  "a": "exosphere",
+  "w": [
+   "ozone layer",
+   "ocean",
+   "rain cloud"
+  ],
+  "why": "A thin exosphere."
+ },
+ {
+  "part": "merc",
+  "q": "Mercury’s exosphere is made of…",
+  "a": "atoms blasted off the surface by solar wind and meteoroids",
+  "w": [
+   "nitrogen and oxygen",
+   "water vapor",
+   "carbon dioxide clouds"
+  ],
+  "why": "Atoms blasted off by solar wind and meteoroids."
+ },
+ {
+  "part": "merc",
+  "q": "Mercury is which type of planet?",
+  "a": "Terrestrial (rocky)",
+  "w": [
+   "Gas giant",
+   "Ice giant",
+   "Dwarf"
+  ],
+  "why": "Small and rocky."
+ },
+ {
+  "part": "merc",
+  "q": "Mercury’s surface is…",
+  "a": "gray and heavily cratered, like Earth’s Moon",
+  "w": [
+   "covered with oceans",
+   "covered in volcanoes erupting",
+   "green with forests"
+  ],
+  "why": "Looks very much like the Moon."
+ },
+ {
+  "part": "merc",
+  "q": "How long is a day (one rotation) on Mercury?",
+  "a": "59 Earth days",
+  "w": [
+   "24 hours",
+   "88 Earth days",
+   "176 Earth days"
+  ],
+  "why": "59 Earth days to spin once."
+ },
+ {
+  "part": "merc",
+  "q": "How long is a year on Mercury?",
+  "a": "88 Earth days",
+  "w": [
+   "59 Earth days",
+   "225 Earth days",
+   "365 Earth days"
+  ],
+  "why": "88 Earth days."
+ },
+ {
+  "part": "merc",
+  "q": "If you lived on Mercury you would have a birthday about every…",
+  "a": "three months",
+  "w": [
+   "year",
+   "week",
+   "ten years"
+  ],
+  "why": "88 days is about 3 months."
+ },
+ {
+  "part": "merc",
+  "q": "On Mercury you would see one sunrise every…",
+  "a": "176 Earth days",
+  "w": [
+   "24 hours",
+   "59 Earth days",
+   "88 Earth days"
+  ],
+  "why": "One sunrise per 176 Earth days."
+ },
+ {
+  "part": "merc",
+  "q": "Seen from Mercury, the Sun appears…",
+  "a": "three times larger and seven times brighter",
+  "w": [
+   "smaller than from Earth",
+   "the same as from Earth",
+   "invisible"
+  ],
+  "why": "About 3x larger and 7x brighter."
+ },
+ {
+  "part": "merc",
+  "q": "Mercury’s neighboring planet is…",
+  "a": "Venus",
+  "w": [
+   "Mars",
+   "Jupiter",
+   "Earth only"
+  ],
+  "why": "Venus is Mercury’s neighbor."
+ },
+ {
+  "part": "merc",
+  "q": "What is found at Mercury’s poles?",
+  "a": "Water-ice",
+  "w": [
+   "Forests",
+   "Volcanoes",
+   "Oceans"
+  ],
+  "why": "Mercury’s poles have water-ice."
+ },
+ {
+  "part": "merc",
+  "q": "Which two spacecraft visited Mercury?",
+  "a": "Mariner 10 and MESSENGER",
+  "w": [
+   "Voyager 1 and 2",
+   "Cassini and Juno",
+   "Magellan and Ingenuity"
+  ],
+  "why": "Mariner 10 and MESSENGER."
+ },
+ {
+  "part": "merc",
+  "q": "Which spacecraft was the first to ORBIT Mercury?",
+  "a": "MESSENGER",
+  "w": [
+   "Mariner 10",
+   "Magellan",
+   "Cassini"
+  ],
+  "why": "MESSENGER."
+ },
+ {
+  "part": "merc",
+  "q": "Has any person ever gone to Mercury?",
+  "a": "No, only robotic spacecraft",
+  "w": [
+   "Yes, Apollo 11",
+   "Yes, in 1974",
+   "Yes, in 2013"
+  ],
+  "why": "Only robotic spacecraft have visited."
+ },
+ {
+  "part": "merc",
+  "q": "Mariner 10 took its first image of Mercury in…",
+  "a": "1974",
+  "w": [
+   "1969",
+   "2013",
+   "2024"
+  ],
+  "why": "March 24, 1974."
+ },
+ {
+  "part": "merc",
+  "q": "Why is Mercury hard to study from Earth?",
+  "a": "It is so close to the Sun",
+  "w": [
+   "It is too far",
+   "It has clouds",
+   "It is invisible"
+  ],
+  "why": "Close to the Sun."
+ },
+ {
+  "part": "merc",
+  "q": "Why has Mercury been known since ancient times?",
+  "a": "It can be seen without advanced telescopes",
+  "w": [
+   "It has rings",
+   "It is huge",
+   "It has many moons"
+  ],
+  "why": "Visible to the naked eye."
+ },
+ {
+  "part": "merc",
+  "q": "Mercury’s distance from the Sun ranges about…",
+  "a": "28.6 to 43.4 million miles",
+  "w": [
+   "93 million miles",
+   "67 million miles",
+   "1 billion miles"
+  ],
+  "why": "About 28.6–43.4 million miles."
+ },
+ {
+  "part": "merc",
+  "q": "Bright bluish spots on Mercury’s surface are…",
+  "a": "relatively recent impact craters",
+  "w": [
+   "oceans",
+   "clouds",
+   "volcanoes"
+  ],
+  "why": "They show recent impacts."
+ },
+ {
+  "part": "ven",
+  "q": "Venus is the planet that is…",
+  "a": "hottest in the Solar System",
+  "w": [
+   "coldest",
+   "smallest",
+   "biggest"
+  ],
+  "why": "Venus is hottest."
+ },
+ {
+  "part": "ven",
+  "q": "Why is Venus hotter than Mercury?",
+  "a": "Its thick atmosphere traps heat",
+  "w": [
+   "It is closer to the Sun",
+   "It has no atmosphere",
+   "It spins fast"
+  ],
+  "why": "Greenhouse effect."
+ },
+ {
+  "part": "ven",
+  "q": "Venus’s atmosphere is full of which greenhouse gas?",
+  "a": "Carbon dioxide",
+  "w": [
+   "Oxygen",
+   "Helium",
+   "Nitrogen only"
+  ],
+  "why": "Carbon dioxide traps heat."
+ },
+ {
+  "part": "ven",
+  "q": "Venus’s clouds are made of…",
+  "a": "sulfuric acid",
+  "w": [
+   "water",
+   "ice",
+   "dust"
+  ],
+  "why": "Sulfuric acid."
+ },
+ {
+  "part": "ven",
+  "q": "About how hot is Venus’s surface?",
+  "a": "900 degrees F",
+  "w": [
+   "90 degrees F",
+   "9,000 degrees F",
+   "-300 degrees F"
+  ],
+  "why": "About 900°F (482°C)."
+ },
+ {
+  "part": "ven",
+  "q": "On Venus, metals like lead would be…",
+  "a": "puddles of melted liquid",
+  "w": [
+   "frozen solid",
+   "invisible",
+   "magnetic"
+  ],
+  "why": "Hot enough to melt lead."
+ },
+ {
+  "part": "ven",
+  "q": "Venus’s position from the Sun:",
+  "a": "Second",
+  "w": [
+   "First",
+   "Third",
+   "Fourth"
+  ],
+  "why": "Venus is second."
+ },
+ {
+  "part": "ven",
+  "q": "About how far is Venus from the Sun?",
+  "a": "67 million miles",
+  "w": [
+   "28 million miles",
+   "93 million miles",
+   "141 million miles"
+  ],
+  "why": "About 67 million miles."
+ },
+ {
+  "part": "ven",
+  "q": "Venus compared with Earth is…",
+  "a": "almost the same size",
+  "w": [
+   "twice the size",
+   "half the size",
+   "ten times larger"
+  ],
+  "why": "Earth is just a little bigger."
+ },
+ {
+  "part": "ven",
+  "q": "Venus’s diameter is about…",
+  "a": "7,500 miles (12,104 km)",
+  "w": [
+   "3,000 miles",
+   "25,000 miles",
+   "800 miles"
+  ],
+  "why": "About 7,500 miles."
+ },
+ {
+  "part": "ven",
+  "q": "Venus is often called Earth’s…",
+  "a": "sister planet or twin",
+  "w": [
+   "father",
+   "moon",
+   "enemy"
+  ],
+  "why": "Similar in size, weight and rocky structure."
+ },
+ {
+  "part": "ven",
+  "q": "How does Venus spin?",
+  "a": "Opposite to Earth (backwards, retrograde)",
+  "w": [
+   "Same as Earth",
+   "It does not spin",
+   "Sideways only"
+  ],
+  "why": "Venus rotates clockwise."
+ },
+ {
+  "part": "ven",
+  "q": "On Venus the Sun rises in the…",
+  "a": "west",
+  "w": [
+   "east",
+   "north",
+   "south"
+  ],
+  "why": "Sun rises in the west, sets in the east."
+ },
+ {
+  "part": "ven",
+  "q": "A day on Venus lasts…",
+  "a": "243 Earth days",
+  "w": [
+   "225 Earth days",
+   "24 hours",
+   "117 Earth days"
+  ],
+  "why": "243 Earth days."
+ },
+ {
+  "part": "ven",
+  "q": "A year on Venus lasts…",
+  "a": "225 Earth days",
+  "w": [
+   "243 Earth days",
+   "365 Earth days",
+   "88 Earth days"
+  ],
+  "why": "225 Earth days."
+ },
+ {
+  "part": "ven",
+  "q": "On Venus, which is longer?",
+  "a": "A day is longer than a year",
+  "w": [
+   "A year is longer than a day",
+   "They are exactly equal",
+   "There is no day"
+  ],
+  "why": "243 > 225."
+ },
+ {
+  "part": "ven",
+  "q": "On Venus the Sun rises every…",
+  "a": "117 Earth days",
+  "w": [
+   "24 hours",
+   "243 Earth days",
+   "88 Earth days"
+  ],
+  "why": "Every 117 Earth days."
+ },
+ {
+  "part": "ven",
+  "q": "How many moons does Venus have?",
+  "a": "Zero",
+  "w": [
+   "One",
+   "Two",
+   "Four"
+  ],
+  "why": "Venus has no moons."
+ },
+ {
+  "part": "ven",
+  "q": "Venus’s neighbors are…",
+  "a": "Mercury and Earth",
+  "w": [
+   "Earth and Mars",
+   "Mars and Jupiter",
+   "Mercury and Mars"
+  ],
+  "why": "Mercury and Earth."
+ },
+ {
+  "part": "ven",
+  "q": "Venus’s surface has…",
+  "a": "mountains and volcanoes",
+  "w": [
+   "oceans",
+   "forests",
+   "rings"
+  ],
+  "why": "It is an active surface."
+ },
+ {
+  "part": "ven",
+  "q": "Venus’s air pressure at the surface is about how many times Earth’s?",
+  "a": "90 times",
+  "w": [
+   "9 times",
+   "900 times",
+   "Equal"
+  ],
+  "why": "90 times stronger."
+ },
+ {
+  "part": "ven",
+  "q": "Which spacecraft used radar to see through Venus’s clouds?",
+  "a": "Magellan",
+  "w": [
+   "Mariner 10",
+   "Cassini",
+   "Voyager 1"
+  ],
+  "why": "Magellan orbiter."
+ },
+ {
+  "part": "ven",
+  "q": "Which spacecraft visited Venus?",
+  "a": "Mariner 2, Mariner 5, Mariner 10, Pioneer Venus 1 and 2, Magellan",
+  "w": [
+   "Voyager 1 and 2",
+   "Juno and Cassini",
+   "Ingenuity"
+  ],
+  "why": "Several spacecraft have visited Venus."
+ },
+ {
+  "part": "ven",
+  "q": "Venus is the brightest natural object in Earth’s night sky after…",
+  "a": "the Moon",
+  "w": [
+   "Mars",
+   "Jupiter",
+   "the Sun"
+  ],
+  "why": "After the Moon."
+ },
+ {
+  "part": "ven",
+  "q": "Venus is also called the…",
+  "a": "Morning Star or Evening Star",
+  "w": [
+   "Red Planet",
+   "Ringed Planet",
+   "Blue Planet"
+  ],
+  "why": "Morning/Evening Star."
+ },
+ {
+  "part": "ven",
+  "q": "Why was it known since ancient times?",
+  "a": "It is easily seen without a telescope",
+  "w": [
+   "It has rings",
+   "It has moons",
+   "It is huge"
+  ],
+  "why": "Easy to see."
+ },
+ {
+  "part": "earth",
+  "q": "Earth is what type of planet?",
+  "a": "Terrestrial (small and rocky)",
+  "w": [
+   "Gas giant",
+   "Ice giant",
+   "Dwarf"
+  ],
+  "why": "Earth is rocky."
+ },
+ {
+  "part": "earth",
+  "q": "What percent of Earth’s surface is covered by water?",
+  "a": "70%",
+  "w": [
+   "30%",
+   "50%",
+   "90%"
+  ],
+  "why": "Water covers 70%."
+ },
+ {
+  "part": "earth",
+  "q": "Earth is special because it is an…",
+  "a": "ocean planet",
+  "w": [
+   "ice planet",
+   "gas planet",
+   "desert planet"
+  ],
+  "why": "Ocean planet."
+ },
+ {
+  "part": "earth",
+  "q": "Earth’s atmosphere is mostly…",
+  "a": "nitrogen",
+  "w": [
+   "oxygen",
+   "carbon dioxide",
+   "helium"
+  ],
+  "why": "Mostly nitrogen with plenty of oxygen."
+ },
+ {
+  "part": "earth",
+  "q": "Besides oxygen for breathing, what else does our atmosphere do?",
+  "a": "Protects us from meteoroids",
+  "w": [
+   "Makes the Moon",
+   "Creates volcanoes",
+   "Stops all rain"
+  ],
+  "why": "Meteoroids break up in the atmosphere."
+ },
+ {
+  "part": "earth",
+  "q": "A meteoroid that strikes Earth’s surface is called a…",
+  "a": "meteorite",
+  "w": [
+   "comet",
+   "asteroid",
+   "satellite"
+  ],
+  "why": "Meteorite."
+ },
+ {
+  "part": "earth",
+  "q": "Earth’s surface has…",
+  "a": "mountains, valleys, canyons and plains",
+  "w": [
+   "only deserts",
+   "only oceans",
+   "only craters"
+  ],
+  "why": "Solid, active surface."
+ },
+ {
+  "part": "earth",
+  "q": "Earth’s atmosphere is the right thickness to…",
+  "a": "keep the planet warm so living things can exist",
+  "w": [
+   "make it hot like Venus",
+   "let all heat escape",
+   "block sunlight"
+  ],
+  "why": "Right thickness keeps it warm."
+ },
+ {
+  "part": "earth",
+  "q": "Earth is the only planet we know of that…",
+  "a": "supports life",
+  "w": [
+   "has a moon",
+   "has a day",
+   "has an orbit"
+  ],
+  "why": "Only known planet with life."
+ },
+ {
+  "part": "earth",
+  "q": "A day on Earth lasts…",
+  "a": "a little under 24 hours",
+  "w": [
+   "48 hours",
+   "365 days",
+   "10 hours"
+  ],
+  "why": "A little under 24 hours."
+ },
+ {
+  "part": "earth",
+  "q": "A year on Earth lasts…",
+  "a": "365.25 days",
+  "w": [
+   "365 days exactly",
+   "687 days",
+   "88 days"
+  ],
+  "why": "365.25 days."
+ },
+ {
+  "part": "earth",
+  "q": "What happens because of the extra 0.25 day?",
+  "a": "We add a leap day every four years",
+  "w": [
+   "We lose a day",
+   "We add a month",
+   "Nothing"
+  ],
+  "why": "Leap year every four years."
+ },
+ {
+  "part": "earth",
+  "q": "How many moons does Earth have?",
+  "a": "One",
+  "w": [
+   "Two",
+   "Zero",
+   "Four"
+  ],
+  "why": "One Moon."
+ },
+ {
+  "part": "earth",
+  "q": "Earth is the only planet to have…",
+  "a": "just one moon",
+  "w": [
+   "a moon",
+   "rings",
+   "a day"
+  ],
+  "why": "Only planet with exactly one moon."
+ },
+ {
+  "part": "earth",
+  "q": "Earth’s position from the Sun:",
+  "a": "Third",
+  "w": [
+   "Second",
+   "Fourth",
+   "Fifth"
+  ],
+  "why": "Earth is third."
+ },
+ {
+  "part": "earth",
+  "q": "Earth’s neighboring planets are…",
+  "a": "Venus and Mars",
+  "w": [
+   "Mercury and Venus",
+   "Mars and Jupiter",
+   "Jupiter and Saturn"
+  ],
+  "why": "Venus and Mars."
+ },
+ {
+  "part": "earth",
+  "q": "Why do satellites orbit Earth?",
+  "a": "To take pictures and measurements of weather, oceans, soil and climate",
+  "w": [
+   "To hold the Moon",
+   "To make gravity",
+   "To make rain"
+  ],
+  "why": "They help us learn about Earth."
+ },
+ {
+  "part": "earth",
+  "q": "The 1969 Apollo 11 photo showed…",
+  "a": "Earth rising over the Moon",
+  "w": [
+   "The Sun",
+   "Mars",
+   "Jupiter"
+  ],
+  "why": "Earthrise taken by an astronaut."
+ },
+ {
+  "part": "earth",
+  "q": "Climate change is studied using…",
+  "a": "satellite pictures and measurements",
+  "w": [
+   "telescopes on Mars",
+   "Moon rocks only",
+   "nothing"
+  ],
+  "why": "Satellites help."
+ },
+ {
+  "part": "mars",
+  "q": "Mars is called the…",
+  "a": "Red Planet",
+  "w": [
+   "Blue Planet",
+   "Ringed Planet",
+   "Morning Star"
+  ],
+  "why": "Red Planet."
+ },
+ {
+  "part": "mars",
+  "q": "Why is Mars red?",
+  "a": "Rusty iron in the ground",
+  "w": [
+   "Red oceans",
+   "Red clouds of gas",
+   "Fire"
+  ],
+  "why": "Rusty iron."
+ },
+ {
+  "part": "mars",
+  "q": "Mars is how big compared with Earth?",
+  "a": "About half the size",
+  "w": [
+   "Twice the size",
+   "The same size",
+   "Ten times bigger"
+  ],
+  "why": "Half the size of Earth."
+ },
+ {
+  "part": "mars",
+  "q": "Average temperature on Mars:",
+  "a": "-85 degrees F",
+  "w": [
+   "85 degrees F",
+   "-300 degrees F",
+   "800 degrees F"
+  ],
+  "why": "About -85°F."
+ },
+ {
+  "part": "mars",
+  "q": "Mars is a…",
+  "a": "cold desert world",
+  "w": [
+   "hot ocean world",
+   "gas giant",
+   "ringed planet"
+  ],
+  "why": "Cold desert."
+ },
+ {
+  "part": "mars",
+  "q": "Mars’s atmosphere is made mostly of…",
+  "a": "carbon dioxide, nitrogen and argon",
+  "w": [
+   "oxygen and nitrogen",
+   "hydrogen and helium",
+   "sulfuric acid"
+  ],
+  "why": "And it’s very thin."
+ },
+ {
+  "part": "mars",
+  "q": "Can people breathe the air on Mars?",
+  "a": "No",
+  "w": [
+   "Yes",
+   "Only in summer",
+   "Only at the poles"
+  ],
+  "why": "Not breathable."
+ },
+ {
+  "part": "mars",
+  "q": "Like Earth, Mars has…",
+  "a": "seasons, polar ice caps, volcanoes, canyons and weather",
+  "w": [
+   "oceans of water",
+   "a thick atmosphere",
+   "rings"
+  ],
+  "why": "Several Earth-like features."
+ },
+ {
+  "part": "mars",
+  "q": "Where does most water on Mars exist today?",
+  "a": "As icy dirt and thin clouds",
+  "w": [
+   "Oceans",
+   "Lakes",
+   "Rain"
+  ],
+  "why": "Icy dirt and thin clouds."
+ },
+ {
+  "part": "mars",
+  "q": "There are signs of ancient what on Mars?",
+  "a": "Floods",
+  "w": [
+   "Forests",
+   "Cities",
+   "Rings"
+  ],
+  "why": "Ancient floods."
+ },
+ {
+  "part": "mars",
+  "q": "Scientists want to know if Mars…",
+  "a": "had living things in the past or could support life",
+  "w": [
+   "has rings",
+   "has a magnet",
+   "can be a star"
+  ],
+  "why": "Search for life."
+ },
+ {
+  "part": "mars",
+  "q": "Mars’s surface is…",
+  "a": "not active; its volcanoes are dead",
+  "w": [
+   "erupting daily",
+   "covered in oceans",
+   "very hot"
+  ],
+  "why": "Surface not active."
+ },
+ {
+  "part": "mars",
+  "q": "A day on Mars lasts…",
+  "a": "24.6 hours",
+  "w": [
+   "10 hours",
+   "687 days",
+   "59 days"
+  ],
+  "why": "A little longer than Earth’s day."
+ },
+ {
+  "part": "mars",
+  "q": "A year on Mars lasts…",
+  "a": "687 Earth days",
+  "w": [
+   "365 days",
+   "88 days",
+   "11.8 years"
+  ],
+  "why": "Almost twice as long as Earth’s."
+ },
+ {
+  "part": "mars",
+  "q": "Mars’s two moons are…",
+  "a": "Phobos and Deimos",
+  "w": [
+   "Tethys and Dione",
+   "Titan and Europa",
+   "Io and Ganymede"
+  ],
+  "why": "Phobos and Deimos."
+ },
+ {
+  "part": "mars",
+  "q": "Mars’s position from the Sun:",
+  "a": "Fourth",
+  "w": [
+   "Third",
+   "Fifth",
+   "Second"
+  ],
+  "why": "Mars is fourth."
+ },
+ {
+  "part": "mars",
+  "q": "Mars’s neighboring planets are…",
+  "a": "Earth and Jupiter",
+  "w": [
+   "Venus and Earth",
+   "Jupiter and Saturn",
+   "Mercury and Venus"
+  ],
+  "why": "Earth and Jupiter."
+ },
+ {
+  "part": "mars",
+  "q": "What was Ingenuity?",
+  "a": "A helicopter on Mars",
+  "w": [
+   "A rover",
+   "A satellite orbiting Venus",
+   "A telescope"
+  ],
+  "why": "Mars Helicopter."
+ },
+ {
+  "part": "mars",
+  "q": "Ingenuity was the first to do what on another world?",
+  "a": "Powered, controlled flight",
+  "w": [
+   "Land on a moon",
+   "Orbit a planet",
+   "Find life"
+  ],
+  "why": "First powered controlled flight."
+ },
+ {
+  "part": "mars",
+  "q": "Ingenuity traveled to Mars on which rover?",
+  "a": "Perseverance",
+  "w": [
+   "Curiosity",
+   "Sojourner",
+   "Spirit"
+  ],
+  "why": "Perseverance."
+ },
+ {
+  "part": "mars",
+  "q": "How many flights did Ingenuity complete?",
+  "a": "72",
+  "w": [
+   "5",
+   "30",
+   "7"
+  ],
+  "why": "72 flights in just under 3 years."
+ },
+ {
+  "part": "mars",
+  "q": "Ingenuity was designed for no more than…",
+  "a": "five flights over 30 days",
+  "w": [
+   "72 flights",
+   "one flight",
+   "one year"
+  ],
+  "why": "Tech demo expected to fly 5 times in 30 days."
+ },
+ {
+  "part": "mars",
+  "q": "Ingenuity ended its mission in…",
+  "a": "early 2024",
+  "w": [
+   "1974",
+   "2013",
+   "2030"
+  ],
+  "why": "Early 2024."
+ },
+ {
+  "part": "mars",
+  "q": "Mars is the only planet we have sent…",
+  "a": "rovers to",
+  "w": [
+   "people to",
+   "helicopters to",
+   "probes to"
+  ],
+  "why": "Mars is the only planet with rovers."
+ },
+ {
+  "part": "mars",
+  "q": "Which is a Mars mission?",
+  "a": "InSight, MAVEN and Mars Reconnaissance Orbiter",
+  "w": [
+   "Cassini and Juno",
+   "Magellan",
+   "Messenger"
+  ],
+  "why": "Several missions have visited Mars."
+ },
+ {
+  "part": "jup",
+  "q": "Jupiter is the…",
+  "a": "biggest planet",
+  "w": [
+   "smallest planet",
+   "hottest planet",
+   "closest planet"
+  ],
+  "why": "Biggest planet."
+ },
+ {
+  "part": "jup",
+  "q": "Jupiter is best known for its…",
+  "a": "Great Red Spot",
+  "w": [
+   "Rings",
+   "Red color",
+   "Oceans"
+  ],
+  "why": "Great Red Spot."
+ },
+ {
+  "part": "jup",
+  "q": "The Great Red Spot is…",
+  "a": "a giant storm raging for more than 300 years",
+  "w": [
+   "a volcano",
+   "a crater",
+   "a moon"
+  ],
+  "why": "Giant, centuries-old storm."
+ },
+ {
+  "part": "jup",
+  "q": "The Great Red Spot is…",
+  "a": "bigger than Earth",
+  "w": [
+   "smaller than Earth",
+   "the size of the Moon",
+   "invisible"
+  ],
+  "why": "Larger than Earth."
+ },
+ {
+  "part": "jup",
+  "q": "Jupiter is a…",
+  "a": "gas giant",
+  "w": [
+   "terrestrial planet",
+   "dwarf planet",
+   "star"
+  ],
+  "why": "Gas giant."
+ },
+ {
+  "part": "jup",
+  "q": "Jupiter is made mostly of…",
+  "a": "hydrogen and helium",
+  "w": [
+   "rock and iron",
+   "water",
+   "carbon dioxide"
+  ],
+  "why": "Hydrogen and helium."
+ },
+ {
+  "part": "jup",
+  "q": "Does Jupiter have a solid surface?",
+  "a": "No",
+  "w": [
+   "Yes",
+   "Only at the core",
+   "Only at the poles"
+  ],
+  "why": "No solid surface."
+ },
+ {
+  "part": "jup",
+  "q": "Jupiter is more than ___ as massive as all other planets combined.",
+  "a": "twice",
+  "w": [
+   "half",
+   "three times",
+   "equal to"
+  ],
+  "why": "More than twice as massive."
+ },
+ {
+  "part": "jup",
+  "q": "Jupiter is similar to a star but…",
+  "a": "never got massive enough to start burning",
+  "w": [
+   "is hotter",
+   "is smaller",
+   "is made of rock"
+  ],
+  "why": "It never ignited."
+ },
+ {
+  "part": "jup",
+  "q": "Jupiter’s rings are…",
+  "a": "too faint to see very well",
+  "w": [
+   "the most beautiful",
+   "made of fire",
+   "nonexistent"
+  ],
+  "why": "Faint rings."
+ },
+ {
+  "part": "jup",
+  "q": "A day on Jupiter lasts about…",
+  "a": "10 hours",
+  "w": [
+   "24 hours",
+   "59 days",
+   "243 days"
+  ],
+  "why": "About 10 hours."
+ },
+ {
+  "part": "jup",
+  "q": "A year on Jupiter equals…",
+  "a": "11.8 Earth years",
+  "w": [
+   "29 Earth years",
+   "687 Earth days",
+   "88 Earth days"
+  ],
+  "why": "11.8 Earth years."
+ },
+ {
+  "part": "jup",
+  "q": "How many officially recognized moons does Jupiter have?",
+  "a": "95",
+  "w": [
+   "2",
+   "274",
+   "0"
+  ],
+  "why": "95 (per notes)."
+ },
+ {
+  "part": "jup",
+  "q": "Jupiter’s position from the Sun:",
+  "a": "Fifth",
+  "w": [
+   "Fourth",
+   "Sixth",
+   "Seventh"
+  ],
+  "why": "Jupiter is fifth."
+ },
+ {
+  "part": "jup",
+  "q": "Jupiter’s neighbors are…",
+  "a": "Mars and Saturn",
+  "w": [
+   "Earth and Mars",
+   "Saturn and Uranus",
+   "Venus and Earth"
+  ],
+  "why": "Mars and Saturn."
+ },
+ {
+  "part": "jup",
+  "q": "Which spacecraft visited Jupiter?",
+  "a": "Pioneer 10 and 11, Voyager 1 and 2, Cassini, New Horizons, Juno",
+  "w": [
+   "Magellan",
+   "MESSENGER",
+   "Ingenuity"
+  ],
+  "why": "Several spacecraft."
+ },
+ {
+  "part": "jup",
+  "q": "Jupiter has auroras that are…",
+  "a": "hundreds of times more energetic than Earth’s",
+  "w": [
+   "weaker than Earth’s",
+   "nonexistent",
+   "only in summer"
+  ],
+  "why": "Huge and powerful."
+ },
+ {
+  "part": "jup",
+  "q": "Which telescope studied Jupiter’s auroras at the poles?",
+  "a": "Hubble Space Telescope",
+  "w": [
+   "Parker Solar Probe",
+   "Magellan",
+   "MESSENGER"
+  ],
+  "why": "Hubble."
+ },
+ {
+  "part": "jup",
+  "q": "Which spacecraft captured the Great Red Spot close up?",
+  "a": "Juno",
+  "w": [
+   "Magellan",
+   "Mariner 10",
+   "Ingenuity"
+  ],
+  "why": "NASA’s Juno."
+ },
+ {
+  "part": "jup",
+  "q": "Jupiter is known since ancient times because…",
+  "a": "it can be seen with just our eyes",
+  "w": [
+   "it has rings",
+   "it has two moons",
+   "it is red"
+  ],
+  "why": "Visible without equipment."
+ },
+ {
+  "part": "jup",
+  "q": "Jupiter’s inside may be…",
+  "a": "a solid core or a super-hot dense soup",
+  "w": [
+   "empty",
+   "pure ice",
+   "a star"
+  ],
+  "why": "Scientists are unsure."
+ },
+ {
+  "part": "sat",
+  "q": "Saturn is best known for its…",
+  "a": "rings",
+  "w": [
+   "red spot",
+   "moon",
+   "oceans"
+  ],
+  "why": "Beautiful rings."
+ },
+ {
+  "part": "sat",
+  "q": "Saturn’s rings are made of…",
+  "a": "chunks of ice and rock",
+  "w": [
+   "gas",
+   "fire",
+   "dust only"
+  ],
+  "why": "Ice and rock chunks."
+ },
+ {
+  "part": "sat",
+  "q": "Saturn is a…",
+  "a": "gas giant",
+  "w": [
+   "terrestrial planet",
+   "dwarf planet",
+   "star"
+  ],
+  "why": "Gas giant like Jupiter."
+ },
+ {
+  "part": "sat",
+  "q": "Saturn is made mostly of…",
+  "a": "hydrogen and helium",
+  "w": [
+   "rock",
+   "water",
+   "nitrogen"
+  ],
+  "why": "Hydrogen and helium."
+ },
+ {
+  "part": "sat",
+  "q": "How many main rings does Saturn have?",
+  "a": "Seven",
+  "w": [
+   "Three",
+   "One",
+   "Twelve"
+  ],
+  "why": "Seven main rings with spaces between them."
+ },
+ {
+  "part": "sat",
+  "q": "Who first saw Saturn through a telescope in the 1600s?",
+  "a": "Galileo Galilei",
+  "w": [
+   "Isaac Newton",
+   "Neil Armstrong",
+   "Carl Sagan"
+  ],
+  "why": "Galileo."
+ },
+ {
+  "part": "sat",
+  "q": "Galileo thought he saw…",
+  "a": "three planets, or a planet with handles",
+  "w": [
+   "a star",
+   "a comet",
+   "a moon"
+  ],
+  "why": "Handles turned out to be rings."
+ },
+ {
+  "part": "sat",
+  "q": "A day on Saturn lasts…",
+  "a": "10.7 hours",
+  "w": [
+   "10 hours",
+   "24 hours",
+   "29 hours"
+  ],
+  "why": "10.7 hours."
+ },
+ {
+  "part": "sat",
+  "q": "A year on Saturn equals…",
+  "a": "29 Earth years",
+  "w": [
+   "11.8 Earth years",
+   "88 Earth days",
+   "84 Earth years"
+  ],
+  "why": "29 Earth years."
+ },
+ {
+  "part": "sat",
+  "q": "As of March 2025 Saturn has how many moons?",
+  "a": "274",
+  "w": [
+   "95",
+   "2",
+   "0"
+  ],
+  "why": "274 moons."
+ },
+ {
+  "part": "sat",
+  "q": "Saturn’s position from the Sun:",
+  "a": "Sixth",
+  "w": [
+   "Fifth",
+   "Seventh",
+   "Fourth"
+  ],
+  "why": "Saturn is sixth."
+ },
+ {
+  "part": "sat",
+  "q": "Saturn’s neighbors are…",
+  "a": "Jupiter and Uranus",
+  "w": [
+   "Mars and Jupiter",
+   "Uranus and Neptune",
+   "Earth and Mars"
+  ],
+  "why": "Jupiter and Uranus."
+ },
+ {
+  "part": "sat",
+  "q": "How many robotic spacecraft have visited Saturn?",
+  "a": "Four",
+  "w": [
+   "One",
+   "Ten",
+   "Zero"
+  ],
+  "why": "Four."
+ },
+ {
+  "part": "sat",
+  "q": "Which spacecraft visited Saturn?",
+  "a": "Pioneer 11, Cassini, Voyager 1 and 2",
+  "w": [
+   "Magellan",
+   "Juno",
+   "Ingenuity"
+  ],
+  "why": "Four visitors."
+ },
+ {
+  "part": "sat",
+  "q": "Which spacecraft photographed Saturn’s rings in grey and tan colors?",
+  "a": "Cassini",
+  "w": [
+   "Voyager 1",
+   "Mariner 10",
+   "Juno"
+  ],
+  "why": "Cassini."
+ },
+ {
+  "part": "sat",
+  "q": "Voyager 1 photographed Saturn with which two moons?",
+  "a": "Tethys and Dione",
+  "w": [
+   "Phobos and Deimos",
+   "Io and Europa",
+   "Titan and Rhea"
+  ],
+  "why": "Tethys and Dione."
+ },
+ {
+  "part": "sat",
+  "q": "Saturn’s atmosphere is…",
+  "a": "thick",
+  "w": [
+   "nonexistent",
+   "thin",
+   "made of oxygen"
+  ],
+  "why": "Thick atmosphere."
+ },
+ {
+  "part": "sat",
+  "q": "Saturn has been known since ancient times because…",
+  "a": "it can be seen without advanced telescopes",
+  "w": [
+   "it was first photographed by Cassini",
+   "it has 274 moons",
+   "it is red"
+  ],
+  "why": "Visible to the eye."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet has the shortest year?",
+  "a": "Mercury",
+  "w": [
+   "Earth",
+   "Saturn",
+   "Jupiter"
+  ],
+  "why": "88 days."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet is the hottest?",
+  "a": "Venus",
+  "w": [
+   "Mercury",
+   "Mars",
+   "Jupiter"
+  ],
+  "why": "Venus."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet is the biggest?",
+  "a": "Jupiter",
+  "w": [
+   "Saturn",
+   "Earth",
+   "Venus"
+  ],
+  "why": "Jupiter."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet is the smallest?",
+  "a": "Mercury",
+  "w": [
+   "Mars",
+   "Venus",
+   "Earth"
+  ],
+  "why": "Mercury."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planets have NO moons?",
+  "a": "Mercury and Venus",
+  "w": [
+   "Earth and Mars",
+   "Mars and Jupiter",
+   "Jupiter and Saturn"
+  ],
+  "why": "Mercury and Venus."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet has just one moon?",
+  "a": "Earth",
+  "w": [
+   "Mars",
+   "Venus",
+   "Jupiter"
+  ],
+  "why": "Earth."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet has two moons?",
+  "a": "Mars",
+  "w": [
+   "Earth",
+   "Venus",
+   "Mercury"
+  ],
+  "why": "Mars."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet has the most moons listed in your notes?",
+  "a": "Saturn (274)",
+  "w": [
+   "Jupiter (95)",
+   "Mars (2)",
+   "Earth (1)"
+  ],
+  "why": "274 > 95."
+ },
+ {
+  "part": "cmp",
+  "q": "Which of these spins backwards (retrograde)?",
+  "a": "Venus",
+  "w": [
+   "Mars",
+   "Earth",
+   "Mercury"
+  ],
+  "why": "Venus."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet is called the Red Planet?",
+  "a": "Mars",
+  "w": [
+   "Venus",
+   "Jupiter",
+   "Mercury"
+  ],
+  "why": "Mars."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet has the most beautiful rings?",
+  "a": "Saturn",
+  "w": [
+   "Jupiter",
+   "Mars",
+   "Venus"
+  ],
+  "why": "Saturn."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet has the Great Red Spot?",
+  "a": "Jupiter",
+  "w": [
+   "Mars",
+   "Saturn",
+   "Venus"
+  ],
+  "why": "Jupiter."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet has the shortest day?",
+  "a": "Jupiter (10 hours)",
+  "w": [
+   "Earth (24 hours)",
+   "Venus",
+   "Mercury"
+  ],
+  "why": "Jupiter spins fastest."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet has the longest day?",
+  "a": "Venus (243 Earth days)",
+  "w": [
+   "Mercury (59 days)",
+   "Earth",
+   "Jupiter"
+  ],
+  "why": "Venus."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet is the only one we have sent rovers to?",
+  "a": "Mars",
+  "w": [
+   "Venus",
+   "Mercury",
+   "Jupiter"
+  ],
+  "why": "Mars."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planets are terrestrial?",
+  "a": "Mercury, Venus, Earth, Mars",
+  "w": [
+   "Jupiter and Saturn",
+   "Earth and Jupiter",
+   "Venus and Saturn"
+  ],
+  "why": "Rocky."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planets are gas giants (in these notes)?",
+  "a": "Jupiter and Saturn",
+  "w": [
+   "Mercury and Venus",
+   "Earth and Mars",
+   "Mars and Jupiter"
+  ],
+  "why": "Jupiter and Saturn."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet has a year almost twice as long as Earth’s?",
+  "a": "Mars",
+  "w": [
+   "Venus",
+   "Mercury",
+   "Saturn"
+  ],
+  "why": "687 days."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet has a year of 29 Earth years?",
+  "a": "Saturn",
+  "w": [
+   "Jupiter",
+   "Mars",
+   "Venus"
+  ],
+  "why": "Saturn."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet has a year of 11.8 Earth years?",
+  "a": "Jupiter",
+  "w": [
+   "Saturn",
+   "Mars",
+   "Mercury"
+  ],
+  "why": "Jupiter."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet has a thin exosphere instead of an atmosphere?",
+  "a": "Mercury",
+  "w": [
+   "Venus",
+   "Mars",
+   "Earth"
+  ],
+  "why": "Mercury."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet has sulfuric acid clouds?",
+  "a": "Venus",
+  "w": [
+   "Mars",
+   "Jupiter",
+   "Mercury"
+  ],
+  "why": "Venus."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet supports life?",
+  "a": "Earth",
+  "w": [
+   "Mars",
+   "Venus",
+   "Mercury"
+  ],
+  "why": "Earth."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet is MOST like Earth in size?",
+  "a": "Venus",
+  "w": [
+   "Mars",
+   "Mercury",
+   "Saturn"
+  ],
+  "why": "Venus."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet is about half Earth’s size?",
+  "a": "Mars",
+  "w": [
+   "Venus",
+   "Mercury",
+   "Jupiter"
+  ],
+  "why": "Mars."
+ },
+ {
+  "part": "ura",
+  "q": "Uranus is made of…",
+  "a": "water, methane and ammonia fluids above a small rocky center",
+  "w": [
+   "solid rock only",
+   "pure hydrogen",
+   "iron and nickel"
+  ],
+  "why": "Fluids over a small rocky center."
+ },
+ {
+  "part": "ura",
+  "q": "What makes Uranus blue?",
+  "a": "Methane",
+  "w": [
+   "Water oceans",
+   "Iron oxide",
+   "Sulfuric acid"
+  ],
+  "why": "Methane in its atmosphere."
+ },
+ {
+  "part": "ura",
+  "q": "Uranus’s atmosphere is made of…",
+  "a": "hydrogen, helium and methane",
+  "w": [
+   "carbon dioxide and nitrogen",
+   "oxygen and nitrogen",
+   "sulfuric acid"
+  ],
+  "why": "Hydrogen, helium and methane."
+ },
+ {
+  "part": "ura",
+  "q": "What is unique about how Uranus rotates?",
+  "a": "It spins on its side",
+  "w": [
+   "It does not spin",
+   "It spins fastest of all",
+   "It spins like Mercury"
+  ],
+  "why": "The only planet that spins on its side."
+ },
+ {
+  "part": "ura",
+  "q": "Which planet is the only one that spins on its side?",
+  "a": "Uranus",
+  "w": [
+   "Neptune",
+   "Saturn",
+   "Venus"
+  ],
+  "why": "Uranus: “I’m sideways!”"
+ },
+ {
+  "part": "ura",
+  "q": "Uranus spins in the…",
+  "a": "opposite direction as Earth and most other planets",
+  "w": [
+   "same direction as Earth",
+   "no direction",
+   "random direction"
+  ],
+  "why": "Like Venus it is retrograde."
+ },
+ {
+  "part": "ura",
+  "q": "Uranus is a(n)…",
+  "a": "ice giant",
+  "w": [
+   "gas giant",
+   "terrestrial planet",
+   "dwarf planet"
+  ],
+  "why": "Ice giant."
+ },
+ {
+  "part": "ura",
+  "q": "How many rings does Uranus have?",
+  "a": "13",
+  "w": [
+   "7",
+   "6",
+   "1"
+  ],
+  "why": "A set of 13 rings."
+ },
+ {
+  "part": "ura",
+  "q": "Uranus’s inner rings are…",
+  "a": "narrow and dark",
+  "w": [
+   "wide and bright",
+   "invisible",
+   "made of fire"
+  ],
+  "why": "Inner narrow and dark; outer brightly colored."
+ },
+ {
+  "part": "ura",
+  "q": "A day on Uranus lasts about…",
+  "a": "17 hours (17 h 14 min)",
+  "w": [
+   "10 hours",
+   "24 hours",
+   "16 hours"
+  ],
+  "why": "A little over 17 hours."
+ },
+ {
+  "part": "ura",
+  "q": "A year on Uranus equals…",
+  "a": "84 Earth years",
+  "w": [
+   "165 Earth years",
+   "29 Earth years",
+   "11.8 Earth years"
+  ],
+  "why": "84 Earth years."
+ },
+ {
+  "part": "ura",
+  "q": "How many known moons does Uranus have?",
+  "a": "28",
+  "w": [
+   "16",
+   "95",
+   "274"
+  ],
+  "why": "28 known moons."
+ },
+ {
+  "part": "ura",
+  "q": "Uranus’s position from the Sun:",
+  "a": "Seventh",
+  "w": [
+   "Sixth",
+   "Eighth",
+   "Fifth"
+  ],
+  "why": "Uranus is seventh."
+ },
+ {
+  "part": "ura",
+  "q": "Uranus’s neighbors are…",
+  "a": "Saturn and Neptune",
+  "w": [
+   "Jupiter and Saturn",
+   "Neptune only",
+   "Mars and Jupiter"
+  ],
+  "why": "Saturn and Neptune."
+ },
+ {
+  "part": "ura",
+  "q": "Who discovered Uranus?",
+  "a": "William Herschel",
+  "w": [
+   "Galileo Galilei",
+   "Edwin Hubble",
+   "Johann Galle"
+  ],
+  "why": "Herschel, 1781, Great Britain."
+ },
+ {
+  "part": "ura",
+  "q": "Uranus was discovered in…",
+  "a": "1781",
+  "w": [
+   "1846",
+   "1610",
+   "1974"
+  ],
+  "why": "1781."
+ },
+ {
+  "part": "ura",
+  "q": "Which spacecraft has visited Uranus?",
+  "a": "Voyager 2 only",
+  "w": [
+   "Cassini",
+   "Juno",
+   "Magellan"
+  ],
+  "why": "Only Voyager 2."
+ },
+ {
+  "part": "ura",
+  "q": "Which telescope photographed Uranus’s bands and a dark spot?",
+  "a": "Hubble Space Telescope",
+  "w": [
+   "Parker Solar Probe",
+   "Magellan",
+   "MESSENGER"
+  ],
+  "why": "Hubble."
+ },
+ {
+  "part": "ura",
+  "q": "Which two planets spin in the opposite direction from most others?",
+  "a": "Venus and Uranus",
+  "w": [
+   "Mars and Earth",
+   "Jupiter and Saturn",
+   "Mercury and Neptune"
+  ],
+  "why": "Both are retrograde."
+ },
+ {
+  "part": "ura",
+  "q": "The Solar System worksheet describes Uranus’s color as…",
+  "a": "bluish-green due to methane gas",
+  "w": [
+   "red",
+   "yellow",
+   "white"
+  ],
+  "why": "Ice giant, bluish-green because of methane."
+ },
+ {
+  "part": "nep",
+  "q": "Neptune’s position from the Sun:",
+  "a": "Eighth and most distant",
+  "w": [
+   "Seventh",
+   "Sixth",
+   "Fifth"
+  ],
+  "why": "Last planet."
+ },
+ {
+  "part": "nep",
+  "q": "Neptune is the…",
+  "a": "farthest planet from the Sun",
+  "w": [
+   "closest planet",
+   "hottest planet",
+   "biggest planet"
+  ],
+  "why": "Last of the planets."
+ },
+ {
+  "part": "nep",
+  "q": "Neptune is more than how many times as far from the Sun as Earth?",
+  "a": "30 times",
+  "w": [
+   "3 times",
+   "300 times",
+   "10 times"
+  ],
+  "why": "More than 30x."
+ },
+ {
+  "part": "nep",
+  "q": "Neptune is made of…",
+  "a": "a thick fog of water, ammonia and methane over an Earth-sized solid center",
+  "w": [
+   "solid rock",
+   "pure helium",
+   "sulfuric acid clouds"
+  ],
+  "why": "Ice giant."
+ },
+ {
+  "part": "nep",
+  "q": "What gives Neptune its blue color?",
+  "a": "Methane",
+  "w": [
+   "Oxygen",
+   "Rust",
+   "Ice"
+  ],
+  "why": "Methane."
+ },
+ {
+  "part": "nep",
+  "q": "Neptune’s atmosphere is made of…",
+  "a": "hydrogen, helium and methane",
+  "w": [
+   "carbon dioxide",
+   "nitrogen and oxygen",
+   "sulfuric acid"
+  ],
+  "why": "Hydrogen, helium and methane."
+ },
+ {
+  "part": "nep",
+  "q": "Neptune is known for…",
+  "a": "deep blue color and strong winds",
+  "w": [
+   "a Great Red Spot",
+   "bright rings",
+   "a day longer than its year"
+  ],
+  "why": "Dark, cold and very windy."
+ },
+ {
+  "part": "nep",
+  "q": "How many rings does Neptune have?",
+  "a": "Six",
+  "w": [
+   "Seven",
+   "13",
+   "None"
+  ],
+  "why": "Six rings, very hard to see."
+ },
+ {
+  "part": "nep",
+  "q": "Neptune is which type of planet?",
+  "a": "Ice giant",
+  "w": [
+   "Gas giant",
+   "Terrestrial",
+   "Dwarf"
+  ],
+  "why": "Ice giant like Uranus."
+ },
+ {
+  "part": "nep",
+  "q": "A day on Neptune lasts…",
+  "a": "16 hours",
+  "w": [
+   "17 hours",
+   "10 hours",
+   "24 hours"
+  ],
+  "why": "16 hours."
+ },
+ {
+  "part": "nep",
+  "q": "A year on Neptune equals…",
+  "a": "165 Earth years",
+  "w": [
+   "84 Earth years",
+   "29 Earth years",
+   "11.8 Earth years"
+  ],
+  "why": "165 Earth years."
+ },
+ {
+  "part": "nep",
+  "q": "How many moons does Neptune have?",
+  "a": "16",
+  "w": [
+   "28",
+   "95",
+   "2"
+  ],
+  "why": "16 moons."
+ },
+ {
+  "part": "nep",
+  "q": "Neptune’s only neighboring planet is…",
+  "a": "Uranus",
+  "w": [
+   "Saturn",
+   "Jupiter",
+   "Mars"
+  ],
+  "why": "Uranus."
+ },
+ {
+  "part": "nep",
+  "q": "Neptune was discovered in…",
+  "a": "1846",
+  "w": [
+   "1781",
+   "1610",
+   "1989"
+  ],
+  "why": "1846."
+ },
+ {
+  "part": "nep",
+  "q": "Who discovered Neptune?",
+  "a": "Urbain Le Verrier, John Couch Adams and Johann Galle",
+  "w": [
+   "William Herschel",
+   "Galileo Galilei",
+   "Edwin Hubble"
+  ],
+  "why": "Three discoverers."
+ },
+ {
+  "part": "nep",
+  "q": "Which spacecraft visited Neptune?",
+  "a": "Voyager 2 only",
+  "w": [
+   "Cassini",
+   "Juno",
+   "Pioneer 10"
+  ],
+  "why": "Only Voyager 2."
+ },
+ {
+  "part": "nep",
+  "q": "Voyager 2 took its picture of Neptune in…",
+  "a": "1989",
+  "w": [
+   "1974",
+   "2013",
+   "1781"
+  ],
+  "why": "1989."
+ },
+ {
+  "part": "nep",
+  "q": "Which two planets are ice giants?",
+  "a": "Uranus and Neptune",
+  "w": [
+   "Jupiter and Saturn",
+   "Earth and Mars",
+   "Venus and Mercury"
+  ],
+  "why": "Uranus and Neptune."
+ },
+ {
+  "part": "nep",
+  "q": "Neptune is similar to a gas giant but is…",
+  "a": "an ice giant made of water, ammonia and methane",
+  "w": [
+   "made of rock only",
+   "a star",
+   "a terrestrial planet"
+  ],
+  "why": "Ice giant."
+ },
+ {
+  "part": "belts",
+  "q": "The Solar System worksheet says the solar system is bound together by…",
+  "a": "the gravitational pull of the Sun",
+  "w": [
+   "the Moon’s gravity",
+   "Earth’s magnetic field",
+   "solar wind"
+  ],
+  "why": "Gravity of the Sun at its center."
+ },
+ {
+  "part": "belts",
+  "q": "Which is NOT listed as part of the Solar System?",
+  "a": "Black holes",
+  "w": [
+   "Eight planets",
+   "Dwarf planets",
+   "Comets"
+  ],
+  "why": "Sun, 8 planets, dwarf planets, moons, asteroids, comets, meteorites."
+ },
+ {
+  "part": "belts",
+  "q": "The Sun is a star and the primary source of what for the Solar System?",
+  "a": "Energy",
+  "w": [
+   "Water",
+   "Rocks",
+   "Oxygen"
+  ],
+  "why": "Energy."
+ },
+ {
+  "part": "belts",
+  "q": "About what percent of the Solar System’s mass does the Sun hold (worksheet)?",
+  "a": "99.8%",
+  "w": [
+   "50%",
+   "9.98%",
+   "75%"
+  ],
+  "why": "About 99.8% (notes say 99.86%)."
+ },
+ {
+  "part": "belts",
+  "q": "The Asteroid Belt lies between…",
+  "a": "Mars and Jupiter",
+  "w": [
+   "Earth and Mars",
+   "Saturn and Uranus",
+   "Venus and Earth"
+  ],
+  "why": "Between Mars and Jupiter."
+ },
+ {
+  "part": "belts",
+  "q": "The planets are divided into inner and outer relative to…",
+  "a": "the Asteroid Belt",
+  "w": [
+   "the Moon",
+   "Saturn’s rings",
+   "the Kuiper Belt"
+  ],
+  "why": "Inner planets are inside the belt."
+ },
+ {
+  "part": "belts",
+  "q": "Another name for the inner planets is…",
+  "a": "terrestrial planets",
+  "w": [
+   "Jovian planets",
+   "gas giants",
+   "dwarf planets"
+  ],
+  "why": "Terrestrial."
+ },
+ {
+  "part": "belts",
+  "q": "Inner planets are composed mainly of…",
+  "a": "metals and silicate rocks",
+  "w": [
+   "hydrogen and helium",
+   "ice only",
+   "methane"
+  ],
+  "why": "Rocky and metallic."
+ },
+ {
+  "part": "belts",
+  "q": "Inner planets have…",
+  "a": "few or no moons and no rings",
+  "w": [
+   "many moons and rings",
+   "dozens of moons",
+   "giant rings"
+  ],
+  "why": "Few or no moons."
+ },
+ {
+  "part": "belts",
+  "q": "Inner planets are warmer because…",
+  "a": "they are close to the Sun",
+  "w": [
+   "they have thick ice",
+   "they are big",
+   "they have many moons"
+  ],
+  "why": "Proximity to the Sun."
+ },
+ {
+  "part": "belts",
+  "q": "Another name for the outer planets is…",
+  "a": "gas giants or Jovian planets",
+  "w": [
+   "terrestrial planets",
+   "dwarf planets",
+   "asteroids"
+  ],
+  "why": "Gas giants / Jovian."
+ },
+ {
+  "part": "belts",
+  "q": "Outer planets are composed mainly of…",
+  "a": "hydrogen, helium and other gases",
+  "w": [
+   "metals and silicate rocks",
+   "iron",
+   "sand"
+  ],
+  "why": "Gas giants."
+ },
+ {
+  "part": "belts",
+  "q": "Outer planets are colder because…",
+  "a": "of their greater distance from the Sun",
+  "w": [
+   "they have rings",
+   "they spin fast",
+   "they have no atmosphere"
+  ],
+  "why": "Farther from the Sun."
+ },
+ {
+  "part": "belts",
+  "q": "Which are dwarf planets?",
+  "a": "Pluto, Ceres and Eris",
+  "w": [
+   "Mars, Ceres and Eris",
+   "Pluto, Mars and Venus",
+   "Neptune, Pluto and Eris"
+  ],
+  "why": "Pluto, Ceres, Eris."
+ },
+ {
+  "part": "belts",
+  "q": "Dwarf planets orbit the Sun but…",
+  "a": "do not clear their orbital paths of other debris",
+  "w": [
+   "orbit Earth",
+   "have rings",
+   "are stars"
+  ],
+  "why": "They have not cleared their path."
+ },
+ {
+  "part": "belts",
+  "q": "What are natural satellites called?",
+  "a": "Moons",
+  "w": [
+   "Comets",
+   "Asteroids",
+   "Meteors"
+  ],
+  "why": "Moons."
+ },
+ {
+  "part": "belts",
+  "q": "Earth has one moon while Jupiter and Saturn have…",
+  "a": "dozens",
+  "w": [
+   "none",
+   "two",
+   "one"
+  ],
+  "why": "Dozens (95 and 274)."
+ },
+ {
+  "part": "belts",
+  "q": "Asteroids are small rocky bodies found mainly in…",
+  "a": "the Asteroid Belt between Mars and Jupiter",
+  "w": [
+   "the Kuiper Belt",
+   "the Oort Cloud",
+   "Saturn’s rings"
+  ],
+  "why": "Asteroid Belt."
+ },
+ {
+  "part": "belts",
+  "q": "Comets are icy bodies that release…",
+  "a": "gas and dust forming a glowing tail near the Sun",
+  "w": [
+   "rocks",
+   "water",
+   "metals"
+  ],
+  "why": "Gas and dust make the tail."
+ },
+ {
+  "part": "belts",
+  "q": "A comet forms a glowing tail when it…",
+  "a": "approaches the Sun",
+  "w": [
+   "leaves the Sun",
+   "hits Earth",
+   "is in the Kuiper Belt"
+  ],
+  "why": "Near the Sun."
+ },
+ {
+  "part": "belts",
+  "q": "Meteoroids are…",
+  "a": "small rocky or metallic fragments in space",
+  "w": [
+   "icy bodies",
+   "dwarf planets",
+   "moons"
+  ],
+  "why": "Rocky or metallic fragments."
+ },
+ {
+  "part": "belts",
+  "q": "The Kuiper Belt is a region of icy objects beyond…",
+  "a": "Neptune",
+  "w": [
+   "Mars",
+   "Saturn",
+   "Jupiter"
+  ],
+  "why": "Beyond Neptune."
+ },
+ {
+  "part": "belts",
+  "q": "The Oort Cloud is…",
+  "a": "a theoretical outermost region of the Solar System full of icy debris",
+  "w": [
+   "a cloud on Earth",
+   "between Mars and Jupiter",
+   "a star"
+  ],
+  "why": "Theoretical region of icy debris."
+ },
+ {
+  "part": "belts",
+  "q": "Which is the farthest region from the Sun?",
+  "a": "Oort Cloud",
+  "w": [
+   "Asteroid Belt",
+   "Kuiper Belt",
+   "Earth’s orbit"
+  ],
+  "why": "Oort Cloud is outermost."
+ },
+ {
+  "part": "belts",
+  "q": "Which is closest to the Sun?",
+  "a": "Asteroid Belt",
+  "w": [
+   "Kuiper Belt",
+   "Oort Cloud",
+   "Neptune’s orbit"
+  ],
+  "why": "Asteroid Belt is inside the planets."
+ },
+ {
+  "part": "belts",
+  "q": "Mars is home to the largest ___ and ___ in the Solar System (worksheet).",
+  "a": "volcano and canyon",
+  "w": [
+   "ocean and desert",
+   "mountain and lake",
+   "crater and river"
+  ],
+  "why": "Largest volcano and canyon."
+ },
+ {
+  "part": "belts",
+  "q": "Mars is known as the Red Planet because of…",
+  "a": "iron oxide on its surface",
+  "w": [
+   "red clouds",
+   "lava",
+   "sunlight"
+  ],
+  "why": "Iron oxide."
+ },
+ {
+  "part": "belts",
+  "q": "Jupiter has a powerful…",
+  "a": "magnetic field",
+  "w": [
+   "ocean",
+   "solid surface",
+   "ring system"
+  ],
+  "why": "Strong magnetic field."
+ },
+ {
+  "part": "belts",
+  "q": "Saturn is the ___ largest planet.",
+  "a": "second",
+  "w": [
+   "first",
+   "third",
+   "fourth"
+  ],
+  "why": "Second after Jupiter."
+ },
+ {
+  "part": "bang",
+  "q": "What is the Big Bang?",
+  "a": "How astronomers explain the way the universe began",
+  "w": [
+   "A star exploding in our galaxy",
+   "The creation of Earth",
+   "A volcano"
+  ],
+  "why": "Astronomers’ theory of how the universe began."
+ },
+ {
+  "part": "bang",
+  "q": "The Big Bang idea says the universe began as…",
+  "a": "a single point that expanded and stretched",
+  "w": [
+   "a huge empty cloud",
+   "many stars",
+   "two planets"
+  ],
+  "why": "Single point."
+ },
+ {
+  "part": "bang",
+  "q": "The universe is still…",
+  "a": "stretching (expanding)",
+  "w": [
+   "shrinking",
+   "standing still",
+   "collapsing"
+  ],
+  "why": "Still expanding."
+ },
+ {
+  "part": "bang",
+  "q": "How long ago did the universe begin?",
+  "a": "About 13.8 billion years ago",
+  "w": [
+   "About 4.6 billion years ago",
+   "About 1 million years ago",
+   "About 3.8 billion years ago"
+  ],
+  "why": "13.8 billion years."
+ },
+ {
+  "part": "bang",
+  "q": "Who said in 1927 that the universe began as a single point?",
+  "a": "Georges Lemaître",
+  "w": [
+   "Edwin Hubble",
+   "Galileo",
+   "William Herschel"
+  ],
+  "why": "Lemaître."
+ },
+ {
+  "part": "bang",
+  "q": "Who noticed that other galaxies were moving away from us?",
+  "a": "Edwin Hubble",
+  "w": [
+   "Georges Lemaître",
+   "Isaac Newton",
+   "Carl Sagan"
+  ],
+  "why": "Hubble."
+ },
+ {
+  "part": "bang",
+  "q": "The farthest galaxies were moving…",
+  "a": "faster than ones close to us",
+  "w": [
+   "slower than ones close to us",
+   "toward us",
+   "not at all"
+  ],
+  "why": "Farther = faster."
+ },
+ {
+  "part": "bang",
+  "q": "“Red shift” means light from distant stars appears more…",
+  "a": "red than it should be",
+  "w": [
+   "blue",
+   "green",
+   "bright"
+  ],
+  "why": "Red shifted."
+ },
+ {
+  "part": "bang",
+  "q": "Red shift happens when an object is moving…",
+  "a": "away from you at a high speed",
+  "w": [
+   "toward you",
+   "around you",
+   "slowly toward you"
+  ],
+  "why": "Moving away fast."
+ },
+ {
+  "part": "bang",
+  "q": "Hubble’s observations showed the universe was…",
+  "a": "still expanding, just like Lemaître thought",
+  "w": [
+   "shrinking",
+   "static",
+   "new"
+  ],
+  "why": "Supported Lemaître."
+ },
+ {
+  "part": "bang",
+  "q": "What was created in the Big Bang?",
+  "a": "Time and space",
+  "w": [
+   "Only stars",
+   "Only the Sun",
+   "Only Earth"
+  ],
+  "why": "Time, space and everything we know."
+ },
+ {
+  "part": "bang",
+  "q": "At the start, the universe was a very…",
+  "a": "hot and dense single point",
+  "w": [
+   "cold and empty cloud",
+   "big and cool",
+   "light and thin point"
+  ],
+  "why": "Hot and dense."
+ },
+ {
+  "part": "bang",
+  "q": "Inflation was a period when the universe…",
+  "a": "expanded exponentially in a fraction of a second",
+  "w": [
+   "shrank",
+   "cooled into atoms",
+   "formed stars"
+  ],
+  "why": "Rapid expansion."
+ },
+ {
+  "part": "bang",
+  "q": "Before inflation the universe was extremely…",
+  "a": "dense and hot",
+  "w": [
+   "cold and empty",
+   "light and cool",
+   "big"
+  ],
+  "why": "Dense and hot."
+ },
+ {
+  "part": "bang",
+  "q": "During inflation, which force separated first?",
+  "a": "Gravity",
+  "w": [
+   "Electromagnetic",
+   "Nuclear",
+   "Magnetism"
+  ],
+  "why": "Gravity separated from the others."
+ },
+ {
+  "part": "bang",
+  "q": "Particles in the very early universe were governed by…",
+  "a": "a single force combining nuclear, electromagnetic and gravitational forces",
+  "w": [
+   "gravity only",
+   "magnetism only",
+   "no force"
+  ],
+  "why": "One combined force."
+ },
+ {
+  "part": "bang",
+  "q": "In the first few minutes the universe consisted of…",
+  "a": "quarks, photons and neutrinos",
+  "w": [
+   "stars and planets",
+   "atoms",
+   "galaxies"
+  ],
+  "why": "Quarks, photons, neutrinos."
+ },
+ {
+  "part": "bang",
+  "q": "As the universe cooled, heavier particles like ___ and ___ formed.",
+  "a": "protons and neutrons",
+  "w": [
+   "atoms and molecules",
+   "stars and planets",
+   "rocks and ice"
+  ],
+  "why": "Protons and neutrons."
+ },
+ {
+  "part": "bang",
+  "q": "The Age of Nucleosynthesis is the age of…",
+  "a": "making elements",
+  "w": [
+   "making stars",
+   "making planets",
+   "making life"
+  ],
+  "why": "Protons and neutrons formed nuclei."
+ },
+ {
+  "part": "bang",
+  "q": "The first nuclei formed were…",
+  "a": "hydrogen and helium",
+  "w": [
+   "carbon and oxygen",
+   "iron and silicon",
+   "gold"
+  ],
+  "why": "Hydrogen and helium nuclei."
+ },
+ {
+  "part": "bang",
+  "q": "A deuteron is the nucleus of a…",
+  "a": "deuterium atom",
+  "w": [
+   "helium atom",
+   "carbon atom",
+   "iron atom"
+  ],
+  "why": "Deuterium nucleus."
+ },
+ {
+  "part": "bang",
+  "q": "Which is evidence for the Big Bang?",
+  "a": "The abundance of hydrogen and helium in the universe",
+  "w": [
+   "The Moon’s craters",
+   "Earth’s tilt",
+   "The seasons"
+  ],
+  "why": "Hydrogen and helium abundance."
+ },
+ {
+  "part": "bang",
+  "q": "About how long after the Big Bang did the first atoms form?",
+  "a": "About 380,000 years",
+  "w": [
+   "About 1 second",
+   "About 1 billion years",
+   "About 9 billion years"
+  ],
+  "why": "~380,000 years."
+ },
+ {
+  "part": "bang",
+  "q": "Before atoms formed the universe was too ___ for electrons to stay in orbit around a nucleus.",
+  "a": "hot",
+  "w": [
+   "cold",
+   "dark",
+   "empty"
+  ],
+  "why": "Too hot."
+ },
+ {
+  "part": "bang",
+  "q": "When atoms formed they released extra energy as…",
+  "a": "photons of light",
+  "w": [
+   "rocks",
+   "water",
+   "sound"
+  ],
+  "why": "Photons."
+ },
+ {
+  "part": "bang",
+  "q": "What is CMBR?",
+  "a": "Cosmic Microwave Background Radiation",
+  "w": [
+   "Central Matter Big Radius",
+   "Cold Mass Burst Radiation",
+   "Cosmic Magnetic Beam Ray"
+  ],
+  "why": "Another piece of evidence for the Big Bang."
+ },
+ {
+  "part": "bang",
+  "q": "In the Age of Re-Ionisation, gravity pulled huge clouds of ___ atoms into the first stars.",
+  "a": "hydrogen",
+  "w": [
+   "iron",
+   "carbon",
+   "oxygen"
+  ],
+  "why": "Hydrogen."
+ },
+ {
+  "part": "bang",
+  "q": "Stars made heavier elements such as carbon, oxygen, silicon and iron through…",
+  "a": "nuclear fusion reactions",
+  "w": [
+   "rain",
+   "erosion",
+   "melting"
+  ],
+  "why": "Nuclear fusion."
+ },
+ {
+  "part": "bang",
+  "q": "What created even heavier elements?",
+  "a": "Supernovae (exploding stars)",
+  "w": [
+   "Planets",
+   "Asteroids",
+   "Moons"
+  ],
+  "why": "Massive exploding supernovae."
+ },
+ {
+  "part": "bang",
+  "q": "Supernova explosions sent matter into space to form new…",
+  "a": "stars and planets",
+  "w": [
+   "oceans",
+   "atmospheres",
+   "comets only"
+  ],
+  "why": "Planets and stars."
+ },
+ {
+  "part": "bang",
+  "q": "Our Solar System formed about how long after the Big Bang?",
+  "a": "9 billion years",
+  "w": [
+   "1 billion years",
+   "13.8 billion years",
+   "380,000 years"
+  ],
+  "why": "About 9 billion years."
+ },
+ {
+  "part": "bang",
+  "q": "How old is our Solar System?",
+  "a": "About 4.6 billion years",
+  "w": [
+   "About 13.8 billion years",
+   "About 3.8 billion years",
+   "About 9 billion years"
+  ],
+  "why": "~4.6 billion years."
+ },
+ {
+  "part": "bang",
+  "q": "The solar nebula was a cloud of…",
+  "a": "gas and dust",
+  "w": [
+   "rocks only",
+   "ice only",
+   "stars"
+  ],
+  "why": "Gas and dust."
+ },
+ {
+  "part": "bang",
+  "q": "As the solar nebula collapsed due to gravity it…",
+  "a": "spun faster and flattened into a disk",
+  "w": [
+   "exploded",
+   "froze",
+   "stopped spinning"
+  ],
+  "why": "Spun faster and flattened."
+ },
+ {
+  "part": "bang",
+  "q": "Most of the matter pulled inward to form…",
+  "a": "the Sun",
+  "w": [
+   "Earth",
+   "Jupiter",
+   "the Moon"
+  ],
+  "why": "The Sun; the rest became planets."
+ },
+ {
+  "part": "bang",
+  "q": "The first carbon-based molecules formed on Earth about…",
+  "a": "3.8 billion years ago",
+  "w": [
+   "13.8 billion years ago",
+   "4.6 billion years ago",
+   "380,000 years ago"
+  ],
+  "why": "Late Heavy Bombardment, 3.8 bn yrs ago."
+ },
+ {
+  "part": "bang",
+  "q": "The first carbon-based molecules formed in the presence of…",
+  "a": "water and an energy source",
+  "w": [
+   "oxygen and plants",
+   "ice only",
+   "animals"
+  ],
+  "why": "Water + energy."
+ },
+ {
+  "part": "bang",
+  "q": "Stromatolites and cyanobacteria could live in an anaerobic environment, which means…",
+  "a": "without oxygen",
+  "w": [
+   "with lots of oxygen",
+   "underwater only",
+   "in space"
+  ],
+  "why": "Anaerobic = without oxygen."
+ },
+ {
+  "part": "bang",
+  "q": "Stromatolite fossils have been found in…",
+  "a": "Western Australia",
+  "w": [
+   "Antarctica",
+   "Mars",
+   "Canada"
+  ],
+  "why": "Western Australia."
+ },
+ {
+  "part": "bang",
+  "q": "Cyanobacteria were Earth’s first…",
+  "a": "photosynthesizers",
+  "w": [
+   "animals",
+   "fish",
+   "plants"
+  ],
+  "why": "First photosynthesisers."
+ },
+ {
+  "part": "bang",
+  "q": "Cyanobacteria used water and the Sun’s energy and released…",
+  "a": "oxygen into the atmosphere",
+  "w": [
+   "carbon dioxide",
+   "methane",
+   "helium"
+  ],
+  "why": "Oxygen."
+ },
+ {
+  "part": "bang",
+  "q": "Put in order: Inflation, Big Bang, First Atoms, Birth of Solar System.",
+  "a": "Big Bang, Inflation, First Atoms, Birth of Solar System",
+  "w": [
+   "Inflation, Big Bang, Birth of Solar System, First Atoms",
+   "Big Bang, First Atoms, Inflation, Birth of Solar System",
+   "Birth of Solar System, Big Bang, Inflation, First Atoms"
+  ],
+  "why": "Order on the timeline."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet is the farthest from the Sun?",
+  "a": "Neptune",
+  "w": [
+   "Uranus",
+   "Saturn",
+   "Jupiter"
+  ],
+  "why": "Neptune."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet has the longest year?",
+  "a": "Neptune (165 Earth years)",
+  "w": [
+   "Uranus (84 years)",
+   "Saturn (29 years)",
+   "Jupiter (11.8 years)"
+  ],
+  "why": "165 Earth years."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet spins on its side?",
+  "a": "Uranus",
+  "w": [
+   "Neptune",
+   "Venus",
+   "Saturn"
+  ],
+  "why": "Uranus."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planets get their blue color from methane?",
+  "a": "Uranus and Neptune",
+  "w": [
+   "Earth and Mars",
+   "Venus and Mercury",
+   "Jupiter and Saturn"
+  ],
+  "why": "Methane."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet has 28 known moons?",
+  "a": "Uranus",
+  "w": [
+   "Neptune",
+   "Mars",
+   "Saturn"
+  ],
+  "why": "Uranus."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet has 16 moons?",
+  "a": "Neptune",
+  "w": [
+   "Uranus",
+   "Mars",
+   "Earth"
+  ],
+  "why": "Neptune."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet has 13 rings?",
+  "a": "Uranus",
+  "w": [
+   "Neptune",
+   "Saturn",
+   "Jupiter"
+  ],
+  "why": "Uranus."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet has six rings?",
+  "a": "Neptune",
+  "w": [
+   "Uranus",
+   "Saturn",
+   "Venus"
+  ],
+  "why": "Neptune."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet was discovered in 1781?",
+  "a": "Uranus",
+  "w": [
+   "Neptune",
+   "Saturn",
+   "Mars"
+  ],
+  "why": "Uranus."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet was discovered in 1846?",
+  "a": "Neptune",
+  "w": [
+   "Uranus",
+   "Pluto",
+   "Saturn"
+  ],
+  "why": "Neptune."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planets have been visited by only Voyager 2?",
+  "a": "Uranus and Neptune",
+  "w": [
+   "Mars and Venus",
+   "Jupiter and Saturn",
+   "Mercury and Earth"
+  ],
+  "why": "Voyager 2 only."
+ },
+ {
+  "part": "cmp",
+  "q": "Put the outer planets in order from the Sun.",
+  "a": "Jupiter, Saturn, Uranus, Neptune",
+  "w": [
+   "Saturn, Jupiter, Neptune, Uranus",
+   "Jupiter, Uranus, Saturn, Neptune",
+   "Neptune, Uranus, Saturn, Jupiter"
+  ],
+  "why": "Fifth to eighth."
+ },
+ {
+  "part": "cmp",
+  "q": "Put all eight planets in order from the Sun.",
+  "a": "Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune",
+  "w": [
+   "Mercury, Venus, Earth, Mars, Saturn, Jupiter, Uranus, Neptune",
+   "Mercury, Venus, Earth, Mars, Jupiter, Saturn, Neptune, Uranus",
+   "Venus, Mercury, Earth, Mars, Jupiter, Saturn, Uranus, Neptune"
+  ],
+  "why": "Full order."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet is seventh from the Sun?",
+  "a": "Uranus",
+  "w": [
+   "Neptune",
+   "Saturn",
+   "Mars"
+  ],
+  "why": "Uranus."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planet is eighth from the Sun?",
+  "a": "Neptune",
+  "w": [
+   "Uranus",
+   "Saturn",
+   "Pluto"
+  ],
+  "why": "Neptune."
+ },
+ {
+  "part": "cmp",
+  "q": "Which planets are ice giants?",
+  "a": "Uranus and Neptune",
+  "w": [
+   "Jupiter and Saturn",
+   "Earth and Venus",
+   "Mars and Mercury"
+  ],
+  "why": "Uranus and Neptune."
+ },
+ {
+  "part": "cmp",
+  "q": "Which two planets spin backwards (opposite to most planets)?",
+  "a": "Venus and Uranus",
+  "w": [
+   "Earth and Mars",
+   "Jupiter and Neptune",
+   "Mercury and Saturn"
+  ],
+  "why": "Both rotate opposite to most planets."
+ }
+];
+
+/* ---------- HELPERS ---------- */
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+function escapeHtml(str){
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+document.getElementById('header-sub').textContent =
+  cards.length + ' study cards · ' + questions.length + ' quiz questions';
+
+/* ---------- STUDY CARDS ---------- */
+let deck = cards.slice();
+let idx = 0, flipped = false;
+const cardEl = document.getElementById('card');
+
+function renderCard(){
+  const c = deck[idx];
+  document.getElementById('front-text').textContent = c.term;
+  document.getElementById('back-text').textContent = c.def;
+  document.getElementById('face-part').textContent = PART_LABEL[c.part];
+  document.getElementById('back-part').textContent = PART_LABEL[c.part];
+  document.getElementById('flash-count').textContent = (idx+1) + ' / ' + deck.length;
+  document.getElementById('flash-fill').style.width = (((idx+1)/deck.length)*100) + '%';
+  flipped = false;
+  cardEl.classList.remove('flipped');
+}
+// snap back to the front before swapping text so the next answer never flashes
+function goToCard(n){
+  if(flipped){
+    cardEl.classList.add('no-transition');
+    cardEl.classList.remove('flipped');
+    flipped = false;
+    void cardEl.offsetWidth;
+    idx = n; renderCard();
+    void cardEl.offsetWidth;
+    cardEl.classList.remove('no-transition');
+  } else { idx = n; renderCard(); }
+}
+function toggleFlip(){ flipped = !flipped; cardEl.classList.toggle('flipped', flipped); }
+document.getElementById('card-wrap').addEventListener('click', toggleFlip);
+document.getElementById('flip-btn').addEventListener('click', e => { e.stopPropagation(); toggleFlip(); });
+document.getElementById('next-btn').addEventListener('click', () => goToCard((idx+1)%deck.length));
+document.getElementById('prev-btn').addEventListener('click', () => goToCard((idx-1+deck.length)%deck.length));
+document.getElementById('shuffle-btn').addEventListener('click', () => { deck = shuffle(deck); goToCard(0); });
+renderCard();
+
+/* ---------- SCOREBOARD STORAGE ---------- */
+const SCORE_KEY = 'latin-scores-geo4';
+const NAME_KEY = 'latin-player-name';
+
+function getPlayerName(){
+  let name = null;
+  try{ name = localStorage.getItem(NAME_KEY); }catch(e){}
+  if(!name){
+    name = (prompt('What\'s your name? (shown on the scoreboard)') || 'Player').trim().slice(0,24) || 'Player';
+    try{ localStorage.setItem(NAME_KEY, name); }catch(e){}
+  }
+  return name;
+}
+function setPlayerName(){
+  let current = '';
+  try{ current = localStorage.getItem(NAME_KEY) || ''; }catch(e){}
+  const name = (prompt('Enter your name for the scoreboard:', current) || current || 'Player').trim().slice(0,24) || 'Player';
+  try{ localStorage.setItem(NAME_KEY, name); }catch(e){}
+  document.getElementById('player-name-display').textContent = name;
+}
+function loadScores(){
+  try{ return JSON.parse(localStorage.getItem(SCORE_KEY) || '[]'); }catch(e){ return []; }
+}
+function saveScore(name, correct, total, percent, mode){
+  const scores = loadScores();
+  const now = new Date();
+  scores.push({
+    name, correct, total, percent, mode,
+    ts: now.getTime(),
+    date: now.toLocaleDateString(),
+    time: now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
+  });
+  while(scores.length > 50) scores.shift();
+  try{ localStorage.setItem(SCORE_KEY, JSON.stringify(scores)); }catch(e){}
+}
+const MODE_LABEL = Object.assign({master:'Master Quiz', quick:'Quick Mix', all:'Everything'}, Object.fromEntries(Object.keys(PART_LABEL).map(k => [k, PART_LABEL[k].replace(' · ', ': ')])));
+function renderScoreboard(){
+  const content = document.getElementById('scores-content');
+  const scores = loadScores();
+  if(scores.length === 0){
+    content.innerHTML = '<div class="score-empty">No quiz attempts logged yet on this device.<br>Finish a quiz to appear here.</div>';
+    return;
+  }
+  const sorted = scores.slice().sort((a,b) => b.percent - a.percent || (b.ts||0) - (a.ts||0));
+  let current = '';
+  try{ current = localStorage.getItem(NAME_KEY) || ''; }catch(e){}
+  const rows = sorted.slice(0,20).map(s => (
+    '<tr class="' + (s.name === current ? 'you' : '') + '">' +
+      '<td>' + escapeHtml(s.name) + '</td>' +
+      '<td>' + s.correct + ' / ' + s.total + '</td>' +
+      '<td class="score-percent">' + s.percent + '%</td>' +
+      '<td>' + escapeHtml(MODE_LABEL[s.mode] || '') + '</td>' +
+      '<td>' + s.date + '</td>' +
+      '<td>' + (s.time || '&mdash;') + '</td>' +
+    '</tr>'
+  )).join('');
+  content.innerHTML =
+    '<table class="score-table"><thead><tr>' +
+    '<th>Name</th><th>Score</th><th>%</th><th>Quiz</th><th>Date</th><th>Time</th>' +
+    '</tr></thead><tbody>' + rows + '</tbody></table>';
+}
+
+/* ---------- QUIZ ---------- */
+let qDeck = [], qIdx = 0, qCorrect = 0, qAnswered = 0, qMode = 'all', qLocked = false, qMissed = [];
+const setupEl = document.getElementById('quiz-setup');
+const playEl = document.getElementById('quiz-play');
+const doneEl = document.getElementById('quiz-done');
+const optionsEl = document.getElementById('options');
+const feedbackEl = document.getElementById('quiz-feedback');
+const nextBtn = document.getElementById('quiz-next');
+
+const MASTER_SIZE = 50, QUICK_SIZE = 20;
+function questionsFor(mode){
+  if(mode === 'all') return questions.slice();
+  if(mode === 'master') return shuffle(questions.slice()).slice(0, MASTER_SIZE);
+  if(mode === 'quick') return shuffle(questions.slice()).slice(0, QUICK_SIZE);
+  return questions.filter(q => q.part === mode);
+}
+// build the quiz menu from the data so the counts are always right
+(function buildMenu(){
+  const list = document.getElementById('mode-list');
+  [["master", "Master Quiz (random mix)"], ["quick", "Quick Mix (20 random)"], ["all", "Everything"], ["sol", "Part 1: Solstices & Equinoxes"], ["seas", "Part 2: Seasons, Tilt & the Sun’s Path"], ["ss", "Part 3: The Solar System"], ["belts", "Part 4: Inner & Outer Planets, Small Bodies"], ["sun", "Part 5: The Sun"], ["merc", "Part 6: Mercury"], ["ven", "Part 7: Venus"], ["earth", "Part 8: Earth"], ["mars", "Part 9: Mars"], ["jup", "Part 10: Jupiter"], ["sat", "Part 11: Saturn"], ["ura", "Part 12: Uranus"], ["nep", "Part 13: Neptune"], ["cmp", "Part 14: Compare the Planets"], ["bang", "Part 15: The Big Bang & Birth of the Solar System"]].forEach((m,i) => {
+    const b = document.createElement('button');
+    b.className = 'mode-pick' + (i === 0 ? ' primary-pick' : '');
+    b.textContent = m[1] + ' — ' + (m[0]==='master' ? MASTER_SIZE : m[0]==='quick' ? QUICK_SIZE : questionsFor(m[0]).length) + ' questions';
+    b.addEventListener('click', () => { getPlayerName(); startQuiz(m[0]); });
+    list.appendChild(b);
+  });
+})();
+
+function startQuiz(mode){
+  qMode = mode;
+  qDeck = shuffle(questionsFor(mode));
+  qIdx = 0; qCorrect = 0; qAnswered = 0; qMissed = [];
+  setupEl.style.display = 'none';
+  doneEl.style.display = 'none';
+  playEl.style.display = '';
+  document.getElementById('quiz-score').textContent = 'Score: 0 correct / 0 answered';
+  document.getElementById('player-name-display').textContent = getPlayerName();
+  renderQuestion();
+}
+function renderQuestion(){
+  const q = qDeck[qIdx];
+  document.getElementById('quiz-part').textContent = PART_LABEL[q.part];
+  document.getElementById('quiz-q').textContent = q.q;
+  document.getElementById('quiz-count').textContent = (qIdx+1) + ' / ' + qDeck.length;
+  document.getElementById('quiz-fill').style.width = (((qIdx+1)/qDeck.length)*100) + '%';
+  feedbackEl.textContent = '';
+  feedbackEl.className = 'feedback';
+  nextBtn.style.display = 'none';
+  optionsEl.innerHTML = '';
+  qLocked = false;
+  shuffle([q.a].concat(q.w)).forEach((text, i) => {
+    const b = document.createElement('button');
+    b.className = 'opt';
+    b.setAttribute('data-text', text);
+    b.innerHTML = '<span class="key">' + 'ABCD'[i] + '</span> ' + escapeHtml(text);
+    b.addEventListener('click', () => choose(b));
+    optionsEl.appendChild(b);
+  });
+}
+function choose(btn){
+  if(qLocked) return;
+  qLocked = true;
+  const q = qDeck[qIdx];
+  const picked = btn.getAttribute('data-text');
+  const ok = picked === q.a;
+  qAnswered++;
+  Array.prototype.forEach.call(optionsEl.children, b => {
+    b.disabled = true;
+    if(b.getAttribute('data-text') === q.a) b.classList.add('right');
+  });
+  if(ok){
+    qCorrect++;
+    feedbackEl.textContent = 'Correct! ' + q.why;
+    feedbackEl.className = 'feedback correct';
+  } else {
+    btn.classList.add('wrong');
+    qMissed.push(q);
+    feedbackEl.textContent = 'Not quite. ' + q.why;
+    feedbackEl.className = 'feedback wrong';
+  }
+  document.getElementById('quiz-score').textContent = 'Score: ' + qCorrect + ' correct / ' + qAnswered + ' answered';
+  nextBtn.textContent = qIdx + 1 >= qDeck.length ? 'See results' : 'Next';
+  nextBtn.style.display = '';
+  nextBtn.focus();
+}
+nextBtn.addEventListener('click', () => {
+  if(!qLocked) return;          // ignore clicks before an answer is chosen
+  qLocked = false;
+  qIdx++;
+  if(qIdx >= qDeck.length){ finishQuiz(); return; }
+  renderQuestion();
+});
+// keys 1-4 or A-D pick an answer; Enter moves on
+document.addEventListener('keydown', e => {
+  if(playEl.style.display === 'none' || quizView.style.display === 'none') return;
+  if(e.key === 'Enter' && qLocked){
+    // preventDefault stops the focused Next button from also firing its own
+    // click, which would skip a question
+    e.preventDefault();
+    nextBtn.click();
+    return;
+  }
+  const k = '1234abcd'.indexOf(e.key.toLowerCase());
+  if(k !== -1 && !qLocked){
+    const b = optionsEl.children[k % 4];
+    if(b) b.click();
+  }
+});
+function scoreMessage(p){
+  if(p >= 100) return {title:'Perfect score!', msg:'Every answer correct. You really know Earth and the Universe.'};
+  if(p >= 90)  return {title:'Excellent work!', msg:'Nearly flawless. Just a detail or two to polish.'};
+  if(p >= 80)  return {title:'Great job!', msg:'Solid understanding. Review the ones you missed and you will have them locked in.'};
+  if(p >= 70)  return {title:'Good effort!', msg:'You are on the right track. A bit more practice and these will stick.'};
+  return {title:'Keep practicing!', msg:'Go back through the study cards, then try the quiz again. You will improve fast.'};
+}
+function finishQuiz(){
+  const percent = Math.round((qCorrect / qDeck.length) * 100);
+  saveScore(getPlayerName(), qCorrect, qDeck.length, percent, qMode);
+  const m = scoreMessage(percent);
+  playEl.style.display = 'none';
+  doneEl.style.display = '';
+  document.getElementById('done-percent').textContent = percent + '% correct (' + qCorrect + ' of ' + qDeck.length + ')';
+  document.getElementById('done-title').textContent = m.title;
+  document.getElementById('done-msg').textContent = m.msg;
+  const missedEl = document.getElementById('done-missed');
+  if(qMissed.length){
+    missedEl.innerHTML = '<strong style="color:var(--gold-bright);">Review these:</strong>' +
+      '<ul style="margin:8px 0 0;padding-left:20px;line-height:1.6;">' +
+      qMissed.map(q => '<li>' + escapeHtml(q.q) + '<br><em>' + escapeHtml(q.a) + '</em></li>').join('') +
+      '</ul>';
+  } else { missedEl.innerHTML = ''; }
+}
+document.getElementById('done-restart').addEventListener('click', () => startQuiz(qMode));
+document.getElementById('done-menu').addEventListener('click', () => {
+  doneEl.style.display = 'none'; playEl.style.display = 'none'; setupEl.style.display = '';
+});
+document.getElementById('change-name-btn').addEventListener('click', setPlayerName);
+
+/* ---------- MODE SWITCH ---------- */
+const btnFlash = document.getElementById('btn-flash');
+const btnQuiz = document.getElementById('btn-quiz');
+const btnScores = document.getElementById('btn-scores');
+const flashView = document.getElementById('flash-view');
+const quizView = document.getElementById('quiz-view');
+const scoresView = document.getElementById('scores-view');
+function setActiveTab(activeBtn){
+  [btnFlash, btnQuiz, btnScores].forEach(b => b.classList.remove('active'));
+  activeBtn.classList.add('active');
+  [flashView, quizView, scoresView].forEach(v => v.style.display = 'none');
+}
+btnFlash.addEventListener('click', () => { setActiveTab(btnFlash); flashView.style.display = ''; });
+btnQuiz.addEventListener('click', () => {
+  setActiveTab(btnQuiz);
+  quizView.style.display = '';
+  let n = 'Player';
+  try{ n = localStorage.getItem(NAME_KEY) || 'Player'; }catch(e){}
+  document.getElementById('player-name-display').textContent = n;
+});
+btnScores.addEventListener('click', () => { setActiveTab(btnScores); scoresView.style.display = ''; renderScoreboard(); });
+</script>
+
+</body>
+</html>
