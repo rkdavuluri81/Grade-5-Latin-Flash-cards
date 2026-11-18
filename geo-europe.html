@@ -1,0 +1,3963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geography: Europe | Basis Grade 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --stone: #2b2620;
+    --stone-light: #3c352c;
+    --gold: #b8892b;
+    --gold-bright: #d9a840;
+    --plaster: #ece4d3;
+    --plaster-dim: #c9beaa;
+    --wine: #7a2e2e;
+    --wine-bright: #a8433f;
+    --green: #4f6b4a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(184,137,43,0.08), transparent 60%),
+      var(--stone);
+    color:var(--plaster);
+    font-family:'Source Serif 4', serif;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:32px 20px 60px;
+  }
+  header{
+    text-align:center;
+    max-width:640px;
+    margin-bottom:28px;
+  }
+  .kicker{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.12em;
+    color:var(--gold-bright);
+    margin:0 0 6px;
+  }
+  h1{
+    font-family:'Cinzel',serif;
+    font-weight:700;
+    font-size:clamp(24px,4vw,34px);
+    margin:0 0 8px;
+    color:var(--plaster);
+  }
+  .sub{
+    color:var(--plaster-dim);
+    font-size:15px;
+    margin:0;
+  }
+  .modebar{
+    display:flex;
+    gap:8px;
+    margin-bottom:26px;
+    background:var(--stone-light);
+    padding:5px;
+    border-radius:999px;
+    border:1px solid rgba(184,137,43,0.25);
+  }
+  .modebar button{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.03em;
+    padding:9px 20px;
+    border-radius:999px;
+    border:none;
+    background:transparent;
+    color:var(--plaster-dim);
+    cursor:pointer;
+    transition:background .2s, color .2s;
+  }
+  .modebar button.active{
+    background:var(--gold);
+    color:var(--stone);
+  }
+  .stage{
+    width:100%;
+    max-width:560px;
+  }
+  .progress{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:14px;
+    font-size:13px;
+    color:var(--plaster-dim);
+    font-family:'Cinzel',serif;
+    letter-spacing:0.05em;
+  }
+  .progress-track{
+    flex:1;
+    height:3px;
+    background:rgba(236,228,211,0.15);
+    margin:0 14px;
+    position:relative;
+    border-radius:2px;
+    overflow:hidden;
+  }
+  .progress-fill{
+    position:absolute;
+    left:0;top:0;bottom:0;
+    background:var(--gold);
+    transition:width .3s ease;
+  }
+
+  /* FLASHCARD MODE */
+  .card-wrap{
+    perspective:1400px;
+    height:280px;
+    margin-bottom:22px;
+    cursor:pointer;
+  }
+  .card{
+    position:relative;
+    width:100%;
+    height:100%;
+    transform-style:preserve-3d;
+    transition:transform .5s cubic-bezier(.4,.2,.2,1);
+  }
+  .card.flipped{ transform:rotateY(180deg); }
+  .card.no-transition{ transition:none !important; }
+  .face{
+    position:absolute;
+    inset:0;
+    backface-visibility:hidden;
+    border-radius:6px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:32px;
+    border:1px solid rgba(184,137,43,0.3);
+  }
+  .face.front{
+    background:linear-gradient(160deg, var(--stone-light), var(--stone));
+    box-shadow: inset 0 0 0 1px rgba(236,228,211,0.04), 0 10px 30px rgba(0,0,0,0.35);
+  }
+  .face.back{
+    background:linear-gradient(160deg, var(--wine-bright), var(--wine));
+    transform:rotateY(180deg);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  }
+  .card-num{
+    font-family:'Cinzel',serif;
+    font-size:12px;
+    letter-spacing:0.1em;
+    color:var(--gold-bright);
+    position:absolute;
+    top:16px;
+    left:20px;
+  }
+  .latin{
+    font-family:'Cinzel',serif;
+    font-weight:700;
+    font-size:clamp(22px,5vw,30px);
+    color:var(--plaster);
+    line-height:1.3;
+  }
+  .hint{
+    margin-top:14px;
+    font-size:12px;
+    color:var(--plaster-dim);
+    letter-spacing:0.05em;
+  }
+  .pron{
+    font-family:'Source Serif 4',serif;
+    font-style:italic;
+    font-size:14px;
+    color:var(--gold-bright);
+    margin-top:8px;
+  }
+  .speak-btn{
+    background:none;
+    border:1px solid rgba(184,137,43,0.4);
+    color:var(--gold-bright);
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:15px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    margin-top:12px;
+    transition:background .2s;
+  }
+  .speak-btn:hover{ background:rgba(184,137,43,0.15); }
+  .speak-btn:active{ transform:scale(0.94); }
+  .definition{
+    font-size:clamp(20px,4.5vw,26px);
+    color:var(--plaster);
+    font-style:italic;
+  }
+  .controls{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+  }
+  .controls button{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.05em;
+    background:var(--stone-light);
+    color:var(--plaster);
+    border:1px solid rgba(184,137,43,0.3);
+    padding:11px 20px;
+    border-radius:4px;
+    cursor:pointer;
+    transition:background .2s, border-color .2s;
+  }
+  .controls button:hover{ border-color:var(--gold-bright); }
+  .controls button.primary{
+    background:var(--gold);
+    color:var(--stone);
+    border-color:var(--gold);
+    font-weight:700;
+  }
+  .controls button:disabled{
+    opacity:0.35;
+    cursor:default;
+  }
+  .shuffle-row{
+    display:flex;
+    justify-content:center;
+    margin-top:16px;
+  }
+  .shuffle-row button{
+    background:none;
+    border:none;
+    color:var(--plaster-dim);
+    font-size:13px;
+    font-family:'Source Serif 4',serif;
+    text-decoration:underline;
+    text-decoration-color:rgba(184,137,43,0.5);
+    cursor:pointer;
+  }
+
+  /* QUIZ MODE */
+  .quiz-box{
+    background:var(--stone-light);
+    border:1px solid rgba(184,137,43,0.25);
+    border-radius:6px;
+    padding:36px 30px;
+    margin-bottom:20px;
+    min-height:280px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .quiz-prompt{
+    font-size:13px;
+    color:var(--gold-bright);
+    font-family:'Cinzel',serif;
+    letter-spacing:0.08em;
+    margin-bottom:8px;
+  }
+  .quiz-latin{
+    font-family:'Cinzel',serif;
+    font-weight:700;
+    font-size:clamp(24px,5vw,30px);
+    margin-bottom:22px;
+  }
+  .quiz-box input{
+    width:100%;
+    font-family:'Source Serif 4',serif;
+    font-size:18px;
+    padding:12px 14px;
+    border-radius:4px;
+    border:1px solid rgba(236,228,211,0.25);
+    background:rgba(0,0,0,0.2);
+    color:var(--plaster);
+    margin-bottom:14px;
+  }
+  .quiz-box input:focus{
+    outline:none;
+    border-color:var(--gold-bright);
+  }
+  .feedback{
+    font-size:15px;
+    min-height:24px;
+    margin-bottom:6px;
+  }
+  .feedback.correct{ color:#8fbf7a; }
+  .feedback.wrong{ color:#d98a8a; }
+  .quiz-score{
+    text-align:center;
+    font-family:'Cinzel',serif;
+    letter-spacing:0.05em;
+    font-size:13px;
+    color:var(--plaster-dim);
+    margin-top:8px;
+  }
+  footer{
+    margin-top:36px;
+    font-size:12px;
+    color:rgba(236,228,211,0.35);
+    text-align:center;
+  }
+  .player-badge{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    font-size:13px;
+    color:var(--plaster-dim);
+    margin-bottom:16px;
+  }
+  .player-badge button{
+    background:none;
+    border:none;
+    color:var(--gold-bright);
+    text-decoration:underline;
+    cursor:pointer;
+    font-size:13px;
+    font-family:'Source Serif 4',serif;
+    padding:0;
+  }
+  .score-table{
+    width:100%;
+    border-collapse:collapse;
+    background:var(--stone-light);
+    border:1px solid rgba(184,137,43,0.25);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .score-table th, .score-table td{
+    padding:12px 14px;
+    text-align:left;
+    font-size:14px;
+  }
+  .score-table th{
+    font-family:'Cinzel',serif;
+    font-size:11px;
+    letter-spacing:0.08em;
+    color:var(--gold-bright);
+    border-bottom:1px solid rgba(184,137,43,0.25);
+  }
+  .score-table tbody tr:not(:last-child) td{
+    border-bottom:1px solid rgba(236,228,211,0.08);
+  }
+  .score-table tbody tr.you{
+    background:rgba(184,137,43,0.12);
+  }
+  .score-percent{
+    font-weight:600;
+  }
+  .score-empty{
+    text-align:center;
+    color:var(--plaster-dim);
+    font-size:14px;
+    padding:40px 20px;
+    background:var(--stone-light);
+    border:1px dashed rgba(184,137,43,0.3);
+    border-radius:6px;
+  }
+  .score-actions{
+    display:flex;
+    justify-content:center;
+    margin-top:16px;
+  }
+  .score-actions button{
+    background:none;
+    border:none;
+    color:var(--plaster-dim);
+    font-size:13px;
+    font-family:'Source Serif 4',serif;
+    text-decoration:underline;
+    text-decoration-color:rgba(184,137,43,0.4);
+    cursor:pointer;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .card{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" style="align-self:flex-start;margin-left:2px;color:var(--gold-bright);font-family:'Cinzel',serif;font-size:12px;letter-spacing:0.08em;text-decoration:none;margin-bottom:18px;">&larr; ALL LESSONS</a>
+<header>
+  <p class="kicker">Geography &middot; Europe</p>
+  <h1>Europe</h1>
+  <p class="sub" id="header-sub">Study cards and a multiple-choice quiz</p>
+</header>
+
+<div class="modebar">
+  <button id="btn-flash" class="active">Study cards</button>
+  <button id="btn-quiz">Quiz me</button>
+  <button id="btn-scores">Scoreboard</button>
+</div>
+
+<div class="stage">
+
+  <!-- STUDY CARDS -->
+  <div id="flash-view">
+    <div class="progress">
+      <span id="flash-count">1 / 14</span>
+      <div class="progress-track"><div class="progress-fill" id="flash-fill"></div></div>
+      <span>&nbsp;</span>
+    </div>
+
+    <div class="card-wrap tall" id="card-wrap">
+      <div class="card" id="card">
+        <div class="face front">
+          <span class="card-num" id="face-part">Part 1</span>
+          <div class="latin" id="front-text">Characterization</div>
+          <div class="hint">tap card to reveal the definition</div>
+        </div>
+        <div class="face back">
+          <span class="card-num" id="back-part">Part 1</span>
+          <div class="definition long" id="back-text"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="prev-btn">&larr; Prev</button>
+      <button id="flip-btn" class="primary">Flip</button>
+      <button id="next-btn">Next &rarr;</button>
+    </div>
+    <div class="shuffle-row">
+      <button id="shuffle-btn">Shuffle cards</button>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz-view" style="display:none;">
+    <div class="player-badge">
+      Playing as <strong id="player-name-display">Player</strong>
+      <button id="change-name-btn">change</button>
+    </div>
+
+    <div id="quiz-setup" class="quiz-box">
+      <p class="quiz-prompt">Choose a quiz</p>
+      <div class="quiz-latin" style="font-size:20px;margin-bottom:20px;">What do you want to practice?</div>
+      <div id="mode-list" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+
+    <div id="quiz-play" style="display:none;">
+      <div class="progress">
+        <span id="quiz-count">1 / 25</span>
+        <div class="progress-track"><div class="progress-fill" id="quiz-fill"></div></div>
+        <span>&nbsp;</span>
+      </div>
+      <div class="quiz-box">
+        <p class="quiz-prompt" id="quiz-part">Part 1 &middot; Characterization</p>
+        <div class="question-text" id="quiz-q"></div>
+        <div id="options" class="options"></div>
+        <div class="feedback" id="quiz-feedback"></div>
+        <div class="controls">
+          <button id="quiz-next" class="primary" style="display:none;">Next</button>
+        </div>
+      </div>
+      <div class="quiz-score" id="quiz-score">Score: 0 correct / 0 answered</div>
+    </div>
+
+    <div id="quiz-done" class="quiz-box" style="display:none;text-align:center;">
+      <p class="quiz-prompt" id="done-percent"></p>
+      <div class="quiz-latin" id="done-title"></div>
+      <p id="done-msg" style="color:var(--plaster-dim);font-size:15px;line-height:1.5;margin:0 0 20px;"></p>
+      <div id="done-missed" style="text-align:left;font-size:14px;color:var(--plaster-dim);margin-bottom:20px;"></div>
+      <div class="controls">
+        <button id="done-restart" class="primary">Try again</button>
+        <button id="done-menu">Change quiz</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCOREBOARD -->
+  <div id="scores-view" style="display:none;">
+    <div id="scores-content"></div>
+  </div>
+
+</div>
+
+<footer>Based on Map Quiz 3A (geographic features) and the Europe Countries &amp; Capitals map. Scoreboard is saved in this browser only.</footer>
+
+<style>
+  .card-wrap.tall{ height:340px; }
+  .definition.long{
+    font-size:clamp(15px,3.6vw,18px);
+    line-height:1.55;
+    font-style:normal;
+    white-space:pre-line;
+  }
+  .question-text{
+    font-family:'Source Serif 4',serif;
+    font-size:clamp(18px,4.2vw,21px);
+    line-height:1.45;
+    margin-bottom:20px;
+    color:var(--plaster);
+  }
+  .options{ display:flex; flex-direction:column; gap:10px; margin-bottom:14px; }
+  .opt{
+    font-family:'Source Serif 4',serif;
+    font-size:16px;
+    line-height:1.4;
+    text-align:left;
+    background:rgba(0,0,0,0.2);
+    color:var(--plaster);
+    border:1px solid rgba(184,137,43,0.3);
+    padding:12px 14px;
+    border-radius:4px;
+    cursor:pointer;
+    transition:border-color .2s, background .2s;
+  }
+  .opt:hover:not(:disabled){ border-color:var(--gold-bright); background:rgba(184,137,43,0.12); }
+  .opt:disabled{ cursor:default; }
+  .opt.right{ border-color:#8fbf7a; background:rgba(143,191,122,0.16); }
+  .opt.wrong{ border-color:#d98a8a; background:rgba(217,138,138,0.16); }
+  .opt .key{
+    display:inline-block;
+    min-width:22px;
+    font-family:'Cinzel',serif;
+    font-size:12px;
+    color:var(--gold-bright);
+  }
+  .mode-pick{
+    font-family:'Cinzel',serif;
+    font-size:13px;
+    letter-spacing:0.04em;
+    text-align:left;
+    background:rgba(0,0,0,0.2);
+    color:var(--plaster);
+    border:1px solid rgba(184,137,43,0.3);
+    padding:14px 16px;
+    border-radius:4px;
+    cursor:pointer;
+    transition:border-color .2s, background .2s;
+  }
+  .mode-pick:hover{ border-color:var(--gold-bright); background:rgba(184,137,43,0.12); }
+  .mode-pick.primary-pick{ border-color:var(--gold); }
+</style>
+
+<script>
+/* ---------- CONTENT (from the Europe worksheets) ---------- */
+const PART_LABEL = {"capw": "Part 1 · Capitals: Western & Southern Europe", "cape": "Part 2 · Capitals: Northern & Eastern Europe", "capb": "Part 3 · Capitals: The Balkans", "map": "Part 4 · Map Skills & Tiny Countries", "mtn": "Part 5 · Mountains", "isle": "Part 6 · Isles & Peninsulas", "plain": "Part 7 · Plains", "sea": "Part 8 · Seas & Oceans", "river": "Part 9 · Rivers"};
+
+const cards = [
+ {
+  "part": "capw",
+  "term": "United Kingdom",
+  "def": "Capital: London"
+ },
+ {
+  "part": "capw",
+  "term": "Ireland",
+  "def": "Capital: Dublin"
+ },
+ {
+  "part": "capw",
+  "term": "France",
+  "def": "Capital: Paris"
+ },
+ {
+  "part": "capw",
+  "term": "Spain",
+  "def": "Capital: Madrid"
+ },
+ {
+  "part": "capw",
+  "term": "Portugal",
+  "def": "Capital: Lisbon"
+ },
+ {
+  "part": "capw",
+  "term": "Italy",
+  "def": "Capital: Rome"
+ },
+ {
+  "part": "capw",
+  "term": "Germany",
+  "def": "Capital: Berlin"
+ },
+ {
+  "part": "capw",
+  "term": "Netherlands",
+  "def": "Capital: Amsterdam"
+ },
+ {
+  "part": "capw",
+  "term": "Belgium",
+  "def": "Capital: Brussels"
+ },
+ {
+  "part": "capw",
+  "term": "Luxembourg",
+  "def": "Capital: Luxembourg City"
+ },
+ {
+  "part": "capw",
+  "term": "Switzerland",
+  "def": "Capital: Bern"
+ },
+ {
+  "part": "capw",
+  "term": "Austria",
+  "def": "Capital: Vienna"
+ },
+ {
+  "part": "capw",
+  "term": "Liechtenstein",
+  "def": "Capital: Vaduz"
+ },
+ {
+  "part": "capw",
+  "term": "Monaco",
+  "def": "Capital: Monaco"
+ },
+ {
+  "part": "capw",
+  "term": "Andorra",
+  "def": "Capital: Andorra la Vella"
+ },
+ {
+  "part": "capw",
+  "term": "San Marino",
+  "def": "Capital: San Marino"
+ },
+ {
+  "part": "capw",
+  "term": "Vatican City",
+  "def": "Capital: Vatican City"
+ },
+ {
+  "part": "capw",
+  "term": "Malta",
+  "def": "Capital: Valletta"
+ },
+ {
+  "part": "capw",
+  "term": "Greece",
+  "def": "Capital: Athens"
+ },
+ {
+  "part": "capw",
+  "term": "Cyprus",
+  "def": "Capital: Nicosia"
+ },
+ {
+  "part": "cape",
+  "term": "Iceland",
+  "def": "Capital: Reykjavik"
+ },
+ {
+  "part": "cape",
+  "term": "Norway",
+  "def": "Capital: Oslo"
+ },
+ {
+  "part": "cape",
+  "term": "Sweden",
+  "def": "Capital: Stockholm"
+ },
+ {
+  "part": "cape",
+  "term": "Finland",
+  "def": "Capital: Helsinki"
+ },
+ {
+  "part": "cape",
+  "term": "Denmark",
+  "def": "Capital: Copenhagen"
+ },
+ {
+  "part": "cape",
+  "term": "Estonia",
+  "def": "Capital: Tallinn"
+ },
+ {
+  "part": "cape",
+  "term": "Latvia",
+  "def": "Capital: Riga"
+ },
+ {
+  "part": "cape",
+  "term": "Lithuania",
+  "def": "Capital: Vilnius"
+ },
+ {
+  "part": "cape",
+  "term": "Poland",
+  "def": "Capital: Warsaw"
+ },
+ {
+  "part": "cape",
+  "term": "Czech Republic",
+  "def": "Capital: Prague"
+ },
+ {
+  "part": "cape",
+  "term": "Slovakia",
+  "def": "Capital: Bratislava"
+ },
+ {
+  "part": "cape",
+  "term": "Hungary",
+  "def": "Capital: Budapest"
+ },
+ {
+  "part": "cape",
+  "term": "Belarus",
+  "def": "Capital: Minsk"
+ },
+ {
+  "part": "cape",
+  "term": "Ukraine",
+  "def": "Capital: Kiev"
+ },
+ {
+  "part": "cape",
+  "term": "Moldova",
+  "def": "Capital: Chișinău"
+ },
+ {
+  "part": "cape",
+  "term": "Russia",
+  "def": "Capital: Moscow"
+ },
+ {
+  "part": "cape",
+  "term": "Romania",
+  "def": "Capital: Bucharest"
+ },
+ {
+  "part": "cape",
+  "term": "Bulgaria",
+  "def": "Capital: Sofia"
+ },
+ {
+  "part": "cape",
+  "term": "Turkey",
+  "def": "Capital: Ankara"
+ },
+ {
+  "part": "capb",
+  "term": "Albania",
+  "def": "Capital: Tirana"
+ },
+ {
+  "part": "capb",
+  "term": "Bosnia-Herzegovina",
+  "def": "Capital: Sarajevo"
+ },
+ {
+  "part": "capb",
+  "term": "Croatia",
+  "def": "Capital: Zagreb"
+ },
+ {
+  "part": "capb",
+  "term": "Kosovo",
+  "def": "Capital: Pristina"
+ },
+ {
+  "part": "capb",
+  "term": "Montenegro",
+  "def": "Capital: Podgorica"
+ },
+ {
+  "part": "capb",
+  "term": "North Macedonia",
+  "def": "Capital: Skopje"
+ },
+ {
+  "part": "capb",
+  "term": "Serbia",
+  "def": "Capital: Belgrade"
+ },
+ {
+  "part": "capb",
+  "term": "Slovenia",
+  "def": "Capital: Ljubljana"
+ },
+ {
+  "part": "map",
+  "term": "Map #1: Luxembourg",
+  "def": "Capital: Luxembourg City"
+ },
+ {
+  "part": "map",
+  "term": "Map #2: Liechtenstein",
+  "def": "Capital: Vaduz"
+ },
+ {
+  "part": "map",
+  "term": "Map #3: San Marino",
+  "def": "Capital: San Marino"
+ },
+ {
+  "part": "map",
+  "term": "Map #4: Slovenia",
+  "def": "Capital: Ljubljana"
+ },
+ {
+  "part": "map",
+  "term": "Map #5: Croatia",
+  "def": "Capital: Zagreb"
+ },
+ {
+  "part": "map",
+  "term": "Map #6: Bosnia and Herzegovina",
+  "def": "Capital: Sarajevo"
+ },
+ {
+  "part": "map",
+  "term": "Map #7: Montenegro",
+  "def": "Capital: Podgorica"
+ },
+ {
+  "part": "map",
+  "term": "Map #8: Kosovo",
+  "def": "Capital: Pristina"
+ },
+ {
+  "part": "map",
+  "term": "Map #9: North Macedonia",
+  "def": "Capital: Skopje"
+ },
+ {
+  "part": "map",
+  "term": "Tiny countries",
+  "def": "Luxembourg, Liechtenstein, San Marino, Monaco, Andorra, Malta, Vatican City."
+ },
+ {
+  "part": "map",
+  "term": "Same name as capital",
+  "def": "Monaco, San Marino, Vatican City (and Luxembourg → Luxembourg City)."
+ },
+ {
+  "part": "mtn",
+  "term": "Alps",
+  "def": "Unscrambled on Map Quiz 3A as “lspa”."
+ },
+ {
+  "part": "mtn",
+  "term": "Balkan Mountains",
+  "def": "Unscrambled on Map Quiz 3A as “kbnimtoansaauln”."
+ },
+ {
+  "part": "mtn",
+  "term": "Ural Mountains",
+  "def": "Unscrambled on Map Quiz 3A as “luaomuntiarns”."
+ },
+ {
+  "part": "mtn",
+  "term": "Scandinavian Mountains",
+  "def": "Unscrambled on Map Quiz 3A as “tmaoivnncdaisanaiunsn”."
+ },
+ {
+  "part": "mtn",
+  "term": "Mount Elbrus",
+  "def": "Unscrambled on Map Quiz 3A as “temnublsruo”."
+ },
+ {
+  "part": "mtn",
+  "term": "Apennines",
+  "def": "Unscrambled on Map Quiz 3A as “pennasein”."
+ },
+ {
+  "part": "mtn",
+  "term": "Taurus Mountains",
+  "def": "Unscrambled on Map Quiz 3A as “nntusouisrtmaua”."
+ },
+ {
+  "part": "mtn",
+  "term": "Carpathians",
+  "def": "Unscrambled on Map Quiz 3A as “hnatpcaiasr”."
+ },
+ {
+  "part": "mtn",
+  "term": "Pyrenees",
+  "def": "Unscrambled on Map Quiz 3A as “esyeenpr”."
+ },
+ {
+  "part": "mtn",
+  "term": "Mont Blanc",
+  "def": "Unscrambled on Map Quiz 3A as “mnnclbato”."
+ },
+ {
+  "part": "mtn",
+  "term": "Caucasus",
+  "def": "Unscrambled on Map Quiz 3A as “sucsucaa”."
+ },
+ {
+  "part": "isle",
+  "term": "Italian Peninsula",
+  "def": "Unscrambled on Map Quiz 3A as “etnpliiasananiul”."
+ },
+ {
+  "part": "isle",
+  "term": "Iberian Peninsula",
+  "def": "Unscrambled on Map Quiz 3A as “iurnienplsnabaei”."
+ },
+ {
+  "part": "isle",
+  "term": "Anatolia",
+  "def": "Unscrambled on Map Quiz 3A as “oilatana”."
+ },
+ {
+  "part": "isle",
+  "term": "Scandinavian Peninsula",
+  "def": "Unscrambled on Map Quiz 3A as “uinaipndaelcsnavsnani”."
+ },
+ {
+  "part": "isle",
+  "term": "Iceland",
+  "def": "Unscrambled on Map Quiz 3A as “andecil”."
+ },
+ {
+  "part": "isle",
+  "term": "Balkan Peninsula",
+  "def": "Unscrambled on Map Quiz 3A as “blnknpsaeniaaul”."
+ },
+ {
+  "part": "isle",
+  "term": "British Isles",
+  "def": "Unscrambled on Map Quiz 3A as “sitislrebshi”."
+ },
+ {
+  "part": "plain",
+  "term": "Northern European Plain",
+  "def": "Plain across northern Europe."
+ },
+ {
+  "part": "plain",
+  "term": "East European Plain",
+  "def": "Plain across eastern Europe (into Russia)."
+ },
+ {
+  "part": "sea",
+  "term": "Black Sea",
+  "def": "Unscrambled on Map Quiz 3A as “lcabakes”."
+ },
+ {
+  "part": "sea",
+  "term": "North Sea",
+  "def": "Unscrambled on Map Quiz 3A as “rotnseha”."
+ },
+ {
+  "part": "sea",
+  "term": "Arctic Ocean",
+  "def": "Unscrambled on Map Quiz 3A as “oatccenirca”."
+ },
+ {
+  "part": "sea",
+  "term": "Mediterranean Sea",
+  "def": "Unscrambled on Map Quiz 3A as “neaeamtdernsaier”."
+ },
+ {
+  "part": "sea",
+  "term": "Atlantic Ocean",
+  "def": "Unscrambled on Map Quiz 3A as “elctianatoanc”."
+ },
+ {
+  "part": "sea",
+  "term": "Caspian Sea",
+  "def": "Unscrambled on Map Quiz 3A as “aiscanapes”."
+ },
+ {
+  "part": "sea",
+  "term": "Bay of Biscay",
+  "def": "Unscrambled on Map Quiz 3A as “aifbcsbyaoy”."
+ },
+ {
+  "part": "sea",
+  "term": "Norwegian Sea",
+  "def": "Unscrambled on Map Quiz 3A as “asnornewigae”."
+ },
+ {
+  "part": "sea",
+  "term": "Baltic Sea",
+  "def": "Unscrambled on Map Quiz 3A as “aliebcsta”."
+ },
+ {
+  "part": "river",
+  "term": "Rhine",
+  "def": "Unscrambled on Map Quiz 3A as “rnhie”."
+ },
+ {
+  "part": "river",
+  "term": "Tagus",
+  "def": "Unscrambled on Map Quiz 3A as “gstua”."
+ },
+ {
+  "part": "river",
+  "term": "Volga",
+  "def": "Unscrambled on Map Quiz 3A as “glvoa”."
+ },
+ {
+  "part": "river",
+  "term": "Danube",
+  "def": "Unscrambled on Map Quiz 3A as “nubaed”."
+ },
+ {
+  "part": "river",
+  "term": "Rhone",
+  "def": "Unscrambled on Map Quiz 3A as “honre”."
+ },
+ {
+  "part": "river",
+  "term": "Dniester",
+  "def": "Unscrambled on Map Quiz 3A as “neresidt”."
+ },
+ {
+  "part": "river",
+  "term": "Seine",
+  "def": "Unscrambled on Map Quiz 3A as “niese”."
+ },
+ {
+  "part": "river",
+  "term": "Loire",
+  "def": "Unscrambled on Map Quiz 3A as “relio”."
+ },
+ {
+  "part": "river",
+  "term": "Dnieper",
+  "def": "Unscrambled on Map Quiz 3A as “edrnpei”."
+ }
+];
+
+// a = correct answer, w = three wrong answers, why = shown after answering
+const questions = [
+ {
+  "part": "capw",
+  "q": "What is the capital of United Kingdom?",
+  "a": "London",
+  "w": [
+   "Vienna",
+   "Rome",
+   "Monaco"
+  ],
+  "why": "London is the capital of United Kingdom."
+ },
+ {
+  "part": "capw",
+  "q": "London is the capital of which country?",
+  "a": "United Kingdom",
+  "w": [
+   "France",
+   "Spain",
+   "Portugal"
+  ],
+  "why": "London is the capital of United Kingdom."
+ },
+ {
+  "part": "capw",
+  "q": "What is the capital of Ireland?",
+  "a": "Dublin",
+  "w": [
+   "Vaduz",
+   "Paris",
+   "Valletta"
+  ],
+  "why": "Dublin is the capital of Ireland."
+ },
+ {
+  "part": "capw",
+  "q": "Dublin is the capital of which country?",
+  "a": "Ireland",
+  "w": [
+   "Netherlands",
+   "France",
+   "Spain"
+  ],
+  "why": "Dublin is the capital of Ireland."
+ },
+ {
+  "part": "capw",
+  "q": "What is the capital of France?",
+  "a": "Paris",
+  "w": [
+   "Andorra la Vella",
+   "Nicosia",
+   "Madrid"
+  ],
+  "why": "Paris is the capital of France."
+ },
+ {
+  "part": "capw",
+  "q": "Paris is the capital of which country?",
+  "a": "France",
+  "w": [
+   "Belgium",
+   "Spain",
+   "Andorra"
+  ],
+  "why": "Paris is the capital of France."
+ },
+ {
+  "part": "capw",
+  "q": "What is the capital of Spain?",
+  "a": "Madrid",
+  "w": [
+   "Dublin",
+   "Lisbon",
+   "Brussels"
+  ],
+  "why": "Madrid is the capital of Spain."
+ },
+ {
+  "part": "capw",
+  "q": "Madrid is the capital of which country?",
+  "a": "Spain",
+  "w": [
+   "Cyprus",
+   "Ireland",
+   "Monaco"
+  ],
+  "why": "Madrid is the capital of Spain."
+ },
+ {
+  "part": "capw",
+  "q": "What is the capital of Portugal?",
+  "a": "Lisbon",
+  "w": [
+   "Dublin",
+   "Brussels",
+   "Nicosia"
+  ],
+  "why": "Lisbon is the capital of Portugal."
+ },
+ {
+  "part": "capw",
+  "q": "Lisbon is the capital of which country?",
+  "a": "Portugal",
+  "w": [
+   "Greece",
+   "Italy",
+   "Switzerland"
+  ],
+  "why": "Lisbon is the capital of Portugal."
+ },
+ {
+  "part": "capw",
+  "q": "What is the capital of Italy?",
+  "a": "Rome",
+  "w": [
+   "Andorra la Vella",
+   "Lisbon",
+   "Madrid"
+  ],
+  "why": "Rome is the capital of Italy."
+ },
+ {
+  "part": "capw",
+  "q": "Rome is the capital of which country?",
+  "a": "Italy",
+  "w": [
+   "Cyprus",
+   "Switzerland",
+   "Germany"
+  ],
+  "why": "Rome is the capital of Italy."
+ },
+ {
+  "part": "capw",
+  "q": "What is the capital of Germany?",
+  "a": "Berlin",
+  "w": [
+   "Madrid",
+   "Amsterdam",
+   "Vaduz"
+  ],
+  "why": "Berlin is the capital of Germany."
+ },
+ {
+  "part": "capw",
+  "q": "Berlin is the capital of which country?",
+  "a": "Germany",
+  "w": [
+   "Spain",
+   "Greece",
+   "France"
+  ],
+  "why": "Berlin is the capital of Germany."
+ },
+ {
+  "part": "capw",
+  "q": "What is the capital of Netherlands?",
+  "a": "Amsterdam",
+  "w": [
+   "Nicosia",
+   "Dublin",
+   "Berlin"
+  ],
+  "why": "Amsterdam is the capital of Netherlands."
+ },
+ {
+  "part": "capw",
+  "q": "Amsterdam is the capital of which country?",
+  "a": "Netherlands",
+  "w": [
+   "Vatican City",
+   "Greece",
+   "Andorra"
+  ],
+  "why": "Amsterdam is the capital of Netherlands."
+ },
+ {
+  "part": "capw",
+  "q": "What is the capital of Belgium?",
+  "a": "Brussels",
+  "w": [
+   "Vienna",
+   "San Marino",
+   "Athens"
+  ],
+  "why": "Brussels is the capital of Belgium."
+ },
+ {
+  "part": "capw",
+  "q": "Brussels is the capital of which country?",
+  "a": "Belgium",
+  "w": [
+   "Liechtenstein",
+   "Switzerland",
+   "Netherlands"
+  ],
+  "why": "Brussels is the capital of Belgium."
+ },
+ {
+  "part": "capw",
+  "q": "What is the capital of Luxembourg?",
+  "a": "Luxembourg City",
+  "w": [
+   "Rome",
+   "Amsterdam",
+   "Paris"
+  ],
+  "why": "Luxembourg City is the capital of Luxembourg."
+ },
+ {
+  "part": "capw",
+  "q": "Luxembourg City is the capital of which country?",
+  "a": "Luxembourg",
+  "w": [
+   "Cyprus",
+   "Switzerland",
+   "Malta"
+  ],
+  "why": "Luxembourg City is the capital of Luxembourg."
+ },
+ {
+  "part": "capw",
+  "q": "What is the capital of Switzerland?",
+  "a": "Bern",
+  "w": [
+   "Vatican City",
+   "Vienna",
+   "San Marino"
+  ],
+  "why": "Bern is the capital of Switzerland."
+ },
+ {
+  "part": "capw",
+  "q": "Bern is the capital of which country?",
+  "a": "Switzerland",
+  "w": [
+   "Luxembourg",
+   "France",
+   "Spain"
+  ],
+  "why": "Bern is the capital of Switzerland."
+ },
+ {
+  "part": "capw",
+  "q": "What is the capital of Austria?",
+  "a": "Vienna",
+  "w": [
+   "Valletta",
+   "Andorra la Vella",
+   "Rome"
+  ],
+  "why": "Vienna is the capital of Austria."
+ },
+ {
+  "part": "capw",
+  "q": "Vienna is the capital of which country?",
+  "a": "Austria",
+  "w": [
+   "Switzerland",
+   "Portugal",
+   "Vatican City"
+  ],
+  "why": "Vienna is the capital of Austria."
+ },
+ {
+  "part": "capw",
+  "q": "What is the capital of Liechtenstein?",
+  "a": "Vaduz",
+  "w": [
+   "Andorra la Vella",
+   "Dublin",
+   "Paris"
+  ],
+  "why": "Vaduz is the capital of Liechtenstein."
+ },
+ {
+  "part": "capw",
+  "q": "Vaduz is the capital of which country?",
+  "a": "Liechtenstein",
+  "w": [
+   "Greece",
+   "Switzerland",
+   "Cyprus"
+  ],
+  "why": "Vaduz is the capital of Liechtenstein."
+ },
+ {
+  "part": "capw",
+  "q": "What is the capital of Monaco?",
+  "a": "Monaco",
+  "w": [
+   "Vienna",
+   "Vatican City",
+   "San Marino"
+  ],
+  "why": "Monaco is the capital of Monaco."
+ },
+ {
+  "part": "capw",
+  "q": "Monaco is the capital of which country?",
+  "a": "Monaco",
+  "w": [
+   "France",
+   "Cyprus",
+   "Belgium"
+  ],
+  "why": "Monaco is the capital of Monaco."
+ },
+ {
+  "part": "capw",
+  "q": "What is the capital of Andorra?",
+  "a": "Andorra la Vella",
+  "w": [
+   "Vatican City",
+   "Paris",
+   "Dublin"
+  ],
+  "why": "Andorra la Vella is the capital of Andorra."
+ },
+ {
+  "part": "capw",
+  "q": "Andorra la Vella is the capital of which country?",
+  "a": "Andorra",
+  "w": [
+   "Luxembourg",
+   "San Marino",
+   "Cyprus"
+  ],
+  "why": "Andorra la Vella is the capital of Andorra."
+ },
+ {
+  "part": "capw",
+  "q": "What is the capital of San Marino?",
+  "a": "San Marino",
+  "w": [
+   "Vaduz",
+   "Vienna",
+   "London"
+  ],
+  "why": "San Marino is the capital of San Marino."
+ },
+ {
+  "part": "capw",
+  "q": "San Marino is the capital of which country?",
+  "a": "San Marino",
+  "w": [
+   "Andorra",
+   "Austria",
+   "Italy"
+  ],
+  "why": "San Marino is the capital of San Marino."
+ },
+ {
+  "part": "capw",
+  "q": "What is the capital of Vatican City?",
+  "a": "Vatican City",
+  "w": [
+   "Madrid",
+   "San Marino",
+   "Dublin"
+  ],
+  "why": "Vatican City is the capital of Vatican City."
+ },
+ {
+  "part": "capw",
+  "q": "Vatican City is the capital of which country?",
+  "a": "Vatican City",
+  "w": [
+   "Germany",
+   "Luxembourg",
+   "Portugal"
+  ],
+  "why": "Vatican City is the capital of Vatican City."
+ },
+ {
+  "part": "capw",
+  "q": "What is the capital of Malta?",
+  "a": "Valletta",
+  "w": [
+   "Amsterdam",
+   "Vaduz",
+   "Athens"
+  ],
+  "why": "Valletta is the capital of Malta."
+ },
+ {
+  "part": "capw",
+  "q": "Valletta is the capital of which country?",
+  "a": "Malta",
+  "w": [
+   "San Marino",
+   "France",
+   "Italy"
+  ],
+  "why": "Valletta is the capital of Malta."
+ },
+ {
+  "part": "capw",
+  "q": "What is the capital of Greece?",
+  "a": "Athens",
+  "w": [
+   "Andorra la Vella",
+   "Vaduz",
+   "Brussels"
+  ],
+  "why": "Athens is the capital of Greece."
+ },
+ {
+  "part": "capw",
+  "q": "Athens is the capital of which country?",
+  "a": "Greece",
+  "w": [
+   "Portugal",
+   "Monaco",
+   "Belgium"
+  ],
+  "why": "Athens is the capital of Greece."
+ },
+ {
+  "part": "capw",
+  "q": "What is the capital of Cyprus?",
+  "a": "Nicosia",
+  "w": [
+   "Monaco",
+   "Vienna",
+   "Vaduz"
+  ],
+  "why": "Nicosia is the capital of Cyprus."
+ },
+ {
+  "part": "capw",
+  "q": "Nicosia is the capital of which country?",
+  "a": "Cyprus",
+  "w": [
+   "Netherlands",
+   "Portugal",
+   "France"
+  ],
+  "why": "Nicosia is the capital of Cyprus."
+ },
+ {
+  "part": "cape",
+  "q": "What is the capital of Iceland?",
+  "a": "Reykjavik",
+  "w": [
+   "Riga",
+   "Tallinn",
+   "Warsaw"
+  ],
+  "why": "Reykjavik is the capital of Iceland."
+ },
+ {
+  "part": "cape",
+  "q": "Reykjavik is the capital of which country?",
+  "a": "Iceland",
+  "w": [
+   "Poland",
+   "Norway",
+   "Romania"
+  ],
+  "why": "Reykjavik is the capital of Iceland."
+ },
+ {
+  "part": "cape",
+  "q": "What is the capital of Norway?",
+  "a": "Oslo",
+  "w": [
+   "Riga",
+   "Prague",
+   "Bratislava"
+  ],
+  "why": "Oslo is the capital of Norway."
+ },
+ {
+  "part": "cape",
+  "q": "Oslo is the capital of which country?",
+  "a": "Norway",
+  "w": [
+   "Iceland",
+   "Estonia",
+   "Moldova"
+  ],
+  "why": "Oslo is the capital of Norway."
+ },
+ {
+  "part": "cape",
+  "q": "What is the capital of Sweden?",
+  "a": "Stockholm",
+  "w": [
+   "Ankara",
+   "Minsk",
+   "Budapest"
+  ],
+  "why": "Stockholm is the capital of Sweden."
+ },
+ {
+  "part": "cape",
+  "q": "Stockholm is the capital of which country?",
+  "a": "Sweden",
+  "w": [
+   "Estonia",
+   "Bulgaria",
+   "Norway"
+  ],
+  "why": "Stockholm is the capital of Sweden."
+ },
+ {
+  "part": "cape",
+  "q": "What is the capital of Finland?",
+  "a": "Helsinki",
+  "w": [
+   "Moscow",
+   "Kiev",
+   "Sofia"
+  ],
+  "why": "Helsinki is the capital of Finland."
+ },
+ {
+  "part": "cape",
+  "q": "Helsinki is the capital of which country?",
+  "a": "Finland",
+  "w": [
+   "Ukraine",
+   "Turkey",
+   "Denmark"
+  ],
+  "why": "Helsinki is the capital of Finland."
+ },
+ {
+  "part": "cape",
+  "q": "What is the capital of Denmark?",
+  "a": "Copenhagen",
+  "w": [
+   "Bucharest",
+   "Kiev",
+   "Oslo"
+  ],
+  "why": "Copenhagen is the capital of Denmark."
+ },
+ {
+  "part": "cape",
+  "q": "Copenhagen is the capital of which country?",
+  "a": "Denmark",
+  "w": [
+   "Lithuania",
+   "Sweden",
+   "Turkey"
+  ],
+  "why": "Copenhagen is the capital of Denmark."
+ },
+ {
+  "part": "cape",
+  "q": "What is the capital of Estonia?",
+  "a": "Tallinn",
+  "w": [
+   "Moscow",
+   "Riga",
+   "Helsinki"
+  ],
+  "why": "Tallinn is the capital of Estonia."
+ },
+ {
+  "part": "cape",
+  "q": "Tallinn is the capital of which country?",
+  "a": "Estonia",
+  "w": [
+   "Hungary",
+   "Norway",
+   "Finland"
+  ],
+  "why": "Tallinn is the capital of Estonia."
+ },
+ {
+  "part": "cape",
+  "q": "What is the capital of Latvia?",
+  "a": "Riga",
+  "w": [
+   "Reykjavik",
+   "Copenhagen",
+   "Helsinki"
+  ],
+  "why": "Riga is the capital of Latvia."
+ },
+ {
+  "part": "cape",
+  "q": "Riga is the capital of which country?",
+  "a": "Latvia",
+  "w": [
+   "Belarus",
+   "Iceland",
+   "Sweden"
+  ],
+  "why": "Riga is the capital of Latvia."
+ },
+ {
+  "part": "cape",
+  "q": "What is the capital of Lithuania?",
+  "a": "Vilnius",
+  "w": [
+   "Riga",
+   "Kiev",
+   "Copenhagen"
+  ],
+  "why": "Vilnius is the capital of Lithuania."
+ },
+ {
+  "part": "cape",
+  "q": "Vilnius is the capital of which country?",
+  "a": "Lithuania",
+  "w": [
+   "Czech Republic",
+   "Belarus",
+   "Bulgaria"
+  ],
+  "why": "Vilnius is the capital of Lithuania."
+ },
+ {
+  "part": "cape",
+  "q": "What is the capital of Poland?",
+  "a": "Warsaw",
+  "w": [
+   "Bucharest",
+   "Helsinki",
+   "Sofia"
+  ],
+  "why": "Warsaw is the capital of Poland."
+ },
+ {
+  "part": "cape",
+  "q": "Warsaw is the capital of which country?",
+  "a": "Poland",
+  "w": [
+   "Romania",
+   "Russia",
+   "Turkey"
+  ],
+  "why": "Warsaw is the capital of Poland."
+ },
+ {
+  "part": "cape",
+  "q": "What is the capital of Czech Republic?",
+  "a": "Prague",
+  "w": [
+   "Bucharest",
+   "Bratislava",
+   "Stockholm"
+  ],
+  "why": "Prague is the capital of Czech Republic."
+ },
+ {
+  "part": "cape",
+  "q": "Prague is the capital of which country?",
+  "a": "Czech Republic",
+  "w": [
+   "Denmark",
+   "Finland",
+   "Hungary"
+  ],
+  "why": "Prague is the capital of Czech Republic."
+ },
+ {
+  "part": "cape",
+  "q": "What is the capital of Slovakia?",
+  "a": "Bratislava",
+  "w": [
+   "Warsaw",
+   "Bucharest",
+   "Tallinn"
+  ],
+  "why": "Bratislava is the capital of Slovakia."
+ },
+ {
+  "part": "cape",
+  "q": "Bratislava is the capital of which country?",
+  "a": "Slovakia",
+  "w": [
+   "Bulgaria",
+   "Iceland",
+   "Latvia"
+  ],
+  "why": "Bratislava is the capital of Slovakia."
+ },
+ {
+  "part": "cape",
+  "q": "What is the capital of Hungary?",
+  "a": "Budapest",
+  "w": [
+   "Sofia",
+   "Minsk",
+   "Copenhagen"
+  ],
+  "why": "Budapest is the capital of Hungary."
+ },
+ {
+  "part": "cape",
+  "q": "Budapest is the capital of which country?",
+  "a": "Hungary",
+  "w": [
+   "Turkey",
+   "Iceland",
+   "Czech Republic"
+  ],
+  "why": "Budapest is the capital of Hungary."
+ },
+ {
+  "part": "cape",
+  "q": "What is the capital of Belarus?",
+  "a": "Minsk",
+  "w": [
+   "Stockholm",
+   "Warsaw",
+   "Budapest"
+  ],
+  "why": "Minsk is the capital of Belarus."
+ },
+ {
+  "part": "cape",
+  "q": "Minsk is the capital of which country?",
+  "a": "Belarus",
+  "w": [
+   "Estonia",
+   "Hungary",
+   "Lithuania"
+  ],
+  "why": "Minsk is the capital of Belarus."
+ },
+ {
+  "part": "cape",
+  "q": "What is the capital of Ukraine?",
+  "a": "Kiev",
+  "w": [
+   "Ankara",
+   "Sofia",
+   "Bratislava"
+  ],
+  "why": "Kiev is the capital of Ukraine."
+ },
+ {
+  "part": "cape",
+  "q": "Kiev is the capital of which country?",
+  "a": "Ukraine",
+  "w": [
+   "Lithuania",
+   "Latvia",
+   "Turkey"
+  ],
+  "why": "Kiev is the capital of Ukraine."
+ },
+ {
+  "part": "cape",
+  "q": "What is the capital of Moldova?",
+  "a": "Chișinău",
+  "w": [
+   "Minsk",
+   "Vilnius",
+   "Riga"
+  ],
+  "why": "Chișinău is the capital of Moldova."
+ },
+ {
+  "part": "cape",
+  "q": "Chișinău is the capital of which country?",
+  "a": "Moldova",
+  "w": [
+   "Bulgaria",
+   "Romania",
+   "Hungary"
+  ],
+  "why": "Chișinău is the capital of Moldova."
+ },
+ {
+  "part": "cape",
+  "q": "What is the capital of Russia?",
+  "a": "Moscow",
+  "w": [
+   "Reykjavik",
+   "Ankara",
+   "Warsaw"
+  ],
+  "why": "Moscow is the capital of Russia."
+ },
+ {
+  "part": "cape",
+  "q": "Moscow is the capital of which country?",
+  "a": "Russia",
+  "w": [
+   "Romania",
+   "Poland",
+   "Latvia"
+  ],
+  "why": "Moscow is the capital of Russia."
+ },
+ {
+  "part": "cape",
+  "q": "What is the capital of Romania?",
+  "a": "Bucharest",
+  "w": [
+   "Budapest",
+   "Chișinău",
+   "Ankara"
+  ],
+  "why": "Bucharest is the capital of Romania."
+ },
+ {
+  "part": "cape",
+  "q": "Bucharest is the capital of which country?",
+  "a": "Romania",
+  "w": [
+   "Hungary",
+   "Sweden",
+   "Lithuania"
+  ],
+  "why": "Bucharest is the capital of Romania."
+ },
+ {
+  "part": "cape",
+  "q": "What is the capital of Bulgaria?",
+  "a": "Sofia",
+  "w": [
+   "Helsinki",
+   "Vilnius",
+   "Moscow"
+  ],
+  "why": "Sofia is the capital of Bulgaria."
+ },
+ {
+  "part": "cape",
+  "q": "Sofia is the capital of which country?",
+  "a": "Bulgaria",
+  "w": [
+   "Latvia",
+   "Slovakia",
+   "Turkey"
+  ],
+  "why": "Sofia is the capital of Bulgaria."
+ },
+ {
+  "part": "cape",
+  "q": "What is the capital of Turkey?",
+  "a": "Ankara",
+  "w": [
+   "Moscow",
+   "Reykjavik",
+   "Sofia"
+  ],
+  "why": "Ankara is the capital of Turkey."
+ },
+ {
+  "part": "cape",
+  "q": "Ankara is the capital of which country?",
+  "a": "Turkey",
+  "w": [
+   "Hungary",
+   "Sweden",
+   "Finland"
+  ],
+  "why": "Ankara is the capital of Turkey."
+ },
+ {
+  "part": "capb",
+  "q": "What is the capital of Albania?",
+  "a": "Tirana",
+  "w": [
+   "Ljubljana",
+   "Podgorica",
+   "Sofia"
+  ],
+  "why": "Tirana is the capital of Albania."
+ },
+ {
+  "part": "capb",
+  "q": "Tirana is the capital of which country?",
+  "a": "Albania",
+  "w": [
+   "Kosovo",
+   "Slovenia",
+   "Serbia"
+  ],
+  "why": "Tirana is the capital of Albania."
+ },
+ {
+  "part": "capb",
+  "q": "What is the capital of Bosnia-Herzegovina?",
+  "a": "Sarajevo",
+  "w": [
+   "Zagreb",
+   "Ljubljana",
+   "Sofia"
+  ],
+  "why": "Sarajevo is the capital of Bosnia-Herzegovina."
+ },
+ {
+  "part": "capb",
+  "q": "Sarajevo is the capital of which country?",
+  "a": "Bosnia-Herzegovina",
+  "w": [
+   "Slovenia",
+   "Croatia",
+   "Kosovo"
+  ],
+  "why": "Sarajevo is the capital of Bosnia-Herzegovina."
+ },
+ {
+  "part": "capb",
+  "q": "What is the capital of Croatia?",
+  "a": "Zagreb",
+  "w": [
+   "Pristina",
+   "Budapest",
+   "Tirana"
+  ],
+  "why": "Zagreb is the capital of Croatia."
+ },
+ {
+  "part": "capb",
+  "q": "Zagreb is the capital of which country?",
+  "a": "Croatia",
+  "w": [
+   "Kosovo",
+   "Romania",
+   "Bulgaria"
+  ],
+  "why": "Zagreb is the capital of Croatia."
+ },
+ {
+  "part": "capb",
+  "q": "What is the capital of Kosovo?",
+  "a": "Pristina",
+  "w": [
+   "Budapest",
+   "Zagreb",
+   "Sofia"
+  ],
+  "why": "Pristina is the capital of Kosovo."
+ },
+ {
+  "part": "capb",
+  "q": "Pristina is the capital of which country?",
+  "a": "Kosovo",
+  "w": [
+   "Hungary",
+   "Serbia",
+   "Croatia"
+  ],
+  "why": "Pristina is the capital of Kosovo."
+ },
+ {
+  "part": "capb",
+  "q": "What is the capital of Montenegro?",
+  "a": "Podgorica",
+  "w": [
+   "Athens",
+   "Budapest",
+   "Zagreb"
+  ],
+  "why": "Podgorica is the capital of Montenegro."
+ },
+ {
+  "part": "capb",
+  "q": "Podgorica is the capital of which country?",
+  "a": "Montenegro",
+  "w": [
+   "Albania",
+   "Hungary",
+   "Bosnia-Herzegovina"
+  ],
+  "why": "Podgorica is the capital of Montenegro."
+ },
+ {
+  "part": "capb",
+  "q": "What is the capital of North Macedonia?",
+  "a": "Skopje",
+  "w": [
+   "Athens",
+   "Zagreb",
+   "Ljubljana"
+  ],
+  "why": "Skopje is the capital of North Macedonia."
+ },
+ {
+  "part": "capb",
+  "q": "Skopje is the capital of which country?",
+  "a": "North Macedonia",
+  "w": [
+   "Kosovo",
+   "Hungary",
+   "Albania"
+  ],
+  "why": "Skopje is the capital of North Macedonia."
+ },
+ {
+  "part": "capb",
+  "q": "What is the capital of Serbia?",
+  "a": "Belgrade",
+  "w": [
+   "Podgorica",
+   "Pristina",
+   "Budapest"
+  ],
+  "why": "Belgrade is the capital of Serbia."
+ },
+ {
+  "part": "capb",
+  "q": "Belgrade is the capital of which country?",
+  "a": "Serbia",
+  "w": [
+   "Greece",
+   "Kosovo",
+   "North Macedonia"
+  ],
+  "why": "Belgrade is the capital of Serbia."
+ },
+ {
+  "part": "capb",
+  "q": "What is the capital of Slovenia?",
+  "a": "Ljubljana",
+  "w": [
+   "Podgorica",
+   "Athens",
+   "Belgrade"
+  ],
+  "why": "Ljubljana is the capital of Slovenia."
+ },
+ {
+  "part": "capb",
+  "q": "Ljubljana is the capital of which country?",
+  "a": "Slovenia",
+  "w": [
+   "Croatia",
+   "Albania",
+   "North Macedonia"
+  ],
+  "why": "Ljubljana is the capital of Slovenia."
+ },
+ {
+  "part": "map",
+  "q": "On the Europe map, the small country marked with the number 1 is…",
+  "a": "Luxembourg",
+  "w": [
+   "North Macedonia",
+   "Kosovo",
+   "Liechtenstein"
+  ],
+  "why": "#1 is Luxembourg; its capital is Luxembourg City."
+ },
+ {
+  "part": "map",
+  "q": "On the map’s numbered key, which capital goes with #1 (Luxembourg)?",
+  "a": "Luxembourg City",
+  "w": [
+   "Vaduz",
+   "San Marino",
+   "Pristina"
+  ],
+  "why": "#1 Luxembourg — Luxembourg City."
+ },
+ {
+  "part": "map",
+  "q": "On the Europe map, the small country marked with the number 2 is…",
+  "a": "Liechtenstein",
+  "w": [
+   "Bosnia and Herzegovina",
+   "Luxembourg",
+   "Kosovo"
+  ],
+  "why": "#2 is Liechtenstein; its capital is Vaduz."
+ },
+ {
+  "part": "map",
+  "q": "On the map’s numbered key, which capital goes with #2 (Liechtenstein)?",
+  "a": "Vaduz",
+  "w": [
+   "Skopje",
+   "Sarajevo",
+   "Luxembourg City"
+  ],
+  "why": "#2 Liechtenstein — Vaduz."
+ },
+ {
+  "part": "map",
+  "q": "On the Europe map, the small country marked with the number 3 is…",
+  "a": "San Marino",
+  "w": [
+   "Liechtenstein",
+   "Croatia",
+   "Slovenia"
+  ],
+  "why": "#3 is San Marino; its capital is San Marino."
+ },
+ {
+  "part": "map",
+  "q": "On the map’s numbered key, which capital goes with #3 (San Marino)?",
+  "a": "San Marino",
+  "w": [
+   "Zagreb",
+   "Podgorica",
+   "Ljubljana"
+  ],
+  "why": "#3 San Marino — San Marino."
+ },
+ {
+  "part": "map",
+  "q": "On the Europe map, the small country marked with the number 4 is…",
+  "a": "Slovenia",
+  "w": [
+   "North Macedonia",
+   "Bosnia and Herzegovina",
+   "Kosovo"
+  ],
+  "why": "#4 is Slovenia; its capital is Ljubljana."
+ },
+ {
+  "part": "map",
+  "q": "On the map’s numbered key, which capital goes with #4 (Slovenia)?",
+  "a": "Ljubljana",
+  "w": [
+   "Skopje",
+   "Sarajevo",
+   "Vaduz"
+  ],
+  "why": "#4 Slovenia — Ljubljana."
+ },
+ {
+  "part": "map",
+  "q": "On the Europe map, the small country marked with the number 5 is…",
+  "a": "Croatia",
+  "w": [
+   "Bosnia and Herzegovina",
+   "North Macedonia",
+   "Liechtenstein"
+  ],
+  "why": "#5 is Croatia; its capital is Zagreb."
+ },
+ {
+  "part": "map",
+  "q": "On the map’s numbered key, which capital goes with #5 (Croatia)?",
+  "a": "Zagreb",
+  "w": [
+   "Skopje",
+   "Vaduz",
+   "Ljubljana"
+  ],
+  "why": "#5 Croatia — Zagreb."
+ },
+ {
+  "part": "map",
+  "q": "On the Europe map, the small country marked with the number 6 is…",
+  "a": "Bosnia and Herzegovina",
+  "w": [
+   "Liechtenstein",
+   "Slovenia",
+   "Kosovo"
+  ],
+  "why": "#6 is Bosnia and Herzegovina; its capital is Sarajevo."
+ },
+ {
+  "part": "map",
+  "q": "On the map’s numbered key, which capital goes with #6 (Bosnia and Herzegovina)?",
+  "a": "Sarajevo",
+  "w": [
+   "Podgorica",
+   "Luxembourg City",
+   "Skopje"
+  ],
+  "why": "#6 Bosnia and Herzegovina — Sarajevo."
+ },
+ {
+  "part": "map",
+  "q": "On the Europe map, the small country marked with the number 7 is…",
+  "a": "Montenegro",
+  "w": [
+   "Slovenia",
+   "North Macedonia",
+   "Luxembourg"
+  ],
+  "why": "#7 is Montenegro; its capital is Podgorica."
+ },
+ {
+  "part": "map",
+  "q": "On the map’s numbered key, which capital goes with #7 (Montenegro)?",
+  "a": "Podgorica",
+  "w": [
+   "Ljubljana",
+   "Sarajevo",
+   "San Marino"
+  ],
+  "why": "#7 Montenegro — Podgorica."
+ },
+ {
+  "part": "map",
+  "q": "On the Europe map, the small country marked with the number 8 is…",
+  "a": "Kosovo",
+  "w": [
+   "Liechtenstein",
+   "Montenegro",
+   "North Macedonia"
+  ],
+  "why": "#8 is Kosovo; its capital is Pristina."
+ },
+ {
+  "part": "map",
+  "q": "On the map’s numbered key, which capital goes with #8 (Kosovo)?",
+  "a": "Pristina",
+  "w": [
+   "Sarajevo",
+   "Vaduz",
+   "San Marino"
+  ],
+  "why": "#8 Kosovo — Pristina."
+ },
+ {
+  "part": "map",
+  "q": "On the Europe map, the small country marked with the number 9 is…",
+  "a": "North Macedonia",
+  "w": [
+   "San Marino",
+   "Slovenia",
+   "Liechtenstein"
+  ],
+  "why": "#9 is North Macedonia; its capital is Skopje."
+ },
+ {
+  "part": "map",
+  "q": "On the map’s numbered key, which capital goes with #9 (North Macedonia)?",
+  "a": "Skopje",
+  "w": [
+   "Vaduz",
+   "Ljubljana",
+   "Podgorica"
+  ],
+  "why": "#9 North Macedonia — Skopje."
+ },
+ {
+  "part": "map",
+  "q": "Which country on the map is an island in the Atlantic Ocean, northwest of Europe?",
+  "a": "Iceland",
+  "w": [
+   "Ireland",
+   "Malta",
+   "Cyprus"
+  ],
+  "why": "Iceland (Reykjavik) is far to the northwest."
+ },
+ {
+  "part": "map",
+  "q": "Which two island countries are in the Mediterranean Sea?",
+  "a": "Malta and Cyprus",
+  "w": [
+   "Iceland and Ireland",
+   "Malta and Iceland",
+   "Cyprus and Ireland"
+  ],
+  "why": "Malta (Valletta) and Cyprus (Nicosia)."
+ },
+ {
+  "part": "map",
+  "q": "Which country has its capital marked in the Mediterranean south of Italy?",
+  "a": "Malta",
+  "w": [
+   "Cyprus",
+   "Greece",
+   "Monaco"
+  ],
+  "why": "Valletta, Malta."
+ },
+ {
+  "part": "map",
+  "q": "Which country has the capital Ankara and borders the Black Sea on its north coast?",
+  "a": "Turkey",
+  "w": [
+   "Greece",
+   "Russia",
+   "Ukraine"
+  ],
+  "why": "Ankara is the capital of Turkey."
+ },
+ {
+  "part": "map",
+  "q": "Which large country stretches across the far east of the map?",
+  "a": "Russia",
+  "w": [
+   "Poland",
+   "Ukraine",
+   "Belarus"
+  ],
+  "why": "Russia (Moscow) is the largest country."
+ },
+ {
+  "part": "map",
+  "q": "Which smallest country is located inside Rome, Italy?",
+  "a": "Vatican City",
+  "w": [
+   "San Marino",
+   "Monaco",
+   "Liechtenstein"
+  ],
+  "why": "Vatican City is surrounded by Rome."
+ },
+ {
+  "part": "map",
+  "q": "Which two countries does Andorra lie between?",
+  "a": "Spain and France",
+  "w": [
+   "Spain and Portugal",
+   "France and Italy",
+   "Italy and Switzerland"
+  ],
+  "why": "Andorra is in the Pyrenees between Spain and France."
+ },
+ {
+  "part": "map",
+  "q": "Which countries on the sheet use their own name as the capital?",
+  "a": "Monaco, San Marino, Vatican City",
+  "w": [
+   "Malta, Cyprus, Iceland",
+   "Andorra, Liechtenstein, Luxembourg",
+   "Austria, Belgium, Albania"
+  ],
+  "why": "Their capitals are named the same as the country."
+ },
+ {
+  "part": "map",
+  "q": "Which capital has a name that looks like the country but adds “City”?",
+  "a": "Luxembourg City",
+  "w": [
+   "Vatican City",
+   "San Marino",
+   "Monaco"
+  ],
+  "why": "Luxembourg’s capital is Luxembourg City (listed as “Luxembourg”)."
+ },
+ {
+  "part": "mtn",
+  "q": "Unscramble this Europe feature: “lspa”",
+  "a": "Alps",
+  "w": [
+   "Scandinavian Mountains",
+   "Mount Elbrus",
+   "Caucasus"
+  ],
+  "why": "“lspa” unscrambles to Alps."
+ },
+ {
+  "part": "mtn",
+  "q": "Unscramble this Europe feature: “kbnimtoansaauln”",
+  "a": "Balkan Mountains",
+  "w": [
+   "Carpathians",
+   "Mont Blanc",
+   "Caucasus"
+  ],
+  "why": "“kbnimtoansaauln” unscrambles to Balkan Mountains."
+ },
+ {
+  "part": "mtn",
+  "q": "Unscramble this Europe feature: “luaomuntiarns”",
+  "a": "Ural Mountains",
+  "w": [
+   "Taurus Mountains",
+   "Carpathians",
+   "Mount Elbrus"
+  ],
+  "why": "“luaomuntiarns” unscrambles to Ural Mountains."
+ },
+ {
+  "part": "mtn",
+  "q": "Unscramble this Europe feature: “tmaoivnncdaisanaiunsn”",
+  "a": "Scandinavian Mountains",
+  "w": [
+   "Taurus Mountains",
+   "Caucasus",
+   "Balkan Mountains"
+  ],
+  "why": "“tmaoivnncdaisanaiunsn” unscrambles to Scandinavian Mountains."
+ },
+ {
+  "part": "mtn",
+  "q": "Unscramble this Europe feature: “temnublsruo”",
+  "a": "Mount Elbrus",
+  "w": [
+   "Taurus Mountains",
+   "Alps",
+   "Caucasus"
+  ],
+  "why": "“temnublsruo” unscrambles to Mount Elbrus."
+ },
+ {
+  "part": "mtn",
+  "q": "Unscramble this Europe feature: “pennasein”",
+  "a": "Apennines",
+  "w": [
+   "Mont Blanc",
+   "Pyrenees",
+   "Caucasus"
+  ],
+  "why": "“pennasein” unscrambles to Apennines."
+ },
+ {
+  "part": "mtn",
+  "q": "Unscramble this Europe feature: “nntusouisrtmaua”",
+  "a": "Taurus Mountains",
+  "w": [
+   "Alps",
+   "Carpathians",
+   "Apennines"
+  ],
+  "why": "“nntusouisrtmaua” unscrambles to Taurus Mountains."
+ },
+ {
+  "part": "mtn",
+  "q": "Unscramble this Europe feature: “hnatpcaiasr”",
+  "a": "Carpathians",
+  "w": [
+   "Mont Blanc",
+   "Mount Elbrus",
+   "Balkan Mountains"
+  ],
+  "why": "“hnatpcaiasr” unscrambles to Carpathians."
+ },
+ {
+  "part": "mtn",
+  "q": "Unscramble this Europe feature: “esyeenpr”",
+  "a": "Pyrenees",
+  "w": [
+   "Balkan Mountains",
+   "Scandinavian Mountains",
+   "Caucasus"
+  ],
+  "why": "“esyeenpr” unscrambles to Pyrenees."
+ },
+ {
+  "part": "mtn",
+  "q": "Unscramble this Europe feature: “mnnclbato”",
+  "a": "Mont Blanc",
+  "w": [
+   "Balkan Mountains",
+   "Mount Elbrus",
+   "Pyrenees"
+  ],
+  "why": "“mnnclbato” unscrambles to Mont Blanc."
+ },
+ {
+  "part": "mtn",
+  "q": "Unscramble this Europe feature: “sucsucaa”",
+  "a": "Caucasus",
+  "w": [
+   "Alps",
+   "Ural Mountains",
+   "Mount Elbrus"
+  ],
+  "why": "“sucsucaa” unscrambles to Caucasus."
+ },
+ {
+  "part": "isle",
+  "q": "Unscramble this Europe feature: “etnpliiasananiul”",
+  "a": "Italian Peninsula",
+  "w": [
+   "Anatolia",
+   "Iceland",
+   "Scandinavian Peninsula"
+  ],
+  "why": "“etnpliiasananiul” unscrambles to Italian Peninsula."
+ },
+ {
+  "part": "isle",
+  "q": "Unscramble this Europe feature: “iurnienplsnabaei”",
+  "a": "Iberian Peninsula",
+  "w": [
+   "Iceland",
+   "Anatolia",
+   "British Isles"
+  ],
+  "why": "“iurnienplsnabaei” unscrambles to Iberian Peninsula."
+ },
+ {
+  "part": "isle",
+  "q": "Unscramble this Europe feature: “oilatana”",
+  "a": "Anatolia",
+  "w": [
+   "British Isles",
+   "Scandinavian Peninsula",
+   "Italian Peninsula"
+  ],
+  "why": "“oilatana” unscrambles to Anatolia."
+ },
+ {
+  "part": "isle",
+  "q": "Unscramble this Europe feature: “uinaipndaelcsnavsnani”",
+  "a": "Scandinavian Peninsula",
+  "w": [
+   "Anatolia",
+   "Italian Peninsula",
+   "Iberian Peninsula"
+  ],
+  "why": "“uinaipndaelcsnavsnani” unscrambles to Scandinavian Peninsula."
+ },
+ {
+  "part": "isle",
+  "q": "Unscramble this Europe feature: “andecil”",
+  "a": "Iceland",
+  "w": [
+   "Scandinavian Peninsula",
+   "Italian Peninsula",
+   "Anatolia"
+  ],
+  "why": "“andecil” unscrambles to Iceland."
+ },
+ {
+  "part": "isle",
+  "q": "Unscramble this Europe feature: “blnknpsaeniaaul”",
+  "a": "Balkan Peninsula",
+  "w": [
+   "Italian Peninsula",
+   "British Isles",
+   "Anatolia"
+  ],
+  "why": "“blnknpsaeniaaul” unscrambles to Balkan Peninsula."
+ },
+ {
+  "part": "isle",
+  "q": "Unscramble this Europe feature: “sitislrebshi”",
+  "a": "British Isles",
+  "w": [
+   "Italian Peninsula",
+   "Iceland",
+   "Iberian Peninsula"
+  ],
+  "why": "“sitislrebshi” unscrambles to British Isles."
+ },
+ {
+  "part": "sea",
+  "q": "Unscramble this Europe feature: “lcabakes”",
+  "a": "Black Sea",
+  "w": [
+   "Arctic Ocean",
+   "Mediterranean Sea",
+   "North Sea"
+  ],
+  "why": "“lcabakes” unscrambles to Black Sea."
+ },
+ {
+  "part": "sea",
+  "q": "Unscramble this Europe feature: “rotnseha”",
+  "a": "North Sea",
+  "w": [
+   "Baltic Sea",
+   "Black Sea",
+   "Mediterranean Sea"
+  ],
+  "why": "“rotnseha” unscrambles to North Sea."
+ },
+ {
+  "part": "sea",
+  "q": "Unscramble this Europe feature: “oatccenirca”",
+  "a": "Arctic Ocean",
+  "w": [
+   "Norwegian Sea",
+   "Mediterranean Sea",
+   "Caspian Sea"
+  ],
+  "why": "“oatccenirca” unscrambles to Arctic Ocean."
+ },
+ {
+  "part": "sea",
+  "q": "Unscramble this Europe feature: “neaeamtdernsaier”",
+  "a": "Mediterranean Sea",
+  "w": [
+   "Arctic Ocean",
+   "Black Sea",
+   "Caspian Sea"
+  ],
+  "why": "“neaeamtdernsaier” unscrambles to Mediterranean Sea."
+ },
+ {
+  "part": "sea",
+  "q": "Unscramble this Europe feature: “elctianatoanc”",
+  "a": "Atlantic Ocean",
+  "w": [
+   "Mediterranean Sea",
+   "Black Sea",
+   "North Sea"
+  ],
+  "why": "“elctianatoanc” unscrambles to Atlantic Ocean."
+ },
+ {
+  "part": "sea",
+  "q": "Unscramble this Europe feature: “aiscanapes”",
+  "a": "Caspian Sea",
+  "w": [
+   "Atlantic Ocean",
+   "Black Sea",
+   "North Sea"
+  ],
+  "why": "“aiscanapes” unscrambles to Caspian Sea."
+ },
+ {
+  "part": "sea",
+  "q": "Unscramble this Europe feature: “aifbcsbyaoy”",
+  "a": "Bay of Biscay",
+  "w": [
+   "Mediterranean Sea",
+   "Arctic Ocean",
+   "Caspian Sea"
+  ],
+  "why": "“aifbcsbyaoy” unscrambles to Bay of Biscay."
+ },
+ {
+  "part": "sea",
+  "q": "Unscramble this Europe feature: “asnornewigae”",
+  "a": "Norwegian Sea",
+  "w": [
+   "Atlantic Ocean",
+   "Baltic Sea",
+   "North Sea"
+  ],
+  "why": "“asnornewigae” unscrambles to Norwegian Sea."
+ },
+ {
+  "part": "sea",
+  "q": "Unscramble this Europe feature: “aliebcsta”",
+  "a": "Baltic Sea",
+  "w": [
+   "Atlantic Ocean",
+   "Mediterranean Sea",
+   "Norwegian Sea"
+  ],
+  "why": "“aliebcsta” unscrambles to Baltic Sea."
+ },
+ {
+  "part": "river",
+  "q": "Unscramble this Europe feature: “rnhie”",
+  "a": "Rhine",
+  "w": [
+   "Danube",
+   "Dnieper",
+   "Loire"
+  ],
+  "why": "“rnhie” unscrambles to Rhine."
+ },
+ {
+  "part": "river",
+  "q": "Unscramble this Europe feature: “gstua”",
+  "a": "Tagus",
+  "w": [
+   "Rhine",
+   "Danube",
+   "Dnieper"
+  ],
+  "why": "“gstua” unscrambles to Tagus."
+ },
+ {
+  "part": "river",
+  "q": "Unscramble this Europe feature: “glvoa”",
+  "a": "Volga",
+  "w": [
+   "Rhine",
+   "Dnieper",
+   "Seine"
+  ],
+  "why": "“glvoa” unscrambles to Volga."
+ },
+ {
+  "part": "river",
+  "q": "Unscramble this Europe feature: “nubaed”",
+  "a": "Danube",
+  "w": [
+   "Rhone",
+   "Dniester",
+   "Dnieper"
+  ],
+  "why": "“nubaed” unscrambles to Danube."
+ },
+ {
+  "part": "river",
+  "q": "Unscramble this Europe feature: “honre”",
+  "a": "Rhone",
+  "w": [
+   "Danube",
+   "Dnieper",
+   "Rhine"
+  ],
+  "why": "“honre” unscrambles to Rhone."
+ },
+ {
+  "part": "river",
+  "q": "Unscramble this Europe feature: “neresidt”",
+  "a": "Dniester",
+  "w": [
+   "Loire",
+   "Seine",
+   "Danube"
+  ],
+  "why": "“neresidt” unscrambles to Dniester."
+ },
+ {
+  "part": "river",
+  "q": "Unscramble this Europe feature: “niese”",
+  "a": "Seine",
+  "w": [
+   "Loire",
+   "Rhone",
+   "Volga"
+  ],
+  "why": "“niese” unscrambles to Seine."
+ },
+ {
+  "part": "river",
+  "q": "Unscramble this Europe feature: “relio”",
+  "a": "Loire",
+  "w": [
+   "Danube",
+   "Tagus",
+   "Volga"
+  ],
+  "why": "“relio” unscrambles to Loire."
+ },
+ {
+  "part": "river",
+  "q": "Unscramble this Europe feature: “edrnpei”",
+  "a": "Dnieper",
+  "w": [
+   "Danube",
+   "Seine",
+   "Dniester"
+  ],
+  "why": "“edrnpei” unscrambles to Dnieper."
+ },
+ {
+  "part": "plain",
+  "q": "Unscramble: “paeunhtiaprnoelorn”",
+  "a": "Northern European Plain",
+  "w": [
+   "East European Plain",
+   "Iberian Plain",
+   "Alpine Plain"
+  ],
+  "why": "Northern European Plain."
+ },
+ {
+  "part": "plain",
+  "q": "Unscramble: “naluprsaeeoatepni”",
+  "a": "East European Plain",
+  "w": [
+   "Northern European Plain",
+   "Balkan Plain",
+   "Italian Plain"
+  ],
+  "why": "East European Plain."
+ },
+ {
+  "part": "plain",
+  "q": "How many plains are named on Map Quiz 3A?",
+  "a": "Two",
+  "w": [
+   "One",
+   "Three",
+   "Five"
+  ],
+  "why": "Northern European Plain and East European Plain."
+ },
+ {
+  "part": "plain",
+  "q": "Which plain stretches along the north of Europe, by the North and Baltic Seas?",
+  "a": "Northern European Plain",
+  "w": [
+   "East European Plain",
+   "Iberian Plain",
+   "Alpine Plain"
+  ],
+  "why": "Northern European Plain."
+ },
+ {
+  "part": "plain",
+  "q": "Which plain lies in eastern Europe, reaching into Russia?",
+  "a": "East European Plain",
+  "w": [
+   "Northern European Plain",
+   "Italian Plain",
+   "Balkan Plain"
+  ],
+  "why": "East European Plain."
+ },
+ {
+  "part": "mtn",
+  "q": "Which of these is a mountain feature of Europe?",
+  "a": "Alps",
+  "w": [
+   "Balkan Peninsula",
+   "Anatolia",
+   "Atlantic Ocean"
+  ],
+  "why": "Alps is a mountain feature."
+ },
+ {
+  "part": "mtn",
+  "q": "Which of these is a mountain feature of Europe?",
+  "a": "Balkan Mountains",
+  "w": [
+   "Danube",
+   "Volga",
+   "North Sea"
+  ],
+  "why": "Balkan Mountains is a mountain feature."
+ },
+ {
+  "part": "mtn",
+  "q": "Which of these is a mountain feature of Europe?",
+  "a": "Ural Mountains",
+  "w": [
+   "Atlantic Ocean",
+   "Black Sea",
+   "Arctic Ocean"
+  ],
+  "why": "Ural Mountains is a mountain feature."
+ },
+ {
+  "part": "mtn",
+  "q": "Which of these is a mountain feature of Europe?",
+  "a": "Scandinavian Mountains",
+  "w": [
+   "Anatolia",
+   "Balkan Peninsula",
+   "Baltic Sea"
+  ],
+  "why": "Scandinavian Mountains is a mountain feature."
+ },
+ {
+  "part": "mtn",
+  "q": "Which of these is a mountain feature of Europe?",
+  "a": "Mount Elbrus",
+  "w": [
+   "Rhone",
+   "Caspian Sea",
+   "North Sea"
+  ],
+  "why": "Mount Elbrus is a mountain feature."
+ },
+ {
+  "part": "mtn",
+  "q": "Which of these is a mountain feature of Europe?",
+  "a": "Apennines",
+  "w": [
+   "Arctic Ocean",
+   "Scandinavian Peninsula",
+   "Danube"
+  ],
+  "why": "Apennines is a mountain feature."
+ },
+ {
+  "part": "mtn",
+  "q": "Which of these is a mountain feature of Europe?",
+  "a": "Taurus Mountains",
+  "w": [
+   "Loire",
+   "Scandinavian Peninsula",
+   "Rhine"
+  ],
+  "why": "Taurus Mountains is a mountain feature."
+ },
+ {
+  "part": "mtn",
+  "q": "Which of these is a mountain feature of Europe?",
+  "a": "Carpathians",
+  "w": [
+   "Iberian Peninsula",
+   "Norwegian Sea",
+   "Iceland"
+  ],
+  "why": "Carpathians is a mountain feature."
+ },
+ {
+  "part": "mtn",
+  "q": "Which of these is a mountain feature of Europe?",
+  "a": "Pyrenees",
+  "w": [
+   "Rhine",
+   "North Sea",
+   "Dniester"
+  ],
+  "why": "Pyrenees is a mountain feature."
+ },
+ {
+  "part": "mtn",
+  "q": "Which of these is a mountain feature of Europe?",
+  "a": "Mont Blanc",
+  "w": [
+   "Caspian Sea",
+   "Baltic Sea",
+   "Dniester"
+  ],
+  "why": "Mont Blanc is a mountain feature."
+ },
+ {
+  "part": "mtn",
+  "q": "Which of these is a mountain feature of Europe?",
+  "a": "Caucasus",
+  "w": [
+   "Black Sea",
+   "Baltic Sea",
+   "Volga"
+  ],
+  "why": "Caucasus is a mountain feature."
+ },
+ {
+  "part": "isle",
+  "q": "Which of these is a peninsula or island group in Europe?",
+  "a": "Italian Peninsula",
+  "w": [
+   "Tagus",
+   "Dnieper",
+   "Norwegian Sea"
+  ],
+  "why": "Italian Peninsula is a peninsula/island."
+ },
+ {
+  "part": "isle",
+  "q": "Which of these is a peninsula or island group in Europe?",
+  "a": "Iberian Peninsula",
+  "w": [
+   "North Sea",
+   "Caucasus",
+   "Rhine"
+  ],
+  "why": "Iberian Peninsula is a peninsula/island."
+ },
+ {
+  "part": "isle",
+  "q": "Which of these is a peninsula or island group in Europe?",
+  "a": "Anatolia",
+  "w": [
+   "Bay of Biscay",
+   "Volga",
+   "Caspian Sea"
+  ],
+  "why": "Anatolia is a peninsula/island."
+ },
+ {
+  "part": "isle",
+  "q": "Which of these is a peninsula or island group in Europe?",
+  "a": "Scandinavian Peninsula",
+  "w": [
+   "Black Sea",
+   "Tagus",
+   "Danube"
+  ],
+  "why": "Scandinavian Peninsula is a peninsula/island."
+ },
+ {
+  "part": "isle",
+  "q": "Which of these is a peninsula or island group in Europe?",
+  "a": "Iceland",
+  "w": [
+   "Arctic Ocean",
+   "Seine",
+   "Baltic Sea"
+  ],
+  "why": "Iceland is a peninsula/island."
+ },
+ {
+  "part": "isle",
+  "q": "Which of these is a peninsula or island group in Europe?",
+  "a": "Balkan Peninsula",
+  "w": [
+   "Loire",
+   "Ural Mountains",
+   "Bay of Biscay"
+  ],
+  "why": "Balkan Peninsula is a peninsula/island."
+ },
+ {
+  "part": "isle",
+  "q": "Which of these is a peninsula or island group in Europe?",
+  "a": "British Isles",
+  "w": [
+   "Norwegian Sea",
+   "Loire",
+   "Taurus Mountains"
+  ],
+  "why": "British Isles is a peninsula/island."
+ },
+ {
+  "part": "sea",
+  "q": "Which of these is a sea or ocean around Europe?",
+  "a": "Black Sea",
+  "w": [
+   "Alps",
+   "Ural Mountains",
+   "Pyrenees"
+  ],
+  "why": "Black Sea is a sea/ocean."
+ },
+ {
+  "part": "sea",
+  "q": "Which of these is a sea or ocean around Europe?",
+  "a": "North Sea",
+  "w": [
+   "British Isles",
+   "Ural Mountains",
+   "Mount Elbrus"
+  ],
+  "why": "North Sea is a sea/ocean."
+ },
+ {
+  "part": "sea",
+  "q": "Which of these is a sea or ocean around Europe?",
+  "a": "Arctic Ocean",
+  "w": [
+   "Tagus",
+   "Loire",
+   "Balkan Mountains"
+  ],
+  "why": "Arctic Ocean is a sea/ocean."
+ },
+ {
+  "part": "sea",
+  "q": "Which of these is a sea or ocean around Europe?",
+  "a": "Mediterranean Sea",
+  "w": [
+   "Tagus",
+   "Alps",
+   "Mont Blanc"
+  ],
+  "why": "Mediterranean Sea is a sea/ocean."
+ },
+ {
+  "part": "sea",
+  "q": "Which of these is a sea or ocean around Europe?",
+  "a": "Atlantic Ocean",
+  "w": [
+   "Mont Blanc",
+   "Italian Peninsula",
+   "Carpathians"
+  ],
+  "why": "Atlantic Ocean is a sea/ocean."
+ },
+ {
+  "part": "sea",
+  "q": "Which of these is a sea or ocean around Europe?",
+  "a": "Caspian Sea",
+  "w": [
+   "Ural Mountains",
+   "Loire",
+   "Dniester"
+  ],
+  "why": "Caspian Sea is a sea/ocean."
+ },
+ {
+  "part": "sea",
+  "q": "Which of these is a sea or ocean around Europe?",
+  "a": "Bay of Biscay",
+  "w": [
+   "Iceland",
+   "Mount Elbrus",
+   "Iberian Peninsula"
+  ],
+  "why": "Bay of Biscay is a sea/ocean."
+ },
+ {
+  "part": "sea",
+  "q": "Which of these is a sea or ocean around Europe?",
+  "a": "Norwegian Sea",
+  "w": [
+   "Anatolia",
+   "Balkan Peninsula",
+   "Dnieper"
+  ],
+  "why": "Norwegian Sea is a sea/ocean."
+ },
+ {
+  "part": "sea",
+  "q": "Which of these is a sea or ocean around Europe?",
+  "a": "Baltic Sea",
+  "w": [
+   "Tagus",
+   "Iceland",
+   "Caucasus"
+  ],
+  "why": "Baltic Sea is a sea/ocean."
+ },
+ {
+  "part": "river",
+  "q": "Which of these is a river in Europe?",
+  "a": "Rhine",
+  "w": [
+   "Scandinavian Peninsula",
+   "Atlantic Ocean",
+   "Mount Elbrus"
+  ],
+  "why": "Rhine is a river."
+ },
+ {
+  "part": "river",
+  "q": "Which of these is a river in Europe?",
+  "a": "Tagus",
+  "w": [
+   "Mont Blanc",
+   "Scandinavian Peninsula",
+   "Baltic Sea"
+  ],
+  "why": "Tagus is a river."
+ },
+ {
+  "part": "river",
+  "q": "Which of these is a river in Europe?",
+  "a": "Volga",
+  "w": [
+   "Italian Peninsula",
+   "Mount Elbrus",
+   "Balkan Mountains"
+  ],
+  "why": "Volga is a river."
+ },
+ {
+  "part": "river",
+  "q": "Which of these is a river in Europe?",
+  "a": "Danube",
+  "w": [
+   "British Isles",
+   "Anatolia",
+   "Caspian Sea"
+  ],
+  "why": "Danube is a river."
+ },
+ {
+  "part": "river",
+  "q": "Which of these is a river in Europe?",
+  "a": "Rhone",
+  "w": [
+   "Italian Peninsula",
+   "Arctic Ocean",
+   "Scandinavian Peninsula"
+  ],
+  "why": "Rhone is a river."
+ },
+ {
+  "part": "river",
+  "q": "Which of these is a river in Europe?",
+  "a": "Dniester",
+  "w": [
+   "Anatolia",
+   "Balkan Peninsula",
+   "Caspian Sea"
+  ],
+  "why": "Dniester is a river."
+ },
+ {
+  "part": "river",
+  "q": "Which of these is a river in Europe?",
+  "a": "Seine",
+  "w": [
+   "Mount Elbrus",
+   "Caspian Sea",
+   "Iceland"
+  ],
+  "why": "Seine is a river."
+ },
+ {
+  "part": "river",
+  "q": "Which of these is a river in Europe?",
+  "a": "Loire",
+  "w": [
+   "Caspian Sea",
+   "Norwegian Sea",
+   "British Isles"
+  ],
+  "why": "Loire is a river."
+ },
+ {
+  "part": "river",
+  "q": "Which of these is a river in Europe?",
+  "a": "Dnieper",
+  "w": [
+   "British Isles",
+   "Balkan Peninsula",
+   "Alps"
+  ],
+  "why": "Dnieper is a river."
+ },
+ {
+  "part": "mtn",
+  "q": "Which mountains separate Europe from Asia in Russia?",
+  "a": "Ural Mountains",
+  "w": [
+   "Alps",
+   "Pyrenees",
+   "Carpathians"
+  ],
+  "why": "The Urals mark the Europe–Asia boundary."
+ },
+ {
+  "part": "mtn",
+  "q": "Which mountains separate Spain from France?",
+  "a": "Pyrenees",
+  "w": [
+   "Alps",
+   "Apennines",
+   "Urals"
+  ],
+  "why": "The Pyrenees lie between France and Spain."
+ },
+ {
+  "part": "mtn",
+  "q": "Which mountains run down the length of Italy?",
+  "a": "Apennines",
+  "w": [
+   "Alps",
+   "Pyrenees",
+   "Urals"
+  ],
+  "why": "The Apennines run along Italy’s peninsula."
+ },
+ {
+  "part": "mtn",
+  "q": "Which mountains are in Switzerland, Austria and northern Italy?",
+  "a": "Alps",
+  "w": [
+   "Urals",
+   "Carpathians",
+   "Apennines"
+  ],
+  "why": "The Alps."
+ },
+ {
+  "part": "mtn",
+  "q": "Which mountain is the highest in the Alps (on the border of France and Italy)?",
+  "a": "Mont Blanc",
+  "w": [
+   "Mount Elbrus",
+   "Taurus",
+   "Apennines"
+  ],
+  "why": "Mont Blanc (extra fact)."
+ },
+ {
+  "part": "mtn",
+  "q": "Mount Elbrus is in which mountain range?",
+  "a": "Caucasus",
+  "w": [
+   "Alps",
+   "Urals",
+   "Carpathians"
+  ],
+  "why": "Elbrus is the highest peak of the Caucasus (extra fact)."
+ },
+ {
+  "part": "mtn",
+  "q": "Which mountains are in Turkey?",
+  "a": "Taurus Mountains",
+  "w": [
+   "Balkan Mountains",
+   "Urals",
+   "Pyrenees"
+  ],
+  "why": "Taurus Mountains in southern Turkey."
+ },
+ {
+  "part": "mtn",
+  "q": "Which mountain range curves through Romania, Ukraine and Slovakia?",
+  "a": "Carpathians",
+  "w": [
+   "Taurus",
+   "Apennines",
+   "Alps"
+  ],
+  "why": "Carpathians (extra fact)."
+ },
+ {
+  "part": "mtn",
+  "q": "Which mountains are on the Scandinavian Peninsula (Norway and Sweden)?",
+  "a": "Scandinavian Mountains",
+  "w": [
+   "Balkan Mountains",
+   "Alps",
+   "Urals"
+  ],
+  "why": "Scandinavian Mountains."
+ },
+ {
+  "part": "mtn",
+  "q": "Which mountains give the Balkan Peninsula its name?",
+  "a": "Balkan Mountains",
+  "w": [
+   "Taurus",
+   "Pyrenees",
+   "Carpathians"
+  ],
+  "why": "Balkan Mountains in Bulgaria (extra fact)."
+ },
+ {
+  "part": "isle",
+  "q": "Which peninsula contains Spain and Portugal?",
+  "a": "Iberian Peninsula",
+  "w": [
+   "Italian Peninsula",
+   "Balkan Peninsula",
+   "Scandinavian Peninsula"
+  ],
+  "why": "Iberian Peninsula."
+ },
+ {
+  "part": "isle",
+  "q": "Which peninsula contains Italy?",
+  "a": "Italian Peninsula",
+  "w": [
+   "Iberian Peninsula",
+   "Balkan Peninsula",
+   "Anatolia"
+  ],
+  "why": "Italian Peninsula."
+ },
+ {
+  "part": "isle",
+  "q": "Which peninsula contains Norway and Sweden?",
+  "a": "Scandinavian Peninsula",
+  "w": [
+   "Iberian Peninsula",
+   "Balkan Peninsula",
+   "Italian Peninsula"
+  ],
+  "why": "Scandinavian Peninsula."
+ },
+ {
+  "part": "isle",
+  "q": "Which feature is the Asian part of Turkey?",
+  "a": "Anatolia",
+  "w": [
+   "Balkan Peninsula",
+   "Iberian Peninsula",
+   "Iceland"
+  ],
+  "why": "Anatolia (Asia Minor) (extra fact)."
+ },
+ {
+  "part": "isle",
+  "q": "Which island country lies in the Atlantic Ocean northwest of Europe?",
+  "a": "Iceland",
+  "w": [
+   "Ireland",
+   "Malta",
+   "Cyprus"
+  ],
+  "why": "Iceland."
+ },
+ {
+  "part": "isle",
+  "q": "Which islands include England, Scotland, Wales and Ireland?",
+  "a": "British Isles",
+  "w": [
+   "Scandinavian Peninsula",
+   "Balkan Peninsula",
+   "Anatolia"
+  ],
+  "why": "British Isles."
+ },
+ {
+  "part": "isle",
+  "q": "Which peninsula includes Greece, Bulgaria and Albania?",
+  "a": "Balkan Peninsula",
+  "w": [
+   "Iberian Peninsula",
+   "Italian Peninsula",
+   "Scandinavian Peninsula"
+  ],
+  "why": "Balkan Peninsula."
+ },
+ {
+  "part": "sea",
+  "q": "Which sea is between Europe, Africa and Asia in the south?",
+  "a": "Mediterranean Sea",
+  "w": [
+   "Baltic Sea",
+   "North Sea",
+   "Caspian Sea"
+  ],
+  "why": "Mediterranean Sea."
+ },
+ {
+  "part": "sea",
+  "q": "Which sea is northeast of France and the Netherlands, between Britain and Norway?",
+  "a": "North Sea",
+  "w": [
+   "Black Sea",
+   "Caspian Sea",
+   "Baltic Sea"
+  ],
+  "why": "North Sea."
+ },
+ {
+  "part": "sea",
+  "q": "Which sea is east of Romania and Bulgaria and north of Turkey?",
+  "a": "Black Sea",
+  "w": [
+   "Baltic Sea",
+   "North Sea",
+   "Caspian Sea"
+  ],
+  "why": "Black Sea."
+ },
+ {
+  "part": "sea",
+  "q": "Which sea is between Sweden and the Baltic countries (Estonia, Latvia, Lithuania)?",
+  "a": "Baltic Sea",
+  "w": [
+   "Black Sea",
+   "North Sea",
+   "Norwegian Sea"
+  ],
+  "why": "Baltic Sea."
+ },
+ {
+  "part": "sea",
+  "q": "Which sea is to the west of Norway?",
+  "a": "Norwegian Sea",
+  "w": [
+   "Black Sea",
+   "Baltic Sea",
+   "Caspian Sea"
+  ],
+  "why": "Norwegian Sea."
+ },
+ {
+  "part": "sea",
+  "q": "Which ocean is north of Europe and Russia?",
+  "a": "Arctic Ocean",
+  "w": [
+   "Atlantic Ocean",
+   "Mediterranean Sea",
+   "North Sea"
+  ],
+  "why": "Arctic Ocean."
+ },
+ {
+  "part": "sea",
+  "q": "Which ocean is west of Europe?",
+  "a": "Atlantic Ocean",
+  "w": [
+   "Arctic Ocean",
+   "Mediterranean Sea",
+   "Black Sea"
+  ],
+  "why": "Atlantic Ocean."
+ },
+ {
+  "part": "sea",
+  "q": "Which body of water lies off western France and northern Spain?",
+  "a": "Bay of Biscay",
+  "w": [
+   "Baltic Sea",
+   "Black Sea",
+   "North Sea"
+  ],
+  "why": "Bay of Biscay."
+ },
+ {
+  "part": "sea",
+  "q": "Which sea is the largest inland body of water, east of the Caucasus?",
+  "a": "Caspian Sea",
+  "w": [
+   "Black Sea",
+   "Baltic Sea",
+   "North Sea"
+  ],
+  "why": "Caspian Sea (extra fact)."
+ },
+ {
+  "part": "river",
+  "q": "Which river runs through Paris?",
+  "a": "Seine",
+  "w": [
+   "Rhine",
+   "Danube",
+   "Volga"
+  ],
+  "why": "Seine."
+ },
+ {
+  "part": "river",
+  "q": "Which river runs through Kiev?",
+  "a": "Dnieper",
+  "w": [
+   "Rhine",
+   "Volga",
+   "Rhone"
+  ],
+  "why": "Dnieper."
+ },
+ {
+  "part": "river",
+  "q": "Which river runs through Lisbon, Portugal?",
+  "a": "Tagus",
+  "w": [
+   "Seine",
+   "Loire",
+   "Rhone"
+  ],
+  "why": "Tagus."
+ },
+ {
+  "part": "river",
+  "q": "Which river is the longest in Europe?",
+  "a": "Volga",
+  "w": [
+   "Danube",
+   "Rhine",
+   "Seine"
+  ],
+  "why": "Volga (extra fact)."
+ },
+ {
+  "part": "river",
+  "q": "Which river runs through many countries, including Austria and Hungary, to the Black Sea?",
+  "a": "Danube",
+  "w": [
+   "Rhine",
+   "Volga",
+   "Seine"
+  ],
+  "why": "Danube."
+ },
+ {
+  "part": "river",
+  "q": "Which river flows into the North Sea through Germany and the Netherlands?",
+  "a": "Rhine",
+  "w": [
+   "Rhone",
+   "Seine",
+   "Loire"
+  ],
+  "why": "Rhine."
+ },
+ {
+  "part": "river",
+  "q": "Which river flows from Switzerland through southern France to the Mediterranean?",
+  "a": "Rhone",
+  "w": [
+   "Seine",
+   "Loire",
+   "Rhine"
+  ],
+  "why": "Rhone."
+ },
+ {
+  "part": "river",
+  "q": "Which river flows into the Caspian Sea?",
+  "a": "Volga",
+  "w": [
+   "Danube",
+   "Rhine",
+   "Dnieper"
+  ],
+  "why": "Volga."
+ },
+ {
+  "part": "river",
+  "q": "Which French river flows west to the Atlantic?",
+  "a": "Loire",
+  "w": [
+   "Seine",
+   "Rhone",
+   "Rhine"
+  ],
+  "why": "Loire."
+ },
+ {
+  "part": "river",
+  "q": "Which river is in Moldova and Ukraine?",
+  "a": "Dniester",
+  "w": [
+   "Dnieper",
+   "Danube",
+   "Volga"
+  ],
+  "why": "Dniester."
+ },
+ {
+  "part": "capw",
+  "q": "Which capital is in Austria?",
+  "a": "Vienna",
+  "w": [
+   "Bern",
+   "Berlin",
+   "Budapest"
+  ],
+  "why": "Vienna, Austria."
+ },
+ {
+  "part": "capw",
+  "q": "Which capital is in Switzerland?",
+  "a": "Bern",
+  "w": [
+   "Vienna",
+   "Berlin",
+   "Brussels"
+  ],
+  "why": "Bern."
+ },
+ {
+  "part": "capw",
+  "q": "Which capital is in the Netherlands?",
+  "a": "Amsterdam",
+  "w": [
+   "Brussels",
+   "Berlin",
+   "Copenhagen"
+  ],
+  "why": "Amsterdam."
+ },
+ {
+  "part": "cape",
+  "q": "Which capital is in Hungary?",
+  "a": "Budapest",
+  "w": [
+   "Bucharest",
+   "Bratislava",
+   "Belgrade"
+  ],
+  "why": "Budapest, Hungary."
+ },
+ {
+  "part": "cape",
+  "q": "Which capital is in Romania?",
+  "a": "Bucharest",
+  "w": [
+   "Budapest",
+   "Bratislava",
+   "Belgrade"
+  ],
+  "why": "Bucharest."
+ },
+ {
+  "part": "cape",
+  "q": "Which capital is in Slovakia?",
+  "a": "Bratislava",
+  "w": [
+   "Budapest",
+   "Bucharest",
+   "Belgrade"
+  ],
+  "why": "Bratislava."
+ },
+ {
+  "part": "cape",
+  "q": "Which capital is in Serbia?",
+  "a": "Belgrade",
+  "w": [
+   "Bucharest",
+   "Budapest",
+   "Bratislava"
+  ],
+  "why": "Belgrade."
+ }
+];
+
+/* ---------- HELPERS ---------- */
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+function escapeHtml(str){
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+document.getElementById('header-sub').textContent =
+  cards.length + ' study cards · ' + questions.length + ' quiz questions';
+
+/* ---------- STUDY CARDS ---------- */
+let deck = cards.slice();
+let idx = 0, flipped = false;
+const cardEl = document.getElementById('card');
+
+function renderCard(){
+  const c = deck[idx];
+  document.getElementById('front-text').textContent = c.term;
+  document.getElementById('back-text').textContent = c.def;
+  document.getElementById('face-part').textContent = PART_LABEL[c.part];
+  document.getElementById('back-part').textContent = PART_LABEL[c.part];
+  document.getElementById('flash-count').textContent = (idx+1) + ' / ' + deck.length;
+  document.getElementById('flash-fill').style.width = (((idx+1)/deck.length)*100) + '%';
+  flipped = false;
+  cardEl.classList.remove('flipped');
+}
+// snap back to the front before swapping text so the next answer never flashes
+function goToCard(n){
+  if(flipped){
+    cardEl.classList.add('no-transition');
+    cardEl.classList.remove('flipped');
+    flipped = false;
+    void cardEl.offsetWidth;
+    idx = n; renderCard();
+    void cardEl.offsetWidth;
+    cardEl.classList.remove('no-transition');
+  } else { idx = n; renderCard(); }
+}
+function toggleFlip(){ flipped = !flipped; cardEl.classList.toggle('flipped', flipped); }
+document.getElementById('card-wrap').addEventListener('click', toggleFlip);
+document.getElementById('flip-btn').addEventListener('click', e => { e.stopPropagation(); toggleFlip(); });
+document.getElementById('next-btn').addEventListener('click', () => goToCard((idx+1)%deck.length));
+document.getElementById('prev-btn').addEventListener('click', () => goToCard((idx-1+deck.length)%deck.length));
+document.getElementById('shuffle-btn').addEventListener('click', () => { deck = shuffle(deck); goToCard(0); });
+renderCard();
+
+/* ---------- SCOREBOARD STORAGE ---------- */
+const SCORE_KEY = 'latin-scores-geo5';
+const NAME_KEY = 'latin-player-name';
+
+function getPlayerName(){
+  let name = null;
+  try{ name = localStorage.getItem(NAME_KEY); }catch(e){}
+  if(!name){
+    name = (prompt('What\'s your name? (shown on the scoreboard)') || 'Player').trim().slice(0,24) || 'Player';
+    try{ localStorage.setItem(NAME_KEY, name); }catch(e){}
+  }
+  return name;
+}
+function setPlayerName(){
+  let current = '';
+  try{ current = localStorage.getItem(NAME_KEY) || ''; }catch(e){}
+  const name = (prompt('Enter your name for the scoreboard:', current) || current || 'Player').trim().slice(0,24) || 'Player';
+  try{ localStorage.setItem(NAME_KEY, name); }catch(e){}
+  document.getElementById('player-name-display').textContent = name;
+}
+function loadScores(){
+  try{ return JSON.parse(localStorage.getItem(SCORE_KEY) || '[]'); }catch(e){ return []; }
+}
+function saveScore(name, correct, total, percent, mode){
+  const scores = loadScores();
+  const now = new Date();
+  scores.push({
+    name, correct, total, percent, mode,
+    ts: now.getTime(),
+    date: now.toLocaleDateString(),
+    time: now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
+  });
+  while(scores.length > 50) scores.shift();
+  try{ localStorage.setItem(SCORE_KEY, JSON.stringify(scores)); }catch(e){}
+}
+const MODE_LABEL = Object.assign({master:'Master Quiz', quick:'Quick Mix', all:'Everything'}, Object.fromEntries(Object.keys(PART_LABEL).map(k => [k, PART_LABEL[k].replace(' · ', ': ')])));
+function renderScoreboard(){
+  const content = document.getElementById('scores-content');
+  const scores = loadScores();
+  if(scores.length === 0){
+    content.innerHTML = '<div class="score-empty">No quiz attempts logged yet on this device.<br>Finish a quiz to appear here.</div>';
+    return;
+  }
+  const sorted = scores.slice().sort((a,b) => b.percent - a.percent || (b.ts||0) - (a.ts||0));
+  let current = '';
+  try{ current = localStorage.getItem(NAME_KEY) || ''; }catch(e){}
+  const rows = sorted.slice(0,20).map(s => (
+    '<tr class="' + (s.name === current ? 'you' : '') + '">' +
+      '<td>' + escapeHtml(s.name) + '</td>' +
+      '<td>' + s.correct + ' / ' + s.total + '</td>' +
+      '<td class="score-percent">' + s.percent + '%</td>' +
+      '<td>' + escapeHtml(MODE_LABEL[s.mode] || '') + '</td>' +
+      '<td>' + s.date + '</td>' +
+      '<td>' + (s.time || '&mdash;') + '</td>' +
+    '</tr>'
+  )).join('');
+  content.innerHTML =
+    '<table class="score-table"><thead><tr>' +
+    '<th>Name</th><th>Score</th><th>%</th><th>Quiz</th><th>Date</th><th>Time</th>' +
+    '</tr></thead><tbody>' + rows + '</tbody></table>';
+}
+
+/* ---------- QUIZ ---------- */
+let qDeck = [], qIdx = 0, qCorrect = 0, qAnswered = 0, qMode = 'all', qLocked = false, qMissed = [];
+const setupEl = document.getElementById('quiz-setup');
+const playEl = document.getElementById('quiz-play');
+const doneEl = document.getElementById('quiz-done');
+const optionsEl = document.getElementById('options');
+const feedbackEl = document.getElementById('quiz-feedback');
+const nextBtn = document.getElementById('quiz-next');
+
+const MASTER_SIZE = 50, QUICK_SIZE = 20;
+function questionsFor(mode){
+  if(mode === 'all') return questions.slice();
+  if(mode === 'master') return shuffle(questions.slice()).slice(0, MASTER_SIZE);
+  if(mode === 'quick') return shuffle(questions.slice()).slice(0, QUICK_SIZE);
+  return questions.filter(q => q.part === mode);
+}
+// build the quiz menu from the data so the counts are always right
+(function buildMenu(){
+  const list = document.getElementById('mode-list');
+  [["master", "Master Quiz (random mix)"], ["quick", "Quick Mix (20 random)"], ["all", "Everything"], ["capw", "Part 1: Capitals: Western & Southern Europe"], ["cape", "Part 2: Capitals: Northern & Eastern Europe"], ["capb", "Part 3: Capitals: The Balkans"], ["map", "Part 4: Map Skills & Tiny Countries"], ["mtn", "Part 5: Mountains"], ["isle", "Part 6: Isles & Peninsulas"], ["plain", "Part 7: Plains"], ["sea", "Part 8: Seas & Oceans"], ["river", "Part 9: Rivers"]].forEach((m,i) => {
+    const b = document.createElement('button');
+    b.className = 'mode-pick' + (i === 0 ? ' primary-pick' : '');
+    b.textContent = m[1] + ' — ' + (m[0]==='master' ? MASTER_SIZE : m[0]==='quick' ? QUICK_SIZE : questionsFor(m[0]).length) + ' questions';
+    b.addEventListener('click', () => { getPlayerName(); startQuiz(m[0]); });
+    list.appendChild(b);
+  });
+})();
+
+function startQuiz(mode){
+  qMode = mode;
+  qDeck = shuffle(questionsFor(mode));
+  qIdx = 0; qCorrect = 0; qAnswered = 0; qMissed = [];
+  setupEl.style.display = 'none';
+  doneEl.style.display = 'none';
+  playEl.style.display = '';
+  document.getElementById('quiz-score').textContent = 'Score: 0 correct / 0 answered';
+  document.getElementById('player-name-display').textContent = getPlayerName();
+  renderQuestion();
+}
+function renderQuestion(){
+  const q = qDeck[qIdx];
+  document.getElementById('quiz-part').textContent = PART_LABEL[q.part];
+  document.getElementById('quiz-q').textContent = q.q;
+  document.getElementById('quiz-count').textContent = (qIdx+1) + ' / ' + qDeck.length;
+  document.getElementById('quiz-fill').style.width = (((qIdx+1)/qDeck.length)*100) + '%';
+  feedbackEl.textContent = '';
+  feedbackEl.className = 'feedback';
+  nextBtn.style.display = 'none';
+  optionsEl.innerHTML = '';
+  qLocked = false;
+  shuffle([q.a].concat(q.w)).forEach((text, i) => {
+    const b = document.createElement('button');
+    b.className = 'opt';
+    b.setAttribute('data-text', text);
+    b.innerHTML = '<span class="key">' + 'ABCD'[i] + '</span> ' + escapeHtml(text);
+    b.addEventListener('click', () => choose(b));
+    optionsEl.appendChild(b);
+  });
+}
+function choose(btn){
+  if(qLocked) return;
+  qLocked = true;
+  const q = qDeck[qIdx];
+  const picked = btn.getAttribute('data-text');
+  const ok = picked === q.a;
+  qAnswered++;
+  Array.prototype.forEach.call(optionsEl.children, b => {
+    b.disabled = true;
+    if(b.getAttribute('data-text') === q.a) b.classList.add('right');
+  });
+  if(ok){
+    qCorrect++;
+    feedbackEl.textContent = 'Correct! ' + q.why;
+    feedbackEl.className = 'feedback correct';
+  } else {
+    btn.classList.add('wrong');
+    qMissed.push(q);
+    feedbackEl.textContent = 'Not quite. ' + q.why;
+    feedbackEl.className = 'feedback wrong';
+  }
+  document.getElementById('quiz-score').textContent = 'Score: ' + qCorrect + ' correct / ' + qAnswered + ' answered';
+  nextBtn.textContent = qIdx + 1 >= qDeck.length ? 'See results' : 'Next';
+  nextBtn.style.display = '';
+  nextBtn.focus();
+}
+nextBtn.addEventListener('click', () => {
+  if(!qLocked) return;          // ignore clicks before an answer is chosen
+  qLocked = false;
+  qIdx++;
+  if(qIdx >= qDeck.length){ finishQuiz(); return; }
+  renderQuestion();
+});
+// keys 1-4 or A-D pick an answer; Enter moves on
+document.addEventListener('keydown', e => {
+  if(playEl.style.display === 'none' || quizView.style.display === 'none') return;
+  if(e.key === 'Enter' && qLocked){
+    // preventDefault stops the focused Next button from also firing its own
+    // click, which would skip a question
+    e.preventDefault();
+    nextBtn.click();
+    return;
+  }
+  const k = '1234abcd'.indexOf(e.key.toLowerCase());
+  if(k !== -1 && !qLocked){
+    const b = optionsEl.children[k % 4];
+    if(b) b.click();
+  }
+});
+function scoreMessage(p){
+  if(p >= 100) return {title:'Perfect score!', msg:'Every answer correct. You really know Europe.'};
+  if(p >= 90)  return {title:'Excellent work!', msg:'Nearly flawless. Just a detail or two to polish.'};
+  if(p >= 80)  return {title:'Great job!', msg:'Solid understanding. Review the ones you missed and you will have them locked in.'};
+  if(p >= 70)  return {title:'Good effort!', msg:'You are on the right track. A bit more practice and these will stick.'};
+  return {title:'Keep practicing!', msg:'Go back through the study cards, then try the quiz again. You will improve fast.'};
+}
+function finishQuiz(){
+  const percent = Math.round((qCorrect / qDeck.length) * 100);
+  saveScore(getPlayerName(), qCorrect, qDeck.length, percent, qMode);
+  const m = scoreMessage(percent);
+  playEl.style.display = 'none';
+  doneEl.style.display = '';
+  document.getElementById('done-percent').textContent = percent + '% correct (' + qCorrect + ' of ' + qDeck.length + ')';
+  document.getElementById('done-title').textContent = m.title;
+  document.getElementById('done-msg').textContent = m.msg;
+  const missedEl = document.getElementById('done-missed');
+  if(qMissed.length){
+    missedEl.innerHTML = '<strong style="color:var(--gold-bright);">Review these:</strong>' +
+      '<ul style="margin:8px 0 0;padding-left:20px;line-height:1.6;">' +
+      qMissed.map(q => '<li>' + escapeHtml(q.q) + '<br><em>' + escapeHtml(q.a) + '</em></li>').join('') +
+      '</ul>';
+  } else { missedEl.innerHTML = ''; }
+}
+document.getElementById('done-restart').addEventListener('click', () => startQuiz(qMode));
+document.getElementById('done-menu').addEventListener('click', () => {
+  doneEl.style.display = 'none'; playEl.style.display = 'none'; setupEl.style.display = '';
+});
+document.getElementById('change-name-btn').addEventListener('click', setPlayerName);
+
+/* ---------- MODE SWITCH ---------- */
+const btnFlash = document.getElementById('btn-flash');
+const btnQuiz = document.getElementById('btn-quiz');
+const btnScores = document.getElementById('btn-scores');
+const flashView = document.getElementById('flash-view');
+const quizView = document.getElementById('quiz-view');
+const scoresView = document.getElementById('scores-view');
+function setActiveTab(activeBtn){
+  [btnFlash, btnQuiz, btnScores].forEach(b => b.classList.remove('active'));
+  activeBtn.classList.add('active');
+  [flashView, quizView, scoresView].forEach(v => v.style.display = 'none');
+}
+btnFlash.addEventListener('click', () => { setActiveTab(btnFlash); flashView.style.display = ''; });
+btnQuiz.addEventListener('click', () => {
+  setActiveTab(btnQuiz);
+  quizView.style.display = '';
+  let n = 'Player';
+  try{ n = localStorage.getItem(NAME_KEY) || 'Player'; }catch(e){}
+  document.getElementById('player-name-display').textContent = n;
+});
+btnScores.addEventListener('click', () => { setActiveTab(btnScores); scoresView.style.display = ''; renderScoreboard(); });
+</script>
+
+</body>
+</html>
