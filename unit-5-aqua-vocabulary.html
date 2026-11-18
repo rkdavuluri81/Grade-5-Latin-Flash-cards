@@ -8,14 +8,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --stone: #2b2620;
-    --stone-light: #3c352c;
-    --gold: #b8892b;
-    --gold-bright: #d9a840;
+    --stone: #1b1530;
+    --stone-light: #2a2250;
+    --gold: #8b6cf0;
+    --gold-bright: #b79cff;
     --plaster: #ece4d3;
     --plaster-dim: #c9beaa;
-    --wine: #7a2e2e;
-    --wine-bright: #a8433f;
+    --wine: #6d3fd6;
+    --wine-bright: #d0b8ff;
     --green: #4f6b4a;
   }
   *{box-sizing:border-box;}
@@ -23,7 +23,7 @@
     margin:0;
     min-height:100vh;
     background:
-      radial-gradient(ellipse at 20% 0%, rgba(184,137,43,0.08), transparent 60%),
+      radial-gradient(ellipse at 20% 0%, rgba(139,108,240,0.08), transparent 60%),
       var(--stone);
     color:var(--plaster);
     font-family:'Source Serif 4', serif;
@@ -63,7 +63,7 @@
     background:var(--stone-light);
     padding:5px;
     border-radius:999px;
-    border:1px solid rgba(184,137,43,0.25);
+    border:1px solid rgba(139,108,240,0.25);
   }
   .modebar button{
     font-family:'Cinzel',serif;
@@ -138,7 +138,7 @@
     justify-content:center;
     text-align:center;
     padding:32px;
-    border:1px solid rgba(184,137,43,0.3);
+    border:1px solid rgba(139,108,240,0.3);
   }
   .face.front{
     background:linear-gradient(160deg, var(--stone-light), var(--stone));
@@ -180,7 +180,7 @@
   }
   .speak-btn{
     background:none;
-    border:1px solid rgba(184,137,43,0.4);
+    border:1px solid rgba(139,108,240,0.4);
     color:var(--gold-bright);
     width:34px;
     height:34px;
@@ -193,7 +193,7 @@
     margin-top:12px;
     transition:background .2s;
   }
-  .speak-btn:hover{ background:rgba(184,137,43,0.15); }
+  .speak-btn:hover{ background:rgba(139,108,240,0.15); }
   .speak-btn:active{ transform:scale(0.94); }
   .definition{
     font-size:clamp(20px,4.5vw,26px);
@@ -212,7 +212,7 @@
     letter-spacing:0.05em;
     background:var(--stone-light);
     color:var(--plaster);
-    border:1px solid rgba(184,137,43,0.3);
+    border:1px solid rgba(139,108,240,0.3);
     padding:11px 20px;
     border-radius:4px;
     cursor:pointer;
@@ -241,14 +241,14 @@
     font-size:13px;
     font-family:'Source Serif 4',serif;
     text-decoration:underline;
-    text-decoration-color:rgba(184,137,43,0.5);
+    text-decoration-color:rgba(139,108,240,0.5);
     cursor:pointer;
   }
 
   /* QUIZ MODE */
   .quiz-box{
     background:var(--stone-light);
-    border:1px solid rgba(184,137,43,0.25);
+    border:1px solid rgba(139,108,240,0.25);
     border-radius:6px;
     padding:36px 30px;
     margin-bottom:20px;
@@ -329,7 +329,7 @@
     width:100%;
     border-collapse:collapse;
     background:var(--stone-light);
-    border:1px solid rgba(184,137,43,0.25);
+    border:1px solid rgba(139,108,240,0.25);
     border-radius:6px;
     overflow:hidden;
   }
@@ -343,13 +343,13 @@
     font-size:11px;
     letter-spacing:0.08em;
     color:var(--gold-bright);
-    border-bottom:1px solid rgba(184,137,43,0.25);
+    border-bottom:1px solid rgba(139,108,240,0.25);
   }
   .score-table tbody tr:not(:last-child) td{
     border-bottom:1px solid rgba(236,228,211,0.08);
   }
   .score-table tbody tr.you{
-    background:rgba(184,137,43,0.12);
+    background:rgba(139,108,240,0.12);
   }
   .score-percent{
     font-weight:600;
@@ -360,7 +360,7 @@
     font-size:14px;
     padding:40px 20px;
     background:var(--stone-light);
-    border:1px dashed rgba(184,137,43,0.3);
+    border:1px dashed rgba(139,108,240,0.3);
     border-radius:6px;
   }
   .score-actions{
@@ -375,12 +375,25 @@
     font-size:13px;
     font-family:'Source Serif 4',serif;
     text-decoration:underline;
-    text-decoration-color:rgba(184,137,43,0.4);
+    text-decoration-color:rgba(139,108,240,0.4);
     cursor:pointer;
   }
   @media (prefers-reduced-motion: reduce){
     .card{ transition:none; }
   }
+
+  /* KID-THEME */
+  body{background:
+    radial-gradient(ellipse at 15% -10%, #8b6cf055, transparent 55%),
+    radial-gradient(ellipse at 100% 10%, #6d3fd644, transparent 50%),
+    repeating-linear-gradient(115deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 22px),
+    #1b1530 !important;}
+  h1{background:linear-gradient(90deg,#b79cff,#ffffff 55%,#d0b8ff);-webkit-background-clip:text;background-clip:text;color:transparent !important;text-shadow:none;}
+  .kicker::before{content:"⚔️ ";}
+  .kicker::after{content:" ⚔️";}
+  button:hover{filter:brightness(1.12);}
+  @keyframes kt-pop{0%{transform:scale(.97)}100%{transform:scale(1)}}
+/* KID-BG */body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20preserveAspectRatio%3D%22xMidYMax%20slice%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%230000%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%230000%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Ccircle%20cx%3D%22115%22%20cy%3D%2246%22%20r%3D%221%22%20fill%3D%22%23fff%22%20opacity%3D%220.5%22%2F%3E%3Ccircle%20cx%3D%22346%22%20cy%3D%22157%22%20r%3D%221.5%22%20fill%3D%22%23fff%22%20opacity%3D%220.8%22%2F%3E%3Ccircle%20cx%3D%22434%22%20cy%3D%2218%22%20r%3D%222.5%22%20fill%3D%22%23fff%22%20opacity%3D%220.8%22%2F%3E%3Ccircle%20cx%3D%22324%22%20cy%3D%22220%22%20r%3D%222%22%20fill%3D%22%23fff%22%20opacity%3D%220.8%22%2F%3E%3Ccircle%20cx%3D%221042%22%20cy%3D%22190%22%20r%3D%222.5%22%20fill%3D%22%23fff%22%20opacity%3D%220.5%22%2F%3E%3Ccircle%20cx%3D%221028%22%20cy%3D%22137%22%20r%3D%221%22%20fill%3D%22%23fff%22%20opacity%3D%220.3%22%2F%3E%3Ccircle%20cx%3D%22745%22%20cy%3D%22238%22%20r%3D%221.5%22%20fill%3D%22%23fff%22%20opacity%3D%220.5%22%2F%3E%3Ccircle%20cx%3D%22867%22%20cy%3D%22269%22%20r%3D%221%22%20fill%3D%22%23fff%22%20opacity%3D%220.8%22%2F%3E%3Ccircle%20cx%3D%22363%22%20cy%3D%22120%22%20r%3D%221%22%20fill%3D%22%23fff%22%20opacity%3D%220.3%22%2F%3E%3Ccircle%20cx%3D%22361%22%20cy%3D%22166%22%20r%3D%221%22%20fill%3D%22%23fff%22%20opacity%3D%220.3%22%2F%3E%3Ccircle%20cx%3D%221044%22%20cy%3D%22261%22%20r%3D%221.5%22%20fill%3D%22%23fff%22%20opacity%3D%220.8%22%2F%3E%3Ccircle%20cx%3D%221381%22%20cy%3D%22286%22%20r%3D%221%22%20fill%3D%22%23fff%22%20opacity%3D%220.5%22%2F%3E%3Ccircle%20cx%3D%22849%22%20cy%3D%22268%22%20r%3D%221.5%22%20fill%3D%22%23fff%22%20opacity%3D%220.8%22%2F%3E%3Ccircle%20cx%3D%22724%22%20cy%3D%22185%22%20r%3D%222%22%20fill%3D%22%23fff%22%20opacity%3D%220.3%22%2F%3E%3Ccircle%20cx%3D%221544%22%20cy%3D%22204%22%20r%3D%222%22%20fill%3D%22%23fff%22%20opacity%3D%220.8%22%2F%3E%3Ccircle%20cx%3D%221086%22%20cy%3D%22127%22%20r%3D%222%22%20fill%3D%22%23fff%22%20opacity%3D%220.5%22%2F%3E%3Ccircle%20cx%3D%221020%22%20cy%3D%22256%22%20r%3D%222.5%22%20fill%3D%22%23fff%22%20opacity%3D%220.5%22%2F%3E%3Ccircle%20cx%3D%221355%22%20cy%3D%22232%22%20r%3D%222%22%20fill%3D%22%23fff%22%20opacity%3D%220.5%22%2F%3E%3Ccircle%20cx%3D%221162%22%20cy%3D%22285%22%20r%3D%222%22%20fill%3D%22%23fff%22%20opacity%3D%220.5%22%2F%3E%3Ccircle%20cx%3D%221349%22%20cy%3D%22113%22%20r%3D%221.5%22%20fill%3D%22%23fff%22%20opacity%3D%220.8%22%2F%3E%3Ccircle%20cx%3D%22340%22%20cy%3D%22137%22%20r%3D%222%22%20fill%3D%22%23fff%22%20opacity%3D%220.5%22%2F%3E%3Ccircle%20cx%3D%22621%22%20cy%3D%22258%22%20r%3D%222.5%22%20fill%3D%22%23fff%22%20opacity%3D%220.8%22%2F%3E%3Ccircle%20cx%3D%221039%22%20cy%3D%22208%22%20r%3D%221.5%22%20fill%3D%22%23fff%22%20opacity%3D%220.8%22%2F%3E%3Ccircle%20cx%3D%22425%22%20cy%3D%22250%22%20r%3D%222.5%22%20fill%3D%22%23fff%22%20opacity%3D%220.5%22%2F%3E%3Ccircle%20cx%3D%221401%22%20cy%3D%2238%22%20r%3D%221.5%22%20fill%3D%22%23fff%22%20opacity%3D%220.8%22%2F%3E%3Ccircle%20cx%3D%2217%22%20cy%3D%2297%22%20r%3D%221%22%20fill%3D%22%23fff%22%20opacity%3D%220.3%22%2F%3E%3Ccircle%20cx%3D%221176%22%20cy%3D%2225%22%20r%3D%221.5%22%20fill%3D%22%23fff%22%20opacity%3D%220.8%22%2F%3E%3Ccircle%20cx%3D%22464%22%20cy%3D%2254%22%20r%3D%222.5%22%20fill%3D%22%23fff%22%20opacity%3D%220.3%22%2F%3E%3Ccircle%20cx%3D%22544%22%20cy%3D%22125%22%20r%3D%221%22%20fill%3D%22%23fff%22%20opacity%3D%220.3%22%2F%3E%3Ccircle%20cx%3D%22866%22%20cy%3D%2216%22%20r%3D%221%22%20fill%3D%22%23fff%22%20opacity%3D%220.5%22%2F%3E%3Ccircle%20cx%3D%221300%22%20cy%3D%22200%22%20r%3D%22100%22%20fill%3D%22%23b79cff%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M-40%20700%20V470%20a65%2065%200%200%201%20130%200%20V700%20H90%20V470%20a45%2045%200%200%200%20-90%200%20V700z%22%20fill%3D%22%238b6cf0%22%2F%3E%3Cpath%20d%3D%22M150%20700%20V470%20a65%2065%200%200%201%20130%200%20V700%20H280%20V470%20a45%2045%200%200%200%20-90%200%20V700z%22%20fill%3D%22%238b6cf0%22%2F%3E%3Cpath%20d%3D%22M340%20700%20V470%20a65%2065%200%200%201%20130%200%20V700%20H470%20V470%20a45%2045%200%200%200%20-90%200%20V700z%22%20fill%3D%22%238b6cf0%22%2F%3E%3Cpath%20d%3D%22M530%20700%20V470%20a65%2065%200%200%201%20130%200%20V700%20H660%20V470%20a45%2045%200%200%200%20-90%200%20V700z%22%20fill%3D%22%238b6cf0%22%2F%3E%3Cpath%20d%3D%22M720%20700%20V470%20a65%2065%200%200%201%20130%200%20V700%20H850%20V470%20a45%2045%200%200%200%20-90%200%20V700z%22%20fill%3D%22%238b6cf0%22%2F%3E%3Cpath%20d%3D%22M910%20700%20V470%20a65%2065%200%200%201%20130%200%20V700%20H1040%20V470%20a45%2045%200%200%200%20-90%200%20V700z%22%20fill%3D%22%238b6cf0%22%2F%3E%3Cpath%20d%3D%22M1100%20700%20V470%20a65%2065%200%200%201%20130%200%20V700%20H1230%20V470%20a45%2045%200%200%200%20-90%200%20V700z%22%20fill%3D%22%238b6cf0%22%2F%3E%3Cpath%20d%3D%22M1290%20700%20V470%20a65%2065%200%200%201%20130%200%20V700%20H1420%20V470%20a45%2045%200%200%200%20-90%200%20V700z%22%20fill%3D%22%238b6cf0%22%2F%3E%3Cpath%20d%3D%22M1480%20700%20V470%20a65%2065%200%200%201%20130%200%20V700%20H1610%20V470%20a45%2045%200%200%200%20-90%200%20V700z%22%20fill%3D%22%238b6cf0%22%2F%3E%3Crect%20x%3D%22-40%22%20y%3D%22430%22%20width%3D%221800%22%20height%3D%2240%22%20fill%3D%22%238b6cf0%22%2F%3E%3Cpath%20d%3D%22M-10%20700%20V500%20a35%2035%200%200%201%2070%200%20V700z%22%20fill%3D%22%23000%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M180%20700%20V500%20a35%2035%200%200%201%2070%200%20V700z%22%20fill%3D%22%23000%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M370%20700%20V500%20a35%2035%200%200%201%2070%200%20V700z%22%20fill%3D%22%23000%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M560%20700%20V500%20a35%2035%200%200%201%2070%200%20V700z%22%20fill%3D%22%23000%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M750%20700%20V500%20a35%2035%200%200%201%2070%200%20V700z%22%20fill%3D%22%23000%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M940%20700%20V500%20a35%2035%200%200%201%2070%200%20V700z%22%20fill%3D%22%23000%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M1130%20700%20V500%20a35%2035%200%200%201%2070%200%20V700z%22%20fill%3D%22%23000%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M1320%20700%20V500%20a35%2035%200%200%201%2070%200%20V700z%22%20fill%3D%22%23000%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M1510%20700%20V500%20a35%2035%200%200%201%2070%200%20V700z%22%20fill%3D%22%23000%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M0%20720%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20%22%20stroke%3D%22%23b79cff%22%20stroke-width%3D%225%22%20fill%3D%22none%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M0%20755%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20%22%20stroke%3D%22%23b79cff%22%20stroke-width%3D%225%22%20fill%3D%22none%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M0%20790%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20%22%20stroke%3D%22%23b79cff%22%20stroke-width%3D%225%22%20fill%3D%22none%22%20opacity%3D%22.7%22%2F%3E%3Cpath%20d%3D%22M0%20825%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20q40%20-22%2080%200%20t80%200%20%22%20stroke%3D%22%23b79cff%22%20stroke-width%3D%225%22%20fill%3D%22none%22%20opacity%3D%22.7%22%2F%3E%3C%2Fsvg%3E") center bottom/cover no-repeat;opacity:.4}
 </style>
 </head>
 <body>
